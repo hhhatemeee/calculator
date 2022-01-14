@@ -1,6 +1,8 @@
 import del from 'del'
 import { app } from '../../gulpfile.js'
 
-export const reset = () => {
+const reset = () => {
     return del(app.path.clean)
 }
+
+export default reset
