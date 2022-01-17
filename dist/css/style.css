@@ -1,7 +1,136 @@
-body {
-  background-color: #000;
+@font-face {
+  font-family: "Work Sans";
+  src: url("WorkSans-Regular.eot");
+  src: local("Work Sans"), local("WorkSans-Regular"), url("../fonts/WorkSans/WorkSans-Regular.eot") format("embedded-opentype"), url("../fonts/WorkSans/WorkSans-Regular.woff2") format("woff2"), url("../fonts/WorkSans/WorkSans-Regular.woff") format("woff"), url("../fonts/WorkSans/WorkSans-Regular.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+.calc {
+  width: 375px;
+  height: 812px;
+  background: #f1f2f3;
+  font-family: "Work Sans";
+  margin: 0 auto;
+}
+.calc__container {
+  padding: 55px 20px;
+}
+.calc-screen {
+  margin: 0;
+  padding: 0;
+}
+.calc-screen__calculations {
+  font-size: 40px;
+  text-align: right;
+}
+.calc-screen__calculations__text {
+  color: rgba(0, 0, 0, 0.4);
+  margin: 0;
+  padding: 0;
+}
+.calc-screen__result {
+  font-weight: 100;
+  font-size: 96px;
+  text-align: right;
+}
+.calc-screen__result__text {
+  margin: 0;
+  padding: 0;
+}
+.calc-buttons {
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 16px;
+  grid-template-areas: "ac plus-minus percent division" "seven eigth nine myltiply " "four five six minus" "one two three plus" "dot zero delete equal";
+}
+.calc-buttons .btn {
+  cursor: pointer;
+  font-size: 32px;
+  font-weight: normal;
+  border-radius: 24px;
+  width: 71.75px;
+  height: 72px;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+  display: flex;
+  background-color: #fff;
+  justify-content: center;
+  align-items: center;
+  user-select: none;
+}
+.calc-buttons .btn_bg_gray {
+  background-color: #d2d3da;
+}
+.calc-buttons .btn_bg_blue {
+  background-color: #4b5efc;
 }
 
-h1 {
-  color: white;
+.btn:hover {
+  filter: brightness(0.9);
+}
+
+.btn:active {
+  filter: brightness(0.8);
+}
+
+.multiplication span {
+  transform: rotate(45deg);
+}
+
+.theme {
+  display: flex;
+  justify-content: center;
+}
+.theme__selector {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  margin-top: 60px;
+  width: 72px;
+  height: 32px;
+  background-color: #fff;
+  border-radius: 16px;
+  cursor: pointer;
+}
+.theme__selector :hover {
+  filter: brightness(0.6);
+}
+.theme__select {
+  display: flex;
+  align-self: center;
+}
+.theme__dark {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background-color: #d2d3da;
+}
+
+@media screen and (min-width: 701px) and (max-width: 1920px) {
+  .btn {
+    width: 170px !important;
+  }
+
+  .calc {
+    width: 768px;
+    height: 1024px;
+  }
+  .calc__container {
+    padding: 267px 20px;
+  }
+}
+@media screen and (max-width: 700px) {
+  .btn {
+    width: 71.75px;
+  }
+
+  .calc {
+    width: 375px;
+    height: 812px;
+  }
+  .calc__container {
+    padding: 55px 20px;
+  }
 }

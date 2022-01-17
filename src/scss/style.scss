@@ -1,4 +1,140 @@
-body {
-  background-color: #000;
+@import "constVariables";
+@import "fonts";
+
+.calc {
+  width: 375px;
+  height: 812px;
+  background: $bg-light-color;
+  font-family: "Work Sans";
+  margin: 0 auto;
+
+  &__container {
+    padding: 55px 20px;
+  }
+  &-screen {
+    margin: 0;
+    padding: 0;
+
+    &__calculations {
+      font-size: 40px;
+      text-align: right;
+      &__text {
+        color: rgba($color: #000000, $alpha: 0.4);
+        margin: 0;
+        padding: 0;
+      }
+    }
+    &__result {
+      font-weight: 100;
+      font-size: 96px;
+      text-align: right;
+      &__text {
+        margin: 0;
+        padding: 0;
+      }
+    }
+  }
+
+  &-buttons {
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 16px;
+    grid-template-areas:
+      "ac plus-minus percent division"
+      "seven eigth nine myltiply "
+      "four five six minus"
+      "one two three plus"
+      "dot zero delete equal";
+    .btn {
+      cursor: pointer;
+      font-size: 32px;
+      font-weight: normal;
+      border-radius: 24px;
+      width: 71.75px;
+      height: 72px;
+      margin: 0;
+      padding: 0;
+      text-align: center;
+      display: flex;
+      background-color: #fff;
+      justify-content: center;
+      align-items: center;
+      user-select: none;
+
+      &_bg_gray {
+        background-color: $btn-light-gray-color;
+      }
+      &_bg_blue {
+        background-color: $btn-blue-color;
+      }
+    }
+  }
 }
-@import "test";
+.btn:hover {
+  filter: brightness(0.9);
+}
+.btn:active {
+  filter: brightness(0.8);
+}
+.multiplication {
+  span {
+    transform: rotate(45deg);
+  }
+}
+
+.theme {
+  display: flex;
+  justify-content: center;
+  &__selector {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    margin-top: 60px;
+    width: 72px;
+    height: 32px;
+    background-color: #fff;
+    border-radius: 16px;
+    cursor: pointer;
+    :hover {
+      filter: brightness(0.6);
+    }
+  }
+  &__select {
+    display: flex;
+    // margin-left: 8px;
+    align-self: center;
+  }
+  &__dark {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background-color: $btn-light-gray-color;
+  }
+}
+
+@media screen and (min-width: 701px) and (max-width: 1920px) {
+  .btn {
+    width: 170px !important;
+  }
+  .calc {
+    width: 768px;
+    height: 1024px;
+    &__container {
+      padding: 267px 20px;
+    }
+  }
+}
+
+@media screen and (max-width: 700px) {
+  .btn {
+    width: 71.75px;
+  }
+  .calc {
+    width: 375px;
+    height: 812px;
+    &__container {
+      padding: 55px 20px;
+    }
+  }
+}
