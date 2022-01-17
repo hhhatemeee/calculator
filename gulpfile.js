@@ -2,10 +2,6 @@ import gulp from 'gulp'
 import { path } from './gulp/path.js'
 import { plugins } from './gulp/plugins.js'
 
-export const app = {
-    path, gulp, plugins
-}
-
 import copy from './gulp/tasks/copy.js'
 import reset from './gulp/tasks/reset.js'
 import html from './gulp/tasks/html.js'
@@ -25,3 +21,7 @@ const mainTask = gulp.parallel(copy, html, scss, script)
 const dev = gulp.series(reset, mainTask, gulp.parallel(watcher, server))
 
 gulp.task('default', dev)
+
+export const app = {
+    path, gulp, plugins
+}
