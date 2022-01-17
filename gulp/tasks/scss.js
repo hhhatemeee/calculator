@@ -1,6 +1,7 @@
-import { app } from "../../gulpfile.js"
-import dartSass from 'sass'
-import gulpSass from 'gulp-sass'
+import { app } from "../../gulpfile.js";
+import dartSass from 'sass';
+import gulpSass from 'gulp-sass';
+import rename from 'gulp-rename'
 
 const sass = gulpSass(dartSass)
 
