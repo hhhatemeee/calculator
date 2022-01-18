@@ -162,25 +162,39 @@
   display: flex;
   justify-content: center;
 
+  &__container {
+    box-sizing: border-box;
+    display: flex;
+    margin-top: 60px;
+    :hover {
+      filter: brightness(0.6);
+    }
+
+    .checkbox {
+      opacity: 0;
+      position: absolute;
+    }
+  }
+
   &__selector {
     display: flex;
     align-items: center;
     justify-content: space-around;
-    margin-top: 60px;
     width: 72px;
     height: 32px;
     background-color: #fff;
     border-radius: 16px;
+    position: relative;
     cursor: pointer;
 
-    :hover {
-      filter: brightness(0.6);
+    i {
+      font-size: 20px;
+      color: $btn-blue-color;
     }
   }
 
   &__select {
     display: flex;
-    // margin-left: 8px;
     align-self: center;
 
     a {
@@ -192,12 +206,20 @@
     }
   }
 
-  &__disabled {
+  &__ball {
     width: 24px;
     height: 24px;
+    position: absolute;
+    top: 4px;
+    left: 41px;
     border-radius: 50%;
     background-color: $btn-light-gray-color;
+    transition: transform 0.2s linear;
   }
+}
+
+.checkbox:checked + .theme__selector .theme__ball {
+  transform: translateX(-35px);
 }
 
 @media screen and (min-width: 701px) and (max-width: 1920px) {
