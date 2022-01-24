@@ -52,6 +52,40 @@
 }
 
 /* '' */
+.calc_theme_dark .calc {
+  background-color: #17171c;
+}
+.calc_theme_dark .calc-screen__calculations {
+  color: rgba(255, 255, 255, 0.4);
+}
+.calc_theme_dark .calc-screen__result {
+  color: #ffff;
+}
+.calc_theme_dark .calc-buttons .btn {
+  background-color: #2e2f38;
+  color: #ffff;
+  border: #ffff;
+}
+.calc_theme_dark .calc-buttons .btn__delete {
+  border-color: #ffff;
+}
+.calc_theme_dark .calc-buttons .btn__delete ::after,
+.calc_theme_dark .calc-buttons .btn__delete ::before {
+  border-color: #ffff;
+}
+.calc_theme_dark .calc-buttons .btn_bg_gray {
+  background-color: #4e505f;
+}
+.calc_theme_dark .calc-buttons .btn_bg_blue {
+  background-color: #4b5efc;
+}
+.calc_theme_dark .theme__selector {
+  background-color: #2e2f38;
+}
+.calc_theme_dark .theme__ball {
+  background-color: #4e505f;
+}
+
 .calc {
   width: 375px;
   height: 812px;
@@ -95,7 +129,7 @@
   padding: 0;
   display: grid;
   gap: 16px;
-  grid-template-areas: "ac plus-minus percent division" "seven eigth nine myltiply " "four five six minus" "one two three plus" "dot zero delete equal";
+  grid-template-areas: "btn_ac btn_plus-minus btn_percent btn_division" "btn_seven btn_eigth btn_nine btn_myltiply " "btn_four btn_five btn_six btn_minus" "btn_one btn_two btn_three btn_plus" "btn_dot btn_zero btn_delete btn_equal";
 }
 .calc-buttons .btn {
   cursor: pointer;
