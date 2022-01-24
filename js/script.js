@@ -3,5 +3,9 @@
 var checkbox = document.getElementById('checkbox');
 var bodyCalc = document.getElementById('calc');
 checkbox.addEventListener('change', function () {
-  bodyCalc.classList.toggle('calc_theme_dark');
+  if (document.documentElement.hasAttribute('theme')) {
+    document.documentElement.removeAttribute('theme');
+  } else {
+    document.documentElement.setAttribute('theme', 'dark');
+  }
 });
