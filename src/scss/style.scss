@@ -3,28 +3,37 @@
 @import "icons";
 @import "themable";
 
-@include themable(
-  calc_theme_dark,
-  $bg-dark,
-  rgba($btn-white-color, 0.4),
-  $btn-white-color,
-  $btn-dark-color,
-  $btn-white-color,
-  $btn-dark-light-color,
-  $btn-blue-color
-);
+:root {
+  --bg-color: #f1f2f3;
+  --calculations-color: #000;
+  --result-color: #000;
+  --btn-bg: #ffff;
+  --btn-bg-gray-color: #d2d3da;
+  --btn-color: #000;
+  --btn-bg-blue-color: #4b5efc;
+  --btn-blue-color: #ffff;
+  --selector-bg: #ffff;
+}
+
+:root[theme="dark"] {
+  --bg-color: #17171c;
+  --calculations-color: #ffff;
+  --result-color: #ffff;
+  --btn-bg: #2e2f38;
+  --btn-color: #ffff;
+  --btn-bg-gray-color: #4e505f;
+  --btn-bg-blue-color: #4b5efc;
+  --btn-blue-color: #ffff;
+  --selector-bg: #2e2f38;
+}
 
 .calc {
   width: 375px;
   height: 812px;
-  background: $bg-light-color;
+  background: var(--bg-color);
   font-family: "Work Sans";
   margin: 0 auto;
   transition: 0.1s ease-in;
-
-  &_theme_dark {
-    background-color: $bg-dark;
-  }
 
   &__container {
     padding: 55px 20px;
@@ -37,10 +46,10 @@
     &__calculations {
       font-size: 40px;
       text-align: right;
-      color: rgba($color: #000000, $alpha: 0.4);
+      color: var(--calculations-color);
       margin: 0;
       padding: 0;
-
+      opacity: 0.4;
       &_theme_dark {
         color: rgba($btn-white-color, 0.4);
       }
@@ -52,10 +61,7 @@
       text-align: right;
       margin: 0;
       padding: 0;
-
-      &_theme_dark {
-        color: $btn-white-color;
-      }
+      color: var(--result-color);
     }
   }
 
@@ -82,21 +88,11 @@
       padding: 0;
       text-align: center;
       display: flex;
-      background-color: #fff;
+      background-color: var(--btn-bg);
+      color: var(--btn-color);
       justify-content: center;
       align-items: center;
       user-select: none;
-
-      &_theme_dark-light {
-        color: $btn-white-color;
-        background-color: $btn-dark-light-color !important;
-      }
-
-      &_theme_dark {
-        background-color: $btn-dark-color;
-        color: $btn-white-color;
-        border: white;
-      }
 
       &__plus-minus {
         position: relative;
@@ -107,8 +103,8 @@
         height: 15px;
         width: 20px;
         position: relative;
-        border-top: 2px solid #000000;
-        border-bottom: 2px solid #000000;
+        border-top: 2px solid var(--btn-color);
+        border-bottom: 2px solid var(--btn-color);
 
         :before {
           content: "";
@@ -117,7 +113,7 @@
           top: -1px;
           height: 18px;
           width: 0px;
-          border-right: 2px solid #000000;
+          border-right: 2px solid var(--btn-color);
           transform: rotate(-45deg);
         }
 
@@ -128,21 +124,9 @@
           position: absolute;
           height: 11px;
           width: 11px;
-          border-left: 2px solid #000000;
-          border-bottom: 2px solid #000000;
+          border-left: 2px solid var(--btn-color);
+          border-bottom: 2px solid var(--btn-color);
           transform: rotate(0deg);
-        }
-
-        &_theme_dark {
-          border-color: $btn-white-color;
-
-          ::after {
-            border-color: $btn-white-color;
-          }
-
-          ::before {
-            border-color: $btn-white-color;
-          }
         }
 
         span {
@@ -156,12 +140,12 @@
 
       &_bg {
         &_gray {
-          background-color: $btn-light-gray-color;
+          background-color: var(--btn-bg-gray-color);
         }
 
         &_blue {
-          background-color: $btn-blue-color;
-          color: $btn-white-color;
+          background-color: var(--btn-bg-blue-color);
+          color: var(--btn-blue-color);
         }
       }
     }
@@ -219,18 +203,14 @@
     justify-content: space-around;
     width: 72px;
     height: 32px;
-    background-color: #fff;
+    background-color: var(--selector-bg);
     border-radius: 16px;
     position: relative;
     cursor: pointer;
 
-    &_theme_dark {
-      background-color: $btn-dark-color;
-    }
-
     i {
       font-size: 20px;
-      color: $btn-blue-color;
+      color: var(--btn-bg-blue-color);
     }
   }
 
@@ -252,12 +232,8 @@
     top: 4px;
     left: 41px;
     border-radius: 50%;
-    background-color: $btn-light-gray-color;
+    background-color: var(--btn-bg-gray-color);
     transition: transform 0.2s linear;
-
-    &_theme_dark {
-      background-color: $btn-dark-light-color;
-    }
   }
 }
 
