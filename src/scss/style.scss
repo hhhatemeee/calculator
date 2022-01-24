@@ -1,6 +1,18 @@
 @import "constVar";
 @import "fonts";
 @import "icons";
+@import "themable";
+
+@include themable(
+  calc_theme_dark,
+  $bg-dark,
+  rgba($btn-white-color, 0.4),
+  $btn-white-color,
+  $btn-dark-color,
+  $btn-white-color,
+  $btn-dark-light-color,
+  $btn-blue-color
+);
 
 .calc {
   width: 375px;
@@ -53,11 +65,11 @@
     display: grid;
     gap: 16px;
     grid-template-areas:
-      "ac plus-minus percent division"
-      "seven eigth nine myltiply "
-      "four five six minus"
-      "one two three plus"
-      "dot zero delete equal";
+      "btn_ac btn_plus-minus btn_percent btn_division"
+      "btn_seven btn_eigth btn_nine btn_myltiply "
+      "btn_four btn_five btn_six btn_minus"
+      "btn_one btn_two btn_three btn_plus"
+      "btn_dot btn_zero btn_delete btn_equal";
 
     .btn {
       cursor: pointer;
