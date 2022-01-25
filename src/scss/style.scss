@@ -3,32 +3,16 @@
 @import "icons";
 @import "themable";
 
-:root {
-  --bg-color: #f1f2f3;
-  --calculations-color: #000;
-  --result-color: #000;
-  --btn-bg: #ffff;
-  --btn-bg-gray-color: #d2d3da;
-  --btn-color: #000;
-  --btn-bg-blue-color: #4b5efc;
-  --btn-blue-color: #ffff;
-  --selector-bg: #ffff;
-  --notification-bg: rgba(204, 224, 243, 0.719);
-  --notif-btn: rgb(140, 205, 248);
-  --notif-btn-border: rgb(0, 0, 0);
-}
-
-:root[theme="dark"] {
-  --bg-color: #17171c;
-  --calculations-color: #ffff;
-  --result-color: #ffff;
-  --btn-bg: #2e2f38;
-  --btn-color: #ffff;
-  --btn-bg-gray-color: #4e505f;
-  --btn-bg-blue-color: #4b5efc;
-  --btn-blue-color: #ffff;
-  --selector-bg: #2e2f38;
-}
+@include themable(
+  calc_theme_dark,
+  $bg-dark,
+  rgba($btn-white-color, 0.4),
+  $btn-white-color,
+  $btn-dark-color,
+  $btn-white-color,
+  $btn-dark-light-color,
+  $btn-blue-color
+);
 
 * {
   font-family: "Work Sans", sans-serif;
@@ -36,10 +20,14 @@
 .calc {
   width: 375px;
   height: 812px;
-  background: var(--bg-color);
+  background: $bg-light-color;
   font-family: "Work Sans";
   margin: 0 auto;
   transition: 0.1s ease-in;
+
+  &_theme_dark {
+    background-color: $bg-dark;
+  }
 
   &__container {
     padding: 55px 20px;
@@ -52,10 +40,10 @@
     &__calculations {
       font-size: 40px;
       text-align: right;
-      color: var(--calculations-color);
+      color: rgba($color: #000000, $alpha: 0.4);
       margin: 0;
       padding: 0;
-      opacity: 0.4;
+
       &_theme_dark {
         color: rgba($btn-white-color, 0.4);
       }
@@ -67,7 +55,10 @@
       text-align: right;
       margin: 0;
       padding: 0;
-      color: var(--result-color);
+
+      &_theme_dark {
+        color: $btn-white-color;
+      }
     }
   }
 
@@ -94,11 +85,21 @@
       padding: 0;
       text-align: center;
       display: flex;
-      background-color: var(--btn-bg);
-      color: var(--btn-color);
+      background-color: #fff;
       justify-content: center;
       align-items: center;
       user-select: none;
+
+      &_theme_dark-light {
+        color: $btn-white-color;
+        background-color: $btn-dark-light-color !important;
+      }
+
+      &_theme_dark {
+        background-color: $btn-dark-color;
+        color: $btn-white-color;
+        border: white;
+      }
 
       &__plus-minus {
         position: relative;
@@ -109,8 +110,8 @@
         height: 15px;
         width: 20px;
         position: relative;
-        border-top: 2px solid var(--btn-color);
-        border-bottom: 2px solid var(--btn-color);
+        border-top: 2px solid #000000;
+        border-bottom: 2px solid #000000;
 
         :before {
           content: "";
@@ -119,7 +120,7 @@
           top: -1px;
           height: 18px;
           width: 0px;
-          border-right: 2px solid var(--btn-color);
+          border-right: 2px solid #000000;
           transform: rotate(-45deg);
         }
 
@@ -130,9 +131,21 @@
           position: absolute;
           height: 11px;
           width: 11px;
-          border-left: 2px solid var(--btn-color);
-          border-bottom: 2px solid var(--btn-color);
+          border-left: 2px solid #000000;
+          border-bottom: 2px solid #000000;
           transform: rotate(0deg);
+        }
+
+        &_theme_dark {
+          border-color: $btn-white-color;
+
+          ::after {
+            border-color: $btn-white-color;
+          }
+
+          ::before {
+            border-color: $btn-white-color;
+          }
         }
 
         span {
@@ -146,12 +159,12 @@
 
       &_bg {
         &_gray {
-          background-color: var(--btn-bg-gray-color);
+          background-color: $btn-light-gray-color;
         }
 
         &_blue {
-          background-color: var(--btn-bg-blue-color);
-          color: var(--btn-blue-color);
+          background-color: $btn-blue-color;
+          color: $btn-white-color;
         }
       }
     }
@@ -209,14 +222,18 @@
     justify-content: space-around;
     width: 72px;
     height: 32px;
-    background-color: var(--selector-bg);
+    background-color: #fff;
     border-radius: 16px;
     position: relative;
     cursor: pointer;
 
+    &_theme_dark {
+      background-color: $btn-dark-color;
+    }
+
     i {
       font-size: 20px;
-      color: var(--btn-bg-blue-color);
+      color: $btn-blue-color;
     }
   }
 
@@ -238,8 +255,12 @@
     top: 4px;
     left: 41px;
     border-radius: 50%;
-    background-color: var(--btn-bg-gray-color);
+    background-color: $btn-light-gray-color;
     transition: transform 0.2s linear;
+
+    &_theme_dark {
+      background-color: $btn-dark-light-color;
+    }
   }
 }
 
@@ -254,7 +275,7 @@
   height: 140px;
   width: 350px;
   border-radius: 15px;
-  background-color: var(--notification-bg);
+  background-color: $notification-bg;
   padding: 0 10px;
   box-shadow: 0px 2px 8px 0px rgba(34, 60, 80, 0.2);
   transition: 0.3s ease-in;
@@ -283,16 +304,13 @@
   }
 
   &__btn {
-    background-color: var(--notif-btn);
+    background-color: $notification-btn;
     padding: 5px;
     border-radius: 5px;
     border: none;
     color: white;
     cursor: pointer;
   }
-}
-
-.open {
 }
 
 @media screen and (min-width: 701px) and (max-width: 1920px) {
