@@ -9,3 +9,16 @@
   font-weight: normal;
   font-style: normal;
 }
+
+@font-face {
+  font-family: "fontello";
+  src: url("../fonts/fontello/fontello.eot?97226987");
+  src: url("../fonts/fontello/fontello.eot?97226987#iefix")
+      format("embedded-opentype"),
+    url("../fonts/fontello/fontello.woff2?97226987") format("woff2"),
+    url("../fonts/fontello/fontello.woff?97226987") format("woff"),
+    url("../fonts/fontello/fontello.ttf?97226987") format("truetype"),
+    url("../fonts/fontello/fontello.svg?97226987#fontello") format("svg");
+  font-weight: normal;
+  font-style: normal;
+}
