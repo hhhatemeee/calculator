@@ -1,169 +1,172 @@
-"use strict";
+'use strict';
 
-var checkbox = document.getElementById('checkbox');
-var bodyCalc = document.getElementById('calc');
-var notification = document.getElementById('notification');
-var closeNotif = document.getElementById('closeNotif');
-var btnNotif = document.getElementById('btnNotif'); //Сразу завожу таймер на показ уведомления в определеное время
+document.addEventListener('DOMContentLoaded', function () {
+  var checkbox = document.getElementById('checkbox');
+  var bodyCalc = document.getElementById('calc').classList;
+  var notification = document.getElementById('notification');
+  var closeNotif = document.getElementById('closeNotif');
+  var btnNotif = document.getElementById('btnNotif');
+  var morningTime = 6;
+  var nightTime = 18; //I immediately start a timer to show a notification at a certain time
 
-getNotification(setTimeChange());
-checkbox.addEventListener('change', function () {
-  changeTheme();
-  notification.classList.remove('open');
-  setAutoThemeSet(false);
   getNotification(setTimeChange());
-  clearInterval(window.timer);
-});
-var _ref = [true, function (_boolean) {
-  isAutoTheme = _boolean;
-}],
-    isAutoTheme = _ref[0],
-    setAutoThemeSet = _ref[1];
-var _ref2 = [false, function (_boolean2) {
-  isDayTest = _boolean2;
-}],
-    isDayTest = _ref2[0],
-    setDayTest = _ref2[1];
-var _ref3 = [false, function (_boolean3) {
-  isNightTest = _boolean3;
-}],
-    isNightTest = _ref3[0],
-    setNightTest = _ref3[1]; //таймер с кастомным временем
+  checkbox.addEventListener('change', function () {
+    changeTheme();
+    notification.classList.remove('open');
+    setAutoThemeSet(false);
+    getNotification(setTimeChange());
+    clearInterval(window.timer);
+  });
+  var _ref = [true, function (_boolean) {
+    isAutoTheme = _boolean;
+  }],
+      isAutoTheme = _ref[0],
+      setAutoThemeSet = _ref[1];
+  var _ref2 = [false, function (_boolean2) {
+    isDayTest = _boolean2;
+  }],
+      isDayTest = _ref2[0],
+      setDayTest = _ref2[1];
+  var _ref3 = [false, function (_boolean3) {
+    isNightTest = _boolean3;
+  }],
+      isNightTest = _ref3[0],
+      setNightTest = _ref3[1]; //timer with custom time
 
-function getNotification(time) {
-  setTimeout(function () {
-    if (isAutoTheme) {
-      setThemeOnTime();
-    } else {
-      if (document.documentElement.attributes["theme"] && themeInfo() === 'night' || !document.documentElement.attributes["theme"] && themeInfo() === 'day') {
+  function getNotification(time) {
+    var themeContains = bodyCalc.contains('calc_theme_dark');
+    setTimeout(function () {
+      if (isAutoTheme) {
         setThemeOnTime();
       } else {
-        getShowNotif();
+        if (themeContains && themeInfo() === 'night' || !themeContains && themeInfo() === 'day') {
+          setThemeOnTime();
+        } else {
+          getShowNotif();
+        }
+      }
+    }, time * 60000);
+  } // Notifications are closed on the cross and the timer is deleted
+
+
+  closeNotif.onclick = function () {
+    notification.classList.remove('open');
+  }; // When you click on the "switch" button, the theme changes and automatic theme switching is enabled
+
+
+  btnNotif.onclick = function () {
+    setAutoThemeSet(true);
+
+    if (isDayTest) {
+      setThemeOnTime(morningTime);
+    }
+
+    if (isNightTest) {
+      setThemeOnTime(nightTime);
+    }
+
+    if (!isDayTest && !isNightTest) {
+      setThemeOnTime();
+    }
+
+    notification.classList.remove('open');
+    window.timer = setInterval(setThemeOnTime, setTimeChange() * 60000);
+  }; // Function to calculate the time (in minutes) until the next topic change
+
+
+  function setTimeChange() {
+    var nowTime = new Date().getHours() * 60 + new Date().getMinutes();
+    var timeChange = 0;
+
+    if (nowTime > 360 && nowTime < 1080) {
+      timeChange = 1080 - nowTime;
+    } else {
+      nowTime > 360 ? timeChange = 1800 - nowTime : timeChange = 360 - nowTime;
+    }
+
+    return timeChange;
+  } //Function to show notification.
+
+
+  function getShowNotif() {
+    if (!notification.classList.contains('open')) {
+      notification.classList.add('open');
+    }
+  } //Changing the topic depending on the time
+
+
+  function setThemeOnTime(testHours) {
+    if (isAutoTheme) {
+      var nowHours = new Date().getHours();
+
+      if (testHours) {
+        nowHours = testHours;
+      }
+
+      if (nowHours >= morningTime && nowHours < nightTime) {
+        bodyCalc.remove('calc_theme_dark');
+        return 'day';
+      } else {
+        bodyCalc.add('calc_theme_dark');
+        return 'night';
       }
     }
-  }, time * 60000);
-} // На крестик закрывается уведомления и удаляется таймер
-
-
-closeNotif.onclick = function () {
-  notification.classList.remove('open');
-}; // При нажатии на кнопку "переключиться" меняется тема и включается автоматическое переключение темы
-
-
-btnNotif.onclick = function () {
-  setAutoThemeSet(true);
-
-  if (isDayTest) {
-    setThemeOnTime(12);
   }
 
-  if (isNightTest) {
-    setThemeOnTime(19);
-  }
-
-  if (!isDayTest && !isNightTest) {
-    setThemeOnTime();
-  }
-
-  notification.classList.remove('open');
-  window.timer = setInterval(setThemeOnTime, setTimeChange() * 60000);
-}; // Функция для вычисления времени(в минутах) до следующей смены темы
-
-
-function setTimeChange() {
-  var nowTime = new Date().getHours() * 60 + new Date().getMinutes();
-  var timeChange = 0;
-
-  if (nowTime > 360 && nowTime < 1080) {
-    timeChange = 1080 - nowTime;
-  } else {
-    nowTime > 360 ? timeChange = 1800 - nowTime : timeChange = 360 - nowTime;
-  }
-
-  return timeChange;
-} //Функция для показа уведомления.
-
-
-function getShowNotif() {
-  if (!notification.classList.contains('open')) {
-    notification.classList.add('open');
-  }
-} //Смена темы в зависимости от времени
-
-
-function setThemeOnTime(testHours) {
-  if (isAutoTheme) {
+  function themeInfo() {
     var nowHours = new Date().getHours();
 
-    if (testHours) {
-      nowHours = testHours;
+    if (isNightTest) {
+      nowHours = nightTime;
     }
 
-    if (nowHours >= 6 && nowHours <= 17) {
-      document.documentElement.removeAttribute('theme');
+    if (isDayTest) {
+      nowHours = morningTime;
+    }
+
+    if (nowHours >= morningTime && nowHours < nightTime) {
       return 'day';
     } else {
-      document.documentElement.setAttribute('theme', 'dark');
       return 'night';
     }
-  }
-}
+  } //For normal theme change via selector
 
-function themeInfo() {
-  var nowHours = new Date().getHours();
 
-  if (isNightTest) {
-    nowHours = 20;
+  function changeTheme() {
+    bodyCalc.toggle('calc_theme_dark');
   }
 
-  if (isDayTest) {
-    nowHours = 12;
-  }
+  window.setTime = function (time) {
+    var themeContains = bodyCalc.contains('calc_theme_dark');
 
-  if (nowHours >= 6 && nowHours <= 17) {
-    return 'day';
-  } else {
-    return 'night';
-  }
-} //Для обычной смены темы через селектор
+    if (time === 'day') {
+      setNightTest(false);
+      setDayTest(true);
 
-
-function changeTheme() {
-  if (document.documentElement.hasAttribute('theme')) {
-    document.documentElement.removeAttribute('theme');
-  } else {
-    document.documentElement.setAttribute('theme', 'dark');
-  }
-}
-
-window.setTime = function (time) {
-  if (time === 'day') {
-    setNightTest(false);
-    setDayTest(true);
-
-    if (!isAutoTheme) {
-      if (document.documentElement.attributes["theme"] && themeInfo() === 'night' || !document.documentElement.attributes["theme"] && themeInfo() === 'day') {
-        setThemeOnTime(12);
+      if (!isAutoTheme) {
+        if (!themeContains && themeInfo() === 'day') {
+          setThemeOnTime(morningTime);
+        } else {
+          getShowNotif();
+        }
       } else {
-        getShowNotif();
+        setThemeOnTime(morningTime);
       }
-    } else {
-      setThemeOnTime(12);
     }
-  }
 
-  if (time === 'night') {
-    setNightTest(true);
-    setDayTest(false);
+    if (time === 'night') {
+      setNightTest(true);
+      setDayTest(false);
 
-    if (!isAutoTheme) {
-      if (document.documentElement.attributes["theme"] && themeInfo() === 'night' || !document.documentElement.attributes["theme"] && themeInfo() === 'day') {
-        setThemeOnTime(12);
+      if (!isAutoTheme) {
+        if (themeContains && themeInfo() === 'night') {
+          setThemeOnTime(morningTime);
+        } else {
+          getShowNotif();
+        }
       } else {
-        getShowNotif();
+        setThemeOnTime(nightTime);
       }
-    } else {
-      setThemeOnTime(19);
     }
-  }
-};
+  };
+});
