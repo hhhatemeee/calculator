@@ -35,7 +35,11 @@ function getNotification(time) {
     if (isAutoTheme) {
       setThemeOnTime();
     } else {
-      getShowNotif();
+      if (document.documentElement.attributes["theme"] && themeInfo() === 'night' || !document.documentElement.attributes["theme"] && themeInfo() === 'day') {
+        setThemeOnTime();
+      } else {
+        getShowNotif();
+      }
     }
   }, time * 60000);
 } // На крестик закрывается уведомления и удаляется таймер
@@ -97,9 +101,29 @@ function setThemeOnTime(testHours) {
 
     if (nowHours >= 6 && nowHours <= 17) {
       document.documentElement.removeAttribute('theme');
+      return 'day';
     } else {
       document.documentElement.setAttribute('theme', 'dark');
+      return 'night';
     }
+  }
+}
+
+function themeInfo() {
+  var nowHours = new Date().getHours();
+
+  if (isNightTest) {
+    nowHours = 20;
+  }
+
+  if (isDayTest) {
+    nowHours = 12;
+  }
+
+  if (nowHours >= 6 && nowHours <= 17) {
+    return 'day';
+  } else {
+    return 'night';
   }
 } //Для обычной смены темы через селектор
 
@@ -118,7 +142,11 @@ window.setTime = function (time) {
     setDayTest(true);
 
     if (!isAutoTheme) {
-      getShowNotif();
+      if (document.documentElement.attributes["theme"] && themeInfo() === 'night' || !document.documentElement.attributes["theme"] && themeInfo() === 'day') {
+        setThemeOnTime(12);
+      } else {
+        getShowNotif();
+      }
     } else {
       setThemeOnTime(12);
     }
@@ -129,7 +157,11 @@ window.setTime = function (time) {
     setDayTest(false);
 
     if (!isAutoTheme) {
-      getShowNotif();
+      if (document.documentElement.attributes["theme"] && themeInfo() === 'night' || !document.documentElement.attributes["theme"] && themeInfo() === 'day') {
+        setThemeOnTime(12);
+      } else {
+        getShowNotif();
+      }
     } else {
       setThemeOnTime(19);
     }
