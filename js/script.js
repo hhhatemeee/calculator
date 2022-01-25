@@ -18,7 +18,17 @@ var _ref = [true, function (_boolean) {
   isAutoTheme = _boolean;
 }],
     isAutoTheme = _ref[0],
-    setAutoThemeSet = _ref[1]; //таймер с кастомным временем
+    setAutoThemeSet = _ref[1];
+var _ref2 = [false, function (_boolean2) {
+  isDayTest = _boolean2;
+}],
+    isDayTest = _ref2[0],
+    setDayTest = _ref2[1];
+var _ref3 = [false, function (_boolean3) {
+  isNightTest = _boolean3;
+}],
+    isNightTest = _ref3[0],
+    setNightTest = _ref3[1]; //таймер с кастомным временем
 
 function getNotification(time) {
   setTimeout(function () {
@@ -38,7 +48,19 @@ closeNotif.onclick = function () {
 
 btnNotif.onclick = function () {
   setAutoThemeSet(true);
-  setThemeOnTime();
+
+  if (isDayTest) {
+    setThemeOnTime(12);
+  }
+
+  if (isNightTest) {
+    setThemeOnTime(19);
+  }
+
+  if (!isDayTest && !isNightTest) {
+    setThemeOnTime();
+  }
+
   notification.classList.remove('open');
   window.timer = setInterval(setThemeOnTime, setTimeChange() * 60000);
 }; // Функция для вычисления времени(в минутах) до следующей смены темы
@@ -92,6 +114,9 @@ function changeTheme() {
 
 window.setTime = function (time) {
   if (time === 'day') {
+    setNightTest(false);
+    setDayTest(true);
+
     if (!isAutoTheme) {
       getShowNotif();
     } else {
@@ -100,6 +125,9 @@ window.setTime = function (time) {
   }
 
   if (time === 'night') {
+    setNightTest(true);
+    setDayTest(false);
+
     if (!isAutoTheme) {
       getShowNotif();
     } else {
