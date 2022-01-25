@@ -16,6 +16,8 @@ checkbox.addEventListener('change', () => {
 });
 
 let [isAutoTheme, setAutoThemeSet] = [true, (boolean) => { isAutoTheme = boolean }]
+let [isDayTest, setDayTest] = [false, (boolean) => { isDayTest = boolean }]
+let [isNightTest, setNightTest] = [false, (boolean) => { isNightTest = boolean }]
 
 //таймер с кастомным временем
 function getNotification(time) {
@@ -23,7 +25,13 @@ function getNotification(time) {
         if (isAutoTheme) {
             setThemeOnTime();
         } else {
-            getShowNotif();
+            if (document.documentElement.attributes["theme"] && themeInfo() === 'night'
+                || !document.documentElement.attributes["theme"] && themeInfo() === 'day') {
+                setThemeOnTime();
+            } else {
+                getShowNotif();
+
+            }
         }
     }, time * 60000);
 }
@@ -36,7 +44,15 @@ closeNotif.onclick = () => {
 // При нажатии на кнопку "переключиться" меняется тема и включается автоматическое переключение темы
 btnNotif.onclick = () => {
     setAutoThemeSet(true)
-    setThemeOnTime();
+    if (isDayTest) {
+        setThemeOnTime(12);
+    }
+    if (isNightTest) {
+        setThemeOnTime(19)
+    }
+    if (!isDayTest && !isNightTest) {
+        setThemeOnTime()
+    }
     notification.classList.remove('open');
     window.timer = setInterval(setThemeOnTime, setTimeChange() * 60000)
 }
@@ -72,9 +88,26 @@ function setThemeOnTime(testHours) {
 
         if (nowHours >= 6 && nowHours <= 17) {
             document.documentElement.removeAttribute('theme');
+            return 'day'
         } else {
             document.documentElement.setAttribute('theme', 'dark');
+            return 'night'
         }
+    }
+}
+
+function themeInfo() {
+    let nowHours = new Date().getHours();
+    if (isNightTest) {
+        nowHours = 20;
+    }
+    if (isDayTest) {
+        nowHours = 12;
+    }
+    if (nowHours >= 6 && nowHours <= 17) {
+        return 'day'
+    } else {
+        return 'night'
     }
 }
 
@@ -90,15 +123,29 @@ function changeTheme() {
 
 window.setTime = (time) => {
     if (time === 'day') {
+        setNightTest(false)
+        setDayTest(true)
         if (!isAutoTheme) {
-            getShowNotif();
+            if (document.documentElement.attributes["theme"] && themeInfo() === 'night'
+                || !document.documentElement.attributes["theme"] && themeInfo() === 'day') {
+                setThemeOnTime(12);
+            } else {
+                getShowNotif();
+            }
         } else {
             setThemeOnTime(12)
         }
     }
     if (time === 'night') {
+        setNightTest(true)
+        setDayTest(false)
         if (!isAutoTheme) {
-            getShowNotif();
+            if (document.documentElement.attributes["theme"] && themeInfo() === 'night'
+                || !document.documentElement.attributes["theme"] && themeInfo() === 'day') {
+                setThemeOnTime(12);
+            } else {
+                getShowNotif();
+            }
         } else {
             setThemeOnTime(19)
         }
