@@ -308,6 +308,18 @@
       padding: 267px 20px;
     }
   }
+
+  .notification {
+    right: 20px;
+    top: 1000px;
+    opacity: 0;
+  }
+
+  .open {
+    right: 20px;
+    top: 750px;
+    opacity: 1;
+  }
 }
 
 @media screen and (max-width: 700px) {
@@ -332,12 +344,7 @@
 
   .open {
     right: 0px;
-    top: 600px;
+    top: 650px;
     opacity: 1;
-  }
-
-  .close {
-    top: 1000px;
-    opacity: 0;
   }
 }
