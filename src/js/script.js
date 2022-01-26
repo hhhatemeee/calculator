@@ -1,17 +1,13 @@
 'use strict'
+import { TimePeriods, convertTimeinMinutes, night, day, MINUTE_IN_MS, } from './variables.js'
 
 document.addEventListener('DOMContentLoaded', () => {
+
     const checkbox = document.getElementById('checkbox');
     const bodyCalc = document.getElementById('calc').classList;
     const notification = document.getElementById('notification');
     const closeNotif = document.getElementById('closeNotif')
     const btnNotif = document.getElementById('btnNotif');
-
-    const TimePeriods = { MORNING: 6, NIGHT: 18 };
-    const convertTimeinMinutes = { HOUR: 60, MORNING: 360, NIGHT: 1080, FULL_DAY: 1440 }
-    const night = 'night';
-    const day = 'day';
-    const MINUTE_IN_MS = 60000;
 
 
     //I immediately start a timer to show a notification at a certain time
