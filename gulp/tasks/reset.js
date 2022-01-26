@@ -1,8 +1,6 @@
-import del from 'del'
-import { app } from '../../gulpfile.js'
+import del from 'del';
+import { app } from '../../gulpfile.js';
 
-const reset = () => {
-    return del(app.path.clean);
-}
+const reset = () => del(app.path.clean);
 
-export default reset
+export default reset;
