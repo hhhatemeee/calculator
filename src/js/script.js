@@ -13,6 +13,8 @@ document.addEventListener('DOMContentLoaded', () => {
   //I immediately start a timer to show a notification at a certain time
   getNotification(setTimeChange());
 
+  getDevice();
+
   checkbox.addEventListener('change', () => {
     changeTheme();
     notification.classList.remove('open');
@@ -153,6 +155,17 @@ document.addEventListener('DOMContentLoaded', () => {
       getShowNotif();
       return;
     }
+  }
+
+  function getDevice() {
+    const devices = ['windows', 'iphone', 'android', 'ipad', 'webos',];
+    const uagent = navigator.userAgent.toLowerCase();
+
+    devices.forEach(device => {
+      if (uagent.search(device) > -1) {
+        bodyCalc.add(`calc_device_${device}`);
+      }
+    })
   }
 
   window.setTime = (time) => {
