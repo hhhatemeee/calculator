@@ -9,8 +9,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const TimePeriods = { MORNING: 6, NIGHT: 18 };
     const convertTimeinMinutes = { HOUR: 60, MORNING: 360, NIGHT: 1080, FULL_DAY: 1440 }
-    const nightText = 'night';
-    const dayText = 'day';
+    const night = 'night';
+    const day = 'day';
     const MINUTE_IN_MS = 60000;
 
 
@@ -40,8 +40,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 return;
             }
 
-            if (themeContains && themeInfo() === nightText
-                || !themeContains && themeInfo() === dayText) {
+            if (themeContains && themeInfo() === night
+                || !themeContains && themeInfo() === day) {
                 setThemeOnTime();
 
                 return;
@@ -110,11 +110,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
             if (nowHours >= TimePeriods.MORNING && nowHours < TimePeriods.NIGHT) {
                 bodyCalc.remove('calc_theme_dark')
-                return dayText
+                return day
             }
 
             bodyCalc.add('calc_theme_dark');
-            return nightText
+            return night
         }
     }
 
@@ -130,10 +130,10 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         if (nowHours >= TimePeriods.MORNING && nowHours < TimePeriods.NIGHT) {
-            return dayText;
+            return day;
         }
 
-        return nightText;
+        return night;
     }
 
     //For normal theme change via selector
@@ -146,11 +146,11 @@ document.addEventListener('DOMContentLoaded', () => {
         const themeContains = bodyCalc.contains('calc_theme_dark');
 
         if (!isAutoTheme) {
-            if (!themeContains && themeInfo() === dayText) {
+            if (!themeContains && themeInfo() === day) {
                 return;
             }
 
-            if (themeContains && themeInfo() === nightText) {
+            if (themeContains && themeInfo() === night) {
                 return;
             }
 
@@ -160,22 +160,21 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     window.setTime = (time) => {
+        const allowedArguments = [day, night];
 
-        if (time === dayText) {
-            setNightTest(false);
-            setDayTest(true);
-
-            getNotAutoThemeInclude()
-            setThemeOnTime(TimePeriods.MORNING)
+        if (!time || !allowedArguments.includes(time)) {
+            return `Allowed arguments only ${allowedArguments.join(' or ')}`;
         }
 
-        if (time === nightText) {
-            setNightTest(true);
-            setDayTest(false);
+        const isDay = time === day;
+        const isNight = time === night;
 
-            getNotAutoThemeInclude()
-            setThemeOnTime(TimePeriods.NIGHT);
-        }
+        setDayTest(isDay);
+        setNightTest(isNight);
+
+        getNotAutoThemeInclude();
+
+        setThemeOnTime(isDay ? TimePeriods.MORNING : TimePeriods.NIGHT);
     }
 })
 
