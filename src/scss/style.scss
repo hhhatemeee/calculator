@@ -16,6 +16,7 @@
 
 * {
   font-family: "Work Sans", sans-serif;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0) !important;
 }
 .calc {
   width: 375px;
@@ -361,7 +362,8 @@
     padding: 0;
 
     &__container {
-      margin: 220px 0px;
+      padding-bottom: 0;
+      margin: 220px 0px 0px 0px;
     }
   }
 
