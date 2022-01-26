@@ -7,15 +7,15 @@ document.addEventListener('DOMContentLoaded', () => {
     const closeNotif = document.getElementById('closeNotif')
     const btnNotif = document.getElementById('btnNotif');
 
-    const morningTime = 6;
-    const nightTime = 18;
+    const TimePeriods = { MORNING: 6, NIGHT: 18 };
+    const convertTimeinMinutes = { HOUR: 60, MORNING: 360, NIGHT: 1080, FULL_DAY: 1440 }
     const nightText = 'night';
     const dayText = 'day';
+    const MINUTE_IN_MS = 60000;
 
 
     //I immediately start a timer to show a notification at a certain time
     getNotification(setTimeChange());
-
 
     checkbox.addEventListener('change', () => {
         changeTheme();
@@ -36,15 +36,19 @@ document.addEventListener('DOMContentLoaded', () => {
         setTimeout(() => {
             if (isAutoTheme) {
                 setThemeOnTime();
-            } else {
-                if (themeContains && themeInfo() === nightText
-                    || !themeContains && themeInfo() === dayText) {
-                    setThemeOnTime();
-                } else {
-                    getShowNotif();
-                }
+
+                return;
             }
-        }, time * 60000);
+
+            if (themeContains && themeInfo() === nightText
+                || !themeContains && themeInfo() === dayText) {
+                setThemeOnTime();
+
+                return;
+            }
+
+            getShowNotif();
+        }, time * MINUTE_IN_MS);
     }
 
     // Notifications are closed on the cross and the timer is deleted
@@ -56,16 +60,19 @@ document.addEventListener('DOMContentLoaded', () => {
     btnNotif.onclick = () => {
         setAutoThemeSet(true)
         if (isDayTest) {
-            setThemeOnTime(morningTime);
+            setThemeOnTime(TimePeriods.MORNING);
         }
+
         if (isNightTest) {
-            setThemeOnTime(nightTime);
+            setThemeOnTime(TimePeriods.NIGHT);
         }
+
         if (!isDayTest && !isNightTest) {
             setThemeOnTime();
         }
+
         notification.classList.remove('open');
-        window.timer = setInterval(setThemeOnTime, setTimeChange() * 60000)
+        window.timer = setInterval(setThemeOnTime, setTimeChange() * MINUTE_IN_MS)
     }
 
     // Function to calculate the time (in minutes) until the next topic change
@@ -73,11 +80,15 @@ document.addEventListener('DOMContentLoaded', () => {
         const nowTime = new Date().getHours() * 60 + new Date().getMinutes();
         let timeChange = 0;
 
-        if (nowTime > 360 && nowTime < 1080) {
-            timeChange = 1080 - nowTime;
-        } else {
-            nowTime > 360 ? timeChange = 1800 - nowTime : timeChange = 360 - nowTime;
+        if (nowTime > convertTimeinMinutes.MORNING && nowTime < convertTimeinMinutes.NIGHT) {
+            timeChange = convertTimeinMinutes.NIGHT - nowTime;
+            return timeChange;
         }
+
+        nowTime > convertTimeinMinutes.MORNING
+            ? timeChange = (convertTimeinMinutes.FULL_DAY + convertTimeinMinutes.MORNING) - nowTime
+            : timeChange = convertTimeinMinutes.MORNING - nowTime;
+
         return timeChange;
     }
 
@@ -97,29 +108,32 @@ document.addEventListener('DOMContentLoaded', () => {
                 nowHours = testHours;
             }
 
-            if (nowHours >= morningTime && nowHours < nightTime) {
+            if (nowHours >= TimePeriods.MORNING && nowHours < TimePeriods.NIGHT) {
                 bodyCalc.remove('calc_theme_dark')
                 return dayText
-            } else {
-                bodyCalc.add('calc_theme_dark');
-                return nightText
             }
+
+            bodyCalc.add('calc_theme_dark');
+            return nightText
         }
     }
 
     function themeInfo() {
         let nowHours = new Date().getHours();
+
         if (isNightTest) {
-            nowHours = nightTime;
+            nowHours = TimePeriods.NIGHT;
         }
+
         if (isDayTest) {
-            nowHours = morningTime;
+            nowHours = TimePeriods.MORNING;
         }
-        if (nowHours >= morningTime && nowHours < nightTime) {
+
+        if (nowHours >= TimePeriods.MORNING && nowHours < TimePeriods.NIGHT) {
             return dayText;
-        } else {
-            return nightText;
         }
+
+        return nightText;
     }
 
     //For normal theme change via selector
@@ -127,33 +141,40 @@ document.addEventListener('DOMContentLoaded', () => {
         bodyCalc.toggle('calc_theme_dark');
     }
 
-    window.setTime = (time) => {
+    //Checking if the current topic does not match the time, then show a notification
+    function getNotAutoThemeInclude() {
         const themeContains = bodyCalc.contains('calc_theme_dark');
+
+        if (!isAutoTheme) {
+            if (!themeContains && themeInfo() === dayText) {
+                return;
+            }
+
+            if (themeContains && themeInfo() === nightText) {
+                return;
+            }
+
+            getShowNotif();
+            return;
+        }
+    }
+
+    window.setTime = (time) => {
+
         if (time === dayText) {
             setNightTest(false);
             setDayTest(true);
-            if (!isAutoTheme) {
-                if (!themeContains && themeInfo() === dayText) {
-                    setThemeOnTime(morningTime);
-                } else {
-                    getShowNotif();
-                }
-            } else {
-                setThemeOnTime(morningTime)
-            }
+
+            getNotAutoThemeInclude()
+            setThemeOnTime(TimePeriods.MORNING)
         }
+
         if (time === nightText) {
             setNightTest(true);
             setDayTest(false);
-            if (!isAutoTheme) {
-                if (themeContains && themeInfo() === nightText) {
-                    setThemeOnTime(morningTime);
-                } else {
-                    getShowNotif();
-                }
-            } else {
-                setThemeOnTime(nightTime);
-            }
+
+            getNotAutoThemeInclude()
+            setThemeOnTime(TimePeriods.NIGHT);
         }
     }
 })
