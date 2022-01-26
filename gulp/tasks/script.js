@@ -1,6 +1,6 @@
-import { app } from '../../gulpfile.js'
-import babel from 'gulp-babel'
+import babel from 'gulp-babel';
 import webpack from 'webpack-stream';
+import { app } from '../../gulpfile.js';
 
 
 const script = () => {
@@ -11,6 +11,6 @@ const script = () => {
         }))
         .pipe(app.gulp.dest(app.path.build.js))
         .pipe(app.plugins.browsersync.stream());
-}
+};
 
 export default script;
