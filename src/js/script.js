@@ -9,6 +9,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const morningTime = 6;
     const nightTime = 18;
+    const nightText = 'night';
+    const dayText = 'day';
+
 
     //I immediately start a timer to show a notification at a certain time
     getNotification(setTimeChange());
@@ -34,8 +37,8 @@ document.addEventListener('DOMContentLoaded', () => {
             if (isAutoTheme) {
                 setThemeOnTime();
             } else {
-                if (themeContains && themeInfo() === 'night'
-                    || !themeContains && themeInfo() === 'day') {
+                if (themeContains && themeInfo() === nightText
+                    || !themeContains && themeInfo() === dayText) {
                     setThemeOnTime();
                 } else {
                     getShowNotif();
@@ -96,10 +99,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
             if (nowHours >= morningTime && nowHours < nightTime) {
                 bodyCalc.remove('calc_theme_dark')
-                return 'day'
+                return dayText
             } else {
                 bodyCalc.add('calc_theme_dark');
-                return 'night'
+                return nightText
             }
         }
     }
@@ -113,9 +116,9 @@ document.addEventListener('DOMContentLoaded', () => {
             nowHours = morningTime;
         }
         if (nowHours >= morningTime && nowHours < nightTime) {
-            return 'day';
+            return dayText;
         } else {
-            return 'night';
+            return nightText;
         }
     }
 
@@ -126,11 +129,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     window.setTime = (time) => {
         const themeContains = bodyCalc.contains('calc_theme_dark');
-        if (time === 'day') {
+        if (time === dayText) {
             setNightTest(false);
             setDayTest(true);
             if (!isAutoTheme) {
-                if (!themeContains && themeInfo() === 'day') {
+                if (!themeContains && themeInfo() === dayText) {
                     setThemeOnTime(morningTime);
                 } else {
                     getShowNotif();
@@ -139,11 +142,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 setThemeOnTime(morningTime)
             }
         }
-        if (time === 'night') {
+        if (time === nightText) {
             setNightTest(true);
             setDayTest(false);
             if (!isAutoTheme) {
-                if (themeContains && themeInfo() === 'night') {
+                if (themeContains && themeInfo() === nightText) {
                     setThemeOnTime(morningTime);
                 } else {
                     getShowNotif();
