@@ -14,6 +14,9 @@
   $btn-blue-color
 );
 
+* {
+  font-family: "Work Sans", sans-serif;
+}
 .calc {
   width: 375px;
   height: 812px;
@@ -265,6 +268,51 @@
   transform: translateX(-35px);
 }
 
+.notification {
+  position: fixed;
+  right: 0px;
+  top: 790px;
+  height: 140px;
+  width: 350px;
+  border-radius: 15px;
+  background-color: $notification-bg;
+  padding: 0 10px;
+  box-shadow: 0px 2px 8px 0px rgba(34, 60, 80, 0.2);
+  transition: 0.3s ease-in;
+
+  &__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    span {
+      transform: rotate(45deg);
+      cursor: pointer;
+      font-size: 24px;
+      user-select: none;
+    }
+  }
+
+  &__title {
+    font-weight: 600;
+  }
+
+  &__buttons {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+  }
+
+  &__btn {
+    background-color: $notification-btn;
+    padding: 5px;
+    border-radius: 5px;
+    border: none;
+    color: white;
+    cursor: pointer;
+  }
+}
+
 @media screen and (min-width: 701px) and (max-width: 1920px) {
   .btn {
     width: 170px !important;
@@ -277,6 +325,18 @@
     &__container {
       padding: 267px 20px;
     }
+  }
+
+  .notification {
+    right: 20px;
+    top: 1000px;
+    opacity: 0;
+  }
+
+  .open {
+    right: 20px;
+    top: 750px;
+    opacity: 1;
   }
 }
 
@@ -292,5 +352,17 @@
     &__container {
       padding: 55px 20px;
     }
+  }
+
+  .notification {
+    right: 0px;
+    top: 1000px;
+    opacity: 0;
+  }
+
+  .open {
+    right: 0px;
+    top: 650px;
+    opacity: 1;
   }
 }
