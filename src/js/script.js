@@ -10,6 +10,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const morningTime = 6;
     const nightTime = 18;
 
+
+    //script for detect a device
+    getDevice();
+
     //I immediately start a timer to show a notification at a certain time
     getNotification(setTimeChange());
 
@@ -122,6 +126,17 @@ document.addEventListener('DOMContentLoaded', () => {
     //For normal theme change via selector
     function changeTheme() {
         bodyCalc.toggle('calc_theme_dark');
+    }
+
+    function getDevice() {
+        const devices = ['windows', 'iphone', 'android', 'ipad', 'webos',];
+        const uagent = navigator.userAgent.toLowerCase();
+
+        devices.forEach(device => {
+            if (uagent.search(device) > -1) {
+                bodyCalc.add(`calc-device--${device}`);
+            }
+        })
     }
 
     window.setTime = (time) => {
