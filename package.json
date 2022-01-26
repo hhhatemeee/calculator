@@ -20,6 +20,8 @@
     "gulp-replace-task": "^2.0.1",
     "gulp-sass": "^5.1.0",
     "gulp-string-replace": "^1.1.2",
-    "sass": "^1.48.0"
+    "sass": "^1.48.0",
+    "webpack": "^5.67.0",
+    "webpack-stream": "^7.0.0"
   }
 }
