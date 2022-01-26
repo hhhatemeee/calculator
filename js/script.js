@@ -7,7 +7,9 @@ document.addEventListener('DOMContentLoaded', function () {
   var closeNotif = document.getElementById('closeNotif');
   var btnNotif = document.getElementById('btnNotif');
   var morningTime = 6;
-  var nightTime = 18; //I immediately start a timer to show a notification at a certain time
+  var nightTime = 18; //script for detect a device
+
+  getDevice(); //I immediately start a timer to show a notification at a certain time
 
   getNotification(setTimeChange());
   checkbox.addEventListener('change', function () {
@@ -134,6 +136,16 @@ document.addEventListener('DOMContentLoaded', function () {
 
   function changeTheme() {
     bodyCalc.toggle('calc_theme_dark');
+  }
+
+  function getDevice() {
+    var devices = ['windows', 'iphone', 'android', 'ipad', 'webos'];
+    var uagent = navigator.userAgent.toLowerCase();
+    devices.forEach(function (device) {
+      if (uagent.search(device) > -1) {
+        bodyCalc.add("calc-device--".concat(device));
+      }
+    });
   }
 
   window.setTime = function (time) {
