@@ -135,6 +135,7 @@
   display: grid;
   gap: 16px;
   grid-template-areas: "btn_ac btn_plus-minus btn_percent btn_division" "btn_seven btn_eigth btn_nine btn_myltiply " "btn_four btn_five btn_six btn_minus" "btn_one btn_two btn_three btn_plus" "btn_dot btn_zero btn_delete btn_equal";
+  user-select: none;
 }
 .calc-buttons .btn {
   cursor: pointer;
