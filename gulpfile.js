@@ -12,12 +12,12 @@ import fonts from './gulp/tasks/fonts.js';
 import img from './gulp/tasks/img.js';
 
 function watcher() {
-    gulp.watch(path.watch.files, copy);
-    gulp.watch(path.watch.html, html);
-    gulp.watch(path.watch.scss, scss);
-    gulp.watch(path.watch.js, script);
-    gulp.watch(path.watch.fonts, fonts);
-    gulp.watch(path.watch.img, img);
+  gulp.watch(path.watch.files, copy);
+  gulp.watch(path.watch.html, html);
+  gulp.watch(path.watch.scss, scss);
+  gulp.watch(path.watch.js, script);
+  gulp.watch(path.watch.fonts, fonts);
+  gulp.watch(path.watch.img, img);
 }
 
 const mainTask = gulp.parallel(copy, html, scss, script, fonts, img);
@@ -27,5 +27,7 @@ const dev = gulp.series(reset, mainTask, gulp.parallel(watcher, server));
 gulp.task('default', dev);
 
 export const app = {
-    path, gulp, plugins
-}
+  path,
+  gulp,
+  plugins,
+};
