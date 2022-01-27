@@ -1,12 +1,26 @@
 class Button {
   constructor(props) {
-    this.text = props.text;
-    this.name = props.name;
-    this.color = props.color;
+    if (typeof props === 'object') {
+      this.text = props.text;
+      this.name = props.name;
+      this.color = props.color;
+      this.calc = props.calc;
+    }
+  }
+
+  createEl() {
+    const div = document.createElement('div');
+    div.className = `btn ${this.name} ${this.color}`;
+    div.innerHTML = this.text;
+
+    div.onclick = (e) => {
+      this.calc.click(e.target.textContent);
+    };
+    return div;
   }
 
   render() {
-    return `<div class="btn ${this.name} ${this.color}">${this.text}</div>`;
+    return this.createEl();
   }
 }
 
