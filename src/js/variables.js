@@ -114,4 +114,4 @@ export {
   DAY,
   MINUTE_IN_MS,
   MOCK_BTN,
-}
+};

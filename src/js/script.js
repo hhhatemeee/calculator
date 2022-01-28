@@ -1,6 +1,7 @@
 import Display from './display.js';
 import KeyBoard from './Buttons/keyBoad.js';
 import ThemeSelector from './themeSelector.js';
+import Operations from './operations.js';
 
 document.addEventListener('DOMContentLoaded', () => {
   class Calculator {
@@ -8,10 +9,11 @@ document.addEventListener('DOMContentLoaded', () => {
       this.selector = selector;
       this.display = new Display();
       this.keyBoard = new KeyBoard((text) => this.click(text));
+      this.operations = new Operations();
     }
 
     click(text) {
-      this.display.showCalculations(text);
+      this.operations.showCalculations(text);
     }
 
     init() {
@@ -26,11 +28,9 @@ document.addEventListener('DOMContentLoaded', () => {
         </div>
       </div>`;
 
-      this.display.render().map((screenText) => {
-        document.getElementById('screen').append(screenText);
-      });
+      document.getElementById('screen').append(this.operations.render(), this.display.render());
 
-      this.keyBoard.render().map((btn) => {
+      this.keyBoard.render().forEach((btn) => {
         document.getElementById('calcButtons').append(btn);
       });
     }
