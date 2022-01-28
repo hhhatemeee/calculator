@@ -176,9 +176,6 @@ body {
   position: relative;
   transform: rotate(10deg);
 }
-.calc-buttons .btn_multiplication span {
-  transform: rotate(45deg);
-}
 .calc-buttons .btn__delete {
   height: 15px;
   width: 20px;
