@@ -9,11 +9,15 @@ document.addEventListener('DOMContentLoaded', () => {
       this.selector = selector;
       this.display = new Display();
       this.keyBoard = new KeyBoard((text) => this.click(text));
-      this.operations = new Operations();
+      this.operations = new Operations((value) => this.changeResult(value));
     }
 
     click(text) {
       this.operations.showCalculations(text);
+    }
+
+    changeResult(value) {
+      this.display.showResult(value)
     }
 
     init() {

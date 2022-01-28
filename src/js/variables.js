@@ -43,7 +43,7 @@ const MOCK_BTN = [
   {
     name: 'btn_multiplication',
     color: 'btn_bg_blue',
-    text: '<span>+</span>',
+    text: '×',
   },
   {
     name: 'btn_four',

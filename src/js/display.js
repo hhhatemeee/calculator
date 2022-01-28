@@ -8,9 +8,16 @@ class Display {
 
     resultText.className = 'calc-screen__result';
     resultText.id = 'resultText';
-    resultText.textContent = 612;
+    resultText.textContent = 0;
 
     return resultText;
+  }
+
+  showResult(value) {
+    const resultScreenText = document.getElementById('resultText')
+
+    this.state = value;
+    resultScreenText.textContent = this.state;
   }
 
   render() {
