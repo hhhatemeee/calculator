@@ -12,6 +12,7 @@ class KeyBoard {
         name: btn.name,
         color: btn.color,
         text: btn.text,
+        value: btn.value,
         onClick: this.onClick,
       });
 

@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     changeResult(value) {
-      this.display.showResult(value)
+      this.display.showResult(value);
     }
 
     init() {

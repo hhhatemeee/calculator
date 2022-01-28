@@ -14,7 +14,7 @@ class Display {
   }
 
   showResult(value) {
-    const resultScreenText = document.getElementById('resultText')
+    const resultScreenText = document.getElementById('resultText');
 
     this.state = value;
     resultScreenText.textContent = this.state;

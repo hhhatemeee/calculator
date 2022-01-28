@@ -5,6 +5,7 @@ class Button {
       this.name = props.name;
       this.color = props.color;
       this.onClick = props.onClick;
+      this.value = props.value;
     }
   }
 
@@ -14,7 +15,7 @@ class Button {
     div.innerHTML = this.text;
 
     div.onclick = (e) => {
-      this.onClick(e.target.textContent);
+      this.onClick(this.value);
     };
     return div;
   }
