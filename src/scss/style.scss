@@ -44,11 +44,16 @@ body{
   &-screen {
     margin: 0;
     padding: 0;
+    max-width: 750px;
 
     &__calculations {
+      display: flex;
+      justify-content: flex-end;
+      overflow-wrap: anywhere;
       font-size: 40px;
       text-align: right;
       color: rgba($color: #000000, $alpha: 0.4);
+      width: 335px;
       margin: 0;
       padding: 0;
 

@@ -6,30 +6,31 @@ document.addEventListener('DOMContentLoaded', () => {
   class Calculator {
     constructor(selector) {
       this.selector = selector;
-      this.buttons = {};
-    }
-
-    register(keyBoard) {
-      this.buttons[keyBoard.name] = keyBoard;
-      keyBoard.calc = this;
+      this.display = new Display();
+      this.keyBoard = new KeyBoard((text) => this.click(text));
     }
 
     click(text) {
-      console.log(text);
+      this.display.showCalculations(text);
     }
 
     init() {
-      const keyBoard = new KeyBoard(this);
-      // console.log(keyBoard.calc);
-      document.body.innerHTML += `<div class="calc calc_${this.selector}" id="calc">
+      document.body.innerHTML += `
+      <div class="calc calc_${this.selector}" id="calc">
       ${new ThemeSelector().render()}
       <div class="calc__container" id="calcContainer">
-      ${new Display().render()}
-        <div class="calc-buttons" id="calcButtons">
+        <div class="calc-screen" id="screen">
         </div>
-      </div>
-    </div>`;
-      keyBoard.render().map((btn) => {
+        <div class="calc-buttons" id="calcButtons">
+          </div>
+        </div>
+      </div>`;
+
+      this.display.render().map((screenText) => {
+        document.getElementById('screen').append(screenText);
+      });
+
+      this.keyBoard.render().map((btn) => {
         document.getElementById('calcButtons').append(btn);
       });
     }
