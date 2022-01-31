@@ -15,6 +15,7 @@ export default class Operations extends Display {
     calculationText.className = 'calc-screen__calculations';
     calculationText.id = 'calcText';
     calculationText.textContent = this.state;
+
     return calculationText;
   }
 
@@ -78,19 +79,15 @@ export default class Operations extends Display {
     }
 
     if ((this.currentNumber.toString().includes('.') && element === '.')
-      || (operators.includes(element) && this.currentNumber.toString().includes(element))) {
+      || (operators.includes(element) && this.currentNumber.toString().includes(element !== '-'))
+      || (element === '=' && this.currentNumber.toString().includes('='))) {
       return;
     }
 
     if (element === '/' && Number(this.currentNumber) === 0) {
       return;
     }
-
-    if ((operators.includes(element) && this.prevNumber.toString().includes(element))
-      || (element === '=' && this.currentNumber.toString().includes('='))) {
-      return;
-    }
-
+    // debugger;
     if (this.currentNumber.length < 9
       || operators.includes(element)
       || element === '/'
@@ -115,7 +112,7 @@ export default class Operations extends Display {
       calculationScreenText.textContent = this.prevNumber;
     }
 
-    if (operators.includes(element) && Number(this.result > 0)) {
+    if (operators.includes(element) && Number(this.result !== 0)) {
       calculationScreenText.textContent = this.result + element;
     }
 
