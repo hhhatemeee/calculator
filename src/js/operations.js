@@ -1,7 +1,16 @@
-import { OPERATORS } from "./variables.js";
+import { OPERATORS } from './variables.js';
 import Display from './display.js';
 
+/**
+ * @module Operations
+ * @see module: Script
+ * @class
+ * @extends Display
+ */
 export default class Operations extends Display {
+  /**
+   * @param {function} callback Accepts a callback to process
+   */
   constructor(callback) {
     super();
     this.showResult = callback;
@@ -10,6 +19,9 @@ export default class Operations extends Display {
     this.currentNumber = 0;
   }
 
+  /**
+   * @returns html object
+   */
   createEl() {
     const calculationText = document.createElement('p');
 
@@ -20,11 +32,19 @@ export default class Operations extends Display {
     return calculationText;
   }
 
-  static #setFontSize(num, calculations) {
+  /**
+   * A method that calculates the font size using a dependency
+   * @param {number} num - Accepts a number from which to calculate the size
+   * @param {boolean} isCalculations For result or calculation
+   * @returns font-size
+   * @static
+   * @private
+   */
+  static #setFontSize(num, isCalculations) {
     const calculationScreenResult = document.getElementById('resultText');
     const calculationScreenText = document.getElementById('calcText');
     let size = (21.6122 - num) / 0.2208;
-    if (calculations && num < 15) {
+    if (isCalculations && num < 15) {
       return;
     }
 
@@ -40,7 +60,7 @@ export default class Operations extends Display {
       size = (43.2143 - num) / 0.8571;
     }
 
-    if (!calculations) {
+    if (!isCalculations) {
       if (num >= 19) {
         size = (5 - num) / 1;
       }
@@ -49,14 +69,17 @@ export default class Operations extends Display {
       return;
     }
 
-    if (calculations && num >= 22) {
+    if (isCalculations && num >= 22) {
       size = (49.6691 - num) / 1.0736;
     }
 
     calculationScreenText.style.fontSize = `${size}px`;
   }
 
-  // Error Handler
+  /**
+   * Error handler
+   * @private
+  */
   #errorHandler() {
     if (Number.isNaN(this.currentNumber)) {
       this.currentNumber = 0;
@@ -71,6 +94,10 @@ export default class Operations extends Display {
     }
   }
 
+  /**
+   * Method that displays calculations and their result
+   * @param {string/number} value Accepts a string or number
+   */
   showCalculations(value) {
     const calculationScreenText = document.getElementById('calcText');
     const calculationScreenResult = document.getElementById('resultText');
@@ -223,7 +250,9 @@ export default class Operations extends Display {
       calculationScreenText.textContent = this.result + element;
     }
 
-    this.calculating(element);
+    if (element === '=' || element === '%') {
+      this.calculating(element);
+    }
 
     // If the current number is 0 and 'dot' button is pressed, then sum
     if (element === '.' && this.currentNumber === 0) {
@@ -239,7 +268,7 @@ export default class Operations extends Display {
       calculationScreenText.textContent = this.currentNumber;
 
       calculationScreenText.style.fontSize = '40px';
-      calculationScreenResult.style.fontSize = '90px';
+      calculationScreenResult.style.fontSize = '96px';
     }
 
     if (calculationScreenText.textContent !== this.currentNumber && this.currentNumber !== 0) {
@@ -248,7 +277,11 @@ export default class Operations extends Display {
     }
   }
 
-  // Operation Calculation Method
+  /**
+   * Operation Calculation Method
+   * @param {string} value  accepts % or =
+   * @returns result depending on the operation
+   */
   calculating(value) {
     const calculationScreenText = document.getElementById('calcText');
     const calculationScreenResult = document.getElementById('resultText');
@@ -272,7 +305,6 @@ export default class Operations extends Display {
           let prevNumber = this.result ? this.result : Number(storyArr.slice(0, i).join(''));
           let nextNumber = storyArr.slice(i + 1).length === 0 ? prevNumber : Number(storyArr.slice(i + 1).join(''));
 
-          console.log(prevNumber, nextNumber);
           isOperation = true;
 
           if (nextNumber === 0 && element !== '÷') {
@@ -339,7 +371,11 @@ export default class Operations extends Display {
     }
 
     if (value === '%') {
-      if (Number(this.prevNumber)) {
+      const convertNum = this.result
+        ? this.result
+        : this.prevNumber.toString().slice(0, this.prevNumber.toString().length - 1);
+
+      if (Number(convertNum)) {
         storyArr.forEach((element, i) => {
           if (OPERATORS.includes(element) && i === 0 && !this.result) {
             return;
@@ -373,6 +409,10 @@ export default class Operations extends Display {
                 break;
               default:
             }
+            if (this.result.toString().length >= 5) {
+              const resultLength = this.result.toString().length;
+              Operations.#setFontSize(resultLength, false);
+            }
             this.#errorHandler();
             this.showResult(this.result);
             this.currentNumber = 0;
@@ -382,6 +422,7 @@ export default class Operations extends Display {
         });
         return;
       }
+
       this.currentNumber = 0;
       this.showResult(0);
       return;

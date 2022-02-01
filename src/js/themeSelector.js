@@ -1,17 +1,24 @@
 class ThemeSelector {
+  constructor(onChangeCallBack) {
+    this.onChange = onChangeCallBack;
+  }
+
+  createEl() {
+    const checkbox = document.createElement('input');
+
+    checkbox.className = 'checkbox';
+    checkbox.id = 'checkbox';
+    checkbox.type = 'checkbox';
+
+    checkbox.addEventListener('change', () => {
+      this.onChange();
+    });
+
+    return checkbox;
+  }
+
   render() {
-    return (
-      `<div class="theme">
-    <div class="theme__container">
-      <input type="checkbox" class="checkbox" id="checkbox" />
-      <label for="checkbox" class="theme__selector" id="toggleSelector">
-        <i class="icon-sun"></i>
-        <i class="icon-moon-1"></i>
-        <div class="theme__ball" id="toggleBall"></div>
-      </label>
-    </div>
-  </div>`
-    );
+    return this.createEl();
   }
 }
 

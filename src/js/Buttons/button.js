@@ -14,7 +14,7 @@ class Button {
     div.className = `btn ${this.name} ${this.color}`;
     div.innerHTML = this.text;
 
-    div.onclick = (e) => {
+    div.onclick = () => {
       this.onClick(this.value);
     };
     return div;
