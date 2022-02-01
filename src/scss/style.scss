@@ -49,11 +49,13 @@ body{
     &__calculations {
       display: flex;
       justify-content: flex-end;
+      align-items: center;
       overflow-wrap: anywhere;
       font-size: 40px;
       text-align: right;
       color: rgba($color: #000000, $alpha: 0.4);
-      width: 335px;
+      width: 100wh;
+      height: 47px;
       margin: 0;
       padding: 0;
 
@@ -63,8 +65,12 @@ body{
     }
 
     &__result {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
       font-weight: 100;
       font-size: 96px;
+      height: 112px;
       text-align: right;
       margin: 0;
       padding: 0;

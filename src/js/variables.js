@@ -9,6 +9,8 @@ const NIGHT = 'night';
 const DAY = 'day';
 const MINUTE_IN_MS = 60000;
 
+const OPERATORS = ['×', '÷', '-', '+'];
+
 const MOCK_BTN = [
   {
     name: 'btn_ac',
@@ -38,7 +40,7 @@ const MOCK_BTN = [
     name: 'btn_seven',
     color: ' ',
     text: '7',
-    value: 5,
+    value: 7,
   },
   {
     name: 'btn_eigth',
@@ -139,4 +141,5 @@ export {
   DAY,
   MINUTE_IN_MS,
   MOCK_BTN,
+  OPERATORS,
 };
