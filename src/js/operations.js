@@ -20,10 +20,13 @@ export default class Operations extends Display {
     return calculationText;
   }
 
-  #setFontSize(num, calculations) {
+  static #setFontSize(num, calculations) {
     const calculationScreenResult = document.getElementById('resultText');
     const calculationScreenText = document.getElementById('calcText');
     let size = (21.6122 - num) / 0.2208;
+    if (calculations && num < 15) {
+      return;
+    }
 
     if (num >= 9) {
       size = (25.5352 - num) / 0.3134;
@@ -37,19 +40,23 @@ export default class Operations extends Display {
       size = (43.2143 - num) / 0.8571;
     }
 
-    if (calculations) {
-      if (num >= 22) {
-        size = (49.6691 - num) / 1.0736;
-      }
-    }
     if (!calculations) {
-      calculationScreenResult.style.fontSize = `${size}px`;
+      if (num >= 19) {
+        size = (5 - num) / 1;
+      }
 
+      calculationScreenResult.style.fontSize = `${size}px`;
       return;
     }
+
+    if (calculations && num >= 22) {
+      size = (49.6691 - num) / 1.0736;
+    }
+
     calculationScreenText.style.fontSize = `${size}px`;
   }
 
+  // Error Handler
   #errorHandler() {
     if (Number.isNaN(this.currentNumber)) {
       this.currentNumber = 0;
@@ -104,9 +111,10 @@ export default class Operations extends Display {
     }
 
     if (currentNumberLength >= 5) {
-      this.#setFontSize(currentNumberLength, false);
+      Operations.#setFontSize(currentNumberLength, false);
     }
 
+    // Button for removing elements in a row
     if (element === 'delete') {
       const clone = this.currentNumber;
 
@@ -132,14 +140,18 @@ export default class Operations extends Display {
       return;
     }
 
+    // Can't put equal until there's a number
     if ((this.currentNumber === 0 && this.prevNumber === 0) && element === '=') {
       return;
     }
 
+    /* If the current number = 0 and the "dot" button is not pressed,
+     the current number is equal to " " */
     if (this.currentNumber === 0 && element !== '.') {
       this.currentNumber = '';
     }
 
+    // Button +/-
     if (element === '/') {
       if (Number(this.currentNumber) === 0) {
         return;
@@ -153,29 +165,39 @@ export default class Operations extends Display {
       return;
     }
 
+    // It is forbidden to repeat operations
     if ((this.currentNumber.toString().includes('.') && element === '.')
       || (OPERATORS.includes(element) && this.currentNumber.toString().includes(element !== '-'))
       || (element === '=' && this.currentNumber.toString().includes('='))) {
       return;
     }
 
-    if (this.currentNumber === 'Ошибка' || this.result === 'Ошибка') {
-      if (element === 'c') {
-        this.calculating(element);
-      }
-
+    // It is forbidden to press buttons if there is an error on the screen
+    if ((this.currentNumber === 'Ошибка' || this.result === 'Ошибка') && element !== 'c') {
       return;
     }
 
-    if (this.currentNumber.length <= 15
+    // Maximum string length 16 characters
+    if (this.currentNumber.length <= 16
       || OPERATORS.includes(element)
       || element === '/'
       || element === '=') {
       this.currentNumber += element;
     }
 
+    // If pressed equals immediately after the current number translate into Calculations
+    if (element === '=' && this.prevNumber === 0) {
+      calculationScreenText.textContent = this.currentNumber;
+      this.prevNumber = this.currentNumber;
+      this.currentNumber = 0;
+
+      return;
+    }
+
+    // If any operation is pressed, then assign the current number to the previous one and display
     if (OPERATORS.includes(element)) {
-      if (this.prevNumber.length > 1 && Number(this.prevNumber)) {
+      // If there is a previous number, then connect it to the current one.
+      if ((this.prevNumber.length > 1 && Number(this.prevNumber)) || this.prevNumber.toString().includes('=')) {
         this.prevNumber = this.prevNumber.slice(0, this.prevNumber.length - 1);
         this.prevNumber += this.currentNumber;
         this.#errorHandler();
@@ -195,6 +217,7 @@ export default class Operations extends Display {
       calculationScreenText.textContent = this.prevNumber;
     }
 
+    // If the operator is pressed and there is a previous result, then connect them
     if (OPERATORS.includes(element) && Number(this.result !== 0)) {
       this.#errorHandler();
       calculationScreenText.textContent = this.result + element;
@@ -202,10 +225,12 @@ export default class Operations extends Display {
 
     this.calculating(element);
 
+    // If the current number is 0 and 'dot' button is pressed, then sum
     if (element === '.' && this.currentNumber === 0) {
       this.currentNumber += '.';
     }
 
+    // Button 'C'
     if (element === 'c') {
       this.currentNumber = 0;
       this.prevNumber = 0;
@@ -217,14 +242,13 @@ export default class Operations extends Display {
       calculationScreenResult.style.fontSize = '90px';
     }
 
-    // this.#errorHandler();
     if (calculationScreenText.textContent !== this.currentNumber && this.currentNumber !== 0) {
       this.#errorHandler();
-
       this.showResult(this.currentNumber);
     }
   }
 
+  // Operation Calculation Method
   calculating(value) {
     const calculationScreenText = document.getElementById('calcText');
     const calculationScreenResult = document.getElementById('resultText');
@@ -244,10 +268,11 @@ export default class Operations extends Display {
           return;
         }
 
-        if (OPERATORS.includes(element) && !isOperation) {
+        if ((OPERATORS.includes(element) && !isOperation) || element === '=') {
           let prevNumber = this.result ? this.result : Number(storyArr.slice(0, i).join(''));
           let nextNumber = storyArr.slice(i + 1).length === 0 ? prevNumber : Number(storyArr.slice(i + 1).join(''));
 
+          console.log(prevNumber, nextNumber);
           isOperation = true;
 
           if (nextNumber === 0 && element !== '÷') {
@@ -283,10 +308,13 @@ export default class Operations extends Display {
             default:
               this.showResult(0);
           }
+
           this.#errorHandler();
+
           if (this.result.toString().length > 9 && typeof this.result === 'number') {
             this.result = this.result.toExponential(16);
           }
+
           this.showResult(this.result);
           calculationScreenText.textContent = `${prevNumber}${element}${nextNumber}=`;
           this.currentNumber = 0;
@@ -300,17 +328,18 @@ export default class Operations extends Display {
 
       if (this.result.toString().length >= 5) {
         const resultLength = this.result.toString().length;
-
-        this.#setFontSize(resultLength);
+        Operations.#setFontSize(resultLength, false);
       }
 
       if (calculationScreenText.textContent.length >= 5) {
-        this.#setFontSize(calculationScreenText.textContent.length, true);
+        Operations.#setFontSize(calculationScreenText.textContent.length, true);
       }
+
+      return;
     }
 
     if (value === '%') {
-      if (this.prevNumber) {
+      if (Number(this.prevNumber)) {
         storyArr.forEach((element, i) => {
           if (OPERATORS.includes(element) && i === 0 && !this.result) {
             return;
@@ -355,6 +384,11 @@ export default class Operations extends Display {
       }
       this.currentNumber = 0;
       this.showResult(0);
+      return;
+    }
+
+    if (this.prevNumber.toString().includes('=')) {
+      this.prevNumber = 0;
     }
   }
 
