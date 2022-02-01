@@ -119,11 +119,13 @@ body {
 .calc-screen__calculations {
   display: flex;
   justify-content: flex-end;
+  align-items: center;
   overflow-wrap: anywhere;
   font-size: 40px;
   text-align: right;
   color: rgba(0, 0, 0, 0.4);
-  width: 335px;
+  width: 100wh;
+  height: 47px;
   margin: 0;
   padding: 0;
 }
@@ -131,8 +133,12 @@ body {
   color: rgba(255, 255, 255, 0.4);
 }
 .calc-screen__result {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
   font-weight: 100;
   font-size: 96px;
+  height: 112px;
   text-align: right;
   margin: 0;
   padding: 0;
@@ -389,7 +395,7 @@ body {
 
   .calc {
     width: 100%;
-    min-height: 100vh;
+    min-height: 100vh !important;
     max-width: 820px;
     padding: 0;
   }
