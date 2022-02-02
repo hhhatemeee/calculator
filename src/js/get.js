@@ -28,7 +28,7 @@ export default function get(props, requiredField, defaultValue) {
   if (getTypeProps === 'object') {
     iterating(props);
   }
-  if (getTypeProps === 'string' && getTypeProps === 'number') {
+  if (getTypeProps === 'string' || getTypeProps === 'number' || getTypeProps === 'function') {
     value = props;
   }
 

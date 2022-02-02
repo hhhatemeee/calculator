@@ -7,7 +7,6 @@ class Button {
     this.text = get(props, 'text', '0');
     this.value = get(props, 'value', '0');
     this.onClick = get(props, 'onClick', () => console.log('Что-то пошло не так'));
-    console.log(this.text);
   }
 
   createEl() {

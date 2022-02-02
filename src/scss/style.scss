@@ -277,6 +277,12 @@ body{
   }
 }
 
+.icon-moon-1{
+  text-shadow:
+0 0 7px rgba(255, 255, 255, 0),
+0 0 10px rgba(0, 204, 255, 0.774),
+}
+
 .checkbox:checked + .theme__selector .theme__ball {
   transform: translateX(-35px);
 }

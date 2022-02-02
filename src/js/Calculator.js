@@ -7,7 +7,7 @@ export default class Calculator {
   constructor(selector) {
     this.selector = selector;
     this.display = new Display();
-    this.keyBoard = new KeyBoard((text) => this.#click(text));
+    this.keyBoard = new KeyBoard({ callBack: (text) => this.#click(text) });
     this.operations = new Operations((value) => this.#changeResult(value));
     this.themeSelector = new ThemeSelector(() => Calculator.#changeTheme());
   }

@@ -1,9 +1,10 @@
 import Button from './button.js';
 import { MOCK_BTN } from '../variables.js';
+import callFunction from '../callFunction.js';
 
 class KeyBoard {
-  constructor(callback) {
-    this.onClick = callback;
+  constructor(props) {
+    this.onClick = callFunction.call(this, props.callBack);
   }
 
   #generateButtons() {
