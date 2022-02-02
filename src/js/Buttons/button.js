@@ -1,11 +1,13 @@
-import distributor from "../distibutorFunc.js";
 import get from "../get.js";
 
 class Button {
   constructor(props) {
-    this.text = get(props, ['text.1.values', 'text.2.values'], '0');
+    this.name = get(props, 'name', '0');
+    this.color = get(props, 'color', '0');
+    this.text = get(props, 'text', '0');
+    this.value = get(props, 'value', '0');
+    this.onClick = get(props, 'onClick', () => console.log('Что-то пошло не так'));
     console.log(this.text);
-    // this.
   }
 
   createEl() {
