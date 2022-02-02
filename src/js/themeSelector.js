@@ -10,9 +10,7 @@ class ThemeSelector {
     checkbox.id = 'checkbox';
     checkbox.type = 'checkbox';
 
-    checkbox.addEventListener('change', () => {
-      this.onChange();
-    });
+    checkbox.addEventListener('change', () => this.onChange());
 
     return checkbox;
   }

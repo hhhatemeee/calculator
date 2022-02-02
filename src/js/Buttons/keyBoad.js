@@ -11,7 +11,12 @@ class KeyBoard {
       const button = new Button({
         name: btn.name,
         color: btn.color,
-        text: btn.text,
+        text:
+          [
+            { values: 2 },
+            { values: 3 },
+            { values: 5 },
+          ],
         value: btn.value,
         onClick: this.onClick,
       });

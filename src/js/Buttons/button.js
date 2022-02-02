@@ -1,12 +1,11 @@
+import distributor from "../distibutorFunc.js";
+import get from "../get.js";
+
 class Button {
   constructor(props) {
-    if (typeof props === 'object') {
-      this.text = props.text;
-      this.name = props.name;
-      this.color = props.color;
-      this.onClick = props.onClick;
-      this.value = props.value;
-    }
+    this.text = get(props, ['text.1.values', 'text.2.values'], '0');
+    console.log(this.text);
+    // this.
   }
 
   createEl() {
@@ -14,9 +13,7 @@ class Button {
     div.className = `btn ${this.name} ${this.color}`;
     div.innerHTML = this.text;
 
-    div.onclick = () => {
-      this.onClick(this.value);
-    };
+    div.onclick = () => this.onClick(this.value);
     return div;
   }
 
