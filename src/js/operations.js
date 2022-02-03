@@ -1,5 +1,6 @@
 import { OPERATORS } from './variables.js';
 import Display from './display.js';
+import splittingNumber from './splittingNumber.js';
 
 /**
  * @module Operations
@@ -65,14 +66,14 @@ export default class Operations extends Display {
     const leftBtn = document.getElementById('leftBtn');
     const rightBtn = document.getElementById('rightBtn');
 
-    let size = (21.6122 - num) / 0.2208;
+    let size = (27.6122 - num) / 0.3158;
     // if (isCalculations && num < 15) {
     //   return;
     // }
-
+    // debugger;
     if (!isCalculations) {
       if (num >= 9) {
-        size = (25.5352 - num) / 0.3134;
+        size = (25.252 - num) / 0.3134;
       }
 
       if (num >= 15) {
@@ -80,10 +81,10 @@ export default class Operations extends Display {
       }
 
       if (num >= 17) {
-        size = (43.2143 - num) / 0.8571;
+        size = (43.2143 - num) / 0.8071;
       }
       if (num >= 19) {
-        size = (5 - num) / 1;
+        size = (46.2143 - num) / 0.9571;
       }
 
       calculationScreenResult.style.fontSize = `${size}px`;
@@ -125,7 +126,7 @@ export default class Operations extends Display {
   showCalculations(value) {
     const calculationScreenText = document.getElementById('calcText');
     const calculationScreenResult = document.getElementById('resultText');
-    const currentNumberLength = this.currentNumber.length;
+    const currentNumberLength = splittingNumber(this.currentNumber).length;
 
     let element = value;
 
@@ -160,8 +161,8 @@ export default class Operations extends Display {
       default:
         element = value;
     }
-    // debugger;
 
+    // If the length of the current number >= 5, then use the setFontSize()
     if (currentNumberLength >= 5) {
       Operations.#setFontSize(currentNumberLength, false);
     }
@@ -178,7 +179,7 @@ export default class Operations extends Display {
 
       if (Number(this.currentNumber) === 0 || this.currentNumber.length < 2) {
         this.currentNumber = 0;
-        this.showResult(this.currentNumber);
+        this.showResult(splittingNumber(this.currentNumber));
 
         return;
       }
@@ -186,7 +187,7 @@ export default class Operations extends Display {
       this.currentNumber = this.currentNumber.toString().slice(0, this.currentNumber.length - 1);
 
       if (this.currentNumber !== clone) {
-        this.showResult(this.currentNumber);
+        this.showResult(splittingNumber(this.currentNumber));
       }
 
       return;
@@ -208,11 +209,11 @@ export default class Operations extends Display {
       if (Number(this.currentNumber) === 0) {
         return;
       }
-
+      // debugger;
       const opposite = -Number(this.currentNumber.toString().slice(0, this.currentNumber.length));
       this.currentNumber = opposite;
       this.#errorHandler();
-      this.showResult(this.currentNumber);
+      this.showResult(splittingNumber(this.currentNumber));
 
       return;
     }
@@ -228,8 +229,9 @@ export default class Operations extends Display {
     if ((this.currentNumber === 'Ошибка' || this.result === 'Ошибка') && element !== 'c') {
       return;
     }
+
+    // If the current result exists and = is pressed, then add the result to the previous value
     if (element === '=' && this.result && this.currentNumber === '') {
-      console.log('currentNumber', typeof (this.currentNumber));
       this.calculating(element);
       return;
     }
@@ -271,7 +273,7 @@ export default class Operations extends Display {
 
       this.prevNumber = this.currentNumber;
       this.currentNumber = 0;
-      Operations.#setFontSize(this.prevNumber.length, true);
+      Operations.#setFontSize(splittingNumber(this.prevNumber).length, true);
       calculationScreenText.textContent = this.prevNumber;
     }
 
@@ -305,7 +307,7 @@ export default class Operations extends Display {
 
     if (calculationScreenText.textContent !== this.currentNumber && this.currentNumber !== 0) {
       this.#errorHandler();
-      this.showResult(this.currentNumber);
+      this.showResult(splittingNumber(this.currentNumber));
     }
   }
 
@@ -379,7 +381,7 @@ export default class Operations extends Display {
             this.result = this.result.toExponential(16);
           }
 
-          this.showResult(this.result);
+          this.showResult(splittingNumber(this.result));
           calculationScreenText.textContent = `${prevNumber}${element}${nextNumber}=`;
           this.currentNumber = 0;
           this.prevNumber = nextNumber;
@@ -388,7 +390,7 @@ export default class Operations extends Display {
       });
 
       if (this.result.toString().length >= 5) {
-        const resultLength = this.result.toString().length;
+        const resultLength = splittingNumber(this.result).length;
         Operations.#setFontSize(resultLength, false);
       }
 
@@ -466,7 +468,7 @@ export default class Operations extends Display {
               default:
             }
             if (this.result.toString().length >= 5) {
-              const resultLength = this.result.toString().length;
+              const resultLength = splittingNumber(this.result).length;
               Operations.#setFontSize(resultLength, false);
             }
             this.#errorHandler();
