@@ -11,10 +11,11 @@ class Button {
 
   createEl() {
     const div = document.createElement('div');
+
     div.className = `btn ${this.name} ${this.color}`;
     div.innerHTML = this.text;
-
     div.onclick = () => this.onClick(this.value);
+
     return div;
   }
 

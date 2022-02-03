@@ -62,9 +62,6 @@ export default class Operations extends Display {
     const calculationScreenResult = document.getElementById('resultText');
     const calculationScreenText = document.getElementById('calcText');
 
-    const leftBtn = document.getElementById('leftBtn');
-    const rightBtn = document.getElementById('rightBtn');
-
     let size = (21.6122 - num) / 0.2208;
     // if (isCalculations && num < 15) {
     //   return;
@@ -91,6 +88,23 @@ export default class Operations extends Display {
     }
 
     if (num >= 12) {
+      Operations.#showButtons(true);
+
+      return;
+    }
+    Operations.#showButtons(false);
+  }
+
+  /**
+   * hide/show buttons
+   * @param {booalen} isShow
+   * @returns
+   */
+  static #showButtons(isShow) {
+    const leftBtn = document.getElementById('leftBtn');
+    const rightBtn = document.getElementById('rightBtn');
+
+    if (isShow) {
       leftBtn.style.visibility = 'visible';
       rightBtn.style.visibility = 'visible';
 
@@ -172,6 +186,7 @@ export default class Operations extends Display {
 
       if (this.currentNumber === 0 && this.result > 0) {
         calculationScreenText.textContent = this.currentNumber;
+        Operations.#showButtons(false);
 
         return;
       }
@@ -229,7 +244,6 @@ export default class Operations extends Display {
       return;
     }
     if (element === '=' && this.result && this.currentNumber === '') {
-      console.log('currentNumber', typeof (this.currentNumber));
       this.calculating(element);
       return;
     }
@@ -431,6 +445,7 @@ export default class Operations extends Display {
         ? this.result
         : this.prevNumber.toString().slice(0, this.prevNumber.toString().length - 1);
 
+      // debugger;
       if (Number(convertNum)) {
         storyArr.forEach((element, i) => {
           if (OPERATORS.includes(element) && i === 0 && !this.result) {
@@ -465,10 +480,12 @@ export default class Operations extends Display {
                 break;
               default:
             }
+
             if (this.result.toString().length >= 5) {
               const resultLength = this.result.toString().length;
               Operations.#setFontSize(resultLength, false);
             }
+
             this.#errorHandler();
             this.showResult(this.result);
             this.currentNumber = 0;
@@ -476,11 +493,14 @@ export default class Operations extends Display {
             calculationScreenText.textContent = `${prevNumber}${element}${percentNumber}=`;
           }
         });
+
         return;
       }
 
+      Operations.#showButtons(false);
       this.currentNumber = 0;
       this.showResult(0);
+
       return;
     }
 
