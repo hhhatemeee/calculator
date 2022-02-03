@@ -20,6 +20,11 @@
         &__result {
           color: $result-color;
         }
+
+        &__btn-right:hover, &__btn-left:hover{
+          filter: brightness(1.2);
+          background-color: rgba($btn-light-gray-color,0.1);
+        }
       }
 
       &-buttons {

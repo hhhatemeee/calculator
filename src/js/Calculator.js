@@ -39,6 +39,8 @@ export default class Calculator {
       </div>
     <div class="calc__container" id="calcContainer">
       <div class="calc-screen" id="screen">
+      <div class ="calc-screen__calculations-container" id="calculationContainer">
+      </div>
       </div>
       <div class="calc-buttons" id="calcButtons">
         </div>
@@ -50,7 +52,8 @@ export default class Calculator {
     document.body.innerHTML += this.templateMarckup;
 
     document.getElementById('toggleSelector').before(this.themeSelector.render());
-    document.getElementById('screen').append(this.operations.render(), this.display.render());
+    this.operations.render().map((element) => document.getElementById('calculationContainer').append(element));
+    document.getElementById('screen').append(this.display.render());
 
     this.keyBoard.render().forEach((btn) => {
       document.getElementById('calcButtons').append(btn);
