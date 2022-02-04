@@ -179,7 +179,7 @@ export default class Operations extends Display {
 
       if (Number(this.currentNumber) === 0 || this.currentNumber.length < 2) {
         this.currentNumber = 0;
-        this.showResult(splittingNumber(this.currentNumber));
+        this.showResult(this.currentNumber);
 
         return;
       }
@@ -187,7 +187,7 @@ export default class Operations extends Display {
       this.currentNumber = this.currentNumber.toString().slice(0, this.currentNumber.length - 1);
 
       if (this.currentNumber !== clone) {
-        this.showResult(splittingNumber(this.currentNumber));
+        this.showResult(this.currentNumber);
       }
 
       return;
@@ -213,7 +213,7 @@ export default class Operations extends Display {
       const opposite = -Number(this.currentNumber.toString().slice(0, this.currentNumber.length));
       this.currentNumber = opposite;
       this.#errorHandler();
-      this.showResult(splittingNumber(this.currentNumber));
+      this.showResult(this.currentNumber);
 
       return;
     }
@@ -307,7 +307,7 @@ export default class Operations extends Display {
 
     if (calculationScreenText.textContent !== this.currentNumber && this.currentNumber !== 0) {
       this.#errorHandler();
-      this.showResult(splittingNumber(this.currentNumber));
+      this.showResult(this.currentNumber);
     }
   }
 
@@ -376,12 +376,12 @@ export default class Operations extends Display {
           }
 
           this.#errorHandler();
-
-          if (this.result.toString().length > 9 && typeof this.result === 'number') {
-            this.result = this.result.toExponential(16);
+          debugger;
+          if (this.result > 10 ** 10) {
+            this.result = this.result.toExponential(15);
           }
 
-          this.showResult(splittingNumber(this.result));
+          this.showResult(this.result);
           calculationScreenText.textContent = `${prevNumber}${element}${nextNumber}=`;
           this.currentNumber = 0;
           this.prevNumber = nextNumber;
@@ -416,6 +416,10 @@ export default class Operations extends Display {
             break;
           default:
             this.result = this.result;
+        }
+
+        if (this.result > 10 ** 10) {
+          this.result = this.result.toExponential(15);
         }
 
         this.showResult(this.result);
