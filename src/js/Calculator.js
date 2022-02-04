@@ -21,8 +21,15 @@ export default class Calculator {
   }
 
   static #changeTheme() {
-    const bodyCalc = document.getElementById('calc').classList;
-    bodyCalc.toggle('calc_theme_dark');
+    const bodyCalc = document.getElementById('calc');
+
+    if (bodyCalc) {
+      bodyCalc.classList.toggle('calc_theme_dark');
+
+      return;
+    }
+
+    console.warn('bodyCalc is undefined');
   }
 
   get templateMarckup() {

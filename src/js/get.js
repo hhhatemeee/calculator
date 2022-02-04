@@ -25,13 +25,17 @@ export default function get(props, requiredField, defaultValue) {
     });
   }
 
-  if (getTypeProps === 'object') {
-    iterating(props);
-  }
-  if (getTypeProps === 'string' || getTypeProps === 'number' || getTypeProps === 'function') {
-    value = props;
+  switch (getTypeProps) {
+    case 'object':
+      iterating(props);
+      break;
+    default:
+      value = props;
   }
 
-  if (!value) return defaultValue;
+  if (!value) {
+    return defaultValue;
+  }
+
   return value;
 }
