@@ -134,6 +134,8 @@ const MOCK_BTN = [
   },
 ];
 
+const MOCK_CURRENCY = ['USD', 'RUB', 'EUR', 'KYD', 'COP', 'BND'];
+
 export {
   TimePeriods,
   ConvertTimeinMinutes,
@@ -142,4 +144,5 @@ export {
   MINUTE_IN_MS,
   MOCK_BTN,
   OPERATORS,
+  MOCK_CURRENCY,
 };
