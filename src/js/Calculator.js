@@ -2,6 +2,7 @@ import Display from './display.js';
 import KeyBoard from './Buttons/keyBoad.js';
 import ThemeSelector from './themeSelector.js';
 import Operations from './operations.js';
+import splittingNumber from './splittingNumber.js';
 
 export default class Calculator {
   constructor(selector) {
@@ -17,7 +18,7 @@ export default class Calculator {
   }
 
   #changeResult(value) {
-    this.display.showResult(value);
+    this.display.showResult(splittingNumber(value));
   }
 
   static #changeTheme() {
