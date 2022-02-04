@@ -66,14 +66,14 @@ export default class Operations extends Display {
     const leftBtn = document.getElementById('leftBtn');
     const rightBtn = document.getElementById('rightBtn');
 
-    let size = (27.6122 - num) / 0.3158;
+    let size = (22.6122 - num) / 0.2388;
     // if (isCalculations && num < 15) {
     //   return;
     // }
-    // debugger;
+    debugger
     if (!isCalculations) {
       if (num >= 9) {
-        size = (25.252 - num) / 0.3134;
+        size = (22.4433 - num) / 0.2497;
       }
 
       if (num >= 15) {
@@ -81,17 +81,17 @@ export default class Operations extends Display {
       }
 
       if (num >= 17) {
-        size = (43.2143 - num) / 0.8071;
+        size = (43.2143 - num) / 0.8571;
       }
       if (num >= 19) {
-        size = (46.2143 - num) / 0.9571;
+        size = 27;
       }
 
       calculationScreenResult.style.fontSize = `${size}px`;
       return;
     }
 
-    if (num >= 12) {
+    if (num > 21) {
       leftBtn.style.visibility = 'visible';
       rightBtn.style.visibility = 'visible';
 
@@ -170,6 +170,8 @@ export default class Operations extends Display {
     // Button for removing elements in a row
     if (element === 'delete') {
       const clone = this.currentNumber;
+
+      Operations.#setFontSize(splittingNumber(currentNumberLength), false);
 
       if (this.currentNumber === 0 && this.result > 0) {
         calculationScreenText.textContent = this.currentNumber;
