@@ -134,7 +134,15 @@ const MOCK_BTN = [
   },
 ];
 
-const MOCK_CURRENCY = ['USD', 'RUB', 'EUR', 'KYD', 'COP', 'BND'];
+const SERVICE_LIST = ['CC', 'OE', 'FCA'];
+
+const API_KEYS = {
+  CC: '5fee4e51914caeb5c4c2',
+  OE: '5df5a54c19b1495cbfa595eb8b707e43',
+  FCA: 'c9a07820-85c3-11ec-a180-d59bc7ad8635',
+};
+
+const MOCK_CURRENCY = ['USD', 'RUB', 'EUR', 'KYD', 'COP', 'BND', 'ALL', 'XCD', 'EUR', 'BBD', 'BTN', 'BND', 'XAF', 'CUP', 'USD', 'FKP', 'GIP', 'HUF', 'IRR', 'JMD', 'AUD', 'LAK'];
 
 export {
   TimePeriods,
@@ -145,4 +153,6 @@ export {
   MOCK_BTN,
   OPERATORS,
   MOCK_CURRENCY,
+  API_KEYS,
+  SERVICE_LIST,
 };
