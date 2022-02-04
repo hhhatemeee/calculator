@@ -127,8 +127,10 @@ body {
   max-width: 750px;
 }
 .calc-screen__calculations {
+  position: relative;
+  top: 20px;
   overflow-x: scroll;
-  font-size: 40px;
+  font-size: 25px;
   text-align: right;
   color: rgba(0, 0, 0, 0.4);
   max-width: 330px;
@@ -136,7 +138,6 @@ body {
   height: 47px;
   margin: 0;
   padding: 0;
-  margin-left: auto;
   user-select: none;
 }
 .calc-screen__calculations_theme_dark {
@@ -145,6 +146,7 @@ body {
 .calc-screen__calculations-container {
   display: flex;
   justify-content: center;
+  align-items: center;
 }
 .calc-screen__btn-right, .calc-screen__btn-left {
   height: 30px;
