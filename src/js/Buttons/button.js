@@ -1,7 +1,7 @@
 import get from "../get.js";
 
 class Button {
-  constructor(props) {
+  constructor(props = {}) {
     this.name = get(props, 'name', '0');
     this.color = get(props, 'color', '0');
     this.text = get(props, 'text', '0');
@@ -11,10 +11,11 @@ class Button {
 
   createEl() {
     const div = document.createElement('div');
+
     div.className = `btn ${this.name} ${this.color}`;
     div.innerHTML = this.text;
-
     div.onclick = () => this.onClick(this.value);
+
     return div;
   }
 

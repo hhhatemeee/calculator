@@ -1,4 +1,4 @@
-import Calculator from './Calculator.js'
+import Calculator from './Calculator.js';
 
 document.addEventListener('DOMContentLoaded', () => {
   (new Calculator('test')).init();

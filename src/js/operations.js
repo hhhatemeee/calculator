@@ -59,39 +59,49 @@ export default class Operations extends Display {
    * @static
    * @private
    */
-  static #setFontSize(num, isCalculations) {
+  static #setFontSize(num) {
     const calculationScreenResult = document.getElementById('resultText');
     const calculationScreenText = document.getElementById('calcText');
 
-    const leftBtn = document.getElementById('leftBtn');
-    const rightBtn = document.getElementById('rightBtn');
-
     let size = (22.6122 - num) / 0.2388;
-    // if (isCalculations && num < 15) {
-    //   return;
-    // }
-    debugger
-    if (!isCalculations) {
-      if (num >= 9) {
-        size = (22.4433 - num) / 0.2497;
-      }
 
-      if (num >= 15) {
-        size = (32.5000 - num) / 0.5000;
-      }
+    if (num >= 9) {
+      size = (22.4433 - num) / 0.2497;
+    }
 
-      if (num >= 17) {
-        size = (43.2143 - num) / 0.8571;
-      }
-      if (num >= 19) {
-        size = 27;
-      }
+    if (num >= 15) {
+      size = (32.5000 - num) / 0.5000;
+    }
 
-      calculationScreenResult.style.fontSize = `${size}px`;
+    if (num >= 17) {
+      size = (43.2143 - num) / 0.8571;
+    }
+
+    if (num >= 19) {
+      size = 27;
+    }
+
+    calculationScreenResult.style.fontSize = `${size}px`;
+
+    if (calculationScreenText.textContent.length > 21) {
+      Operations.#showButtons(true);
+
       return;
     }
 
-    if (num > 21) {
+    Operations.#showButtons(false);
+  }
+
+  /**
+   * hide/show buttons
+   * @param {booalen} isShow
+   * @returns
+   */
+  static #showButtons(isShow) {
+    const leftBtn = document.getElementById('leftBtn');
+    const rightBtn = document.getElementById('rightBtn');
+
+    if (isShow) {
       leftBtn.style.visibility = 'visible';
       rightBtn.style.visibility = 'visible';
 
@@ -164,17 +174,16 @@ export default class Operations extends Display {
 
     // If the length of the current number >= 5, then use the setFontSize()
     if (currentNumberLength >= 5) {
-      Operations.#setFontSize(currentNumberLength, false);
+      Operations.#setFontSize(currentNumberLength);
     }
 
     // Button for removing elements in a row
     if (element === 'delete') {
       const clone = this.currentNumber;
 
-      Operations.#setFontSize(splittingNumber(currentNumberLength), false);
-
       if (this.currentNumber === 0 && this.result > 0) {
         calculationScreenText.textContent = this.currentNumber;
+        Operations.#showButtons(false);
 
         return;
       }
@@ -185,6 +194,7 @@ export default class Operations extends Display {
 
         return;
       }
+      Operations.#setFontSize(splittingNumber(currentNumberLength));
 
       this.currentNumber = this.currentNumber.toString().slice(0, this.currentNumber.length - 1);
 
@@ -275,7 +285,7 @@ export default class Operations extends Display {
 
       this.prevNumber = this.currentNumber;
       this.currentNumber = 0;
-      Operations.#setFontSize(splittingNumber(this.prevNumber).length, true);
+      Operations.#setFontSize(splittingNumber(this.prevNumber).length);
       calculationScreenText.textContent = this.prevNumber;
     }
 
@@ -300,10 +310,9 @@ export default class Operations extends Display {
       this.prevNumber = 0;
       this.result = 0;
       this.showResult(0);
-      Operations.#setFontSize(this.currentNumber, true);
       calculationScreenText.textContent = this.currentNumber;
+      Operations.#setFontSize(this.currentNumber);
 
-      calculationScreenText.style.fontSize = '40px';
       calculationScreenResult.style.fontSize = '96px';
     }
 
@@ -378,7 +387,7 @@ export default class Operations extends Display {
           }
 
           this.#errorHandler();
-          debugger;
+
           if (this.result > 10 ** 10) {
             this.result = this.result.toExponential(15);
           }
@@ -393,11 +402,11 @@ export default class Operations extends Display {
 
       if (this.result.toString().length >= 5) {
         const resultLength = splittingNumber(this.result).length;
-        Operations.#setFontSize(resultLength, false);
+        Operations.#setFontSize(resultLength);
       }
 
       if (calculationScreenText.textContent.length >= 5) {
-        Operations.#setFontSize(calculationScreenText.textContent.length, true);
+        Operations.#setFontSize(calculationScreenText.textContent.length);
       }
 
       if (this.result && this.currentNumber === '') {
@@ -439,6 +448,7 @@ export default class Operations extends Display {
         ? this.result
         : this.prevNumber.toString().slice(0, this.prevNumber.toString().length - 1);
 
+      // debugger;
       if (Number(convertNum)) {
         storyArr.forEach((element, i) => {
           if (OPERATORS.includes(element) && i === 0 && !this.result) {
@@ -473,10 +483,12 @@ export default class Operations extends Display {
                 break;
               default:
             }
+
             if (this.result.toString().length >= 5) {
               const resultLength = splittingNumber(this.result).length;
-              Operations.#setFontSize(resultLength, false);
+              Operations.#setFontSize(resultLength);
             }
+
             this.#errorHandler();
             this.showResult(this.result);
             this.currentNumber = 0;
@@ -484,11 +496,14 @@ export default class Operations extends Display {
             calculationScreenText.textContent = `${prevNumber}${element}${percentNumber}=`;
           }
         });
+
         return;
       }
 
+      Operations.#showButtons(false);
       this.currentNumber = 0;
       this.showResult(0);
+
       return;
     }
 
