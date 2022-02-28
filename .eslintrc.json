@@ -12,6 +12,7 @@
     },
     "rules": {
         "linebreak-style": ["error", "windows"],
-        "consistent-return": ["error", { "treatUndefinedAsUnspecified": true }]
+        "consistent-return": ["error", { "treatUndefinedAsUnspecified": true }],
+        "import/newline-after-import": ["error", { "count": 2 }]
     }
 }
