@@ -3,6 +3,7 @@ import KeyBoard from './Buttons/keyBoad.js';
 import ThemeSelector from './themeSelector.js';
 import Operations from './operations.js';
 import splittingNumber from './splittingNumber.js';
+import WindowLimit from './windowLimit.js';
 
 export default class Calculator {
   constructor(selector) {
@@ -11,6 +12,7 @@ export default class Calculator {
     this.keyBoard = new KeyBoard({ callBack: (text) => this.#click(text) });
     this.operations = new Operations((value) => this.#changeResult(value));
     this.themeSelector = new ThemeSelector(() => Calculator.#changeTheme());
+    this.windowLimit = new WindowLimit();
   }
 
   #click(text) {
@@ -62,6 +64,7 @@ export default class Calculator {
     document.getElementById('toggleSelector').before(this.themeSelector.render());
     this.operations.render().map((element) => document.getElementById('calculationContainer').append(element));
     document.getElementById('screen').append(this.display.render());
+    document.getElementById('calc').append(this.windowLimit.render());
 
     this.keyBoard.render().forEach((btn) => {
       document.getElementById('calcButtons').append(btn);

@@ -3,7 +3,7 @@ import { MOCK_CURRENCY, API_KEYS, SERVICE_LIST } from './variables.js';
 /**
  * Currency conversion in different services
  */
-export default class ConvertationService {
+class ConvertationService {
   #apiKey = API_KEYS.CC;
 
   #currencyList = MOCK_CURRENCY;
@@ -11,11 +11,38 @@ export default class ConvertationService {
   #basicCurrency = 'RUB';
 
   constructor(serviceName = 'CC') {
+    if (typeof window.service === 'object') {
+      return window.service;
+    }
+
+    this.limitList = [];
     this.currentService = serviceName;
+    window.service = this;
   }
 
   checkService() {
     return `Вы подключены к ${this.currentService}`;
+  }
+
+  #checkLimit(service) {
+    const daysLeftMonth = new Date(new Date().getFullYear(), new Date().getMonth() + 1, 1 - 1)
+      .getDate() - new Date().getDate();
+
+    this.limitList.push(service);
+    SERVICE_LIST.forEach((serv) => {
+      if (this.limitList.includes(serv)) {
+        return;
+      }
+
+      this.switchService(serv);
+    });
+
+    if (this.limitList.length === 3) {
+      console.warn(`Достигнут лимит всех сервисов. 
+      \n Сервис CC будет доступен примерно через ${60 - new Date().getMinutes()} минут. 
+      \n Сервис OE будет доступен ${daysLeftMonth ? `через ${daysLeftMonth} дней.` : 'завтра.'}
+      \n Сервис FCA будет доступен примерно через ${60 - new Date().getMinutes()} минут. `);
+    }
   }
 
   getBasicCurrency() {
@@ -111,19 +138,41 @@ export default class ConvertationService {
       switch (this.currentService) {
         case 'CC':
           fetch(`https://free.currconv.com/api/v7/convert?q=${from}_${to}&compact=ultra&apiKey=${this.#apiKey}`)
-            .then((res) => res.json())
-            .then((res) => console.log(Object.values(res).toString()))
+            .then((res) => {
+              if (res.status === 200) {
+                return res.json();
+              }
+
+              this.#checkLimit(this.currentService);
+            })
+            .then((res) => {
+              console.log(Object.values(res).toString());
+            })
             .catch((err) => console.log(err));
           break;
         case 'OE':
           fetch(`https://openexchangerates.org/api/convert/1/${to}/${from}?app_id=${this.#apiKey}`)
-            .then((res) => res.json())
-            .then((res) => console.log(res.response))
+            .then((res) => {
+              if (res.status === 200) {
+                return res.json();
+              }
+
+              this.#checkLimit(this.currentService);
+            })
+            .then((res) => {
+              console.log(res.response);
+            })
             .catch((err) => console.log(err));
           break;
         case 'FCA':
           fetch(`https://freecurrencyapi.net/api/v2/latest?apikey=${this.#apiKey}&base_currency=${from}`)
-            .then((res) => res.json())
+            .then((res) => {
+              if (res.status === 200) {
+                return res.json();
+              }
+
+              this.#checkLimit(this.currentService);
+            })
             .then((res) => {
               Object.keys(res.data).forEach((value) => {
                 if (to === value) {
@@ -142,3 +191,5 @@ export default class ConvertationService {
     console.warn('Валюта в списке не найдена');
   }
 }
+
+export default new ConvertationService();
