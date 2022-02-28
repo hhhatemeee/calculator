@@ -280,6 +280,10 @@ body{
     overflow-wrap: anywhere;
   }
 
+  &__select {
+    outline: none;
+  }
+
   }
 
 .btn:hover {
@@ -442,7 +446,7 @@ body{
     }
   }
 
-  .notification {
+  .notification, .window-limit {
     right: 20px;
     top: 1000px;
     opacity: 0;
@@ -478,7 +482,7 @@ body{
     }
   }
 
-  .notification {
+  .notification, .window-limit {
     right: 20px;
     top: 1000px;
     opacity: 0;
@@ -508,7 +512,7 @@ body{
     }
   }
 
-  .notification {
+  .notification, .window-limit {
     width: 270px;
     height: 110px;
     right: 0px;

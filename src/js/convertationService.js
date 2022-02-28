@@ -3,17 +3,18 @@ import { MOCK_CURRENCY, API_KEYS, SERVICE_LIST } from './variables.js';
 /**
  * Currency conversion in different services
  */
-class ConvertationService {
+export default class ConvertationService {
   #apiKey = API_KEYS.CC;
 
   #currencyList = MOCK_CURRENCY;
 
   #basicCurrency = 'RUB';
 
-  constructor(serviceName = 'CC') {
+  constructor(serviceName = 'CC', props) {
     if (typeof window.service === 'object') {
       return window.service;
     }
+    this.hideInfo = props;
 
     this.limitList = [];
     this.currentService = serviceName;
@@ -25,23 +26,19 @@ class ConvertationService {
   }
 
   #checkLimit(service) {
-    const daysLeftMonth = new Date(new Date().getFullYear(), new Date().getMonth() + 1, 1 - 1)
-      .getDate() - new Date().getDate();
-
     this.limitList.push(service);
+
     SERVICE_LIST.forEach((serv) => {
       if (this.limitList.includes(serv)) {
         return;
       }
 
+      this.hideInfo(true, service, serv);
       this.switchService(serv);
     });
 
     if (this.limitList.length === 3) {
-      console.warn(`Достигнут лимит всех сервисов. 
-      \n Сервис CC будет доступен примерно через ${60 - new Date().getMinutes()} минут. 
-      \n Сервис OE будет доступен ${daysLeftMonth ? `через ${daysLeftMonth} дней.` : 'завтра.'}
-      \n Сервис FCA будет доступен примерно через ${60 - new Date().getMinutes()} минут. `);
+      this.hideInfo(true);
     }
   }
 
@@ -98,7 +95,8 @@ class ConvertationService {
         fetch(`https://free.currconv.com/api/v7/currencies?apiKey=${this.#apiKey}`)
           .then((res) => res.json())
           .then((res) => {
-            this.#currencyList = Object.keys(res.results);
+            this.
+              this.#currencyList = Object.keys(res.results);
           })
           .catch((err) => console.log(err));
 
@@ -140,9 +138,9 @@ class ConvertationService {
           fetch(`https://free.currconv.com/api/v7/convert?q=${from}_${to}&compact=ultra&apiKey=${this.#apiKey}`)
             .then((res) => {
               if (res.status === 200) {
+                this.hideInfo(true, this.currentService);
                 return res.json();
               }
-
               this.#checkLimit(this.currentService);
             })
             .then((res) => {
@@ -168,6 +166,7 @@ class ConvertationService {
           fetch(`https://freecurrencyapi.net/api/v2/latest?apikey=${this.#apiKey}&base_currency=${from}`)
             .then((res) => {
               if (res.status === 200) {
+                this.hideInfo(true);
                 return res.json();
               }
 
@@ -191,5 +190,3 @@ class ConvertationService {
     console.warn('Валюта в списке не найдена');
   }
 }
-
-export default new ConvertationService();

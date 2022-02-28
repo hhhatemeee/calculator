@@ -4,6 +4,7 @@ import ThemeSelector from './themeSelector.js';
 import Operations from './operations.js';
 import splittingNumber from './splittingNumber.js';
 import WindowLimit from './windowLimit.js';
+import ConvertationService from './convertationService.js';
 
 export default class Calculator {
   constructor(selector) {
@@ -12,11 +13,20 @@ export default class Calculator {
     this.keyBoard = new KeyBoard({ callBack: (text) => this.#click(text) });
     this.operations = new Operations((value) => this.#changeResult(value));
     this.themeSelector = new ThemeSelector(() => Calculator.#changeTheme());
-    this.windowLimit = new WindowLimit();
+    this.windowLimit = new WindowLimit((service) => this.switchService(service));
+    this.serviceConvertation = new ConvertationService('CC', (isHidding, serviceName, newService) => this.test(isHidding, serviceName, newService));
   }
 
   #click(text) {
     this.operations.showCalculations(text);
+  }
+
+  switchService(service) {
+    this.serviceConvertation.switchService(service);
+  }
+
+  test(bool, serviceName, newService) {
+    this.windowLimit.toggleHide(bool, serviceName, newService);
   }
 
   #changeResult(value) {
