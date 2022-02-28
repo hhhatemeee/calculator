@@ -262,10 +262,21 @@ body{
 
 
   &__header{
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
 
+    span {
+      transform: rotate(45deg);
+      cursor: pointer;
+      font-size: 24px;
+      user-select: none;
+    }
   }
 
   &__info{
+    margin: 0;
+    padding: 0;
     overflow-wrap: anywhere;
   }
 
