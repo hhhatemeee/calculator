@@ -1,9 +1,9 @@
+import declinationNumber from "./declinationNumber.js";
 import { SERVICE_LIST } from "./variables.js";
 
 export default class WindowLimit {
   constructor(callback) {
     this.switchService = callback;
-    this.isLimit = false;
   }
 
   createEl() {
@@ -31,8 +31,8 @@ export default class WindowLimit {
 
       optionList[service].addEventListener('click', () => {
         this.switchService(optionList[service].textContent);
-        windowOverlay.classList.remove('open');
-        windowLimit.classList.remove('open');
+        windowOverlay.classList.remove('open-window');
+        windowLimit.classList.remove('open-window');
       });
     });
 
@@ -58,24 +58,26 @@ export default class WindowLimit {
     windowLimit.id = 'windowLimit';
 
     windowClose.addEventListener('click', () => {
-      windowOverlay.classList.remove('open');
-      windowLimit.classList.remove('open');
+      windowOverlay.classList.remove('open-window');
+      windowLimit.classList.remove('open-window');
     });
 
     windowButton.addEventListener('click', () => {
-      windowOverlay.classList.remove('open');
-      windowLimit.classList.remove('open');
+      windowOverlay.classList.remove('open-window');
+      windowLimit.classList.remove('open-window');
     });
 
     windowTapInfo.addEventListener('click', () => {
-      if (windowInfo.style.display !== 'none') {
-        windowInfo.style.display = 'none';
+      if (windowInfo.style.opacity !== '0') {
+        windowInfo.style.opacity = 0;
+        windowInfo.style.maxHeight = 0;
         windowTapInfo.textContent = 'См. больше...';
 
         return;
       }
 
-      windowInfo.style.display = 'block';
+      windowInfo.style.maxHeight = '100px';
+      windowInfo.style.opacity = 1;
       windowTapInfo.textContent = 'Скрыть контент..';
     });
 
@@ -90,36 +92,44 @@ export default class WindowLimit {
     const windowServiceLine = document.querySelector('.window-limit__service-line');
     const windowTapInfo = document.querySelector('.window-limit__tap-info');
 
-    console.log(serviceListLimit);
     serviceListLimit.forEach((serviceName) => {
       document.querySelector(`.${serviceName}`).disabled = true;
     });
 
-    if (serviceListLimit.length === 3) {
+    if (serviceListLimit.length >= 3) {
       const daysLeftMonth = new Date(new Date().getFullYear(), new Date().getMonth() + 1, 1 - 1)
         .getDate() - new Date().getDate();
 
-      this.isLimit = true;
-      windowTapInfo.style.display = 'block';
-      windowInfo.style.display = 'none';
+      windowInfo.style.opacity = 0;
+      windowInfo.style.maxHeight = 0;
+      windowInfo.style.whiteSpace = 'pre';
+      windowInfo.textContent = '';
 
-      windowOverlay.classList.add('open');
-      windowLimit.classList.add('open');
+      windowTapInfo.style.display = 'block';
+
+      windowOverlay.classList.add('open-window');
+      windowLimit.classList.add('open-window');
 
       windowServiceLine.style.display = 'none';
 
       windowTitle.textContent = 'Достигнут лимит запросов.';
-      windowInfo.textContent = `
-      \r\n Сервис CC будет доступен примерно через ${60 - new Date().getMinutes()} минут. 
-      \r\n Сервис OE будет доступен ${daysLeftMonth ? `через ${daysLeftMonth} дней.` : 'завтра.'}
-      \r\n Сервис FCA будет доступен примерно через ${60 - new Date().getMinutes()} минут. `;
+
+      SERVICE_LIST.forEach((service) => {
+        if (service === 'OE') {
+          windowInfo.textContent += `Сервис ${service}: ${daysLeftMonth ? `${declinationNumber(daysLeftMonth, 'd')}` : 'завтра обновится.'} до обновления. \r\n`;
+
+          return;
+        }
+
+        windowInfo.textContent += `Сервис ${service}: ${declinationNumber(60 - new Date().getMinutes(), 'm')} до обновления. \r\n`;
+      });
 
       return;
     }
 
     if (isHidding && serviceListLimit[serviceListLimit.length - 1]) {
-      windowLimit.classList.add('open');
-      windowOverlay.classList.add('open');
+      windowLimit.classList.add('open-window');
+      windowOverlay.classList.add('open-window');
 
       windowTitle.textContent = 'Лимит запросов у сервиса.';
 
@@ -129,7 +139,7 @@ export default class WindowLimit {
       return;
     }
 
-    windowLimit.classList.remove('open');
+    windowLimit.classList.remove('open-window');
   }
 
   render() {
