@@ -14,7 +14,7 @@ export default class Calculator {
     this.operations = new Operations((value) => this.#changeResult(value));
     this.themeSelector = new ThemeSelector(() => Calculator.#changeTheme());
     this.windowLimit = new WindowLimit((service) => this.switchService(service));
-    this.serviceConvertation = new ConvertationService('CC', (isHidding, serviceName, newService) => this.test(isHidding, serviceName, newService));
+    this.serviceConvertation = new ConvertationService('CC', (isHidding, serviceName) => this.test(isHidding, serviceName));
   }
 
   #click(text) {
@@ -25,8 +25,8 @@ export default class Calculator {
     this.serviceConvertation.switchService(service);
   }
 
-  test(bool, serviceName, newService) {
-    this.windowLimit.toggleHide(bool, serviceName, newService);
+  test(bool, serviceName) {
+    this.windowLimit.toggleHide(bool, serviceName);
   }
 
   #changeResult(value) {

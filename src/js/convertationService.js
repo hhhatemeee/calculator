@@ -27,19 +27,16 @@ export default class ConvertationService {
 
   #checkLimit(service) {
     this.limitList.push(service);
+    console.log(this.limitList);
+    this.hideInfo(true, this.limitList);
 
     SERVICE_LIST.forEach((serv) => {
       if (this.limitList.includes(serv)) {
         return;
       }
 
-      this.hideInfo(true, service, serv);
       this.switchService(serv);
     });
-
-    if (this.limitList.length === 3) {
-      this.hideInfo(true);
-    }
   }
 
   getBasicCurrency() {
@@ -135,10 +132,10 @@ export default class ConvertationService {
     if (this.#currencyList.includes(from)) {
       switch (this.currentService) {
         case 'CC':
-          fetch(`https://free.currconv.com/api/v7/convert?q=${from}_${to}&compact=ultra&apiKey=${this.#apiKey}`)
+          fetch(`https://free.currconv.com/api/v7/convert?q=${from}_${to}&compact=ultra&apiKey=${this.#apiKey}`, { mode: 'no-cors' })
             .then((res) => {
               if (res.status === 200) {
-                this.hideInfo(true, this.currentService);
+                // this.hideInfo(true, this.currentService);
                 return res.json();
               }
               this.#checkLimit(this.currentService);
@@ -166,7 +163,8 @@ export default class ConvertationService {
           fetch(`https://freecurrencyapi.net/api/v2/latest?apikey=${this.#apiKey}&base_currency=${from}`)
             .then((res) => {
               if (res.status === 200) {
-                this.hideInfo(true);
+                this.limitList.push(this.currentService);
+                this.hideInfo(true, this.limitList);
                 return res.json();
               }
 
