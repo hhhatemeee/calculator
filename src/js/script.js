@@ -5,10 +5,6 @@ import declinationNumber from './declinationNumber.js';
 
 document.addEventListener('DOMContentLoaded', () => {
   window.test = new Calculator('test');
-
-  console.log(new Date(new Date().getFullYear(), new Date().getMonth() + 1, 1 - 1)
-    .getDate() - new Date().getDate());
-  console.log(declinationNumber(30, 'h'));
-
+  console.log(declinationNumber(null));
   test.init();
 });

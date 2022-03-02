@@ -1,6 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1646154561168" clover="3.2.0">
-  <project timestamp="1646154561169" name="All files">
-    <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0" elements="0" coveredelements="0" complexity="0" loc="0" ncloc="0" packages="0" files="0" classes="0"/>
+<coverage generated="1646240232693" clover="3.2.0">
+  <project timestamp="1646240232694" name="All files">
+    <metrics statements="28" coveredstatements="25" conditionals="43" coveredconditionals="40" methods="1" coveredmethods="1" elements="72" coveredelements="66" complexity="0" loc="28" ncloc="28" packages="1" files="1" classes="1"/>
+    <file name="declinationNumber.js" path="C:\Users\hatel\Desktop\calculator\src\js\declinationNumber.js">
+      <metrics statements="28" coveredstatements="25" conditionals="43" coveredconditionals="40" methods="1" coveredmethods="1"/>
+      <line num="2" count="15" type="stmt"/>
+      <line num="3" count="15" type="stmt"/>
+      <line num="4" count="15" type="stmt"/>
+      <line num="6" count="15" type="stmt"/>
+      <line num="7" count="15" type="stmt"/>
+      <line num="9" count="15" type="cond" truecount="4" falsecount="0"/>
+      <line num="12" count="5" type="cond" truecount="7" falsecount="0"/>
+      <line num="15" count="1" type="stmt"/>
+      <line num="18" count="4" type="cond" truecount="2" falsecount="0"/>
+      <line num="19" count="2" type="stmt"/>
+      <line num="22" count="2" type="cond" truecount="3" falsecount="1"/>
+      <line num="23" count="2" type="stmt"/>
+      <line num="26" count="0" type="stmt"/>
+      <line num="28" count="3" type="cond" truecount="7" falsecount="0"/>
+      <line num="31" count="1" type="stmt"/>
+      <line num="34" count="2" type="cond" truecount="2" falsecount="0"/>
+      <line num="35" count="1" type="stmt"/>
+      <line num="38" count="1" type="cond" truecount="3" falsecount="1"/>
+      <line num="39" count="1" type="stmt"/>
+      <line num="42" count="0" type="stmt"/>
+      <line num="44" count="3" type="cond" truecount="7" falsecount="0"/>
+      <line num="46" count="1" type="stmt"/>
+      <line num="49" count="2" type="cond" truecount="2" falsecount="0"/>
+      <line num="50" count="1" type="stmt"/>
+      <line num="53" count="1" type="cond" truecount="3" falsecount="1"/>
+      <line num="54" count="1" type="stmt"/>
+      <line num="57" count="0" type="stmt"/>
+      <line num="59" count="4" type="stmt"/>
+    </file>
   </project>
 </coverage>

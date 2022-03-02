@@ -9,7 +9,9 @@ export default function declinationNumber(number, value) {
   switch (value) {
     case 'm':
 
-      if ((absNumber >= 10 && absNumber <= 20) || lastNumber === 0 || lastNumber >= 5 && lastNumber < 10) {
+      if ((absNumber >= 10 && absNumber <= 20)
+        || lastNumber === 0
+        || (lastNumber >= 5 && lastNumber < 10)) {
         return `${number} ${minutesText[2]}`;
       }
 
@@ -23,7 +25,9 @@ export default function declinationNumber(number, value) {
 
       break;
     case 'h':
-      if ((absNumber > 10 && absNumber < 20) || lastNumber === 0) {
+      if ((absNumber > 10 && absNumber < 20)
+        || lastNumber === 0
+        || (lastNumber >= 5 && lastNumber < 10)) {
         return `${number} ${hoursText[2]}`;
       }
 
@@ -37,7 +41,8 @@ export default function declinationNumber(number, value) {
 
       break;
     case 'd':
-      if ((absNumber > 10 && absNumber < 20) || lastNumber === 0) {
+      if ((absNumber > 10 && absNumber < 20) || lastNumber === 0
+        || (lastNumber >= 5 && lastNumber < 10)) {
         return `${number} ${daysText[2]}`;
       }
 

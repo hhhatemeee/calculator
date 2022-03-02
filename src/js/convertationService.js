@@ -25,9 +25,8 @@ export default class ConvertationService {
     return `Вы подключены к ${this.currentService}`;
   }
 
-  #checkLimit(service) {
+  checkLimit(service) {
     this.limitList.push(service);
-    console.log(this.limitList);
     this.hideInfo(true, this.limitList);
 
     SERVICE_LIST.forEach((serv) => {
@@ -54,6 +53,7 @@ export default class ConvertationService {
       return;
     }
 
+    this.#basicCurrency = 'RUB';
     console.warn('Такой валюты нет в списке.\n Используйте метод getCurrencyList() для просмотра валют');
   }
 
@@ -75,12 +75,15 @@ export default class ConvertationService {
           this.#apiKey = API_KEYS.FCA;
           break;
         default:
+          this.#apiKey = API_KEYS.CC;
+          break;
       }
 
       return;
     }
 
-    console.warn(`Укажите сервис, который хотите использовать. Список: ${SERVICE_LIST}`);
+    this.currentService = 'CC';
+    console.warn(`Такого сервиса не существует. Список: ${SERVICE_LIST}`);
   }
 
   /**
@@ -138,7 +141,7 @@ export default class ConvertationService {
                 // this.hideInfo(true, this.currentService);
                 return res.json();
               }
-              this.#checkLimit(this.currentService);
+              this.checkLimit(this.currentService);
             })
             .then((res) => {
               console.log(Object.values(res).toString());
@@ -152,7 +155,7 @@ export default class ConvertationService {
                 return res.json();
               }
 
-              this.#checkLimit(this.currentService);
+              this.checkLimit(this.currentService);
             })
             .then((res) => {
               console.log(res.response);
@@ -168,12 +171,14 @@ export default class ConvertationService {
                 return res.json();
               }
 
-              this.#checkLimit(this.currentService);
+              this.checkLimit(this.currentService);
             })
             .then((res) => {
               Object.keys(res.data).forEach((value) => {
                 if (to === value) {
                   console.log(res.data[value]);
+
+                  return res.data[value];
                 }
               });
             })
