@@ -54,6 +54,7 @@ export default class ConvertationService {
     }
 
     this.#basicCurrency = 'RUB';
+
     console.warn('Такой валюты нет в списке.\n Используйте метод getCurrencyList() для просмотра валют');
   }
 
@@ -95,6 +96,7 @@ export default class ConvertationService {
         fetch(`https://free.currconv.com/api/v7/currencies?apiKey=${this.#apiKey}`)
           .then((res) => res.json())
           .then((res) => {
+
             this.
               this.#currencyList = Object.keys(res.results);
           })
@@ -135,6 +137,7 @@ export default class ConvertationService {
     if (this.#currencyList.includes(from)) {
       switch (this.currentService) {
         case 'CC':
+
           fetch(`https://free.currconv.com/api/v7/convert?q=${from}_${to}&compact=ultra&apiKey=${this.#apiKey}`, { mode: 'no-cors' })
             .then((res) => {
               if (res.status === 200) {
