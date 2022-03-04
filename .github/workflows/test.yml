@@ -20,6 +20,8 @@ jobs:
       
       - name: clean cache
         run: npm cache clean --force  
+      - name: npm install
+        run: npm install
       - name: Run JEST
         uses: stefanoeb/jest-action@1.0.4
         env:
