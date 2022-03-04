@@ -163,7 +163,7 @@ export default class ConvertationService {
             .catch((err) => console.log(err));
           break;
         case 'FCA':
-          fetch(`https://freecurrencyapi.net/api/v2/latest?apikey=${this.#apiKey}&base_currency=${from}`)
+          console.log(fetch(`https://freecurrencyapi.net/api/v2/latest?apikey=${this.#apiKey}&base_currency=${from}`)
             .then((res) => {
               if (res.status === 200) {
                 this.limitList.push(this.currentService);
@@ -174,15 +174,17 @@ export default class ConvertationService {
               this.checkLimit(this.currentService);
             })
             .then((res) => {
+              let result;
               Object.keys(res.data).forEach((value) => {
                 if (to === value) {
                   console.log(res.data[value]);
-
+                  result = res.data[value];
                   return res.data[value];
                 }
               });
+              return result;
             })
-            .catch((err) => console.log(err));
+            .catch((err) => console.log(err)));
           break;
         default:
       }

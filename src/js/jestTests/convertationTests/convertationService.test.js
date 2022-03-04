@@ -2,24 +2,43 @@ import ConvertationService from '../../convertationService';
 import { MOCK_CURRENCY, SERVICE_LIST } from '../../variables';
 
 describe('convertation service test', () => {
-  const service = new ConvertationService('CC');
+  const service = new ConvertationService('FCA');
   let MOCK_CUR;
   let MOCK_SERVICES;
 
-  jest.mock('../../convertationService');
+  // jest.mock('../../convertationService');
+
+  // const mockGetConvertation = jest.spyOn(service, 'getConvertation');
 
   beforeAll(() => {
-    window.fetch = jest.fn(() => {
-      Promise.resolve({
-        json: () => Promise.resolve({ data: { USD: 12.23 } }),
-      });
-    });
+    window.fetch = jest.fn(() => Promise.resolve({
+      ok: true,
+      status: 200,
+      json: () => Promise.resolve({
+        data: {
+          USD: 12.23,
+        },
+      }),
+    }));
   });
 
   beforeEach(() => {
     MOCK_CUR = MOCK_CURRENCY;
     MOCK_SERVICES = SERVICE_LIST;
   });
+
+  afterEach(() => {
+    // mockGetConvertation.mockReturnValue(12.13);
+  });
+
+  // it('test', async () => {
+  //   // service.hideInfo.mockReturnValue(12);
+  //   service.switchService('FCA');
+  //   console.log(service.currentService, 123123123123123123123123123123);
+  //   const rate = await service.getConvertation('USD');
+  //   console.log(service.getConvertation);
+  //   expect(service.hideInfo).toBeCalledTimes(1);
+  // });
 
   test('setBasicCurrency test', () => {
     MOCK_CUR.forEach((val) => {
