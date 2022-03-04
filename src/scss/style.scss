@@ -264,8 +264,31 @@ body{
 
 }
 
+.link {
+  opacity: 0;
+  max-width: 0px;
+  height: 0;
+  display: inline-flex;
+  text-decoration: none;
+  transition: all .218s ease 0s;
+  padding: 0;
+  margin: 0;
+  background-color: $btn-white-color;
+}
+
+.link-open{
+  opacity: 1;
+  max-width: 300px;
+  height: 18px;
+  margin: 0 5px;
+  // box-shadow: 1px 1px 3px 0px rgb($btn-dark-light-color, 0.4);
+  border-radius: 3px;
+  border: 1px solid rgba($btn-dark-light-color,0.4);
+  padding: 3px 5px;
+}
 .window-limit{
   max-height: 300px;
+  padding: 0 20px 7px 20px !important;
   width: 350px;
   border-radius: 15px;
   background-color: $btn-white-color;
@@ -287,6 +310,19 @@ body{
     }
   }
 
+  &__link{
+    position: relative;
+    cursor: pointer;
+
+    &:hover{
+      color:rgba($bg-dark, 0.6);
+    }
+
+    &:active{
+      color:rgba($bg-dark, 0.8);
+    }
+  }
+
   &__tap-info{
     cursor: pointer;
     margin-bottom: 5px;
@@ -305,12 +341,14 @@ body{
     padding: 0;
     transition: all .218s ease 0s;
     white-space:initial;
+
+    
   }
 
   &__service-line{
     display: flex;
     justify-content: space-around;
-    margin-bottom: 15px;
+    margin-bottom: 5px;
     margin-top: 10px;
   }
 
@@ -319,7 +357,7 @@ body{
     color: $color-black;
     text-decoration: none;
     user-select: none;
-    padding: .2em 1.2em;
+    padding: 5px 15px;
     outline: none;
     border: 1px solid rgba($color-black,.1);
     border-radius: 2px;
@@ -339,9 +377,10 @@ body{
     }
 
     &:disabled{
-    border: 1px solid rgba($color-black,.1);
-    background: rgba($notification-btn, 0.2);
-    box-shadow: none;
+      cursor: not-allowed;
+      border: 1px solid rgba($color-black,.1);
+      background: rgba($notification-btn, 0.2);
+      box-shadow: none;
     }
   }
 
@@ -355,8 +394,9 @@ body{
     margin: 5px 0 10px 0;
     color: $color-black;
     text-decoration: none;
+    font-size: 15px;
     user-select: none;
-    padding: .2em 1.2em;
+    padding: 6px 25px;
     outline: none;
     border: 1px solid rgba($color-black,.1);
     border-radius: 2px;

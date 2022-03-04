@@ -34,9 +34,9 @@ describe('convertation service test', () => {
   // it('test', async () => {
   //   // service.hideInfo.mockReturnValue(12);
   //   service.switchService('FCA');
-  //   console.log(service.currentService, 123123123123123123123123123123);
+
   //   const rate = await service.getConvertation('USD');
-  //   console.log(service.getConvertation);
+
   //   expect(service.hideInfo).toBeCalledTimes(1);
   // });
 

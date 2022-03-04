@@ -136,6 +136,12 @@ const MOCK_BTN = [
 
 const SERVICE_LIST = ['CC', 'OE', 'FCA'];
 
+const SERVICE_URL = {
+  CC: 'currencyconverterapi.com',
+  OE: 'openexchangerates.org',
+  FCA: 'freecurrencyapi.net',
+};
+
 const API_KEYS = {
   CC: '5fee4e51914caeb5c4c2',
   OE: '5df5a54c19b1495cbfa595eb8b707e43',
@@ -155,4 +161,5 @@ export {
   MOCK_CURRENCY,
   API_KEYS,
   SERVICE_LIST,
+  SERVICE_URL,
 };

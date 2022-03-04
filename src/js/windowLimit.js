@@ -1,5 +1,5 @@
 import declinationNumber from "./declinationNumber.js";
-import { SERVICE_LIST } from "./variables.js";
+import { SERVICE_LIST, SERVICE_URL } from "./variables.js";
 
 export default class WindowLimit {
   constructor(callback) {
@@ -37,7 +37,13 @@ export default class WindowLimit {
     });
 
     windowOverlay.append(windowLimit);
-    windowLimit.append(windowHeader, windowTapInfo, windowInfo, windowServiceLine, windowButtonLine);
+    windowLimit.append(
+      windowHeader,
+      windowTapInfo,
+      windowInfo,
+      windowServiceLine,
+      windowButtonLine,
+    );
     windowButtonLine.append(windowButton);
     windowHeader.append(windowTitle, windowClose);
 
@@ -94,6 +100,7 @@ export default class WindowLimit {
 
     serviceListLimit.forEach((serviceName) => {
       document.querySelector(`.${serviceName}`).disabled = true;
+      document.querySelector(`.${serviceName}`).style.display = 'none';
     });
 
     if (serviceListLimit.length >= 3) {
@@ -133,8 +140,20 @@ export default class WindowLimit {
 
       windowTitle.textContent = 'Лимит запросов у сервиса.';
 
-      windowInfo.textContent = `Сервис "${serviceListLimit[serviceListLimit.length - 1]}" превысил лимит, вы автоматически будете переключены на другой.
-      \n Или можете выбрать сами:`;
+      windowInfo.innerHTML = `Сервис "<a class="window-limit__link">${serviceListLimit[serviceListLimit.length - 1]}</a>"
+      <a class="link" href="https://${SERVICE_URL[serviceListLimit[serviceListLimit.length - 1]]}">
+      ${SERVICE_URL[serviceListLimit[serviceListLimit.length - 1]]} 
+      </a>
+      превысил лимит, вы автоматически будете переключены на другой. Или можете выбрать сами:`;
+
+      windowInfo.querySelector('a').addEventListener('click', () => {
+        if (windowInfo.querySelector('.link').classList.contains('link-open')) {
+          windowInfo.querySelector('.link').classList.remove('link-open');
+
+          return;
+        }
+        windowInfo.querySelector('.link').classList.add('link-open');
+      });
 
       return;
     }
