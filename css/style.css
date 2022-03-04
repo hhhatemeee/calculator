@@ -290,8 +290,31 @@ body {
   transition: 0.3s ease-in;
 }
 
+.link {
+  opacity: 0;
+  max-width: 0px;
+  height: 0;
+  display: inline-flex;
+  text-decoration: none;
+  transition: all 0.218s ease 0s;
+  padding: 0;
+  margin: 0;
+  background-color: #ffff;
+}
+
+.link-open {
+  opacity: 1;
+  max-width: 300px;
+  height: 18px;
+  margin: 0 5px;
+  border-radius: 3px;
+  border: 1px solid rgba(78, 80, 95, 0.4);
+  padding: 3px 5px;
+}
+
 .window-limit {
   max-height: 300px;
+  padding: 0 20px 7px 20px !important;
   width: 350px;
   border-radius: 15px;
   background-color: #ffff;
@@ -309,6 +332,16 @@ body {
   cursor: pointer;
   font-size: 24px;
   user-select: none;
+}
+.window-limit__link {
+  position: relative;
+  cursor: pointer;
+}
+.window-limit__link:hover {
+  color: rgba(23, 23, 28, 0.6);
+}
+.window-limit__link:active {
+  color: rgba(23, 23, 28, 0.8);
 }
 .window-limit__tap-info {
   cursor: pointer;
@@ -329,7 +362,7 @@ body {
 .window-limit__service-line {
   display: flex;
   justify-content: space-around;
-  margin-bottom: 15px;
+  margin-bottom: 5px;
   margin-top: 10px;
 }
 .window-limit__service {
@@ -337,7 +370,7 @@ body {
   color: #000;
   text-decoration: none;
   user-select: none;
-  padding: 0.2em 1.2em;
+  padding: 5px 15px;
   outline: none;
   border: 1px solid rgba(0, 0, 0, 0.1);
   border-radius: 2px;
@@ -355,6 +388,7 @@ body {
   background: #a05cfa linear-gradient(#a05cfa, rgba(121, 77, 179, 0.4));
 }
 .window-limit__service:disabled {
+  cursor: not-allowed;
   border: 1px solid rgba(0, 0, 0, 0.1);
   background: rgba(98, 115, 243, 0.2);
   box-shadow: none;
@@ -368,8 +402,9 @@ body {
   margin: 5px 0 10px 0;
   color: #000;
   text-decoration: none;
+  font-size: 15px;
   user-select: none;
-  padding: 0.2em 1.2em;
+  padding: 6px 25px;
   outline: none;
   border: 1px solid rgba(0, 0, 0, 0.1);
   border-radius: 2px;
