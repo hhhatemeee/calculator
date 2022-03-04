@@ -5,6 +5,6 @@ import declinationNumber from './declinationNumber.js';
 
 document.addEventListener('DOMContentLoaded', () => {
   window.test = new Calculator('test');
-  console.log(declinationNumber(null));
+  console.log(declinationNumber(3, 'asasdasdas'));
   test.init();
 });

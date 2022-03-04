@@ -150,6 +150,12 @@ const API_KEYS = {
 
 const MOCK_CURRENCY = ['USD', 'RUB', 'EUR', 'KYD', 'COP', 'BND', 'ALL', 'XCD', 'EUR', 'BBD', 'BTN', 'BND', 'XAF', 'CUP', 'USD', 'FKP', 'GIP', 'HUF', 'IRR', 'JMD', 'AUD', 'LAK'];
 
+const MOCK_TIME = {
+  MINUTE: ['минута', 'минуты', 'минут'],
+  HOUR: ['час', 'часа', 'часов'],
+  DAY: ['день', 'дня', 'дней'],
+};
+
 export {
   TimePeriods,
   ConvertTimeinMinutes,
@@ -162,4 +168,5 @@ export {
   API_KEYS,
   SERVICE_LIST,
   SERVICE_URL,
+  MOCK_TIME,
 };

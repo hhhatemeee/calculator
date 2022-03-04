@@ -13,8 +13,7 @@ export default class Calculator {
     this.keyBoard = new KeyBoard({ callBack: (text) => this.#click(text) });
     this.operations = new Operations((value) => this.#changeResult(value));
     this.themeSelector = new ThemeSelector(() => Calculator.#changeTheme());
-    this.windowLimit = new WindowLimit((service) => this.switchService(service));
-    this.serviceConvertation = new ConvertationService('CC', (isHidding, serviceName) => this.test(isHidding, serviceName));
+    this.serviceConvertation = new ConvertationService('CC', (isHidding, serviceName) => this.showWindow(isHidding, serviceName));
   }
 
   #click(text) {
@@ -25,8 +24,14 @@ export default class Calculator {
     this.serviceConvertation.switchService(service);
   }
 
-  test(bool, serviceName) {
-    this.windowLimit.toggleHide(bool, serviceName);
+  showWindow(bool, serviceName) {
+    this.windowLimit = new WindowLimit((service) => this.switchService(service));
+
+    if (!document.getElementById(this.windowLimit.render().id)) {
+      document.getElementById('calc').append(this.windowLimit.render());
+    }
+
+    setTimeout(() => this.windowLimit.toggleHide(bool, serviceName), 0);
   }
 
   #changeResult(value) {
@@ -74,8 +79,7 @@ export default class Calculator {
     document.getElementById('toggleSelector').before(this.themeSelector.render());
     this.operations.render().map((element) => document.getElementById('calculationContainer').append(element));
     document.getElementById('screen').append(this.display.render());
-    document.getElementById('calc').append(this.windowLimit.render());
-    this.serviceConvertation.getConvertation('USD');
+    // this.serviceConvertation.getConvertation('USD');
     this.keyBoard.render().forEach((btn) => {
       document.getElementById('calcButtons').append(btn);
     });

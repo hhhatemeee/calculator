@@ -1,5 +1,5 @@
 import declinationNumber from "./declinationNumber.js";
-import { SERVICE_LIST, SERVICE_URL } from "./variables.js";
+import { MOCK_TIME, SERVICE_LIST, SERVICE_URL } from "./variables.js";
 
 export default class WindowLimit {
   constructor(callback) {
@@ -61,6 +61,7 @@ export default class WindowLimit {
     windowServiceLine.className = 'window-limit__service-line';
     windowLimit.className = 'window-limit';
     windowOverlay.className = 'window-overlay';
+    windowOverlay.id = 'windowOverlay';
     windowLimit.id = 'windowLimit';
 
     windowClose.addEventListener('click', () => {
@@ -123,12 +124,14 @@ export default class WindowLimit {
 
       SERVICE_LIST.forEach((service) => {
         if (service === 'OE') {
-          windowInfo.textContent += `Сервис ${service}: ${daysLeftMonth ? `${declinationNumber(daysLeftMonth, 'd')}` : 'завтра обновится.'} до обновления. \r\n`;
+          windowInfo.textContent += `Сервис ${service}: ${daysLeftMonth
+            ? `${declinationNumber(daysLeftMonth, MOCK_TIME.DAY)}`
+            : 'завтра обновится.'} до обновления. \r\n`;
 
           return;
         }
 
-        windowInfo.textContent += `Сервис ${service}: ${declinationNumber(60 - new Date().getMinutes(), 'm')} до обновления. \r\n`;
+        windowInfo.textContent += `Сервис ${service}: ${declinationNumber(60 - new Date().getMinutes(), MOCK_TIME.MINUTE)} до обновления. \r\n`;
       });
 
       return;

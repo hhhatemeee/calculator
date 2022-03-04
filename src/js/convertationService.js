@@ -11,14 +11,10 @@ export default class ConvertationService {
   #basicCurrency = 'RUB';
 
   constructor(serviceName = 'CC', props) {
-    if (typeof window.service === 'object') {
-      return window.service;
-    }
     this.hideInfo = props;
-
     this.limitList = [];
     this.currentService = serviceName;
-    window.service = this;
+    window.service = window.service || this;
   }
 
   checkService() {
@@ -96,9 +92,7 @@ export default class ConvertationService {
         fetch(`https://free.currconv.com/api/v7/currencies?apiKey=${this.#apiKey}`)
           .then((res) => res.json())
           .then((res) => {
-
-            this.
-              this.#currencyList = Object.keys(res.results);
+            this.#currencyList = Object.keys(res.results);
           })
           .catch((err) => console.log(err));
 
