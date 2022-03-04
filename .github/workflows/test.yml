@@ -17,6 +17,9 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
+      
+      - name: clean cache
+        run: npm cache clean --force  
       - name: Run JEST
         uses: stefanoeb/jest-action@1.0.4
         env:
