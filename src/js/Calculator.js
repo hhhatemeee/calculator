@@ -79,7 +79,7 @@ export default class Calculator {
     document.getElementById('toggleSelector').before(this.themeSelector.render());
     this.operations.render().map((element) => document.getElementById('calculationContainer').append(element));
     document.getElementById('screen').append(this.display.render());
-    // this.serviceConvertation.getConvertation('USD');
+
     this.keyBoard.render().forEach((btn) => {
       document.getElementById('calcButtons').append(btn);
     });

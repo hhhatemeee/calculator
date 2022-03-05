@@ -1,5 +1,5 @@
 export default function get(props, requiredField, defaultValue) {
-  if ((!props && !requiredField)) {
+  if (!props && !requiredField) {
     console.warn('Аргументы не могут быть пустыми');
 
     return 0;

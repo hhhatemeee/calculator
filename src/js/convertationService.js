@@ -21,7 +21,7 @@ export default class ConvertationService {
     return `Вы подключены к ${this.currentService}`;
   }
 
-  checkLimit(service) {
+  #checkLimit(service) {
     this.limitList.push(service);
     this.hideInfo(true, this.limitList);
 
@@ -138,7 +138,7 @@ export default class ConvertationService {
                 // this.hideInfo(true, this.currentService);
                 return res.json();
               }
-              this.checkLimit(this.currentService);
+              this.#checkLimit(this.currentService);
             })
             .then((res) => {
               console.log(Object.values(res).toString());
@@ -152,7 +152,7 @@ export default class ConvertationService {
                 return res.json();
               }
 
-              this.checkLimit(this.currentService);
+              this.#checkLimit(this.currentService);
             })
             .then((res) => {
               console.log(res.response);
@@ -168,7 +168,7 @@ export default class ConvertationService {
                 return res.json();
               }
 
-              this.checkLimit(this.currentService);
+              this.#checkLimit(this.currentService);
             })
             .then((res) => {
               let result;
