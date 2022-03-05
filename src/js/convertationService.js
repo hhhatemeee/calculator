@@ -17,7 +17,15 @@ export default class ConvertationService {
     window.service = window.service || this;
   }
 
+  getServiceList() {
+    console.log(`Список доступных сервисов: ${SERVICE_LIST.join(', ')}`);
+
+    return `Список доступных сервисов: ${SERVICE_LIST.join(', ')}`;
+  }
+
   checkService() {
+    console.log(`Вы подключены к ${this.currentService}`);
+
     return `Вы подключены к ${this.currentService}`;
   }
 
