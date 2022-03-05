@@ -1,10 +1,10 @@
 import Calculator from './Calculator.js';
-import ConvertationService from './convertationService.js'
+import convertationService from './convertationService.js';
+import WindowLimit from './windowLimit.js';
+import declinationNumber from './declinationNumber.js';
 
 document.addEventListener('DOMContentLoaded', () => {
-  (new Calculator('test')).init();
-
-  window.createService = () => {
-    window.service = new ConvertationService();
-  };
+  window.test = new Calculator('test');
+  console.log(declinationNumber(3, 'asasdasdas'));
+  test.init();
 });

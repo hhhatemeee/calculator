@@ -10,12 +10,36 @@ export default class ConvertationService {
 
   #basicCurrency = 'RUB';
 
-  constructor(serviceName = 'CC') {
+  constructor(serviceName = 'CC', props) {
+    this.hideInfo = props;
+    this.limitList = [];
     this.currentService = serviceName;
+    window.service = window.service || this;
+  }
+
+  getServiceList() {
+    console.log(`Список доступных сервисов: ${SERVICE_LIST.join(', ')}`);
+
+    return `Список доступных сервисов: ${SERVICE_LIST.join(', ')}`;
   }
 
   checkService() {
+    console.log(`Вы подключены к ${this.currentService}`);
+
     return `Вы подключены к ${this.currentService}`;
+  }
+
+  #checkLimit(service) {
+    this.limitList.push(service);
+    this.hideInfo(true, this.limitList);
+
+    SERVICE_LIST.forEach((serv) => {
+      if (this.limitList.includes(serv)) {
+        return;
+      }
+
+      this.switchService(serv);
+    });
   }
 
   getBasicCurrency() {
@@ -32,6 +56,8 @@ export default class ConvertationService {
 
       return;
     }
+
+    this.#basicCurrency = 'RUB';
 
     console.warn('Такой валюты нет в списке.\n Используйте метод getCurrencyList() для просмотра валют');
   }
@@ -54,12 +80,15 @@ export default class ConvertationService {
           this.#apiKey = API_KEYS.FCA;
           break;
         default:
+          this.#apiKey = API_KEYS.CC;
+          break;
       }
 
       return;
     }
 
-    console.warn(`Укажите сервис, который хотите использовать. Список: ${SERVICE_LIST}`);
+    this.currentService = 'CC';
+    console.warn(`Такого сервиса не существует. Список: ${SERVICE_LIST}`);
   }
 
   /**
@@ -110,28 +139,57 @@ export default class ConvertationService {
     if (this.#currencyList.includes(from)) {
       switch (this.currentService) {
         case 'CC':
-          fetch(`https://free.currconv.com/api/v7/convert?q=${from}_${to}&compact=ultra&apiKey=${this.#apiKey}`)
-            .then((res) => res.json())
-            .then((res) => console.log(Object.values(res).toString()))
+
+          fetch(`https://free.currconv.com/api/v7/convert?q=${from}_${to}&compact=ultra&apiKey=${this.#apiKey}`, { mode: 'no-cors' })
+            .then((res) => {
+              if (res.status === 200) {
+                // this.hideInfo(true, this.currentService);
+                return res.json();
+              }
+              this.#checkLimit(this.currentService);
+            })
+            .then((res) => {
+              console.log(Object.values(res).toString());
+            })
             .catch((err) => console.log(err));
           break;
         case 'OE':
           fetch(`https://openexchangerates.org/api/convert/1/${to}/${from}?app_id=${this.#apiKey}`)
-            .then((res) => res.json())
-            .then((res) => console.log(res.response))
+            .then((res) => {
+              if (res.status === 200) {
+                return res.json();
+              }
+
+              this.#checkLimit(this.currentService);
+            })
+            .then((res) => {
+              console.log(res.response);
+            })
             .catch((err) => console.log(err));
           break;
         case 'FCA':
-          fetch(`https://freecurrencyapi.net/api/v2/latest?apikey=${this.#apiKey}&base_currency=${from}`)
-            .then((res) => res.json())
+          console.log(fetch(`https://freecurrencyapi.net/api/v2/latest?apikey=${this.#apiKey}&base_currency=${from}`)
             .then((res) => {
+              if (res.status === 200) {
+                this.limitList.push(this.currentService);
+                this.hideInfo(true, this.limitList);
+                return res.json();
+              }
+
+              this.#checkLimit(this.currentService);
+            })
+            .then((res) => {
+              let result;
               Object.keys(res.data).forEach((value) => {
                 if (to === value) {
                   console.log(res.data[value]);
+                  result = res.data[value];
+                  return res.data[value];
                 }
               });
+              return result;
             })
-            .catch((err) => console.log(err));
+            .catch((err) => console.log(err)));
           break;
         default:
       }

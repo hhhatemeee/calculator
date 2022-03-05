@@ -1,4 +1,10 @@
 export default function get(props, requiredField, defaultValue) {
+  if (!props && !requiredField) {
+    console.warn('Аргументы не могут быть пустыми');
+
+    return 0;
+  }
+
   const getTypeProps = typeof props;
 
   const processData = Array.isArray(requiredField) ? requiredField : requiredField.split('.');

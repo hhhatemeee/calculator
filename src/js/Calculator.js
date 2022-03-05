@@ -3,6 +3,8 @@ import KeyBoard from './Buttons/keyBoad.js';
 import ThemeSelector from './themeSelector.js';
 import Operations from './operations.js';
 import splittingNumber from './splittingNumber.js';
+import WindowLimit from './windowLimit.js';
+import ConvertationService from './convertationService.js';
 
 export default class Calculator {
   constructor(selector) {
@@ -11,10 +13,25 @@ export default class Calculator {
     this.keyBoard = new KeyBoard({ callBack: (text) => this.#click(text) });
     this.operations = new Operations((value) => this.#changeResult(value));
     this.themeSelector = new ThemeSelector(() => Calculator.#changeTheme());
+    this.serviceConvertation = new ConvertationService('CC', (isHidding, serviceName) => this.showWindow(isHidding, serviceName));
   }
 
   #click(text) {
     this.operations.showCalculations(text);
+  }
+
+  switchService(service) {
+    this.serviceConvertation.switchService(service);
+  }
+
+  showWindow(bool, serviceName) {
+    this.windowLimit = new WindowLimit((service) => this.switchService(service));
+
+    if (!document.getElementById(this.windowLimit.render().id)) {
+      document.getElementById('calc').append(this.windowLimit.render());
+    }
+
+    setTimeout(() => this.windowLimit.toggleHide(bool, serviceName), 0);
   }
 
   #changeResult(value) {
