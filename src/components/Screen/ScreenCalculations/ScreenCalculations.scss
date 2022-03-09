@@ -1,0 +1,63 @@
+@import "../../../scss/variables.scss";
+@import "../../../scss/icons.scss";
+@import "../../../scss/fonts.scss";
+
+.calc-screen__calculations {
+  // display: flex;
+  // overflow-wrap: anywhere;
+  position: relative;
+  top:20px;
+  // overflow-x: scroll;
+  font-size: 25px;
+  text-align: right;
+  color: rgba($color: #000000, $alpha: 0.4);
+  max-width: 330px;
+  flex: 0 0 100%;
+  height: 47px;
+  margin: 0;
+  padding: 0;
+  // margin-left: auto;
+  user-select: none;
+  // align-items: flex-end;
+  // justify-content: flex-end;
+
+  &-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+}
+
+.calc-screen__btn-right, .calc-screen__btn-left{
+  height: 30px;
+  visibility: hidden;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 20px;
+  color: rgba($btn-blue-color, 0.7);
+  user-select: none;
+
+}
+
+.calc-screen__btn-right:hover, .calc-screen__btn-left:hover{
+  filter: brightness(0.3);
+  background-color: rgba($btn-light-gray-color,0.1);
+}
+
+
+.calc-screen__btn-right{
+  // padding-left: 10px;
+  position: relative;
+  top: 10px;
+  left:-1px;
+}
+
+.calc-screen__btn-left{
+  // padding-left: 10px;
+  position: relative;
+  top: 10px;
+  left:2px;
+}

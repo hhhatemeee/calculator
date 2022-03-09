@@ -1,0 +1,76 @@
+@import "../../scss/variables.scss";
+@import "../../scss/icons.scss";
+@import "../../scss/fonts.scss";
+
+.theme {
+  display: flex;
+  justify-content: center;
+
+  &__container {
+    box-sizing: border-box;
+    display: flex;
+    margin-top: 60px;
+
+    .checkbox {
+      opacity: 0;
+      position: absolute;
+    }
+  }
+
+  &__selector {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    width: 72px;
+    height: 32px;
+    background-color: #fff;
+    border-radius: 16px;
+    position: relative;
+    cursor: pointer;
+
+    &_theme_dark {
+      background-color: $btn-dark-color;
+    }
+
+    i {
+      font-size: 20px;
+      color: $btn-blue-color;
+    }
+  }
+
+  &__select {
+    display: flex;
+    align-self: center;
+
+    a {
+      :hover {
+        filter: brightness(0.6);
+      }
+    }
+  }
+
+  &__ball {
+    width: 24px;
+    height: 24px;
+    position: absolute;
+    top: 4px;
+    left: 41px;
+    border-radius: 50%;
+    background-color: $btn-light-gray-color;
+    transition: transform 0.2s linear;
+
+    &_theme_dark {
+      background-color: $btn-dark-light-color;
+    }
+  }
+}
+
+.icon-moon-1{
+  text-shadow:
+0 0 7px rgba(255, 255, 255, 0),
+0 0 10px rgba(0, 204, 255, 0.774),
+}
+
+.checkbox:checked + .theme__selector .theme__ball {
+  transform: translateX(-35px);
+}

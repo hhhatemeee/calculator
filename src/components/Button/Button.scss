@@ -1,0 +1,123 @@
+@import "../../scss/variables.scss";
+@import "../../scss/icons.scss";
+@import "../../scss/fonts.scss";
+
+
+.btn {
+  cursor: pointer;
+  font-size: 32px;
+  font-weight: normal;
+  border-radius: 24px;
+  width: 72px;
+  height: 72px;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+  display: flex;
+  background-color: #fff;
+  justify-content: center;
+  align-items: center;
+  user-select: none;
+
+  &_theme_dark-light {
+    color: $btn-white-color;
+    background-color: $btn-dark-light-color !important;
+  }
+
+  &_theme_dark {
+    background-color: $btn-dark-color;
+    color: $btn-white-color;
+    border: white;
+  }
+
+  &__plus-minus {
+    position: relative;
+    transform: rotate(10deg);
+  }
+
+  &__delete {
+    height: 15px;
+    width: 20px;
+    position: relative;
+    border-top: 2px solid #000000;
+    border-bottom: 2px solid #000000;
+    :before {
+      content: "";
+      left: 16px;
+      position: absolute;
+      top: -1px;
+      height: 18px;
+      width: 0px;
+      border-right: 2px solid #000000;
+      transform: rotate(-45deg);
+    }
+
+    :after {
+      content: "";
+      left: -4px;
+      top: 16px;
+      position: absolute;
+      height: 11px;
+      width: 11px;
+      border-left: 2px solid #000000;
+      border-bottom: 2px solid #000000;
+      transform: rotate(0deg);
+    }
+
+    &_theme_dark {
+      border-color: $btn-white-color;
+
+      ::after {
+        border-color: $btn-white-color;
+      }
+
+      ::before {
+        border-color: $btn-white-color;
+      }
+    }
+
+    span {
+      font-size: 27px;
+      position: absolute;
+      top: -9px;
+      left: 0px;
+      transform: rotate(45deg);
+    }
+  }
+
+  &_bg {
+    &_gray {
+      background-color: $btn-light-gray-color;
+    }
+
+    &_blue {
+      background-color: $btn-blue-color;
+      color: $btn-white-color;
+    }
+  }
+}
+
+.btn:hover {
+  filter: brightness(0.9);
+}
+.btn:active {
+  filter: brightness(0.8);
+}
+
+.btn__plus-minus:before {
+  content: "+";
+  font-size: 24px;
+  transform: rotate(-10deg);
+  left: -10px;
+  position: absolute;
+}
+
+.btn__plus-minus:after {
+  content: "-";
+  font-size: 26px;
+  transform: rotate(-10deg);
+  left: 9px;
+  top: 7px;
+  position: absolute;
+}
+
