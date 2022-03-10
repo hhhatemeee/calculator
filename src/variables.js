@@ -1,0 +1,3 @@
+const OPERATORS = ['×', '÷', '-', '+'];
+
+export { OPERATORS };

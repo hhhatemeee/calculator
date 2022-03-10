@@ -1,16 +1,13 @@
 import React from 'react'
+import { OPERATORS } from '../../variables';
 import './Button.scss';
 
 const Button = (props) => {
-  const onClick = () => {
-    props.clickBtn(props.btnValue);
-  }
-
   return (
     <div
       className={`btn ${props.btnName} ${props.btnColor}`}
       dangerouslySetInnerHTML={{ __html: props.btnText }}
-      onClick={onClick}
+      onClick={props.onClick}
     >
     </div>
   )
