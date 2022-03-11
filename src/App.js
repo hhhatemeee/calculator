@@ -1,27 +1,16 @@
 import './App.scss';
 import ThemeSelector from './components/ThemeSelector/ThemeSelector';
 import { connect } from 'react-redux';
-import KeyBoardContainer from './components/KeyBoard/KeyBoardContainer';
 import ScreenContainer from './components/Screen/ScreenContainer';
+import CalcDelegation from './CalcDelegation';
 
 function App(props) {
-
-  console.log(props.themeSelector);
   return (
     <div className='calc'>
       <ThemeSelector />
-      <div className='calc__container'>
-        <ScreenContainer />
-        <KeyBoardContainer />
-      </div>
+      <CalcDelegation />
     </div>
   );
 }
 
-let mapStateToProps = (state) => {
-  return {
-    themeSelector: state.themeSelector
-  }
-}
-
-export default connect(mapStateToProps)(App);
+export default App;

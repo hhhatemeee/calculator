@@ -170,8 +170,8 @@ const ButtonContainer = (props) => {
     }
   };
 
-  const onClick = () => {
-    let element = props.btnValue;
+  const func = (value) => {
+    let element = value;
 
     switch (element) {
       case 'reset':
@@ -332,7 +332,7 @@ const ButtonContainer = (props) => {
       // calculationScreenResult.style.fontSize = '96px';
     }
     console.log(props.calculations);
-  };
+  }
 
   return (
     <Button
@@ -340,7 +340,7 @@ const ButtonContainer = (props) => {
       btnColor={props.btnColor}
       btnText={props.btnText}
       btnValue={props.btnValue}
-      onClick={onClick} />
+      onClick={props.onClick} />
   )
 }
 

@@ -65,6 +65,17 @@ body{
   }
 }
 
+::-webkit-scrollbar {
+  // width: 335px;
+  display: none;
+  height: 10px;
+  width: 10px;
+  // background-color: #143861;
+  // padding-left: 1000px;
+  // visibility: none;
+}
+
+
 @media screen and (min-width: 721px) and (max-width: 1024px) {
   body {
     margin: 0;
