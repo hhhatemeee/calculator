@@ -1,5 +1,17 @@
 @import "./scss/variables.scss";
 @import "./scss/fonts.scss";
+@import './scss/themable.scss';
+
+@include themable(
+  calc_theme_dark,
+  #17171c,
+  rgba($btn-white-color, 0.4),
+  $btn-white-color,
+  $btn-dark-color,
+  $btn-white-color,
+  $btn-dark-light-color,
+  $btn-blue-color
+);
 
 * {
   font-family: "Work Sans", sans-serif;
@@ -12,14 +24,17 @@ body{
   // background-color: black;
 }
 
-
 .calc {
   width: 375px;
   height: 812px;
-  background: $bg-light-color;
+  background-color: $bg-light-color;
   font-family: "Work Sans";
   margin: 0 auto;
   transition: 0.1s ease-in;
+
+  &_theme_dark {
+    background-color: $bg-dark;
+  }
 
   &__container {
     padding: 55px 20px;

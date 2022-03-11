@@ -1,0 +1,67 @@
+@mixin themable(
+  $theme-name,
+  $calc-bg,
+  $calculation-color,
+  $result-color,
+  $btn-bg,
+  $btn-color,
+  $btn-gray-color,
+  $btn-blue-color
+) {
+  .#{$theme-name} {
+    .calc {
+      background-color: $calc-bg;
+
+      &-screen {
+        &__calculations {
+          color: rgba($calculation-color, 0.4);
+        }
+
+        &__result {
+          color: $result-color;
+        }
+
+        &__btn-right:hover, &__btn-left:hover{
+          filter: brightness(1.2);
+          background-color: rgba($btn-light-gray-color,0.1);
+        }
+      }
+
+      &-buttons {
+        .btn {
+          background-color: $btn-bg;
+          color: $btn-color;
+          border: $btn-color;
+
+          &__delete {
+            border-color: $btn-color;
+
+            ::after,
+            ::before {
+              border-color: $btn-color;
+            }
+          }
+
+          &_bg {
+            &_gray {
+              background-color: $btn-gray-color;
+            }
+            &_blue {
+              background-color: $btn-blue-color;
+            }
+          }
+        }
+      }
+    }
+
+    .theme {
+      &__selector {
+        background-color: $btn-bg;
+      }
+
+      &__ball {
+        background-color: $btn-gray-color;
+      }
+    }
+  }
+}

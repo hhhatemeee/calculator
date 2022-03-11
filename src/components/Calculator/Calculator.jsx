@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from 'react'
-import { connect } from 'react-redux';
-import { OPERATORS } from '../../variables';
+import React from 'react';
+
 import KeyBoard from '../KeyBoard/KeyBoard';
 import ScreenContainer from '../Screen/ScreenContainer'
 

@@ -1,5 +1,5 @@
 import React from 'react'
-import { OPERATORS } from '../../variables';
+
 import './Button.scss';
 
 const Button = (props) => {

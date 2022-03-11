@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
+
 import splittingNumber from '../../helpers/splittingNumber';
 import { OPERATORS } from '../../variables';
 import Calculator from './Calculator';
@@ -41,9 +42,7 @@ const CalculatorContainer = (props) => {
 
 
     if (history && history.length > 21) {
-      console.log(history);
       setShown(true);
-      console.log(history.length);
       return;
     }
 
@@ -142,20 +141,26 @@ const CalculatorContainer = (props) => {
 
         switch (operation) {
           case '+':
-            setResult(result + prevNumber);
+            res = result + prevNumber
+            setResult(res);
             break;
           case '-':
-            setResult(result - prevNumber);
+            res = result - prevNumber;
+            setResult(res);
             break;
           case '÷':
-            setResult(result / prevNumber);
+            res = result / prevNumber;
+            setResult(res);
             break;
           case '×':
-            setResult(result * prevNumber);
+            res = result * prevNumber;
+            setResult(res);
             break;
           default:
             setResult(result);
         }
+
+        setCurrentNumber(0);
 
         // if (this.result > 10 ** 10) {
         //   this.result = this.result.toExponential(15);
@@ -192,22 +197,27 @@ const CalculatorContainer = (props) => {
 
             switch (element) {
               case '+':
-                setResult(prevNumber + percentNumber);
+                res = prevNumber + percentNumber;
+                setResult(res);
                 break;
               case '×':
-                setResult(prevNumber * percentNumber);
+                res = prevNumber * percentNumber;
+                setResult(res);
                 break;
               case '÷':
-                setResult(prevNumber / percentNumber);
+                res = prevNumber / percentNumber;
+                setResult(res);
                 break;
               case '-':
-                setResult(prevNumber - percentNumber);
+                res = prevNumber - percentNumber;
+                setResult(res);
                 break;
               default:
             }
 
             if (res.toString().length >= 5) {
               const resLength = splittingNumber(res).length;
+              console.log(splittingNumber(res).length);
               getFontSize(resLength);
             }
 
@@ -277,6 +287,8 @@ const CalculatorContainer = (props) => {
       default:
         element = value;
     }
+
+    setFontSize(96);
 
     if (curNumLength >= 5) {
       getFontSize(curNumLength);
@@ -394,7 +406,8 @@ const CalculatorContainer = (props) => {
       curNum = 0;
 
       setCurrentNumber(0);
-      getFontSize(splittingNumber(preNum).length);
+      console.log(splittingNumber(res).length);
+      getFontSize(splittingNumber(res).length);
       setHistory(`${preNum}`);
     }
 
