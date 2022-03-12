@@ -6,28 +6,48 @@ import ConvertationService from './services/convertationService';
 
 import './App.scss';
 
-
-// console.log(convertationService);
-
 function App() {
   const [darkMode, setDarkMode] = useState(false);
-  // console.log(fetch('https://currencyapi.com/api/v2/latest?apikey=c9a07820-85c3-11ec-a180-d59bc7ad8635&base_currency=USD')
-  //   .then(res => res.json()).then(res => console.log(res.data)));
+  const [showWindow, setShowWindow] = useState(false);
+  const [renderWindow, setRenderWindow] = useState(false);
+  const [servicesLimit, setServicesLimit] = useState([])
+
+  const handleShowWindow = (isShow, listLimit) => {
+    if (listLimit) {
+      setRenderWindow(isShow);
+      setTimeout(() => setShowWindow(isShow), 0);
+      setServicesLimit(listLimit)
+
+      return;
+    }
+    setShowWindow(isShow);
+  };
+
+  useEffect(() => {
+    window.convertationService = new ConvertationService('CC', (isShow, listLimit) => handleShowWindow(isShow, listLimit));
+  }, [])
+
+  const handleSwitchService = (service) => {
+    window.convertationService.switchService(service);
+  }
+
   const handleTheme = (isToggle) => {
     setDarkMode(isToggle);
   }
 
-  useEffect(() => {
-    const convertationService = new ConvertationService('CC');
-
-  }, [])
-
   return (
     <div className={`calc${darkMode ? ' calc_theme_dark' : ''}`}>
       <ThemeSelector darkMode={darkMode} onChange={handleTheme} />
-      <CalcDelegation />
+      <CalcDelegation
+        showWindow={showWindow}
+        renderWindow={renderWindow}
+        listLimit={servicesLimit}
+        onCLick={handleShowWindow}
+        switchService={handleSwitchService}
+      />
     </div>
   );
 }
 
 export default App;
+

@@ -27,6 +27,20 @@ export default class ConvertationService {
 
   #basicCurrency = 'RUB';
 
+  showWindow() {
+    this.limitList.push(this.currentService);
+    this.hideInfo(true, this.limitList);
+
+    this.#MOCK.SERVICE_LIST.forEach((serv) => {
+      if (this.limitList.includes(serv)) {
+        return;
+      }
+
+      this.switchService(serv);
+    });
+
+  }
+
   getServiceList() {
     console.log(`Список доступных сервисов: ${this.#MOCK.SERVICE_LIST.join(', ')}`);
 
@@ -150,10 +164,12 @@ export default class ConvertationService {
       switch (this.currentService) {
         case 'CC':
 
-          fetch(`https://free.currconv.com/api/v7/convert?q=${from}_${to}&compact=ultra&apiKey=${this.#apiKey}`, { mode: 'no-cors' })
+          fetch(`https://free.currconv.com/api/v7/convert?q=${from}_${to}&compact=ultra&apiKey=${this.#apiKey}`)
             .then((res) => {
               if (res.status === 200) {
                 // this.hideInfo(true, this.currentService);
+                this.hideInfo(true);
+
                 return res.json();
               }
 
@@ -180,18 +196,14 @@ export default class ConvertationService {
             .catch((err) => console.log(err));
           break;
         case 'FCA':
-          fetch(`https://freecurrencyapi.net/api/v2/latest?apikey=${this.#apiKey}&base_currency=${from}`, {
-            headers: {
-              'Access-Control-Allow-Origin': '*',
-            },
-          })
+          fetch(`https://freecurrencyapi.net/api/v2/latest?apikey=${this.#apiKey}&base_currency=${from}`)
             .then((res) => {
               if (res.status === 200) {
                 // this.limitList.push(this.currentService);
-                // this.hideInfo(true, this.limitList);
                 return res.json();
               }
-              console.log(res);
+              this.hideInfo(true);
+
               // this.#checkLimit(this.currentService);
             })
             .then((res) => {
