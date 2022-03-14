@@ -1,7 +1,7 @@
 import React from 'react';
 
 import KeyBoard from '../KeyBoard/KeyBoard';
-import ScreenContainer from '../Screen/ScreenContainer'
+import ScreenContainer from '../Screen/ScreenContainer';
 
 const Calculator = (props) => {
   return (

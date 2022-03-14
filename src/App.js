@@ -5,26 +5,36 @@ import CalcDelegation from './CalcDelegation';
 import ConvertationService from './services/convertationService';
 
 import './App.scss';
+import { connect } from 'react-redux';
+import { setCurrencyListCreator } from './redux/convertationReducer';
 
-function App() {
+function App(props) {
   const [darkMode, setDarkMode] = useState(false);
   const [showWindow, setShowWindow] = useState(false);
   const [renderWindow, setRenderWindow] = useState(false);
-  const [servicesLimit, setServicesLimit] = useState([])
+  const [servicesLimit, setServicesLimit] = useState([]);
+  const [infoUrl, setInfoUrl] = useState('');
 
-  const handleShowWindow = (isShow, listLimit) => {
+  const handleShowWindow = (isShow, listLimit, url) => {
     if (listLimit) {
       setRenderWindow(isShow);
       setTimeout(() => setShowWindow(isShow), 0);
-      setServicesLimit(listLimit)
+      setServicesLimit(listLimit);
+      setInfoUrl(url);
 
       return;
     }
+
+    setInfoUrl(url);
     setShowWindow(isShow);
   };
 
   useEffect(() => {
-    window.convertationService = new ConvertationService('CC', (isShow, listLimit) => handleShowWindow(isShow, listLimit));
+    window.convertationService = new ConvertationService(
+      'CC',
+      (isShow, listLimit, url) => handleShowWindow(isShow, listLimit, url),
+      props.setCurrencyList,
+    );
   }, [])
 
   const handleSwitchService = (service) => {
@@ -44,10 +54,25 @@ function App() {
         listLimit={servicesLimit}
         onCLick={handleShowWindow}
         switchService={handleSwitchService}
+        url={infoUrl}
       />
     </div>
   );
 }
 
-export default App;
+const mapStateToProps = (state) => {
+  return {
+    convertation: state.convertation,
+  }
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    setCurrencyList: (list) => {
+      dispatch(setCurrencyListCreator(list))
+    },
+  }
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
 

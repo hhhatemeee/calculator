@@ -19,6 +19,20 @@ const CalculatorContainer = (props) => {
     operations(value);
   }
 
+  const errorHandler = () => {
+    if (Number.isNaN(currentNumber)) {
+      setCurrentNumber(0);
+    }
+
+    if (Number.isNaN(result)) {
+      setResult('Ошибка');
+    }
+
+    if (Number.isNaN(prevNumber)) {
+      setprevNumber(0);
+    }
+  }
+
   const getFontSize = (num, history) => {
     let size = (22.6122 - num) / 0.2388;
 
@@ -38,6 +52,10 @@ const CalculatorContainer = (props) => {
       size = 27;
     }
 
+    if (num === 'Деление на 0 невозможно') {
+      size = 42;
+    }
+
     setFontSize(size)
 
 
@@ -51,7 +69,6 @@ const CalculatorContainer = (props) => {
   }
 
   const calculating = (value, num1, num2) => {
-    console.log(num1, num2);
     const calcStory = (num1.toString() + num2.toString());
     const storyArr = calcStory.slice(0, calcStory.includes('=') || calcStory.includes('%')
       ? calcStory.length - 1
@@ -96,10 +113,11 @@ const CalculatorContainer = (props) => {
               break;
             case '÷':
               if (nextNumber === 0) {
-                setResult('Деление на 0 невозможно');
-                // this.showResult(this.result);
+                res = 'Деление на 0 невозможно'
+                setResult(res);
                 break;
               }
+
               setResult(Math.floor((prevNumber / nextNumber) * 10 ** 16) / 10 ** 16);
               res = Math.floor((prevNumber / nextNumber) * 10 ** 16) / 10 ** 16
               break;
@@ -111,7 +129,7 @@ const CalculatorContainer = (props) => {
               setResult(0);
           }
 
-          // this.#errorHandler();
+          errorHandler();
 
           if (res > 10 ** 10) {
             setResult(res.toExponential(15));
@@ -121,12 +139,17 @@ const CalculatorContainer = (props) => {
           setHistory(his);
           setCurrentNumber(0);
           setprevNumber(nextNumber);
-          console.log(nextNumber);
           setOperation(element);
         }
       });
 
+
       if (res.toString().length >= 5) {
+        if (typeof res === 'string') {
+          getFontSize(res);
+          return;
+        }
+
         const resLength = splittingNumber(res).length;
         getFontSize(resLength)
       }
@@ -136,7 +159,6 @@ const CalculatorContainer = (props) => {
       }
 
       if (res && num2 === '') {
-        console.log(123);
         setHistory(`${result}${operation}${prevNumber}=`);
 
         switch (operation) {
@@ -162,9 +184,9 @@ const CalculatorContainer = (props) => {
 
         setCurrentNumber(0);
 
-        // if (this.result > 10 ** 10) {
-        //   this.result = this.result.toExponential(15);
-        // }
+        if (res > 10 ** 10) {
+          res = res.toExponential(15);
+        }
       }
 
       return;
@@ -217,12 +239,10 @@ const CalculatorContainer = (props) => {
 
             if (res.toString().length >= 5) {
               const resLength = splittingNumber(res).length;
-              console.log(splittingNumber(res).length);
               getFontSize(resLength);
             }
 
-            // this.#errorHandler();
-            // this.showResult(this.result);
+            errorHandler();
             setCurrentNumber(0);
             setprevNumber(0);
             setHistory(`${prevNumber}${element}${percentNumber}=`);
@@ -243,7 +263,6 @@ const CalculatorContainer = (props) => {
       setprevNumber(0);
     }
 
-    console.log(storyArr);
   }
 
   const operations = (value) => {
@@ -253,8 +272,6 @@ const CalculatorContainer = (props) => {
     let res = result;
 
     const curNumLength = splittingNumber(curNum).length;
-
-    console.log(splittingNumber(curNum));
 
     switch (element) {
       case 'reset':
@@ -365,8 +382,6 @@ const CalculatorContainer = (props) => {
       || element === '=') {
       setCurrentNumber(`${curNum + element}`);
       curNum = `${curNum + element}`;
-
-      console.log(curNum);
     }
 
     if (element === '=' && preNum === 0) {
@@ -387,7 +402,7 @@ const CalculatorContainer = (props) => {
         preNum = preNum.slice(0, preNum.length - 1);
         preNum += curNum;
         setprevNumber(preNum);
-        // this.#errorHandler();
+        errorHandler();
 
         setHistory(preNum);
         curNum = 0;
@@ -406,13 +421,12 @@ const CalculatorContainer = (props) => {
       curNum = 0;
 
       setCurrentNumber(0);
-      console.log(splittingNumber(res).length);
       getFontSize(splittingNumber(res).length);
       setHistory(`${preNum}`);
     }
 
     if (OPERATORS.includes(element) && Number(res !== 0)) {
-      // this.#errorHandler();
+      errorHandler();
       setHistory(res + element);
     }
     if (element === '=' || element === '%') {
@@ -443,7 +457,7 @@ const CalculatorContainer = (props) => {
     <Calculator
       buttonList={props.buttonList}
       currentNumber={splittingNumber(currentNumber)}
-      result={splittingNumber(result)}
+      result={typeof result === 'number' ? splittingNumber(result) : result}
       history={history}
       fontSize={fontSize}
       isShown={isShow}

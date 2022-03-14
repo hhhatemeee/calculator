@@ -1,8 +1,12 @@
-export default class ConvertationService {
-  constructor(serviceName = 'CC', props) {
-    this.hideInfo = props;
+import { connect } from "react-redux";
+
+class ConvertationService {
+  constructor(serviceName = 'CC', hideInfo, setCurrencyList) {
+    this.hideInfo = hideInfo;
     this.limitList = [];
+    this.setCurrencyList = setCurrencyList;
     this.currentService = serviceName;
+
     window.service = window.service || this;
   }
 
@@ -29,7 +33,7 @@ export default class ConvertationService {
 
   showWindow() {
     this.limitList.push(this.currentService);
-    this.hideInfo(true, this.limitList);
+    this.hideInfo(true, this.limitList, this.#MOCK.SERVICE_URL[this.currentService]);
 
     this.#MOCK.SERVICE_LIST.forEach((serv) => {
       if (this.limitList.includes(serv)) {
@@ -124,15 +128,17 @@ export default class ConvertationService {
         fetch(`https://free.currconv.com/api/v7/currencies?apiKey=${this.#apiKey}`)
           .then((res) => res.json())
           .then((res) => {
+            this.setCurrencyList(Object.keys(res.results))
             this.#currencyList = Object.keys(res.results);
           })
           .catch((err) => console.log(err));
 
         break;
       case 'FCA':
-        fetch(`https://freecurrencyapi.net/api/v2/latest?apikey=${this.#apiKey}`)
+        fetch(`https://cors-anywhere.herokuapp.com/https://freecurrencyapi.net/api/v2/latest?apikey=${this.#apiKey}`)
           .then((res) => res.json())
           .then((res) => {
+            this.setCurrencyList(Object.keys(res.data))
             this.#currencyList = Object.keys(res.data);
           })
           .catch((err) => console.log(err));
@@ -142,6 +148,7 @@ export default class ConvertationService {
         fetch(`https://openexchangerates.org/api/latest.json?app_id=${this.#apiKey}`)
           .then((res) => res.json())
           .then((res) => {
+            this.setCurrencyList(Object.keys(res.rates))
             this.#currencyList = Object.keys(res.rates);
           })
           .catch((err) => console.log(err));
@@ -196,7 +203,7 @@ export default class ConvertationService {
             .catch((err) => console.log(err));
           break;
         case 'FCA':
-          fetch(`https://freecurrencyapi.net/api/v2/latest?apikey=${this.#apiKey}&base_currency=${from}`)
+          fetch(`https://cors-anywhere.herokuapp.com/https://freecurrencyapi.net/api/v2/latest?apikey=${this.#apiKey}&base_currency=${from}`)
             .then((res) => {
               if (res.status === 200) {
                 // this.limitList.push(this.currentService);
@@ -230,3 +237,4 @@ export default class ConvertationService {
   }
 }
 
+export default ConvertationService;

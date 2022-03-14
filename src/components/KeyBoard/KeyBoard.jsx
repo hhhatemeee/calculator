@@ -1,5 +1,7 @@
 import React from 'react'
+
 import Button from '../Button/Button';
+
 import './KeyBoard.scss';
 
 const KeyBoard = (props) => {

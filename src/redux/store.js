@@ -1,12 +1,13 @@
 import { combineReducers, createStore } from "redux";
+
 import buttonsReducer from "./buttonsReducer";
-import caclculationsReducer from "./calculationsReducer";
+import convertationReducer from "./convertationReducer";
 import themeReducer from './themeReducer';
 
 let reducers = combineReducers({
   themeSelector: themeReducer,
-  calculations: caclculationsReducer,
   buttonList: buttonsReducer,
+  convertation: convertationReducer,
 });
 
 let store = createStore(reducers);

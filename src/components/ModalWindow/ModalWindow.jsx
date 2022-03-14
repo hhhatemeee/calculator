@@ -1,10 +1,11 @@
-import React, { useRef, useState } from 'react'
+import React, { useState } from 'react'
 import declinationNumber from '../../helpers/declinationNumber';
 
 import './ModalWindow.scss';
 
 
 const ModalWindow = (props) => {
+  console.log(props.url);
   const SERVICE_LIST = ['CC', 'OE', 'FCA'];
   const MOCK_TIME = {
     MINUTE: ['минута', 'минуты', 'минут'],
@@ -66,7 +67,7 @@ const ModalWindow = (props) => {
             : <>
               <p className='window-limit__info'>
                 Сервис <a onClick={handleShowUrl} className='window-limit__link'>"{props.listLimit.at(-1)}" </a>
-                <a className={`link ${showUrl ? 'link-open' : ''}`} href={`https://${props.serviceUrl}`}>currencyconverterapi.com</a>
+                <a className={`link ${showUrl ? 'link-open' : ''}`} href={`https://${props.url}`}>{props.url}</a>
                 превысил лимит, вы автоматически будете переключены на другой. Или можете выбрать сами:
               </p>
               <div className='window-limit__service-line'>
