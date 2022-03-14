@@ -1,12 +1,14 @@
 import { useEffect, useState } from 'react';
+import { connect } from 'react-redux';
+import cn from 'classnames';
+import PropTypes from 'prop-types';
 
 import ThemeSelector from './components/ThemeSelector/ThemeSelector';
 import CalcDelegation from './CalcDelegation';
 import ConvertationService from './services/convertationService';
+import { setCurrencyListCreator } from './redux/convertationReducer';
 
 import './App.scss';
-import { connect } from 'react-redux';
-import { setCurrencyListCreator } from './redux/convertationReducer';
 
 function App(props) {
   const [darkMode, setDarkMode] = useState(false);
@@ -32,38 +34,36 @@ function App(props) {
   useEffect(() => {
     window.convertationService = new ConvertationService(
       'CC',
-      (isShow, listLimit, url) => handleShowWindow(isShow, listLimit, url),
+      handleShowWindow,
       props.setCurrencyList,
     );
-  }, [])
+  }, []);
 
-  const handleSwitchService = (service) => {
-    window.convertationService.switchService(service);
-  }
+  const handleSwitchService = (service) => window.convertationService.switchService(service);
 
-  const handleTheme = (isToggle) => {
-    setDarkMode(isToggle);
-  }
+  const handleTheme = (isToggle) => setDarkMode(isToggle);
 
   return (
-    <div className={`calc${darkMode ? ' calc_theme_dark' : ''}`}>
+    <div className={cn('calc', { calc_theme_dark: darkMode })}>
       <ThemeSelector darkMode={darkMode} onChange={handleTheme} />
       <CalcDelegation
         showWindow={showWindow}
         renderWindow={renderWindow}
         listLimit={servicesLimit}
-        onCLick={handleShowWindow}
+        onClick={handleShowWindow}
         switchService={handleSwitchService}
         url={infoUrl}
       />
-    </div>
+    </div >
   );
 }
 
-const mapStateToProps = (state) => {
-  return {
-    convertation: state.convertation,
-  }
+App.propTypes = {
+  setCurrencyList: PropTypes.func,
+};
+
+App.defaultProp = {
+  setCurrencyList: () => console.log('Не указана функция setCurrencyList'),
 };
 
 const mapDispatchToProps = (dispatch) => {
@@ -74,5 +74,5 @@ const mapDispatchToProps = (dispatch) => {
   }
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default connect(mapDispatchToProps)(App);
 

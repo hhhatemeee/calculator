@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
 import splittingNumber from '../../helpers/splittingNumber';
 import { OPERATORS } from '../../variables';
@@ -455,7 +456,7 @@ const CalculatorContainer = (props) => {
 
   return (
     <Calculator
-      buttonList={props.buttonList}
+      buttons={props.buttons}
       currentNumber={splittingNumber(currentNumber)}
       result={typeof result === 'number' ? splittingNumber(result) : result}
       history={history}
@@ -468,8 +469,16 @@ const CalculatorContainer = (props) => {
 
 const mapStateToProps = (state) => {
   return {
-    buttonList: state.buttonList,
+    buttons: state.buttonList,
   };
+};
+
+CalculatorContainer.propTypes = {
+  buttons: PropTypes.array,
+};
+
+CalculatorContainer.defaultProp = {
+  buttons: [],
 };
 
 

@@ -1,3 +1,2 @@
-const OPERATORS = ['×', '÷', '-', '+'];
+export const OPERATORS = ['×', '÷', '-', '+'];
 
-export { OPERATORS };

@@ -8,7 +8,7 @@ let initialState = [
   {
     name: 'btn_plus-minus',
     color: 'btn_bg_gray',
-    text: '<span class="btn__plus-minus">/</span>',
+    text: <span className="btn__plus-minus">/</span>,
     value: 'plus-minus',
   },
   {
@@ -110,7 +110,7 @@ let initialState = [
   {
     name: 'btn_delete',
     color: ' ',
-    text: '<div class="btn__delete" id="btnDelete"><span>+</span></div>',
+    text: <div className="btn__delete" id="btnDelete"><span>+</span></div>,
     value: 'delete',
   },
   {

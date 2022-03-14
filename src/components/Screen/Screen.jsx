@@ -1,4 +1,5 @@
-import React from 'react'
+import React from 'react';
+import PropTypes from 'prop-types';
 
 import ScreenCalculations from './ScreenCalculations/ScreenCalculations';
 
@@ -16,6 +17,22 @@ const Screen = (props) => {
       </p>
     </div>
   )
+}
+
+Screen.propTypes = {
+  isShow: PropTypes.bool,
+  history: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+  currentNumber: PropTypes.string,
+  result: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+  fontSize: PropTypes.number,
+}
+
+Screen.defaultProp = {
+  isShow: false,
+  history: '0',
+  currentNumber: '0',
+  result: 0,
+  fontSize: 96,
 }
 
 export default Screen

@@ -1,35 +1,25 @@
-import React, { useState } from 'react'
-import declinationNumber from '../../helpers/declinationNumber';
+import React, { useState } from 'react';
+import PropTypes from 'prop-types';
+import cn from 'classnames';
+
+import AllServiceLimit from './AllServiceLimit';
+import ServiceLimit from './ServiceLimit';
 
 import './ModalWindow.scss';
 
-
 const ModalWindow = (props) => {
-  console.log(props.url);
   const SERVICE_LIST = ['CC', 'OE', 'FCA'];
-  const MOCK_TIME = {
-    MINUTE: ['минута', 'минуты', 'минут'],
-    HOUR: ['час', 'часа', 'часов'],
-    DAY: ['день', 'дня', 'дней'],
-  };
-  const daysLeftMonth = new Date(new Date().getFullYear(), new Date().getMonth() + 1, 1 - 1)
-    .getDate() - new Date().getDate();
-
   const [showInfo, setShowInfo] = useState(false);
   const [showUrl, setShowUrl] = useState(false);
 
-  const handleClick = () => {
-    setShowInfo(!showInfo);
-  }
+  const handleClick = () => setShowInfo(!showInfo);
 
   const handleCloseWindow = () => {
     props.onClick(false);
     setShowUrl(false);
   }
 
-  const handleShowUrl = () => {
-    setShowUrl(!showUrl);
-  }
+  const handleShowUrl = () => setShowUrl(!showUrl);
 
   const switchService = (e) => {
     props.switchService(e.target.innerText);
@@ -38,53 +28,28 @@ const ModalWindow = (props) => {
   }
 
   return (
-    <div className={`window-overlay ${props.showWindow ? 'open-window' : ''}`}>
-      <div className={`window-limit ${props.showWindow ? 'open-window' : ''}`}>
+    <div className={cn('window-overlay', { 'open-window': props.showWindow })}>
+      <div className={cn('window-limit', { 'open-window': props.showWindow })}>
         <div className='window-limit__header'>
-          <h4 className='window-limit__title'>{props.listLimit.length >= 3 ? 'Достигнут лимит запров' : 'Лимит запросов у сервиса'}</h4>
+          <h4 className='window-limit__title'>
+            {props.listLimit.length >= 3 ? 'Достигнут лимит запров' : 'Лимит запросов у сервиса'}
+          </h4>
           <span onClick={handleCloseWindow}>+</span>
         </div>
         {
           props.listLimit.length >= 3
-            ? <>
-              <a onClick={handleClick} className='window-limit__tap-info'>{showInfo ? 'Скрыть контент..' : 'См. больше...'}</a>
-              <p
-                className='window-limit__info'
-                style={showInfo ? { whiteSpace: 'pre', opacity: 1, maxHeight: '100px' } : { whiteSpace: 'pre', opacity: 0, maxHeight: 0 }}
-              >
-                {SERVICE_LIST.map((service) => {
-                  if (service === 'OE') {
-                    return `Cервис ${service}: ${daysLeftMonth
-                      ? `${declinationNumber(daysLeftMonth, MOCK_TIME.DAY)} до обновления`
-                      : 'завтра обновится.'}.\r\n`
-                  }
-
-                  return `Сервис ${service}: ${declinationNumber(60 - new Date().getMinutes(), MOCK_TIME.MINUTE)} до обновления. \r\n`
-                })
-                }
-              </p>
-            </>
-            : <>
-              <p className='window-limit__info'>
-                Сервис <a onClick={handleShowUrl} className='window-limit__link'>"{props.listLimit.at(-1)}" </a>
-                <a className={`link ${showUrl ? 'link-open' : ''}`} href={`https://${props.url}`}>{props.url}</a>
-                превысил лимит, вы автоматически будете переключены на другой. Или можете выбрать сами:
-              </p>
-              <div className='window-limit__service-line'>
-                {SERVICE_LIST.map((service) => {
-                  if (props.listLimit.includes(service)) {
-                    return;
-                  }
-                  return <button
-                    onClick={switchService}
-                    key={service}
-                    className={`window-limit__service ${service}`}
-                  >
-                    {service}
-                  </button>
-                })}
-              </div>
-            </>
+            ? <AllServiceLimit
+              showInfo={showInfo}
+              handleClick={handleClick}
+              SERVICE_LIST={SERVICE_LIST} />
+            : <ServiceLimit
+              handleShowUrl={handleShowUrl}
+              showUrl={showUrl}
+              SERVICE_LIST={SERVICE_LIST}
+              switchService={switchService}
+              listLimit={props.listLimit}
+              url={props.url}
+            />
         }
         <div className='window-limit__button-line'>
           <button className='window-limit__button' onClick={handleCloseWindow}>OK</button>
@@ -94,4 +59,20 @@ const ModalWindow = (props) => {
   )
 }
 
-export default ModalWindow
+ModalWindow.propTypes = {
+  listLimit: PropTypes.array,
+  url: PropTypes.string,
+  showWindow: PropTypes.bool,
+  onClick: PropTypes.func,
+  switchService: PropTypes.func,
+};
+
+ModalWindow.defaultProp = {
+  listLimit: [],
+  url: '',
+  showWindow: false,
+  onClick: () => console.log('Не указана функция onClick'),
+  switchService: () => console.log('Не указана функция switchService'),
+};
+
+export default ModalWindow;
