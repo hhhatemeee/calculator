@@ -9,6 +9,7 @@ import ConvertationService from './services/convertationService';
 import { setCurrencyListCreator } from './redux/convertationReducer';
 
 import './App.scss';
+import ChangesTypesContainer from './components/ChangeTypes/ChangesTypesContainer';
 
 function App(props) {
   const [darkMode, setDarkMode] = useState(false);
@@ -46,6 +47,7 @@ function App(props) {
   return (
     <div className={cn('calc', { calc_theme_dark: darkMode })}>
       <ThemeSelector darkMode={darkMode} onChange={handleTheme} />
+      <ChangesTypesContainer />
       <CalcDelegation
         showWindow={showWindow}
         renderWindow={renderWindow}
