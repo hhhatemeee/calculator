@@ -1,7 +1,7 @@
 const SET_CURRENCY_LIST = 'SET_CURRENCY_LIST';
 
 const initialState = {
-  currencyList: ['USD', 'RUB', 'EUR', 'KYD', 'COP', 'BND', 'ALL', 'XCD', 'EUR', 'BBD', 'BTN', 'BND', 'XAF', 'CUP', 'USD', 'FKP', 'GIP', 'HUF', 'IRR', 'JMD', 'AUD', 'LAK'],
+  currencyList: ['RUB', 'EUR', 'KYD', 'COP', 'ALL', 'XCD', 'BBD', 'BTN', 'BND', 'XAF', 'CUP', 'USD', 'FKP', 'GIP', 'HUF', 'IRR', 'JMD', 'AUD', 'LAK'],
 };
 
 const convertationReducer = (state = initialState, action) => {

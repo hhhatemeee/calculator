@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import CalculatorContainer from './components/Calculator/CalculatorContainer';
 import ModalWindow from './components/ModalWindow/ModalWindow';
 import HomePage from './components/HomePage/HomePage';
+import ConverterContainer from './components/Converter/ConverterContainer';
 
 const CalcDelegation = (props) => {
   let calculator;
@@ -11,6 +12,9 @@ const CalcDelegation = (props) => {
   switch (props.currentType) {
     case 'Standart':
       calculator = <CalculatorContainer />;
+      break;
+    case 'Currency':
+      calculator = <ConverterContainer />;
       break;
     default:
       calculator = <HomePage setCurrentType={props.setCurrentType} />
