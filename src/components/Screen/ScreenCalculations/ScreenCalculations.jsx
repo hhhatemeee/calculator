@@ -7,6 +7,7 @@ const ScreenCalculations = ({
   isShown,
   history,
 }) => {
+
   const historyRef = useRef(null);
 
   return (

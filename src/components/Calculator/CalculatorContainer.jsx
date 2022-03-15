@@ -37,6 +37,12 @@ const CalculatorContainer = (props) => {
   const getFontSize = (num, history) => {
     let size = (22.6122 - num) / 0.2388;
 
+    if (history && history.length > 22) {
+      setShown(true);
+    } else {
+      setShown(false);
+    }
+
     if (num >= 9) {
       size = (22.4433 - num) / 0.2497;
     }
@@ -58,15 +64,6 @@ const CalculatorContainer = (props) => {
     }
 
     setFontSize(size)
-
-
-    if (history && history.length > 21) {
-      setShown(true);
-      return;
-    }
-
-    setShown(false);
-
   }
 
   const calculating = (value, num1, num2) => {
@@ -76,9 +73,8 @@ const CalculatorContainer = (props) => {
       : calcStory.length)
       .split('');
 
-    let res = result;
+    let res = Number(result);
     let his = history;
-
 
     if (value === '=') {
       let isOperation = false;
@@ -91,7 +87,7 @@ const CalculatorContainer = (props) => {
         }
 
         if ((OPERATORS.includes(element) && !isOperation) || element === '=') {
-          let prevNumber = result ? result : Number(storyArr.slice(0, i).join(''));
+          let prevNumber = result ? res : Number(storyArr.slice(0, i).join(''));
           let nextNumber = storyArr.slice(i + 1).length === 0 ? prevNumber : Number(storyArr.slice(i + 1).join(''));
 
           isOperation = true;
@@ -105,89 +101,81 @@ const CalculatorContainer = (props) => {
 
           switch (element) {
             case '+':
-              setResult(prevNumber + nextNumber);
               res = prevNumber + nextNumber
               break;
             case '-':
-              setResult(prevNumber - nextNumber);
               res = prevNumber - nextNumber
               break;
             case '÷':
               if (nextNumber === 0) {
                 res = 'Деление на 0 невозможно'
-                setResult(res);
                 break;
               }
+              res = (prevNumber / nextNumber);
 
-              setResult(Math.floor((prevNumber / nextNumber) * 10 ** 16) / 10 ** 16);
-              res = Math.floor((prevNumber / nextNumber) * 10 ** 16) / 10 ** 16
               break;
             case '×':
-              setResult(prevNumber * nextNumber);
               res = prevNumber * nextNumber
               break;
             default:
-              setResult(0);
+              res = 0;
           }
+
 
           errorHandler();
 
-          if (res > 10 ** 10) {
+          if (Number(res) > 10 ** 10) {
             setResult(res.toExponential(15));
           }
 
           his = `${prevNumber}${element}${nextNumber}=`;
-          setHistory(his);
           setCurrentNumber(0);
+          setHistory(his);
           setprevNumber(nextNumber);
           setOperation(element);
         }
       });
 
-
-      if (res.toString().length >= 5) {
-        if (typeof res === 'string') {
-          getFontSize(res);
-          return;
-        }
-
-        const resLength = splittingNumber(res).length;
-        getFontSize(resLength)
-      }
-
-      if (his.toString().length >= 5) {
-        getFontSize(his.toString().length, his)
-      }
-
       if (res && num2 === '') {
-        setHistory(`${result}${operation}${prevNumber}=`);
+        his = `${result}${operation}${prevNumber}=`;
+        setHistory(his);
 
         switch (operation) {
           case '+':
             res = result + prevNumber
-            setResult(res);
             break;
           case '-':
             res = result - prevNumber;
-            setResult(res);
             break;
           case '÷':
             res = result / prevNumber;
-            setResult(res);
             break;
           case '×':
             res = result * prevNumber;
-            setResult(res);
             break;
           default:
-            setResult(result);
+            res = result;
+        }
+      }
+
+      setCurrentNumber(0);
+
+      if (res > 10 ** 15) {
+        res = res.toExponential(15);
+      }
+
+      res.toString().includes('e') ? res = Number(res).toPrecision(13) : res = Number(res);
+
+      setResult(res);
+
+      if (res.toString().length >= 5) {
+        if (typeof res === 'string') {
+          getFontSize(res, his);
+          return;
         }
 
-        setCurrentNumber(0);
-
-        if (res > 10 ** 10) {
-          res = res.toExponential(15);
-        }
+        const resLength = splittingNumber(res).length;
+        getFontSize(resLength, his);
       }
 
       return;
@@ -452,13 +440,11 @@ const CalculatorContainer = (props) => {
     }
   }
 
-
-
   return (
     <Calculator
       buttons={props.buttons}
       currentNumber={splittingNumber(currentNumber)}
-      result={typeof result === 'number' ? splittingNumber(result) : result}
+      result={(typeof result == 'number' && result !== Infinity) ? splittingNumber(result) : result}
       history={history}
       fontSize={fontSize}
       isShown={isShow}
