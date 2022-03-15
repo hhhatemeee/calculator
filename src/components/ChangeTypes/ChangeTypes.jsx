@@ -15,16 +15,19 @@ const ChangeTypes = (props) => {
   }
 
   return (
-    <div className='menu__container'>
-      <label className={cn({ 'label-open': showMenu })} onClick={handleShowMenu}>
+    <div className='menu'>
+      <div className={cn('menu__btn', { 'btn_open': showMenu })} onClick={handleShowMenu}>
         <span></span>
-      </label>
-      <div className={cn('menu', { 'menu-open': showMenu })}>
-        {Object.keys(props.calcTypes).map((type) => <CalculationList
-          key={type}
-          name={type}
-          list={props.calcTypes[type]}
-          setCurrentType={props.setCurrentType} />)}
+      </div>
+      <div className={cn('menu__container', { 'menu__container_open': showMenu })}>
+        <div className={cn('menu-list', { 'menu-list_open': showMenu })}>
+          {Object.keys(props.calcTypes).map((type) => <CalculationList
+            key={type}
+            name={type}
+            list={props.calcTypes[type]}
+            setCurrentType={props.setCurrentType}
+            currentType={props.currentType} />)}
+        </div>
       </div>
     </div>
   )
@@ -33,10 +36,12 @@ const ChangeTypes = (props) => {
 ChangeTypes.propTypes = {
   calcTypes: PropTypes.object,
   setCurrentType: PropTypes.func,
+  currentType: PropTypes.string,
 };
 
 ChangeTypes.defaultProp = {
   calcTypes: {},
+  currentType: '',
   setCurrentType: () => console.log('Не определена функция setCurrentType'),
 };
 

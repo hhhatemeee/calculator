@@ -6,7 +6,11 @@
   $btn-bg,
   $btn-color,
   $btn-gray-color,
-  $btn-blue-color
+  $btn-blue-color,
+  $menu-btn-color,
+  $menu-list-color,
+  $menu-item-color,
+  $item-span-color
 ) {
   .#{$theme-name} {
     .calc {
@@ -62,6 +66,45 @@
       &__ball {
         background-color: $btn-gray-color;
       }
+    }
+
+    .menu{
+      &__btn{
+        background-color: $menu-btn-color;
+      }
+
+      &-list{
+        background-color: $menu-list-color;
+      }
+
+      h3{
+        color:$item-span-color
+      }
+
+      .item{
+        background-color: $menu-item-color;
+
+        &::before{
+          background-color: rgba($menu-list-color,0.4);
+        }
+
+        &:active::before{
+          background-color:rgba($menu-item-color,0.5);
+          box-shadow: 3px -15px 6px 0px rgba(175, 175, 175, 0.2) inset;
+        }
+
+        span{
+          color:$item-span-color;
+
+          svg{
+            fill: $item-span-color;
+          }
+        }
+      }
+    }
+
+    .btn_open{
+      background-color: $menu-list-color;
     }
   }
 }

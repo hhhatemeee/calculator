@@ -20,7 +20,7 @@
   },
   "proxy": "http://localhost:3000/",
   "scripts": {
-    "deploy": "gh-pages -d build -b 'gh-pages-2'",
+    "deploy": "gh-pages -d build -b gh-pages-2",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
@@ -43,5 +43,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "gh-pages": "^3.2.3"
   }
 }

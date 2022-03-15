@@ -1,15 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import cn from 'classnames';
 
-const CalculationType = ({ name, img, setCurrentType }) => {
+const CalculationType = ({ name, ImageSvg, setCurrentType, currentType }) => {
+
   const onClick = () => {
     setCurrentType(name);
-    console.log(name);
   }
 
   return (
-    <div className='item' onClick={onClick}>
-      <span><img src={img} /> {name} </span>
+    <div className={cn('item', { current: name === currentType })} onClick={onClick}>
+      <span>{ImageSvg}{name}</span>
     </div>
   )
 }
@@ -18,12 +19,14 @@ CalculationType.propTypes = {
   name: PropTypes.string,
   img: PropTypes.any,
   setCurrentType: PropTypes.func,
+  currentType: PropTypes.string,
 }
 
 CalculationType.defaultProp = {
   name: '',
   img: null,
   setCurrentType: () => console.log('Не указана функция setCurrentType'),
+  currentType: '',
 }
 
 export default CalculationType
