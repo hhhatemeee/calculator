@@ -9,14 +9,18 @@ const KeyBoard = ({ buttons, onClick }) => {
   return (
     <div className='calc-buttons'>
       {
-        buttons.map((btn) => <Button
-          key={btn.value}
-          btnName={btn.name}
-          btnColor={btn.color}
-          btnText={btn.text}
-          btnValue={btn.value}
-          onClick={onClick} />)
-      }
+        buttons.map((btn) => {
+          if (btn.name.includes('mock')) {
+            return;
+          }
+          return <Button
+            key={btn.value}
+            btnName={btn.name}
+            btnColor={btn.color}
+            btnText={btn.text}
+            btnValue={btn.value}
+            onClick={onClick} />
+        })}
     </div>
   )
 }

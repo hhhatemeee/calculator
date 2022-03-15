@@ -42,6 +42,7 @@
     position: relative;
     border-top: 2px solid #000000;
     border-bottom: 2px solid #000000;
+
     :before {
       content: "";
       left: 16px;
@@ -122,3 +123,90 @@
   position: absolute;
 }
 
+.btn_ac{
+  grid-area: btn_ac;
+}
+
+.btn__plus-minus{
+  grid-area: btn__plus-minus;
+}
+
+.btn_percent{
+  grid-area: btn_percent;
+}
+
+.btn_division{
+  grid-area: btn_division;
+}
+
+.btn_seven{
+  grid-area: btn_seven;
+}
+
+.btn_eigth{
+  grid-area: btn_eigth;
+}
+
+.btn_nine{
+grid-area: btn_nine;
+} 
+
+.btn_myltiply{
+grid-area: btn_myltiply;
+} 
+
+.btn_four{
+grid-area: btn_four;
+}
+
+.btn_five{
+grid-area: btn_five;
+}
+
+.btn_six{
+grid-area: btn_six;
+}
+
+.btn_minus{
+grid-area:btn_minus ;
+}
+
+.btn_one{
+grid-area:btn_one ;
+}
+
+.btn_two{
+grid-area: btn_two;
+} 
+
+.btn_three{
+grid-area: btn_three;
+} 
+
+.btn_plus{
+grid-area: btn_plus;
+}
+  
+.btn_dot{
+grid-area:btn_dot ;
+}
+
+.btn_zero{
+  grid-area:btn_zero; 
+}
+
+.btn_delete{
+grid-area: btn_delete;
+}
+
+.btn_equal{
+  grid-area: btn_equal;
+}
+
+.btn_mock{
+  grid-area: btn_mock;
+}
+
+.btn_mock_1{
+  grid-area: btn_mock_1;
+}

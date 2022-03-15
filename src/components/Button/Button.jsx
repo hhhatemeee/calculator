@@ -8,6 +8,7 @@ const Button = ({
   btnName,
   btnColor,
   btnText,
+  width,
   onClick }) => {
 
   const click = () => {
@@ -16,6 +17,7 @@ const Button = ({
 
   return (
     <div
+      style={width ? { width: `${width}px` } : {}}
       className={`btn ${btnName} ${btnColor}`}
       onClick={click}
     >

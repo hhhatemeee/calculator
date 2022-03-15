@@ -15,15 +15,10 @@ const ScreenOther = (props) => {
 
   }, [props.currencyList]);
 
+  const handleFrom = (e) => setFrom(e.target.value);
 
-  const handleFrom = (e) => {
-    setFrom(e.target.value);
-  }
+  const handleTo = (e) => setTo(e.target.value);
 
-
-  const handleTo = (e) => {
-    setTo(e.target.value);
-  }
 
   return (
     <div className='screen'>
@@ -32,6 +27,7 @@ const ScreenOther = (props) => {
         currency={from}
         handleSelect={handleFrom}
         defaultValue={from}
+        currentNumber={props.currentNumber}
         options={options}
       />
       <ScreenLine
