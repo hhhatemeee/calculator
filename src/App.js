@@ -7,10 +7,11 @@ import ThemeSelector from './components/ThemeSelector/ThemeSelector';
 import CalcDelegation from './CalcDelegation';
 import ConvertationService from './services/convertationService';
 import { setCurrencyListCreator } from './redux/convertationReducer';
-
-import './App.scss';
 import ChangesTypesContainer from './components/ChangeTypes/ChangesTypesContainer';
 import { setCurrentTypeCreator } from './redux/calculationTypesReducer';
+
+import './App.scss';
+
 
 function App(props) {
   const [darkMode, setDarkMode] = useState(false);
@@ -82,12 +83,8 @@ App.defaultProp = {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    setCurrencyList: (list) => {
-      dispatch(setCurrencyListCreator(list))
-    },
-    setCurrentType: (name) => {
-      dispatch(setCurrentTypeCreator(name))
-    },
+    setCurrencyList: (list) => dispatch(setCurrencyListCreator(list)),
+    setCurrentType: (name) => dispatch(setCurrentTypeCreator(name)),
   }
 };
 

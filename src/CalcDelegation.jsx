@@ -4,12 +4,14 @@ import PropTypes from 'prop-types';
 import CalculatorContainer from './components/Calculator/CalculatorContainer';
 import ModalWindow from './components/ModalWindow/ModalWindow';
 import HomePage from './components/HomePage/HomePage';
+import { TYPE } from './variables';
+
 
 const CalcDelegation = (props) => {
   let calculator;
 
   switch (props.currentType) {
-    case 'Standart':
+    case TYPE.STANDART:
       calculator = <CalculatorContainer />;
       break;
     default:

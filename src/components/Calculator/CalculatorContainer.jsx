@@ -37,11 +37,7 @@ const CalculatorContainer = (props) => {
   const getFontSize = (num, history) => {
     let size = (22.6122 - num) / 0.2388;
 
-    if (history && history.length > 22) {
-      setShown(true);
-    } else {
-      setShown(false);
-    }
+    (history && history.length > 22) ? setShown(true) : setShown(false);
 
     if (num >= 9) {
       size = (22.4433 - num) / 0.2497;
