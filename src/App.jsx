@@ -15,6 +15,9 @@ import { CALC_TYPES } from './variables';
 
 import './App.scss';
 
+import './App.scss';
+
+
 function App(props) {
   const [darkMode, setDarkMode] = useState(false);
   const [showWindow, setShowWindow] = useState(false);
