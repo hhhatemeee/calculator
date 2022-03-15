@@ -17,7 +17,7 @@ const ModalWindow = (props) => {
   const handleCloseWindow = () => {
     props.onClick(false);
     setShowUrl(false);
-  }
+  };
 
   const handleShowUrl = () => setShowUrl(!showUrl);
 
