@@ -26,7 +26,8 @@ const ChangeTypes = (props) => {
             name={type}
             list={props.calcTypes[type]}
             setCurrentType={props.setCurrentType}
-            currentType={props.currentType} />)}
+            currentType={props.currentType}
+            handleShowMenu={handleShowMenu} />)}
         </div>
       </div>
     </div>

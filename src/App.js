@@ -10,6 +10,7 @@ import { setCurrencyListCreator } from './redux/convertationReducer';
 
 import './App.scss';
 import ChangesTypesContainer from './components/ChangeTypes/ChangesTypesContainer';
+import { setCurrentTypeCreator } from './redux/calculationTypesReducer';
 
 function App(props) {
   const [darkMode, setDarkMode] = useState(false);
@@ -42,6 +43,8 @@ function App(props) {
 
   const handleSwitchService = (service) => window.convertationService.switchService(service);
 
+  const setCurrentType = (name) => props.setCurrentType(name);
+
   const handleTheme = (isToggle) => setDarkMode(isToggle);
 
   return (
@@ -55,6 +58,9 @@ function App(props) {
         onClick={handleShowWindow}
         switchService={handleSwitchService}
         url={infoUrl}
+        types={props.calcTypes}
+        currentType={props.currentType}
+        setCurrentType={setCurrentType}
       />
     </div >
   );
@@ -62,10 +68,16 @@ function App(props) {
 
 App.propTypes = {
   setCurrencyList: PropTypes.func,
+  setCurrentType: PropTypes.func,
+  calcTypes: PropTypes.object,
+  currentType: PropTypes.string,
 };
 
 App.defaultProp = {
   setCurrencyList: () => console.log('Не указана функция setCurrencyList'),
+  setCurrentType: () => console.log('Не указана функция setCurrentType'),
+  calcTypes: {},
+  currentType: '',
 };
 
 const mapDispatchToProps = (dispatch) => {
@@ -73,8 +85,18 @@ const mapDispatchToProps = (dispatch) => {
     setCurrencyList: (list) => {
       dispatch(setCurrencyListCreator(list))
     },
+    setCurrentType: (name) => {
+      dispatch(setCurrentTypeCreator(name))
+    },
   }
 };
 
-export default connect(mapDispatchToProps)(App);
+const mapStateToProps = (state) => {
+  return {
+    calcTypes: state.calculatorsType.types,
+    currentType: state.calculatorsType.currentType,
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
 

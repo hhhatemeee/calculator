@@ -56,6 +56,13 @@
           }
         }
       }
+
+      &-homepage{
+
+        &__info > h3,p{
+          color:$item-span-color;
+        }
+      }
     }
 
     .theme {
@@ -106,5 +113,7 @@
     .btn_open{
       background-color: $menu-list-color;
     }
+
+  
   }
 }

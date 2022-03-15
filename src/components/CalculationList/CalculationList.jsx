@@ -16,7 +16,8 @@ const CalculationList = (props) => {
             name={calc.name}
             ImageSvg={calc.img}
             setCurrentType={props.setCurrentType}
-            currentType={props.currentType} />
+            currentType={props.currentType}
+            handleShowMenu={props.handleShowMenu} />
         })
       }
     </div>
@@ -27,6 +28,7 @@ CalculationType.propTypes = {
   name: PropTypes.string,
   list: PropTypes.array,
   setCurrentType: PropTypes.func,
+  handleShowMenu: PropTypes.func,
   currentType: PropTypes.string,
 };
 
@@ -36,6 +38,7 @@ CalculationType.defaultProp = {
   list: [],
   currentType: '',
   setCurrentType: () => console.log('Не определена функция setCurrentType'),
+  handleShowMenu: () => console.log('Не определена функция setCurrentType'),
 };
 
 export default CalculationList
