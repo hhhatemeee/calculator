@@ -1,0 +1,173 @@
+@import "../../scss/variables.scss";
+@import "../../scss/icons.scss";
+@import "../../scss/fonts.scss";
+
+.window-overlay{
+  position: fixed;
+  visibility: hidden;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  background: rgba(0,0,0,0.3);
+  opacity: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: 0.3s ease-in;
+
+}
+
+.link {
+  opacity: 0;
+  max-width: 0px;
+  height: 0;
+  display: inline-flex;
+  text-decoration: none;
+  transition: all .218s ease 0s;
+  padding: 0;
+  margin: 0;
+  background-color: $btn-white-color;
+}
+
+.link-open{
+  opacity: 1;
+  max-width: 300px;
+  height: 18px;
+  margin: 0 5px;
+  // box-shadow: 1px 1px 3px 0px rgb($btn-dark-light-color, 0.4);
+  border-radius: 3px;
+  border: 1px solid rgba($btn-dark-light-color,0.4);
+  padding: 3px 5px;
+}
+.window-limit{
+  max-height: 300px;
+  padding: 0 20px 7px 20px !important;
+  width: 350px;
+  border-radius: 15px;
+  background-color: $btn-white-color;
+  padding: 0 10px;
+  box-shadow: 0px 2px 8px 0px rgba(34, 60, 80, 0.2);
+  transition: 0.3s ease-in;
+
+
+  &__header{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    span {
+      transform: rotate(45deg);
+      cursor: pointer;
+      font-size: 24px;
+      user-select: none;
+    }
+  }
+
+  &__link{
+    position: relative;
+    cursor: pointer;
+
+    &:hover{
+      color:rgba($bg-dark, 0.6);
+    }
+
+    &:active{
+      color:rgba($bg-dark, 0.8);
+    }
+  }
+
+  &__tap-info{
+    cursor: pointer;
+    margin-bottom: 5px;
+
+    &:hover{
+      color:rgba($btn-dark-color,0.7);
+    }
+
+    &:hover{
+      color:rgba($btn-dark-color,0.8);
+    }
+  }
+
+  &__info{
+    margin: 0;
+    padding: 0;
+    transition: all .218s ease 0s;
+    white-space:initial;
+
+    
+  }
+
+  &__service-line{
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 5px;
+    margin-top: 10px;
+  }
+
+  &__service{
+    cursor: pointer;
+    color: $color-black;
+    text-decoration: none;
+    user-select: none;
+    padding: 5px 15px;
+    outline: none;
+    border: 1px solid rgba($color-black,.1);
+    border-radius: 2px;
+    transition: all .218s ease 0s;
+    background: rgba($service-btn-color, 0.7);
+
+    &:hover{
+      color: $color-black;
+      background: rgba($service-btn-light-color, 1);
+      box-shadow: 0 1px 2px rgba(0,0,0,.1);
+    }
+
+    &:active{
+      color: rgb(51,51,51);
+      border: 1px solid $service-btn-dark-color;
+      background: $service-btn-color linear-gradient($service-btn-color, rgba($service-btn-dark-color,0.4));
+    }
+
+    &:disabled{
+      cursor: not-allowed;
+      border: 1px solid rgba($color-black,.1);
+      background: rgba($notification-btn, 0.2);
+      box-shadow: none;
+    }
+  }
+
+  &__button-line{
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  &__button{
+    cursor: pointer;
+    margin: 5px 0 10px 0;
+    color: $color-black;
+    text-decoration: none;
+    font-size: 15px;
+    user-select: none;
+    padding: 6px 25px;
+    outline: none;
+    border: 1px solid rgba($color-black,.1);
+    border-radius: 2px;
+    transition: all .218s ease 0s;
+
+    &:hover{
+      color: $color-black;
+      border: 1px solid $btn-light-gray-color;
+      background: $btn-light-gray-color;
+      box-shadow: 0 1px 2px rgba(0,0,0,.1);
+    }
+
+    &:active {
+      color: rgb(51,51,51);
+      border: 1px solid $btn-light-gray-color;
+      background: $bg-light-color linear-gradient($bg-light-color, $btn-light-gray-color);
+      box-shadow: 0 1px 2px rgba(0,0,0,.1) inset;
+    }
+  }
+}

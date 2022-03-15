@@ -1,0 +1,21 @@
+@import "../../scss/variables.scss";
+@import "../../scss/icons.scss";
+@import "../../scss/fonts.scss";
+
+.calc-screen {
+  margin: 0;
+  padding: 0;
+  max-width: 750px;
+
+  &__result {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    font-weight: 100;
+    font-size: 96px;
+    height: 112px;
+    text-align: right;
+    margin: 0;
+    padding: 0;
+  }
+}
