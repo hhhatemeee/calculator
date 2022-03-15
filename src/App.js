@@ -7,8 +7,11 @@ import ThemeSelector from './components/ThemeSelector/ThemeSelector';
 import CalcDelegation from './CalcDelegation';
 import ConvertationService from './services/convertationService';
 import { setCurrencyListCreator } from './redux/convertationReducer';
+import ChangesTypesContainer from './components/ChangeTypes/ChangesTypesContainer';
+import { setCurrentTypeCreator } from './redux/calculationTypesReducer';
 
 import './App.scss';
+
 
 function App(props) {
   const [darkMode, setDarkMode] = useState(false);
@@ -41,11 +44,14 @@ function App(props) {
 
   const handleSwitchService = (service) => window.convertationService.switchService(service);
 
+  const setCurrentType = (name) => props.setCurrentType(name);
+
   const handleTheme = (isToggle) => setDarkMode(isToggle);
 
   return (
     <div className={cn('calc', { calc_theme_dark: darkMode })}>
       <ThemeSelector darkMode={darkMode} onChange={handleTheme} />
+      <ChangesTypesContainer />
       <CalcDelegation
         showWindow={showWindow}
         renderWindow={renderWindow}
@@ -53,6 +59,9 @@ function App(props) {
         onClick={handleShowWindow}
         switchService={handleSwitchService}
         url={infoUrl}
+        types={props.calcTypes}
+        currentType={props.currentType}
+        setCurrentType={setCurrentType}
       />
     </div >
   );
@@ -60,19 +69,31 @@ function App(props) {
 
 App.propTypes = {
   setCurrencyList: PropTypes.func,
+  setCurrentType: PropTypes.func,
+  calcTypes: PropTypes.object,
+  currentType: PropTypes.string,
 };
 
 App.defaultProp = {
   setCurrencyList: () => console.log('Не указана функция setCurrencyList'),
+  setCurrentType: () => console.log('Не указана функция setCurrentType'),
+  calcTypes: {},
+  currentType: '',
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    setCurrencyList: (list) => {
-      dispatch(setCurrencyListCreator(list))
-    },
+    setCurrencyList: (list) => dispatch(setCurrencyListCreator(list)),
+    setCurrentType: (name) => dispatch(setCurrentTypeCreator(name)),
   }
 };
 
-export default connect(mapDispatchToProps)(App);
+const mapStateToProps = (state) => {
+  return {
+    calcTypes: state.calculatorsType.types,
+    currentType: state.calculatorsType.currentType,
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
 

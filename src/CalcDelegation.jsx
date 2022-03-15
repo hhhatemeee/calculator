@@ -3,11 +3,25 @@ import PropTypes from 'prop-types';
 
 import CalculatorContainer from './components/Calculator/CalculatorContainer';
 import ModalWindow from './components/ModalWindow/ModalWindow';
+import HomePage from './components/HomePage/HomePage';
+import { TYPE } from './variables';
+
 
 const CalcDelegation = (props) => {
+  let calculator;
+
+  switch (props.currentType) {
+    case TYPE.STANDART:
+      calculator = <CalculatorContainer />;
+      break;
+    default:
+      calculator = <HomePage setCurrentType={props.setCurrentType} />
+      break;
+  }
+
   return (
     <div>
-      <CalculatorContainer />
+      {calculator}
       {
         props.renderWindow && <ModalWindow
           showWindow={props.showWindow}
@@ -28,6 +42,7 @@ CalcDelegation.propTypes = {
   listLimit: PropTypes.array,
   onClick: PropTypes.func,
   switchService: PropTypes.func,
+  setCurrentType: PropTypes.func,
   url: PropTypes.string,
 };
 
@@ -37,6 +52,7 @@ CalcDelegation.defaultProps = {
   listLimit: [],
   onClick: () => console.warn('Не указана функция onClick'),
   switchService: () => console.warn('Не указана функция switchService'),
+  setCurrentType: () => console.warn('Не указана функция setCurrentType'),
   url: '',
 }
 

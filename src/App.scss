@@ -10,7 +10,11 @@
   $btn-dark-color,
   $btn-white-color,
   $btn-dark-light-color,
-  $btn-blue-color
+  $btn-blue-color,
+  #17171c,
+  #292930,
+  #292930,
+  $btn-white-color,
 );
 
 * {
@@ -25,6 +29,7 @@ body{
 }
 
 .calc {
+  position: relative;
   width: 375px;
   height: 812px;
   background-color: $bg-light-color;

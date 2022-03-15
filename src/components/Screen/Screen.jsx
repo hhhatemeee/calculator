@@ -7,6 +7,7 @@ import "./Screen.scss";
 
 
 const Screen = (props) => {
+  console.log(props.isShown);
   return (
     <div className='calc-screen'>
       <ScreenCalculations isShown={props.isShown} history={props.history} />
