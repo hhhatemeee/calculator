@@ -47,20 +47,28 @@ CalcDelegation.propTypes = {
   renderWindow: PropTypes.bool,
   showWindow: PropTypes.bool,
   listLimit: PropTypes.array,
+  url: PropTypes.string,
   onClick: PropTypes.func,
   switchService: PropTypes.func,
   setCurrentType: PropTypes.func,
-  url: PropTypes.string,
+  switchService: PropTypes.func,
+  handleUpdateCurrencyList: PropTypes.func,
+  handleBasicCurrency: PropTypes.func,
+  handleConvertaionCurrency: PropTypes.func,
 };
 
 CalcDelegation.defaultProps = {
   renderWindow: false,
   showWindow: false,
   listLimit: [],
+  url: '',
   onClick: () => console.warn('Не указана функция onClick'),
   switchService: () => console.warn('Не указана функция switchService'),
   setCurrentType: () => console.warn('Не указана функция setCurrentType'),
-  url: '',
+  switchService: () => console.log('Не определена функция switchService'),
+  handleUpdateCurrencyList: () => console.log('Не определена функция handleUpdateCurrencyList'),
+  handleBasicCurrency: () => console.log('Не определена функция handleBasicCurrency'),
+  handleConvertaionCurrency: () => console.log('Не определена функция handleConvertaionCurrency'),
 }
 
 export default CalcDelegation

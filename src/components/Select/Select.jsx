@@ -1,20 +1,33 @@
-import React, { useState } from 'react';
-import cn from 'classnames';
+import React from 'react';
+import PropTypes from 'prop-types';
 
 import './Select.scss';
 
-const Select = (props) => {
+const Select = ({ defaultValue, onChange, options }) => {
   return (
     <div className='select'>
       <div className='select__container-line'>
-        <select id="selectTest" value={props.defaultValue} onChange={props.onChange}>
+        <select id="selectTest" value={defaultValue} onChange={onChange}>
           {
-            props.options.map((line) => <option key={line.value} value={line.value}>{line.name}</option>)
+            options.map((line) => <option key={line.value} value={line.value}>{line.name}</option>)
           }
         </select>
       </div>
     </div>
   )
 }
+
+Select.propTypes = {
+  defaultValue: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  onChange: PropTypes.func,
+  options: PropTypes.array,
+};
+
+Select.defaultProp = {
+  defaultValue: '',
+  onChange: () => console.log('Не определена функция onChange'),
+  options: [],
+}
+
 
 export default Select;

@@ -29,13 +29,11 @@
   align-items: center;
   margin-left: 4px;
   white-space: pre;
+  user-select: none;
   
   .select{
     display: flex;
     width: 100%;
-    select{
-      // width: 30px;
-    }
   }
 
   p{

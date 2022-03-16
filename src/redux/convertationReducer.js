@@ -13,7 +13,6 @@ const convertationReducer = (state = initialState, action) => {
     case SET_CURRENCY_LIST:
       return {
         ...state,
-        isLoading: false,
         currencyList: action.list,
       }
     case SET_LOADING:
@@ -24,6 +23,7 @@ const convertationReducer = (state = initialState, action) => {
     case SET_CURRENT_COURSE:
       return {
         ...state,
+        isLoading: false,
         currentCourse: Number(action.value),
       }
     default:

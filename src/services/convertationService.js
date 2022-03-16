@@ -203,7 +203,7 @@ class ConvertationService {
             .catch((err) => console.log(err));
           break;
         case 'FCA':
-          fetch(`https://cors-anywhere.herokuapp.com/https://freecurrencyapi.net/api/v2/latest?apikey=${this.#apiKey}&base_currency=${from}`)
+          result = fetch(`https://cors-anywhere.herokuapp.com/https://freecurrencyapi.net/api/v2/latest?apikey=${this.#apiKey}&base_currency=${from}`)
             .then((res) => {
               if (res.status === 200) {
                 // this.limitList.push(this.currentService);
@@ -215,10 +215,8 @@ class ConvertationService {
             })
             .then((res) => {
               let result;
-              console.log(res);
               Object.keys(res.data).forEach((value) => {
                 if (to === value) {
-                  console.log(res.data[value]);
                   result = res.data[value];
                   return res.data[value];
                 }
