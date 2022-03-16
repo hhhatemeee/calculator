@@ -4,22 +4,26 @@
 
 .screen-line{
   &__current{
-    font-size: 52px;
+    font-size: 88px;
     margin: 0;
   }
 
   &__currency{
-    position: absolute;
-    font-size: 20px;
-    top: 26px;
+    // position: absolute;
+    font-size: 46px;
+    top: 32px;
     left: 36px;
     margin: 0;
   }
 
    span{
     display: flex;
-    align-items:flex-end;
+    align-items:center;
     position: relative;
+
+    p{
+      white-space: pre;
+    }
   }
 }
   

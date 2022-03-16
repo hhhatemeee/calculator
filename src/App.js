@@ -45,7 +45,15 @@ function App(props) {
 
   const setCurrentType = (name) => props.setCurrentType(name);
 
+  const handleUpdateCurrencyList = () => window.convertationService.updateCurrencyList();
+
+  const handleBasicCurrency = (value) => window.convertationService.setBasicCurrency(value);
+
+  const handleConvertaionCurrency = async (value) => await window.convertationService.getConvertation(value);
+
   const handleTheme = (isToggle) => setDarkMode(isToggle);
+
+  console.log('составить схему приложения');
 
   return (
     <div className={cn('calc', { calc_theme_dark: darkMode })}>
@@ -61,6 +69,9 @@ function App(props) {
         types={props.calcTypes}
         currentType={props.currentType}
         setCurrentType={setCurrentType}
+        handleUpdateCurrencyList={handleUpdateCurrencyList}
+        handleBasicCurrency={handleBasicCurrency}
+        handleConvertaionCurrency={handleConvertaionCurrency}
       />
     </div >
   );

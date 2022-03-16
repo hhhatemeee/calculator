@@ -3,14 +3,14 @@
 @import "../../scss/fonts.scss";
 
 .keyboard{
-  margin: 50px 0 0 0;
+  margin:-48px 0 0 -8px;
     padding: 0;
     display: grid;
-    gap: 16px;
+    gap: 10px 10px;
     grid-template-areas:
-      "btn_mock btn_ac btn_delete"
+      "btn_mock  btn_mock_1 btn_ac"
       "btn_seven btn_eigth btn_nine"
       "btn_four btn_five btn_six"
       "btn_one btn_two btn_three "
-      "btn_mock_1 btn_zero btn_dot";
+      "btn_dot btn_zero btn_delete";
 }

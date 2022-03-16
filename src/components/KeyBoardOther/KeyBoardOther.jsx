@@ -20,7 +20,7 @@ const KeyBoardOther = (props) => {
             btnText={btn.text}
             btnValue={btn.value}
             onClick={props.handleCurNum}
-            width={100}
+            width={110}
           />
         })
       }

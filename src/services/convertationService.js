@@ -167,11 +167,11 @@ class ConvertationService {
    * @returns {sting | number} finished value
    */
   getConvertation(from, to = this.#basicCurrency) {
+    let result = 1;
     if (this.#currencyList.includes(from)) {
       switch (this.currentService) {
         case 'CC':
-
-          fetch(`https://free.currconv.com/api/v7/convert?q=${from}_${to}&compact=ultra&apiKey=${this.#apiKey}`)
+          result = fetch(`https://free.currconv.com/api/v7/convert?q=${from}_${to}&compact=ultra&apiKey=${this.#apiKey}`)
             .then((res) => {
               if (res.status === 200) {
                 // this.hideInfo(true, this.currentService);
@@ -179,12 +179,12 @@ class ConvertationService {
 
                 return res.json();
               }
-
-              console.log(res);
-              // this.#checkLimit(this.currentService);
             })
             .then((res) => {
               console.log(Object.values(res).toString());
+              result = Object.values(res).toString();
+              console.log(result);
+              return result;
             })
             .catch((err) => console.log(err));
           break;
@@ -229,11 +229,11 @@ class ConvertationService {
           break;
         default:
       }
-
-      return;
+      return result;
     }
 
     console.warn('Валюта в списке не найдена');
+    return result;
   }
 }
 

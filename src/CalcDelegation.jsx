@@ -14,7 +14,12 @@ const CalcDelegation = (props) => {
       calculator = <CalculatorContainer />;
       break;
     case 'Currency':
-      calculator = <ConverterContainer />;
+      calculator = <ConverterContainer
+        switchService={props.switchService}
+        handleUpdateCurrencyList={props.handleUpdateCurrencyList}
+        handleBasicCurrency={props.handleBasicCurrency}
+        handleConvertaionCurrency={props.handleConvertaionCurrency}
+      />;
       break;
     default:
       calculator = <HomePage setCurrentType={props.setCurrentType} />

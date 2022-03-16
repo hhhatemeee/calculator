@@ -15,7 +15,7 @@
     position: relative;
     
     select{
-      width: 25%;
+      // width: 25%;
       height: 100%;
       border:none;
       padding: 0px;
@@ -24,43 +24,9 @@
       font-size: 20px;
       background-color:$bg-light-color;
       overflow-y: scroll;
-      // appearance: none;
       cursor: pointer;
 
-      // &:active{
-      //   background-color: red;
-      // }
-
     }
-
-    // &::after, &::before{
-    //   position: absolute;
-    //   top:35%;
-    //   content: '|';
-    //   font-size: 13px;
-    //   font-weight: 900;
-    //   pointer-events: none;
-    // }
-
-    // &::after{
-    //   left:24%;
-    //   transform: rotate(45deg);
-    // }
-
-    // &::before{
-    //   left:21%;
-    //   transform: rotate(-45deg);
-    // }
-
-    // &::after:hover, &::before:hover{
-    //   color: rgba($color-black,0.1);
-    //   pointer-events: none;
-    // }
-
-    // &::after:active, &::before:active{
-    //   color: rgba($color-black,0.6);
-    //   pointer-events: none;
-    // }
   }
 }
 

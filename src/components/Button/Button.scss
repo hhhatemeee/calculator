@@ -18,6 +18,7 @@
   justify-content: center;
   align-items: center;
   user-select: none;
+  transition: 0.05s ease-in;
   // z-index: 4;
 
   &_theme_dark-light {
@@ -205,8 +206,10 @@ grid-area: btn_delete;
 
 .btn_mock{
   grid-area: btn_mock;
+  visibility: hidden;
 }
 
 .btn_mock_1{
   grid-area: btn_mock_1;
+  visibility: hidden;
 }

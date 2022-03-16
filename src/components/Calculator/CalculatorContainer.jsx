@@ -124,10 +124,6 @@ const CalculatorContainer = (props) => {
 
           errorHandler();
 
-          if (Number(res) > 10 ** 10) {
-            setResult(res.toExponential(15));
-          }
-
           his = `${prevNumber}${element}${nextNumber}=`;
           setCurrentNumber(0);
           setHistory(his);
@@ -160,7 +156,7 @@ const CalculatorContainer = (props) => {
 
       setCurrentNumber(0);
 
-      if (res > 10 ** 15) {
+      if (res > Number.MAX_SAFE_INTEGER) {
         res = res.toExponential(15);
       }
 

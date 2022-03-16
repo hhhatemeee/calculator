@@ -5,4 +5,50 @@
 
 .converter__container{
   margin: 40px 20px;
+ 
+}
+
+.converter__update{
+  margin-left: 4px;
+  text-decoration: underline;
+  cursor: pointer;
+  transition: 0.1s ease-in;
+  user-select: none;
+  display: flex;
+
+  &:hover{
+    color: rgba($color-black,0.8);
+  }
+
+  &:active{
+    color: rgba($color-black,0.5);
+  }
+}
+.converter__switch{
+  display: flex;
+  align-items: center;
+  margin-left: 4px;
+  white-space: pre;
+  
+  .select{
+    display: flex;
+    width: 100%;
+    select{
+      // width: 30px;
+    }
+  }
+
+  p{
+    width: 125px;
+    padding: 0;
+    margin: 0;
+  }
+}
+
+.loader{
+  width: 20px;
+  height: 20px;
+  // margin: 0 5px !important;
+  left: 130px;
+  position: absolute;
 }
