@@ -1,5 +1,3 @@
-import { connect } from "react-redux";
-
 class ConvertationService {
   constructor(serviceName = 'CC', hideInfo, setCurrencyList) {
     this.hideInfo = hideInfo;
