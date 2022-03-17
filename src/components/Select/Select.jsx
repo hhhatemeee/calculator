@@ -7,7 +7,6 @@ import optionsInterface from './SelectInterface';
 //Draws a list selector
 const Select = ({ defaultValue, onChange, options }) => {
   useEffect(() => { }, [options]);
-
   return (
     <div className='select'>
       <div className='select__container-line'>
