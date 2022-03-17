@@ -27,6 +27,10 @@ const ModalWindow = (props) => {
     props.onClick(false);
   }, [])
 
+  useEffect(() => {
+    props.onClick(false);
+  }, [])
+
   const handleShowUrl = () => setShowUrl(!showUrl);
 
   const switchService = (e) => {
