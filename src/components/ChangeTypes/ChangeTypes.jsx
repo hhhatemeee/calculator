@@ -13,7 +13,6 @@ const ChangeTypes = (props) => {
   const handleShowMenu = () => {
     setShowMenu(!showMenu)
   }
-
   return (
     <div className='menu'>
       <div className={cn('menu__btn', { 'btn_open': showMenu })} onClick={handleShowMenu}>
@@ -27,7 +26,8 @@ const ChangeTypes = (props) => {
             list={props.calcTypes[type]}
             setCurrentType={props.setCurrentType}
             currentType={props.currentType}
-            handleShowMenu={handleShowMenu} />)}
+            handleShowMenu={handleShowMenu}
+            isDisabled={props.isDisabled[type]} />)}
         </div>
       </div>
     </div>

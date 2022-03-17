@@ -71,6 +71,11 @@
   }
 }
 
+.isDisabled{
+  pointer-events: none;
+  opacity: 0.4;
+}
+
 .current {
   border-left: 2px solid $btn-blue-color;
   // border-radius: 3px;

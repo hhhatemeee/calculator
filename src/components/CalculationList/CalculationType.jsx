@@ -2,15 +2,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import cn from 'classnames';
 
-const CalculationType = ({ name, ImageSvg, setCurrentType, currentType, handleShowMenu }) => {
-
+const CalculationType = ({ name, ImageSvg, setCurrentType, currentType, handleShowMenu, isDisabled }) => {
   const onClick = () => {
     setCurrentType(name);
     handleShowMenu();
   }
 
   return (
-    <div className={cn('item', { current: name === currentType })} onClick={onClick}>
+    <div className={cn('item', { current: name === currentType }, { isDisabled: isDisabled })} onClick={onClick}>
       <span>{ImageSvg}{name}</span>
     </div>
   )

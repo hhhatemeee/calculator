@@ -25,7 +25,7 @@
       background-color:$bg-light-color;
       overflow-y: scroll;
       cursor: pointer;
-
+      transition: 0.1s ease-in;
     }
   }
 }

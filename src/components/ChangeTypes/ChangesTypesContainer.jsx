@@ -7,7 +7,11 @@ import { setCurrentTypeCreator } from '../../redux/calculationTypesReducer';
 
 const ChangesTypesContainer = (props) => {
   return (
-    <ChangeTypes calcTypes={props.calculatorsType} setCurrentType={props.setCurrentType} currentType={props.currentType} />
+    <ChangeTypes
+      calcTypes={props.calculatorsType}
+      setCurrentType={props.setCurrentType}
+      currentType={props.currentType}
+      isDisabled={props.isDisabled} />
   )
 }
 
@@ -15,14 +19,13 @@ const mapStateToProps = (state) => {
   return {
     calculatorsType: state.calculatorsType.types,
     currentType: state.calculatorsType.currentType,
+    isDisabled: state.calculatorsType.isDisabled,
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    setCurrentType: (name) => {
-      dispatch(setCurrentTypeCreator(name))
-    },
+    setCurrentType: (name) => dispatch(setCurrentTypeCreator(name)),
   }
 }
 

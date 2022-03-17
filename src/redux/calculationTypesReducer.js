@@ -6,18 +6,31 @@ import { ReactComponent as Chemistry } from '../img/Chemistry.svg';
 import { ReactComponent as Currency } from '../img/Currency.svg';
 
 const SET_CURRENT_TYPE = 'SET_CURRENT_TYPE';
+const SET_DISABLED = 'SET_DISABLED';
 
 const initialState = {
   currentType: 'Standart',
   types: {
-    Calulator: [
+    Calculator: [
       { name: 'Standart', img: <Standart /> },
       { name: 'Scientific', img: <Chemistry /> },
       { name: 'Graphing', img: <Graphing /> },
       { name: 'Programmer', img: <Programmer /> },
       { name: 'Date Calculation', img: <Date /> }],
     Converter: [{ name: 'Currency', img: <Currency /> }]
-  }
+  },
+  isDisabled: {
+    Calculator: {
+      Standart: false,
+      Scientific: false,
+      Graphing: false,
+      Programmer: false,
+      'Date Calculation': false,
+    },
+    Converter: {
+      Currency: false,
+    }
+  },
 };
 
 const calculationTypesReducer = (state = initialState, action) => {
@@ -27,12 +40,33 @@ const calculationTypesReducer = (state = initialState, action) => {
         ...state,
         currentType: action.name,
       }
+    case SET_DISABLED:
+      let result = {
+        ...state.isDisabled,
+        Calculator: { ...state.isDisabled.Calculator },
+        Converter: { ...state.isDisabled.Converter }
+      };
+      console.log(action);
+      Object.keys(state.isDisabled).forEach((key) => {
+        Object.keys(state.isDisabled[key]).forEach((calc) => {
+          if (calc === action.name) {
+            result[key][calc] = action.value;
+          }
+        })
+
+      });
+
+      return {
+        ...state,
+        isDisabled: result,
+      }
     default:
       return state
   }
 };
 
 export const setCurrentTypeCreator = (name) => ({ type: SET_CURRENT_TYPE, name });
+export const setDisabledTypeCreator = ({ name, value }) => ({ type: SET_DISABLED, name, value });
 
 
 export default calculationTypesReducer;

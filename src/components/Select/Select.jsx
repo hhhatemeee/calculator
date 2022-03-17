@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 
 import './Select.scss';
 
 const Select = ({ defaultValue, onChange, options }) => {
+  useEffect(() => { }, [options]);
   return (
     <div className='select'>
       <div className='select__container-line'>

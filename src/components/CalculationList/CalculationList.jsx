@@ -10,15 +10,15 @@ const CalculationList = (props) => {
     <div className='calc__calculation-list'>
       <h3>{props.name}</h3>
       {
-        props.list.map((calc) => {
-          return <CalculationType
-            key={calc.name}
-            name={calc.name}
-            ImageSvg={calc.img}
-            setCurrentType={props.setCurrentType}
-            currentType={props.currentType}
-            handleShowMenu={props.handleShowMenu} />
-        })
+        props.list.map((calc) => <CalculationType
+          isDisabled={props.isDisabled[calc.name]}
+          key={calc.name}
+          name={calc.name}
+          ImageSvg={calc.img}
+          setCurrentType={props.setCurrentType}
+          currentType={props.currentType}
+          handleShowMenu={props.handleShowMenu} />
+        )
       }
     </div>
   )

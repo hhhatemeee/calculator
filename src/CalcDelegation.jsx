@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 
 import CalculatorContainer from './components/Calculator/CalculatorContainer';
@@ -8,7 +8,7 @@ import ConverterContainer from './components/Converter/ConverterContainer';
 
 const CalcDelegation = (props) => {
   let calculator;
-
+  useEffect(() => { }, [props.listLimit])
   switch (props.currentType) {
     case 'Standart':
       calculator = <CalculatorContainer />;
@@ -19,7 +19,8 @@ const CalcDelegation = (props) => {
         handleUpdateCurrencyList={props.handleUpdateCurrencyList}
         handleBasicCurrency={props.handleBasicCurrency}
         handleConvertaionCurrency={props.handleConvertaionCurrency}
-      />;
+        listLimit={props.listLimit}
+      />
       break;
     default:
       calculator = <HomePage setCurrentType={props.setCurrentType} />

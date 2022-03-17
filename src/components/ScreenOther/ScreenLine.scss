@@ -3,6 +3,7 @@
 @import "../../scss/fonts.scss";
 
 .screen-line{
+
   &__current{
     font-size: 88px;
     margin: 0;
@@ -22,6 +23,7 @@
     position: relative;
     width: 335px;
     height: 103px;
+  transition: 0.1s ease-in;
     
     p{
       white-space: pre;

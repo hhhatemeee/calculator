@@ -9,6 +9,8 @@ import './Converter.scss';
 import Select from '../Select/Select';
 
 const Converter = (props) => {
+  useEffect(() => { }, [props.currentService])
+
   const [from, setFrom] = useState(
     {
       name: 'RUB',
@@ -19,6 +21,16 @@ const Converter = (props) => {
       name: 'USD',
       value: '$',
     });
+  const setOptions = () => {
+    const options = props.services.map((el) => {
+      if (props.listLimit.includes(el.name)) {
+        return null;
+      }
+      return el;
+    })
+
+    return options.filter(el => el !== null)
+  }
 
   const setFromValue = (value) => setFrom(value);
   const setToValue = (value) => setTo(value);
@@ -36,10 +48,11 @@ const Converter = (props) => {
     }
 
     const cc = await props.handleConvertaionCurrency(e);
-    await props.setCurrentCourse(cc)
+    await props.setCurrentCourse(cc);
   }
 
   const onChange = (e) => {
+    props.setCurrentService(e.target.value)
     props.switchService(e.target.value);
     props.updateCurrencyList();
   }
@@ -66,13 +79,13 @@ const Converter = (props) => {
       </span>
       <span className='converter__switch'>
         <p>Switch Service:</p>
-        <Select
-          onChange={onChange}
-          options={
-            [
-              { name: 'CC', value: 'CC' }, { name: 'FCA', value: 'FCA' }, { name: 'OE', value: 'OE' }
-            ]
-          } />
+        {props.listLimit.length >= 2
+          ? <p className='convertner__current-service'>{props.currentService}</p>
+          : <Select
+            defaultValue={props.currentService}
+            onChange={onChange}
+            options={setOptions()} />
+        }
       </span>
       <KeyBoardOther buttons={props.buttons} handleCurNum={props.handleCurNum} />
     </div>
@@ -95,6 +108,10 @@ Converter.propTypes = {
   setLoading: PropTypes.func,
   setCurrentCourse: PropTypes.func,
   handleConvertaionCurrency: PropTypes.func,
+  services: PropTypes.array,
+  listLimit: PropTypes.array,
+  currentService: PropTypes.string,
+  setCurrentService: PropTypes.func,
 };
 
 Converter.defaultProp = {
@@ -106,6 +123,9 @@ Converter.defaultProp = {
   fontSizeTwo: 88,
   isLoading: false,
   buttons: [],
+  services: [],
+  listLimit: [],
+  currentService: 'CC',
   handleCurNum: () => console.log('Не определена функция handleCurNum'),
   handleBasicCurrency: () => console.log('Не определена функция handleBasicCurrency'),
   updateCurrencyList: () => console.log('Не определена функция updateCurrencyList'),
@@ -113,6 +133,7 @@ Converter.defaultProp = {
   setLoading: () => console.log('Не определена функция setLoading'),
   setCurrentCourse: () => console.log('Не определена функция setCurrentCourse'),
   handleConvertaionCurrency: () => console.log('Не определена функция handleConvertaionCurrency'),
+  setCurrentService: () => console.log('Не определена функция setCurrentService'),
 };
 
 export default Converter;

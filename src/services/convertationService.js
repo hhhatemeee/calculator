@@ -32,7 +32,10 @@ class ConvertationService {
   #basicCurrency = 'RUB';
 
   showWindow() {
-    this.limitList.push(this.currentService);
+    if (!this.limitList.includes(this.currentService)) {
+      this.limitList.push(this.currentService);
+    }
+
     this.hideInfo(true, this.limitList, this.#MOCK.SERVICE_URL[this.currentService]);
 
     this.#MOCK.SERVICE_LIST.forEach((serv) => {
@@ -57,18 +60,25 @@ class ConvertationService {
     return `Вы подключены к ${this.currentService}`;
   }
 
-  // #checkLimit(service) {
-  //   this.limitList.push(service);
-  //   this.hideInfo(true, this.limitList);
+  #checkLimit(service) {
+    if (!this.limitList.includes(service)) {
+      this.limitList.push(service);
+    }
 
-  //   MOCK.SERVICE_LIST.forEach((serv) => {
-  //     if (this.limitList.includes(serv)) {
-  //       return;
-  //     }
+    this.hideInfo(true, this.limitList, this.#MOCK.SERVICE_URL[this.currentService]);
 
-  //     this.switchService(serv);
-  //   });
-  // }
+    this.#MOCK.SERVICE_LIST.forEach((serv) => {
+      if (this.limitList.includes(serv)) {
+        return;
+      }
+
+      this.switchService(serv);
+    });
+  }
+
+  getCurrentService() {
+    return this.currentService;
+  }
 
   getBasicCurrency() {
     return this.#basicCurrency;
@@ -167,18 +177,17 @@ class ConvertationService {
    * @returns {sting | number} finished value
    */
   getConvertation(from, to = this.#basicCurrency) {
-    let result = 1;
+    let result = 0;
     if (this.#currencyList.includes(from)) {
       switch (this.currentService) {
         case 'CC':
           result = fetch(`https://free.currconv.com/api/v7/convert?q=${from}_${to}&compact=ultra&apiKey=${this.#apiKey}`)
             .then((res) => {
               if (res.status === 200) {
-                // this.hideInfo(true, this.currentService);
-                this.hideInfo(true);
-
                 return res.json();
               }
+              this.#checkLimit(this.currentService);
+
             })
             .then((res) => {
               console.log(Object.values(res).toString());
@@ -195,7 +204,7 @@ class ConvertationService {
                 return res.json();
               }
 
-              // this.#checkLimit(this.currentService);
+              this.#checkLimit(this.currentService);
             })
             .then((res) => {
               console.log(res.response);
@@ -209,9 +218,8 @@ class ConvertationService {
                 // this.limitList.push(this.currentService);
                 return res.json();
               }
-              this.hideInfo(true);
+              this.#checkLimit(this.currentService);
 
-              // this.#checkLimit(this.currentService);
             })
             .then((res) => {
               let result;

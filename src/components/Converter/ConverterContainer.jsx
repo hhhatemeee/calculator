@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import PropTypes from 'prop-types';
 
 import splittingNumber from '../../helpers/splittingNumber';
-import { setCurrentCourseCreator, setLoadingCreator } from '../../redux/convertationReducer';
+import { setCurrentCourseCreator, setCurrentServiceCreator, setLoadingCreator } from '../../redux/convertationReducer';
 
 import Converter from './Converter'
 
@@ -156,6 +156,10 @@ const ConverterContainer = (props) => {
       resultNumber={resultNumber}
       fontSizeOne={fontSizeOne}
       fontSizeTwo={fontSizeTwo}
+      services={props.services}
+      listLimit={props.listLimit}
+      currentService={props.currentService}
+      setCurrentService={props.setCurrentService}
     />
   )
 }
@@ -166,6 +170,8 @@ const mapStateToProps = (state) => {
     buttons: state.buttonList,
     isLoading: state.convertation.isLoading,
     currentCourse: state.convertation.currentCourse,
+    services: state.convertation.services,
+    currentService: state.convertation.currentService,
   }
 }
 
@@ -173,6 +179,7 @@ const mapDispatchToProps = (dispatch) => {
   return {
     setLoading: (isLoading) => dispatch(setLoadingCreator(isLoading)),
     setCurrentCourse: (value) => dispatch(setCurrentCourseCreator(value)),
+    setCurrentService: (service) => dispatch(setCurrentServiceCreator(service)),
   }
 }
 
@@ -187,6 +194,11 @@ ConverterContainer.propTypes = {
   handleUpdateCurrencyList: PropTypes.func,
   handleBasicCurrency: PropTypes.func,
   handleConvertaionCurrency: PropTypes.func,
+  services: PropTypes.array,
+  listLimit: PropTypes.array,
+  currentService: PropTypes.string,
+  setCurrentService: PropTypes.func,
+
 };
 
 ConverterContainer.defaultProp = {
@@ -194,12 +206,16 @@ ConverterContainer.defaultProp = {
   buttons: [],
   isLoading: false,
   currentCourse: 1,
+  services: [],
+  listLimit: [],
+  currentService: 'CC',
   setLoading: () => console.log('Не определена функция setLoading'),
   setCurrentCourse: () => console.log('Не определена функция setCurrentCourse'),
   switchService: () => console.log('Не определена функция switchService'),
   handleUpdateCurrencyList: () => console.log('Не определена функция handleUpdateCurrencyList'),
   handleBasicCurrency: () => console.log('Не определена функция handleBasicCurrency'),
   handleConvertaionCurrency: () => console.log('Не определена функция handleConvertaionCurrency'),
+  setCurrentService: () => console.log('Не определена функция setCurrentService'),
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ConverterContainer);

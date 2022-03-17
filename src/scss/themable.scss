@@ -31,7 +31,7 @@
         }
       }
 
-      &-buttons {
+      &-buttons, .keyboard{
         .btn {
           background-color: $btn-bg;
           color: $btn-color;
@@ -114,6 +114,59 @@
       background-color: $menu-list-color;
     }
 
+    .converter__container{
+
+      .screen{
+
+        &-line{
+
+          span{
+            
+            p{
+              color:$result-color;
+            }
+          }
+        }
+      }
+
+      span{
+        color: $result-color;
+
+        svg{
+          background-color: $calc-bg !important;
+        }
+      }
+    }
+
+    select{
+      background-color:$calc-bg;
+      color: rgba($calculation-color, 0.4);
+    }
   
+    .keyboard{
+        .btn {
+          background-color: $btn-bg;
+          color: $btn-color;
+          border: $btn-color;
+
+          &__delete {
+            border-color: $btn-color;
+
+            ::after,
+            ::before {
+              border-color: $btn-color;
+            }
+          }
+
+          &_bg {
+            &_gray {
+              background-color: $btn-gray-color;
+            }
+            &_blue {
+              background-color: $btn-blue-color;
+            }
+          }
+        }
+    }
   }
 }

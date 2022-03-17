@@ -6,11 +6,11 @@ import PropTypes from 'prop-types';
 import ThemeSelector from './components/ThemeSelector/ThemeSelector';
 import CalcDelegation from './CalcDelegation';
 import ConvertationService from './services/convertationService';
-import { setCurrencyListCreator } from './redux/convertationReducer';
+import { setCurrencyListCreator, setCurrentServiceCreator } from './redux/convertationReducer';
 
 import './App.scss';
 import ChangesTypesContainer from './components/ChangeTypes/ChangesTypesContainer';
-import { setCurrentTypeCreator } from './redux/calculationTypesReducer';
+import { setCurrentTypeCreator, setDisabledTypeCreator } from './redux/calculationTypesReducer';
 
 function App(props) {
   const [darkMode, setDarkMode] = useState(false);
@@ -20,12 +20,17 @@ function App(props) {
   const [infoUrl, setInfoUrl] = useState('');
 
   const handleShowWindow = (isShow, listLimit, url) => {
+    props.setCurrentService(getCurrentService());
+    if (listLimit && listLimit.length === 3) {
+      props.setDisabledType({ name: 'Currency', value: true });
+      setCurrentType('Standart');
+    }
+
     if (listLimit) {
       setRenderWindow(isShow);
       setTimeout(() => setShowWindow(isShow), 0);
       setServicesLimit(listLimit);
       setInfoUrl(url);
-
       return;
     }
 
@@ -35,21 +40,25 @@ function App(props) {
 
   useEffect(() => {
     window.convertationService = new ConvertationService(
-      'CC',
+      'FCA',
       handleShowWindow,
       props.setCurrencyList,
     );
+
+    props.setCurrentService(getCurrentService());
   }, []);
 
   const handleSwitchService = (service) => window.convertationService.switchService(service);
 
-  const setCurrentType = (name) => props.setCurrentType(name);
+  const setCurrentType = (name) => props.setCurrentCalcType(name);
 
   const handleUpdateCurrencyList = () => window.convertationService.updateCurrencyList();
 
   const handleBasicCurrency = (value) => window.convertationService.setBasicCurrency(value);
 
   const handleConvertaionCurrency = async (value) => await window.convertationService.getConvertation(value);
+
+  const getCurrentService = () => window.convertationService.getCurrentService();
 
   const handleTheme = (isToggle) => setDarkMode(isToggle);
 
@@ -93,12 +102,10 @@ App.defaultProp = {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    setCurrencyList: (list) => {
-      dispatch(setCurrencyListCreator(list))
-    },
-    setCurrentType: (name) => {
-      dispatch(setCurrentTypeCreator(name))
-    },
+    setCurrencyList: (list) => dispatch(setCurrencyListCreator(list)),
+    setCurrentCalcType: (name) => dispatch(setCurrentTypeCreator(name)),
+    setCurrentService: (service) => dispatch(setCurrentServiceCreator(service)),
+    setDisabledType: (value) => dispatch(setDisabledTypeCreator(value))
   }
 };
 
