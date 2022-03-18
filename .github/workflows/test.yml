@@ -1,0 +1,26 @@
+name: CI
+
+on:
+  push:
+    branches: 
+    - release/CALC-21
+  pull_request:
+    branches: 
+    - release/CALC-21
+
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      
+      - name: install
+        run: npm install
+        
+      - name: Run JEST
+        uses: stefanoeb/jest-action@1.0.4
+        env:
+          GITHUB_TOKEN: ${{ secrets.TEST }}

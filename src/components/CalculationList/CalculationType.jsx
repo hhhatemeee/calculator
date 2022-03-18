@@ -9,7 +9,7 @@ const CalculationType = ({ name, ImageSvg, setCurrentType, currentType, handleSh
   }
 
   return (
-    <div className={cn('item', { current: name === currentType }, { isDisabled: isDisabled })} onClick={onClick}>
+    <div data-testid='typePoint' className={cn('item', { current: name === currentType }, { isDisabled: isDisabled })} onClick={onClick}>
       <span>{ImageSvg}{name}</span>
     </div>
   )
@@ -21,6 +21,7 @@ CalculationType.propTypes = {
   setCurrentType: PropTypes.func,
   handleShowMenu: PropTypes.func,
   currentType: PropTypes.string,
+  isDisabled: PropTypes.bool,
 }
 
 CalculationType.defaultProp = {
@@ -29,6 +30,7 @@ CalculationType.defaultProp = {
   setCurrentType: () => console.log('Не указана функция setCurrentType'),
   handleShowMenu: () => console.log('Не указана функция setCurrentType'),
   currentType: '',
+  isDisabled: false,
 }
 
 export default CalculationType

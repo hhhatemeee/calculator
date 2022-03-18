@@ -7,6 +7,7 @@ import { ReactComponent as Loader } from '../../img/Loader.svg';
 
 import './Converter.scss';
 import Select from '../Select/Select';
+import ConverterSwitch from './ConverterSwitch/ConverterSwitch';
 
 const Converter = (props) => {
   useEffect(() => { }, [props.currentService])
@@ -77,16 +78,12 @@ const Converter = (props) => {
         Update rates
         {props.isLoading && <Loader className='loader' />}
       </span>
-      <span className='converter__switch'>
-        <p>Switch Service:</p>
-        {props.listLimit.length >= 2
-          ? <p className='convertner__current-service'>{props.currentService}</p>
-          : <Select
-            defaultValue={props.currentService}
-            onChange={onChange}
-            options={setOptions()} />
-        }
-      </span>
+      <ConverterSwitch
+        listLimit={props.listLimit}
+        currentService={props.currentService}
+        onChange={onChange}
+        options={setOptions()}
+      />
       <KeyBoardOther buttons={props.buttons} handleCurNum={props.handleCurNum} />
     </div>
   )
