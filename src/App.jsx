@@ -13,7 +13,6 @@ import { setCurrentTypeCreator, setDisabledTypeCreator } from './redux/calculati
 import './App.scss';
 import { CALC_TYPES } from './variables';
 
-
 import './App.scss';
 
 
