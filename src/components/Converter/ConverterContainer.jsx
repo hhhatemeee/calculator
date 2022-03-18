@@ -25,6 +25,28 @@ const ConverterContainer = (props) => {
     LAK: '₭',
   };
 
+  const onKeypress = e => {
+    if ((e.key >= '0' && e.key <= '9') || e.key === 'Backspace' || e.key === '.') {
+      handleCurNum(e.key);
+    }
+
+    if (e.ctrlKey && e.keyCode == 86) {
+      navigator.clipboard.readText()
+        .then(text => {
+          if (!Number.isNaN(Number(text)))
+            handleCurNum(text);
+        })
+    }
+  }
+
+  useEffect(() => {
+    document.addEventListener('keydown', onKeypress);
+
+    return () => {
+      document.removeEventListener('keydown', onKeypress);
+    };
+  }, [currentNumber]);
+
   useEffect(() => {
     let curNum = currentNumber.toString();
 
@@ -84,56 +106,92 @@ const ConverterContainer = (props) => {
    * @returns 
    */
   const handleCurNum = (button) => {
-    let curNum = currentNumber.toString();
-    let value = button;
+    if (button.toString().length < 17) {
 
-    switch (value) {
-      case BUTTONS_MOCK.reset:
-        curNum = '0';
-        break;
-      case BUTTONS_MOCK.delete:
-        curNum = curNum.toString().slice(0, curNum.length - 1)
-        break;
-      case BUTTONS_MOCK.dot:
-        value = '.';
-        curNum += value;
-        break;
-      default:
-        if (curNum.length === 15) {
-          return
-        }
-        value = button;
-        curNum += value;
-        break;
-    }
+      switch (value) {
+        case BUTTONS_MOCK.reset:
+          curNum = '0';
+          break;
+        case BUTTONS_MOCK.delete:
+          curNum = curNum.toString().slice(0, curNum.length - 1)
+          break;
+        case BUTTONS_MOCK.dot:
+          value = '.';
+          curNum += value;
+          break;
+        default:
+          if (curNum.length === 15) {
+            return
+          }
+          value = button;
+          curNum += value;
+          break;
+      }
 
-    //If the last value of the number is a point, then save
-    if (curNum.split('').at(-1) === '.') {
-      setCurrentNumber(curNum);
-      return;
-    }
 
-    // You cannot enter more than two numbers after the dot
-    if (curNum.includes('.') && curNum.split('.')[1].length > 2) {
-      return;
-    }
+      let curNum = currentNumber.toString();
+      let value = button;
+      switch (value) {
+        case 'reset':
+          curNum = '0';
+          break;
+        case 'delete':
+          curNum = curNum.toString().slice(0, curNum.length - 1)
+          break;
+        case 'Backspace':
+          curNum = curNum.toString().slice(0, curNum.length - 1)
+          break;
+        case '.':
+          if (curNum.includes('.')) {
+            return;
+          }
+          value = '.';
+          curNum += value;
+          break;
+        case 'dot':
+          if (curNum.includes('.')) {
+            return;
+          }
+          value = '.';
+          curNum += value;
+          break;
+        default:
+          if (curNum.length === 15) {
+            return
+          }
+          value = button;
+          curNum += value;
+          break;
+      }
 
-    getFontSize(splittingNumber(curNum).length);
+      //If the last value of the number is a point, then save
+      if (curNum.split('').at(-1) === '.') {
+        setCurrentNumber(curNum);
+        return;
+      }
 
-    setCurrentNumber(Number(curNum));
+      // You cannot enter more than two numbers after the dot
+      if (curNum.includes('.') && curNum.split('.')[1].length > 2) {
+        return;
+      }
 
-    // If the rate is greater than 1 then divide the numbers
-    if (props.currentCourse > 1) {
-      const result = (Number(curNum) / props.currentCourse).toFixed(2);
+      getFontSize(splittingNumber(curNum).length);
+
+      setCurrentNumber(Number(curNum));
+
+      // If the rate is greater than 1 then divide the numbers
+      if (props.currentCourse > 1) {
+        const result = (Number(curNum) / props.currentCourse).toFixed(2);
+        getFontSize(result.toString().length, true);
+
+        setResultNumber(result);
+        return;
+      }
+
+      const result = (Number(curNum) * props.currentCourse).toFixed(2);
       getFontSize(result.toString().length, true);
-
       setResultNumber(result);
-      return;
     }
-
-    const result = (Number(curNum) * props.currentCourse).toFixed(2);
-    getFontSize(result.toString().length, true);
-    setResultNumber(result);
   }
 
   // Generate a list of currencies
