@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Button from '../Button/Button';
 
 import './KeyBoardOther.scss';
 
 //draws a keyboard from which you can inherit
 const KeyBoardOther = (props) => {
+
   const exceptions = ['btn_percent', 'btn_plus-minus', 'btn_multiplication', 'btn_minus', 'btn_plus', 'btn_equal', 'btn_division'];
 
   return (

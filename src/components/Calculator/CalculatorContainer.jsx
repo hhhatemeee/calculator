@@ -15,6 +15,8 @@ const CalculatorContainer = (props) => {
   const [fontSize, setFontSize] = useState(96)
   const [isShow, setShown] = useState(false);
 
+
+
   // Handle click
   const handleClick = (value) => {
     operations(value);

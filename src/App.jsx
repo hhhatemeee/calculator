@@ -49,7 +49,7 @@ function App(props) {
 
   useEffect(() => {
     window.convertationService = new ConvertationService(
-      'FCA',
+      'CC',
       handleShowWindow,
       props.setCurrencyList,
     );
