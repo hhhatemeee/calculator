@@ -13,10 +13,6 @@ import { setCurrentTypeCreator, setDisabledTypeCreator } from './redux/calculati
 import './App.scss';
 import { CALC_TYPES } from './variables';
 
-
-import './App.scss';
-
-
 function App(props) {
   const [darkMode, setDarkMode] = useState(false);
   const [showWindow, setShowWindow] = useState(false);
