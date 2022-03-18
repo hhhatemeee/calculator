@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 
 import './Select.scss';
 
+//Draws a list selector
 const Select = ({ defaultValue, onChange, options }) => {
   useEffect(() => { }, [options]);
   return (

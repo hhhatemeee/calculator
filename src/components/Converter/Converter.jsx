@@ -1,13 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import KeyBoardOther from '../KeyBoardOther/KeyBoardOther';
 import PropTypes from 'prop-types';
 
 import ScreenOther from '../ScreenOther/ScreenOther';
 import { ReactComponent as Loader } from '../../img/Loader.svg';
+import ConverterSwitch from './ConverterSwitch/ConverterSwitch';
+import KeyBoardOther from '../KeyBoardOther/KeyBoardOther';
 
 import './Converter.scss';
-import Select from '../Select/Select';
-import ConverterSwitch from './ConverterSwitch/ConverterSwitch';
 
 const Converter = (props) => {
   useEffect(() => { }, [props.currentService])

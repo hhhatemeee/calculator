@@ -219,7 +219,6 @@ class ConvertationService {
                 return res.json();
               }
               this.#checkLimit(this.currentService);
-
             })
             .then((res) => {
               let result;

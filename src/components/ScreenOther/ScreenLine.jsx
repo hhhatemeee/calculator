@@ -5,6 +5,7 @@ import Select from '../Select/Select';
 
 import './ScreenLine.scss';
 
+// Draws the translation line
 const ScreenLine = (props) => {
   return (
     <div className='screen-line'>

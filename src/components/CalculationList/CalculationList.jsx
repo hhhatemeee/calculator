@@ -1,10 +1,11 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 
 import CalculationType from './CalculationType';
 
 import './CalculationList.scss';
 
+// Draws a list of calculators, depending on the type
 const CalculationList = (props) => {
   return (
     <div className='calc__calculation-list'>
@@ -24,19 +25,21 @@ const CalculationList = (props) => {
   )
 }
 
-CalculationType.propTypes = {
+CalculationList.propTypes = {
   name: PropTypes.string,
   list: PropTypes.array,
   setCurrentType: PropTypes.func,
   handleShowMenu: PropTypes.func,
   currentType: PropTypes.string,
+  isDisabled: PropTypes.object,
 };
 
 
-CalculationType.defaultProp = {
+CalculationList.defaultProp = {
   name: '',
   list: [],
   currentType: '',
+  isDisabled: {},
   setCurrentType: () => console.log('Не определена функция setCurrentType'),
   handleShowMenu: () => console.log('Не определена функция setCurrentType'),
 };

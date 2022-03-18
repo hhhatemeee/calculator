@@ -133,6 +133,7 @@ let initialState = [
   }
 ];
 
+
 const buttonsReducer = (state = initialState, action) => {
   switch (action.type) {
     default:

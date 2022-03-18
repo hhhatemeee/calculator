@@ -6,6 +6,7 @@ import ScreenLine from './ScreenLine';
 
 import './ScreenOther.scss';
 
+// Draws a screen from which you can inherit
 const ScreenOther = (props) => {
 
   const [options, setOptions] = useState([]);
@@ -19,9 +20,12 @@ const ScreenOther = (props) => {
     props.setCurrentCourse(props.to.name);
   }, [])
 
+  // Handler for displaying the number to be converted
   const handleFrom = (e) => {
     props.handleBasicCurrency(e.target.value);
     props.setCurrentCourse(props.to.name);
+
+    // Display currency icon
     if (Object.keys(props.CURRENCY_TABLE).includes(e.target.value)) {
       props.setFromValue({
         name: e.target.value,
@@ -36,11 +40,11 @@ const ScreenOther = (props) => {
     });
   };
 
-
-
+  // Handler for displaying the result
   const handleTo = (e) => {
     props.setCurrentCourse(e);
 
+    //Display currency icon
     if (Object.keys(props.CURRENCY_TABLE).includes(e.target.value)) {
       props.setToValue({
         name: e.target.value,

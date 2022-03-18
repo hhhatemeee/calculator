@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 
 import splittingNumber from '../../helpers/splittingNumber';
 import { setCurrentCourseCreator, setCurrentServiceCreator, setLoadingCreator } from '../../redux/convertationReducer';
-
 import Converter from './Converter'
 
 const ConverterContainer = (props) => {
@@ -35,6 +34,12 @@ const ConverterContainer = (props) => {
     setResultNumber((Number(curNum) * props.currentCourse).toFixed(2));
   })
 
+  /**
+   * Calculates the font size for the display
+   * @param {number} num - Length of the current number
+   * @param {boolean} isSecondLine - If true, then calculate the length for the second row
+   * @returns 
+   */
   const getFontSize = (num, isSecondLine) => {
     let size;
     size = 88;
@@ -73,6 +78,11 @@ const ConverterContainer = (props) => {
     setFontSizeOne(size)
   }
 
+  /**
+   * Handler for the current button click
+   * @param {string/number} button -  the current value of the button
+   * @returns 
+   */
   const handleCurNum = (button) => {
     let curNum = currentNumber.toString();
     let value = button;
@@ -87,7 +97,6 @@ const ConverterContainer = (props) => {
       case 'dot':
         value = '.';
         curNum += value;
-        console.log(curNum);
         break;
       default:
         if (curNum.length === 15) {
@@ -98,12 +107,13 @@ const ConverterContainer = (props) => {
         break;
     }
 
-
+    //If the last value of the number is a point, then save
     if (curNum.split('').at(-1) === '.') {
       setCurrentNumber(curNum);
       return;
     }
 
+    // You cannot enter more than two numbers after the dot
     if (curNum.includes('.') && curNum.split('.')[1].length > 2) {
       return;
     }
@@ -112,6 +122,7 @@ const ConverterContainer = (props) => {
 
     setCurrentNumber(Number(curNum));
 
+    // If the rate is greater than 1 then divide the numbers
     if (props.currentCourse > 1) {
       const result = (Number(curNum) / props.currentCourse).toFixed(2);
       getFontSize(result.toString().length, true);
@@ -125,6 +136,7 @@ const ConverterContainer = (props) => {
     setResultNumber(result);
   }
 
+  // Generate a list of currencies
   const generateList = () => {
     props.currencyList.map((val) => {
       options.push({ name: val, value: val })

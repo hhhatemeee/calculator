@@ -7,10 +7,12 @@ import ThemeSelector from './components/ThemeSelector/ThemeSelector';
 import CalcDelegation from './CalcDelegation';
 import ConvertationService from './services/convertationService';
 import { setCurrencyListCreator, setCurrentServiceCreator } from './redux/convertationReducer';
-
-import './App.scss';
 import ChangesTypesContainer from './components/ChangeTypes/ChangesTypesContainer';
 import { setCurrentTypeCreator, setDisabledTypeCreator } from './redux/calculationTypesReducer';
+
+import './App.scss';
+import { CALC_TYPES } from './variables';
+
 
 function App(props) {
   const [darkMode, setDarkMode] = useState(false);
@@ -19,11 +21,19 @@ function App(props) {
   const [servicesLimit, setServicesLimit] = useState([]);
   const [infoUrl, setInfoUrl] = useState('');
 
+  /**
+   * Modal window display handler.
+   * @param {boolean} isShow - Show Window
+   * @param {array} listLimit - array of disabled services
+   * @param {string} url - url of the current service
+   * @returns 
+   */
   const handleShowWindow = (isShow, listLimit, url) => {
     props.setCurrentService(getCurrentService());
+    // If the length of lastlimit = 3, then turn off Currency and switch to the standard
     if (listLimit && listLimit.length === 3) {
-      props.setDisabledType({ name: 'Currency', value: true });
-      setCurrentType('Standart');
+      props.setDisabledType({ name: CALC_TYPES.Currency, value: true });
+      setCurrentType(CALC_TYPES.Standart);
     }
 
     if (listLimit) {
@@ -50,6 +60,11 @@ function App(props) {
 
   const handleSwitchService = (service) => window.convertationService.switchService(service);
 
+  /**
+   * Handler for switching the calculator type in the store
+   * @param {string} name 
+   * @returns 
+   */
   const setCurrentType = (name) => props.setCurrentCalcType(name);
 
   const handleUpdateCurrencyList = () => window.convertationService.updateCurrencyList();
@@ -60,6 +75,11 @@ function App(props) {
 
   const getCurrentService = () => window.convertationService.getCurrentService();
 
+  /**
+   * Theme Switching Handler
+   * @param {boolean} isToggle 
+   * @returns 
+   */
   const handleTheme = (isToggle) => setDarkMode(isToggle);
 
   console.log('составить схему приложения');

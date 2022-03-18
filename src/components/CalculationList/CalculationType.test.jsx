@@ -4,6 +4,11 @@ import '@testing-library/jest-dom';
 import CalculationType from './CalculationType';
 
 describe('CalculationType Component', () => {
+  it('snapshot', () => {
+    const component = render(<CalculationType name='test' />);
+
+    expect(component).toMatchSnapshot();
+  })
   it('The status of the menu item if it is not available', () => {
     render(<CalculationType isDisabled={true} />);
 

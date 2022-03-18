@@ -8,7 +8,9 @@ import ConverterContainer from './components/Converter/ConverterContainer';
 
 const CalcDelegation = (props) => {
   let calculator;
+
   useEffect(() => { }, [props.listLimit])
+
   switch (props.currentType) {
     case 'Standart':
       calculator = <CalculatorContainer />;

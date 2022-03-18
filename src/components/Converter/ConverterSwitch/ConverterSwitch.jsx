@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 
 import Select from '../../Select/Select';
 
+// Draws the service switching line
 const ConverterSwitch = (props) => {
   return (
     <span className='converter__switch'>
