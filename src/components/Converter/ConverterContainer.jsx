@@ -52,7 +52,6 @@ const ConverterContainer = (props) => {
 
       if (num >= 10) {
         size = -(num * 4) + 89.2;
-        console.log(size);
       }
 
       if (num > 13) {

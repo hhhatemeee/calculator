@@ -5,6 +5,8 @@ import CalculatorContainer from './components/Calculator/CalculatorContainer';
 import ModalWindow from './components/ModalWindow/ModalWindow';
 import HomePage from './components/HomePage/HomePage';
 import ConverterContainer from './components/Converter/ConverterContainer';
+import { CALC_TYPES } from './variables';
+
 
 const CalcDelegation = (props) => {
   let calculator;
@@ -12,10 +14,10 @@ const CalcDelegation = (props) => {
   useEffect(() => { }, [props.listLimit])
 
   switch (props.currentType) {
-    case 'Standart':
+    case CALC_TYPES.Standart:
       calculator = <CalculatorContainer />;
       break;
-    case 'Currency':
+    case CALC_TYPES.Currency:
       calculator = <ConverterContainer
         switchService={props.switchService}
         handleUpdateCurrencyList={props.handleUpdateCurrencyList}
