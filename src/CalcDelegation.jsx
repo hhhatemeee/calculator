@@ -25,6 +25,7 @@ const CalcDelegation = (props) => {
         handleBasicCurrency={props.handleBasicCurrency}
         handleConvertaionCurrency={props.handleConvertaionCurrency}
         listLimit={props.listLimit}
+        getStatusApi={props.getStatusApi}
       />
       break;
     default:

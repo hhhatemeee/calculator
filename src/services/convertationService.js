@@ -19,8 +19,15 @@ class ConvertationService {
       CC: 'currencyconverterapi.com',
       OE: 'openexchangerates.org',
       FCA: 'freecurrencyapi.net',
+    },
+    STATUS_URL: {
+      CC: 'https://free.currconv.com/others/usage?apiKey=',
+      FCA: 'https://api.currencyapi.com/v3/status?apikey=',
+      OE: 'https://openexchangerates.org/api/usage.json?app_id=',
     }
   }
+
+  #isAvailable = true;
 
   #apiKey = this.#MOCK.API_KEYS.CC;
 
@@ -124,6 +131,22 @@ class ConvertationService {
 
     this.currentService = 'CC';
     console.warn(`Такого сервиса не существует. Список: ${this.#MOCK.SERVICE_LIST}`);
+  }
+
+  async getStatusApi() {
+    let isAvailable = {};
+
+    Object.keys(this.#MOCK.API_KEYS).forEach((key) => {
+      fetch(`${this.#MOCK.STATUS_URL[key]}${this.#MOCK.API_KEYS[key]}`)
+        .then((res) => {
+          if (res.status === 200) {
+            isAvailable[key] = true;
+            return;
+          }
+          isAvailable[key] = false;
+        });
+    })
+    return isAvailable;
   }
 
   /**

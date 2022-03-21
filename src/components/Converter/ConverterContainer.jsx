@@ -201,6 +201,7 @@ const ConverterContainer = (props) => {
       listLimit={props.listLimit}
       currentService={props.currentService}
       setCurrentService={props.setCurrentService}
+      getStatusApi={props.getStatusApi}
     />
   )
 }
