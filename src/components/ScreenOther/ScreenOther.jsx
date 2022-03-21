@@ -17,6 +17,7 @@ const ScreenOther = (props) => {
 
   }, [props.currencyList]);
 
+  // Currency exchange rate update at the first mounting
   useEffect(() => {
     props.setCurrentCourse(props.to.name);
   }, [])
