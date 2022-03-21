@@ -160,6 +160,7 @@ const ConverterContainer = (props) => {
             return
           }
           value = button;
+          console.log(value, curNum);
           curNum += value;
           break;
       }
