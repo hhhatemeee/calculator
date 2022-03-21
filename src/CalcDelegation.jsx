@@ -20,6 +20,7 @@ const CalcDelegation = (props) => {
       calculator = <ConverterContainer
         currentKey={props.currentKey}
         listLimit={props.listLimit}
+        getStatusApi={props.getStatusApi}
       />
       break;
     default:
