@@ -3,11 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import splittingNumber from '../../helpers/splittingNumber';
-<<<<<<< HEAD
 import { KEYS, KEYS_NAME, OPERATORS } from '../../variables';
-=======
-import { KEYS, OPERATORS } from '../../variables';
->>>>>>> 01fe2bc (release/CALC-22 - adding functional keyboard)
 import Calculator from './Calculator';
 
 const CalculatorContainer = (props) => {
@@ -372,11 +368,7 @@ const CalculatorContainer = (props) => {
     }
     console.log(res);
     // Button for removing elements in a row
-<<<<<<< HEAD
     if (element === 'delete' || element === KEYS_NAME.Backspace) {
-=======
-    if (element === 'delete' || element === 'Backspace') {
->>>>>>> 01fe2bc (release/CALC-22 - adding functional keyboard)
       const clone = curNum;
 
       if (history && result) {
