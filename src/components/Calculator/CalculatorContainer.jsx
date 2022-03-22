@@ -15,23 +15,15 @@ const CalculatorContainer = (props) => {
   const [fontSize, setFontSize] = useState(96)
   const [isShow, setShown] = useState(false);
 
-  useEffect(() => {
-    document.addEventListener('keydown', onKeypress);
 
-    return () => {
-      document.removeEventListener('keydown', onKeypress);
-    };
-  }, [currentNumber]);
-
-
-  const onKeypress = e => {
-    if ((e.key >= '0' && e.key <= '9')
+  const onKeyDown = (e) => {
+    if ((e.key >= 0 && e.key <= 9)
       || KEYS.CODES.includes(e.keyCode)
       || KEYS.NAMES.includes(e.key)) {
       operations(e.key);
     }
 
-    if (e.ctrlKey && e.keyCode == 86) {
+    if (e.ctrlKey && e.keyCode === 86) {
       navigator.clipboard.readText()
         .then(text => {
           if (!Number.isNaN(Number(text)))
@@ -366,7 +358,7 @@ const CalculatorContainer = (props) => {
     if (curNumLength >= 5) {
       getFontSize(curNumLength);
     }
-    console.log(res);
+
     // Button for removing elements in a row
     if (element === 'delete' || element === KEYS_NAME.Backspace) {
       const clone = curNum;
