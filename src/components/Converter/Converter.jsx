@@ -58,7 +58,7 @@ const Converter = (props) => {
   }
 
   return (
-    <div className='converter__container'>
+    <div className='converter__container' >
       <ScreenOther
         CURRENCY_TABLE={props.CURRENCY_TABLE}
         currencyList={props.currencyList}
