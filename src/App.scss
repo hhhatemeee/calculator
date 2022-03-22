@@ -36,7 +36,8 @@ body{
   font-family: "Work Sans";
   margin: 0 auto;
   transition: 0.1s ease-in;
-
+  outline: none;
+  
   &_theme_dark {
     background-color: $bg-dark;
   }

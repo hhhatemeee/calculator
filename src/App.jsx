@@ -27,6 +27,8 @@ function App(props) {
   const [servicesLimit, setServicesLimit] = useState([]);
   const [infoUrl, setInfoUrl] = useState('');
   const [convertationService, setConvertationService] = useState({});
+  const [currentKey, setCurrentKey] = useState({});
+
   /**
    * Modal window display handler.
    * @param {boolean} isShow - Show Window
@@ -79,6 +81,8 @@ function App(props) {
 
   const handleConvertaionCurrency = async (value) => await convertationService.getConvertation(value);
 
+  const onKeyDown = (e) => setCurrentKey(e);
+
   /**
    * Theme Switching Handler
    * @param {boolean} isToggle 
@@ -89,7 +93,7 @@ function App(props) {
   console.log('составить схему приложения');
 
   return (
-    <div className={cn('calc', { calc_theme_dark: darkMode })}>
+    <div className={cn('calc', { calc_theme_dark: darkMode })} id='calc' tabIndex='0' onKeyDown={onKeyDown}>
       <ThemeSelector darkMode={darkMode} onChange={handleTheme} />
       <ChangesTypesContainer />
       <CalcDelegation
@@ -105,6 +109,7 @@ function App(props) {
         handleUpdateCurrencyList={handleUpdateCurrencyList}
         handleBasicCurrency={handleBasicCurrency}
         handleConvertaionCurrency={handleConvertaionCurrency}
+        currentKey={currentKey}
       />
     </div >
   );

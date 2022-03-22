@@ -6,6 +6,7 @@ import splittingNumber from '../../helpers/splittingNumber';
 import { setCurrentCourseCreator, setCurrentServiceCreator, setLoadingCreator } from '../../redux/convertationReducer';
 import Converter from './Converter'
 import { BUTTONS_MOCK } from '../../variables';
+import { KEYS_NAME } from '../../variables';
 
 const ConverterContainer = (props) => {
   const options = [];
@@ -25,12 +26,12 @@ const ConverterContainer = (props) => {
     LAK: '₭',
   };
 
-  const onKeypress = e => {
-    if ((e.key >= '0' && e.key <= '9') || e.key === 'Backspace' || e.key === '.') {
+  const onKeyDown = (e) => {
+    if ((e.key >= '0' && e.key <= '9') || e.key === KEYS_NAME.Backspace || e.key === '.') {
       handleCurNum(e.key);
     }
 
-    if (e.ctrlKey && e.keyCode == 86) {
+    if (e.ctrlKey && e.keyCode === 86) {
       navigator.clipboard.readText()
         .then(text => {
           if (!Number.isNaN(Number(text)))
@@ -39,13 +40,7 @@ const ConverterContainer = (props) => {
     }
   }
 
-  useEffect(() => {
-    document.addEventListener('keydown', onKeypress);
-
-    return () => {
-      document.removeEventListener('keydown', onKeypress);
-    };
-  }, [currentNumber]);
+  useEffect(() => onKeyDown(props.currentKey), [props.currentKey])
 
   useEffect(() => {
     let curNum = currentNumber.toString();
@@ -138,7 +133,7 @@ const ConverterContainer = (props) => {
         case 'delete':
           curNum = curNum.toString().slice(0, curNum.length - 1)
           break;
-        case 'Backspace':
+        case KEYS_NAME.Backspace:
           curNum = curNum.toString().slice(0, curNum.length - 1)
           break;
         case '.':
@@ -160,7 +155,6 @@ const ConverterContainer = (props) => {
             return
           }
           value = button;
-          console.log(value, curNum);
           curNum += value;
           break;
       }
@@ -208,6 +202,7 @@ const ConverterContainer = (props) => {
 
   return (
     <Converter
+      onKeyDown={onKeyDown}
       CURRENCY_TABLE={CURRENCY_TABLE}
       currentNumber={currentNumber}
       currencyList={generateList()}
@@ -265,6 +260,7 @@ ConverterContainer.propTypes = {
   listLimit: PropTypes.array,
   currentService: PropTypes.string,
   setCurrentService: PropTypes.func,
+  currentKey: PropTypes.object
 };
 
 ConverterContainer.defaultProps = {
@@ -275,6 +271,10 @@ ConverterContainer.defaultProps = {
   services: [],
   listLimit: [],
   currentService: 'CC',
+  currentKey: {},
+  setLoading: () => console.log('Не определена функция setLoading'),
+  setCurrentCourse: () => console.log('Не определена функция setCurrentCourse'),
+  switchService: () => console.log('Не определена функция switchService'),
   handleUpdateCurrencyList: () => console.log('Не определена функция handleUpdateCurrencyList'),
 };
 
