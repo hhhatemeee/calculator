@@ -10,6 +10,9 @@ Object {
         data-testid="typePoint"
       >
         <span>
+          <i
+            class="ico-undefined"
+          />
           test
         </span>
       </div>
@@ -21,6 +24,9 @@ Object {
       data-testid="typePoint"
     >
       <span>
+        <i
+          class="ico-undefined"
+        />
         test
       </span>
     </div>
