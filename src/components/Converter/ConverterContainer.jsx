@@ -14,6 +14,7 @@ const ConverterContainer = (props) => {
   const [resultNumber, setResultNumber] = useState(0);
   const [fontSizeOne, setFontSizeOne] = useState(88);
   const [fontSizeTwo, setFontSizeTwo] = useState(88);
+  const [servicesStatusApi, setServicesStatusApi] = useState({});
   const CURRENCY_TABLE = {
     RUB: '₽',
     EUR: '€',
@@ -25,6 +26,10 @@ const ConverterContainer = (props) => {
     AUD: '$',
     LAK: '₭',
   };
+
+  useEffect(async () => {
+    setServicesStatusApi(await props.getStatusApi());
+  }, []);
 
   const onKeyDown = (e) => {
     if ((e.key >= '0' && e.key <= '9') || e.key === KEYS_NAME.Backspace || e.key === '.') {
@@ -201,7 +206,7 @@ const ConverterContainer = (props) => {
       listLimit={props.listLimit}
       currentService={props.currentService}
       setCurrentService={props.setCurrentService}
-      getStatusApi={props.getStatusApi}
+      servicesStatus={servicesStatusApi}
     />
   )
 }

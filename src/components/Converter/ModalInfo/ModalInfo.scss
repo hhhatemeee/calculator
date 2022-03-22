@@ -1,0 +1,78 @@
+@import "../../../scss/variables.scss";
+@import "../../../scss/icons.scss";
+@import "../../../scss/fonts.scss";
+
+.modal-info{
+  position: relative;
+  &__logo{
+    svg{
+      position: absolute;
+      width: 25px;
+      top:-120px;
+      left: 320px;
+      fill: $btn-dark-color;
+      cursor: pointer;
+    }
+  
+    :hover{
+      fill: rgba($btn-dark-color,.8);
+    }
+  
+    :active{
+      fill: rgba($btn-dark-color,.6);
+    }
+  }
+
+  &__container{
+    position: absolute;
+    top:-95px;
+    left: 208px;
+    width: 110px;
+    max-height: 0;
+    background-color: #e0d7d0;
+    background-image: linear-gradient(315deg, #e6e1dd 0%, #f6f0ea 74%);
+    border-radius: 8px;
+    border-top-right-radius: 0px;
+    padding: 5px;
+    box-shadow: -1px 1px 5px 0px rgba(22, 31, 22, 0.425);
+    opacity: 0;
+    transition: 0.2s ease-in;
+  }
+
+  &__header{
+    text-align: center;
+    font-weight: 900;
+    border-bottom: 1px solid $btn-dark-color;
+  }
+
+  &__status-list{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    max-height: 0;
+    opacity: 0;
+    transition: 0.1s ease-in;
+  }
+
+  &__status-api{
+    width: 10px;
+    height: 10px;
+    background-color: $status-up-color;
+    box-shadow: 0px 0px 3px 0px rgba(51, 255, 0, 0.637);
+    background-image: linear-gradient(210deg, #00ff55 14%, #068b1a 84%);
+    text-shadow: -5px 0 black, 0 5px black, 1px 0 black, 0 -1px black;
+    border-radius: 50%;
+    margin-left: 5px;
+  }
+}
+
+.isDown{
+  background-color: $status-down-color;
+  box-shadow: 0px 0px 3px 0px rgba(255, 102, 0, 0.637);
+  background-image: linear-gradient(210deg, #f1714a 14%, #aa0000 84%);
+}
+
+.isOpen{
+  opacity: 1;
+  max-height: 80px;
+}
