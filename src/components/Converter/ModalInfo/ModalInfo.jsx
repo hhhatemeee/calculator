@@ -5,7 +5,7 @@ import { ReactComponent as LogoInfo } from '../../../img/Info.svg';
 
 import './ModalInfo.scss';
 
-const ModalInfo = ({ servicesStatus }) => {
+const ModalInfo = ({ servicesStatus, servicesUrl }) => {
   const [isShow, setIsShow] = useState(false);
   const onClick = () => setIsShow(!isShow);
 
@@ -18,10 +18,12 @@ const ModalInfo = ({ servicesStatus }) => {
         <div className='modal-info__header'>STATUS API</div>
         {
           Object.keys(servicesStatus).map((service) => {
-            return <div className={cn(('modal-info__status-list'), { isOpen: isShow })} key={service}>
-              {service}
+            return <a
+              className={cn(('modal-info__status-list'), { isOpen: isShow })} key={service}
+              href={`https://${servicesUrl[service]}`}>
+              <span>{service}</span>
               <div className={cn('modal-info__status-api', { isDown: !servicesStatus[service] })} />
-            </div>
+            </a>
           })
         }
       </div>
