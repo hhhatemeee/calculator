@@ -2,9 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import CalculationType from './CalculationType';
+import { interfaceList } from './ListInterface';
 
 import './CalculationList.scss';
-import { interfaceList } from './ListInterface';
 
 // Draws a list of calculators, depending on the type
 const CalculationList = (props) => {
@@ -16,7 +16,7 @@ const CalculationList = (props) => {
           isDisabled={props.disabledCalcs[calc.name]}
           key={calc.name}
           name={calc.name}
-          ImageSvg={calc.img}
+          imgName={calc.imgName}
           setCurrentType={props.setCurrentType}
           currentType={props.currentType}
           handleShowMenu={props.handleShowMenu} />

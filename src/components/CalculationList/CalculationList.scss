@@ -19,6 +19,7 @@
     z-index: 6;
     user-select: none;
     box-sizing:content;
+    font-family: 'icoCalc';
 
     &::before{
       content: '';
@@ -53,8 +54,9 @@
       align-items: center;
       font-size: 18px;
 
-      svg{
+      i{
         display: inline-block;
+        font-size: 25px;
         width: 25px;
         height: 25px;
         margin-right: 10px;

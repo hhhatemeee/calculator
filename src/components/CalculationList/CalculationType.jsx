@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import cn from 'classnames';
 
 // Renders each menu item
-const CalculationType = ({ name, ImageSvg, setCurrentType, currentType, handleShowMenu, isDisabled }) => {
+const CalculationType = ({ name, imgName, setCurrentType, currentType, handleShowMenu, isDisabled }) => {
   //When selecting a calculator, hide the menu
   const onClick = () => {
     setCurrentType(name);
@@ -15,7 +15,7 @@ const CalculationType = ({ name, ImageSvg, setCurrentType, currentType, handleSh
       data-testid='typePoint'
       className={cn('item', { current: name === currentType }, { isDisabled: isDisabled })}
       onClick={onClick}>
-      <span>{ImageSvg}{name}</span>
+      <span><i className={`ico-${imgName}`}></i>{name}</span>
     </div>
   )
 }

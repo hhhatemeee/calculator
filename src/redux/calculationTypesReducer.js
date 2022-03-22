@@ -1,10 +1,3 @@
-import { ReactComponent as Standart } from '../img/Standart.svg';
-import { ReactComponent as Graphing } from '../img/Graphing.svg';
-import { ReactComponent as Date } from '../img/Date.svg';
-import { ReactComponent as Programmer } from '../img/Programmer.svg';
-import { ReactComponent as Chemistry } from '../img/Chemistry.svg';
-import { ReactComponent as Currency } from '../img/Currency.svg';
-
 const SET_CURRENT_TYPE = 'SET_CURRENT_TYPE';
 const SET_DISABLED = 'SET_DISABLED';
 
@@ -12,12 +5,12 @@ const initialState = {
   currentType: 'Standart',
   types: {
     Calculator: [
-      { name: 'Standart', img: <Standart /> },
-      { name: 'Scientific', img: <Chemistry /> },
-      { name: 'Graphing', img: <Graphing /> },
-      { name: 'Programmer', img: <Programmer /> },
-      { name: 'Date Calculation', img: <Date /> }],
-    Converter: [{ name: 'Currency', img: <Currency /> }]
+      { name: 'Standart', imgName: 'Standart' },
+      { name: 'Scientific', imgName: 'Chemistry' },
+      { name: 'Graphing', imgName: 'Graphing' },
+      { name: 'Programmer', imgName: 'Programmer' },
+      { name: 'Date Calculation', imgName: 'Date' }],
+    Converter: [{ name: 'Currency', imgName: 'Currency' }]
   },
   disabledCalcs: {
     Calculator: {
