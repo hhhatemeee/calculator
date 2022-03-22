@@ -57,7 +57,7 @@ const Converter = (props) => {
 
   return (
     <div className='converter__container'>
-      <ModalInfo servicesStatus={props.servicesStatus} />
+      <ModalInfo servicesStatus={props.servicesStatus} servicesUrl={props.servicesUrl} />
       <ScreenOther
         CURRENCY_TABLE={props.CURRENCY_TABLE}
         currencyList={props.currencyList}

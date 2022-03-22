@@ -207,6 +207,7 @@ const ConverterContainer = (props) => {
       currentService={props.currentService}
       setCurrentService={props.setCurrentService}
       servicesStatus={servicesStatusApi}
+      servicesUrl={props.servicesUrl}
     />
   )
 }
@@ -218,6 +219,7 @@ const mapStateToProps = (state) => {
     isLoading: state.convertation.isLoading,
     currentCourse: state.convertation.currentCourse,
     services: state.convertation.services,
+    servicesUrl: state.convertation.servicesUrl,
     currentService: state.convertation.currentService,
   }
 }

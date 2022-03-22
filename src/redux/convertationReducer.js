@@ -13,6 +13,11 @@ const initialState = {
     { name: 'FCA', value: 'FCA' },
     { name: 'OE', value: 'OE' }
   ],
+  servicesUrl: {
+    CC: 'currencyconverterapi.com',
+    OE: 'openexchangerates.org',
+    FCA: 'freecurrencyapi.net',
+  },
 };
 
 const convertationReducer = (state = initialState, action) => {
