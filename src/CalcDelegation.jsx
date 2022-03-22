@@ -15,10 +15,11 @@ const CalcDelegation = (props) => {
 
   switch (props.currentType) {
     case CALC_TYPES.Standart:
-      calculator = <CalculatorContainer />;
+      calculator = <CalculatorContainer currentKey={props.currentKey} />;
       break;
     case CALC_TYPES.Currency:
       calculator = <ConverterContainer
+        currentKey={props.currentKey}
         switchService={props.switchService}
         handleUpdateCurrencyList={props.handleUpdateCurrencyList}
         handleBasicCurrency={props.handleBasicCurrency}
@@ -53,6 +54,7 @@ CalcDelegation.propTypes = {
   showWindow: PropTypes.bool,
   listLimit: PropTypes.array,
   url: PropTypes.string,
+  currentKey: PropTypes.object,
   onClick: PropTypes.func,
   switchService: PropTypes.func,
   setCurrentType: PropTypes.func,
@@ -67,6 +69,7 @@ CalcDelegation.defaultProps = {
   showWindow: false,
   listLimit: [],
   url: '',
+  currentKey: {},
   onClick: () => console.warn('Не указана функция onClick'),
   switchService: () => console.warn('Не указана функция switchService'),
   setCurrentType: () => console.warn('Не указана функция setCurrentType'),

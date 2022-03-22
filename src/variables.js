@@ -12,3 +12,12 @@ export const BUTTONS_MOCK = {
   delete: 'delete',
   dot: 'dot',
 };
+export const KEYS = {
+  CODES: [8, 13],
+  NAMES: ['Backspace', '*', '/', '+', '-', '%', '.']
+};
+
+export const KEYS_NAME = {
+  Backspace: 'Backspace',
+  Dot: '.',
+}
