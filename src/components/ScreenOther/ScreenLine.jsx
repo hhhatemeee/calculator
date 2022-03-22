@@ -31,7 +31,7 @@ ScreenLine.propTypes = {
   options: PropTypes.array,
 }
 
-ScreenLine.defaultProp = {
+ScreenLine.defaultProps = {
   fontSize: 88,
   currentNumber: 0,
   currency: '',

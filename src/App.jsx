@@ -112,7 +112,7 @@ App.propTypes = {
   currentType: PropTypes.string,
 };
 
-App.defaultProp = {
+App.defaultProps = {
   setCurrencyList: () => console.log('Не указана функция setCurrencyList'),
   setCurrentType: () => console.log('Не указана функция setCurrentType'),
   calcTypes: {},

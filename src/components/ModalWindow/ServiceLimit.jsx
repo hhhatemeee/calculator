@@ -53,7 +53,7 @@ ServiceLimit.propTypes = {
   SERVICE_LIST: PropTypes.array,
 };
 
-ServiceLimit.defaultProp = {
+ServiceLimit.defaultProps = {
   handleShowUrl: () => console.log('Не указана функция handleShowUrl'),
   switchService: () => console.log('Не указана функция switchService'),
   showUrl: false,

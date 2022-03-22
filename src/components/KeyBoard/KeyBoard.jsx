@@ -9,18 +9,15 @@ const KeyBoard = ({ buttons, onClick }) => {
   return (
     <div className='calc-buttons'>
       {
-        buttons.map((btn) => {
-          if (btn.name.includes('mock')) {
-            return;
-          }
-          return <Button
-            key={btn.value}
-            btnName={btn.name}
-            btnColor={btn.color}
-            btnText={btn.text}
-            btnValue={btn.value}
-            onClick={onClick} />
-        })}
+        buttons.map((btn) => <Button
+          key={btn.value}
+          btnName={btn.name}
+          btnColor={btn.color}
+          btnText={btn.text}
+          btnValue={btn.value}
+          onClick={onClick}
+          isStandart={true} />
+        )}
     </div>
   )
 }
@@ -30,7 +27,7 @@ KeyBoard.propTypes = {
   onClick: PropTypes.func,
 };
 
-KeyBoard.defaultProp = {
+KeyBoard.defaultProps = {
   buttons: [],
   onClick: () => console.log('Не указана функция onClick'),
 };

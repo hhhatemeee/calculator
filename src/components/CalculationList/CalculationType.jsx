@@ -29,7 +29,7 @@ CalculationType.propTypes = {
   isDisabled: PropTypes.bool,
 }
 
-CalculationType.defaultProp = {
+CalculationType.defaultProps = {
   name: 'name',
   img: null,
   setCurrentType: () => console.log('Не указана функция setCurrentType'),

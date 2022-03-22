@@ -11,7 +11,7 @@ const ChangesTypesContainer = (props) => {
       calcTypes={props.calculatorsType}
       setCurrentType={props.setCurrentType}
       currentType={props.currentType}
-      isDisabled={props.isDisabled} />
+      disabledCalcs={props.disabledCalcs} />
   )
 }
 
@@ -19,7 +19,7 @@ const mapStateToProps = (state) => {
   return {
     calculatorsType: state.calculatorsType.types,
     currentType: state.calculatorsType.currentType,
-    isDisabled: state.calculatorsType.isDisabled,
+    disabledCalcs: state.calculatorsType.disabledCalcs,
   }
 }
 
@@ -35,7 +35,7 @@ ChangesTypesContainer.propTypes = {
   currentType: PropTypes.string,
 }
 
-ChangesTypesContainer.defaultProp = {
+ChangesTypesContainer.defaultProps = {
   calculatorsType: {},
   currentType: '',
   setCurrentType: () => console.log('Не указана функция setCurrentType'),

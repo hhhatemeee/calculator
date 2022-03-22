@@ -20,13 +20,13 @@ const ConverterSwitch = (props) => {
 }
 
 ConverterSwitch.propTypes = {
-  listLimit: PropTypes.array,
+  listLimit: PropTypes.arrayOf(PropTypes.string),
   currentService: PropTypes.string,
   onChange: PropTypes.func,
   options: PropTypes.array,
 };
 
-ConverterSwitch.defaultProp = {
+ConverterSwitch.defaultProps = {
   listLimit: [],
   currentService: 'CC',
   onChange: () => console.log('Не определена функция onChange'),

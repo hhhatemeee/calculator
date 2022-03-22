@@ -5,6 +5,7 @@ import splittingNumber from '../../helpers/splittingNumber';
 import ScreenLine from './ScreenLine';
 
 import './ScreenOther.scss';
+import { CURRENCY_MOCK } from '../../variables';
 
 // Draws a screen from which you can inherit
 const ScreenOther = (props) => {
@@ -22,40 +23,47 @@ const ScreenOther = (props) => {
 
   // Handler for displaying the number to be converted
   const handleFrom = (e) => {
-    props.handleBasicCurrency(e.target.value);
+    const targetValue = e && e.target && e.target.value
+      ? e.target.value
+      : CURRENCY_MOCK.RUB;
+
+    props.handleBasicCurrency(targetValue);
     props.setCurrentCourse(props.to.name);
 
     // Display currency icon
-    if (Object.keys(props.CURRENCY_TABLE).includes(e.target.value)) {
+    if (Object.keys(props.CURRENCY_TABLE).includes(targetValue)) {
       props.setFromValue({
         name: e.target.value,
-        value: props.CURRENCY_TABLE[e.target.value],
+        value: props.CURRENCY_TABLE[targetValue],
       });
       return;
     }
 
     props.setFromValue({
-      name: e.target.value,
+      name: targetValue,
       value: '',
     });
   };
 
   // Handler for displaying the result
   const handleTo = (e) => {
-    props.setCurrentCourse(e);
+    const targetValue = e && e.target && e.target.value
+      ? e.target.value
+      : CURRENCY_MOCK.USD;
 
+    props.setCurrentCourse(e);
     //Display currency icon
-    if (Object.keys(props.CURRENCY_TABLE).includes(e.target.value)) {
+    if (Object.keys(props.CURRENCY_TABLE).includes(targetValue)) {
       props.setToValue({
-        name: e.target.value,
-        value: props.CURRENCY_TABLE[e.target.value],
+        name: targetValue,
+        value: props.CURRENCY_TABLE[targetValue],
       });
 
       return;
     }
 
     props.setToValue({
-      name: e.target.value,
+      name: targetValue,
       value: '',
     });
   };
@@ -100,7 +108,7 @@ ScreenOther.propTypes = {
   setToValue: PropTypes.func,
 };
 
-ScreenOther.defaultProp = {
+ScreenOther.defaultProps = {
   currencyList: [],
   to: { name: '', value: '' },
   from: { name: '', value: '' },

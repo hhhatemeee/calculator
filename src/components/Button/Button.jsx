@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import cn from 'classnames';
 
 import './Button.scss';
 
@@ -8,8 +9,8 @@ const Button = ({
   btnName,
   btnColor,
   btnText,
-  width,
-  onClick }) => {
+  isStandart,
+  onClick, }) => {
 
   const click = () => {
     onClick(btnValue);
@@ -17,8 +18,8 @@ const Button = ({
 
   return (
     <div
-      style={width ? { width: `${width}px` } : {}}
-      className={`btn ${btnName} ${btnColor}`}
+      className={cn(`btn ${btnName} ${btnColor}`,
+        { 'mock-none': btnName.includes('mock') && isStandart })}
       onClick={click}
     >
       {btnText}
@@ -31,7 +32,7 @@ Button.propTypes = {
   btnName: PropTypes.string,
   btnColor: PropTypes.string,
   btnText: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
-  onClick: PropTypes.func,
+  onClick: PropTypes.func.isRequired,
 }
 
 Button.defaultProps = {
@@ -39,7 +40,6 @@ Button.defaultProps = {
   btnName: '',
   btnColor: '',
   btnText: '',
-  onClick: () => console.log('Не указана функция OnClick'),
 }
 
 export default Button

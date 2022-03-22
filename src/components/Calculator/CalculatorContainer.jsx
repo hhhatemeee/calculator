@@ -485,7 +485,7 @@ CalculatorContainer.propTypes = {
   buttons: PropTypes.array,
 };
 
-CalculatorContainer.defaultProp = {
+CalculatorContainer.defaultProps = {
   buttons: [],
 };
 

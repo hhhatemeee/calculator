@@ -48,7 +48,7 @@ AllServiceLimit.propTypes = {
   SERVICE_LIST: PropTypes.array,
 };
 
-AllServiceLimit.defaultProp = {
+AllServiceLimit.defaultProps = {
   showInfo: false,
   handleClick: () => console.log('Не указана функция handleClick'),
   SERVICE_LIST: [],

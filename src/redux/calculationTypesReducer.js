@@ -19,7 +19,7 @@ const initialState = {
       { name: 'Date Calculation', img: <Date /> }],
     Converter: [{ name: 'Currency', img: <Currency /> }]
   },
-  isDisabled: {
+  disabledCalcs: {
     Calculator: {
       Standart: false,
       Scientific: false,
@@ -42,13 +42,13 @@ const calculationTypesReducer = (state = initialState, action) => {
       }
     case SET_DISABLED:
       let result = {
-        ...state.isDisabled,
-        Calculator: { ...state.isDisabled.Calculator },
-        Converter: { ...state.isDisabled.Converter }
+        ...state.disabledCalcs,
+        Calculator: { ...state.disabledCalcs.Calculator },
+        Converter: { ...state.disabledCalcs.Converter }
       };
       console.log(action);
-      Object.keys(state.isDisabled).forEach((key) => {
-        Object.keys(state.isDisabled[key]).forEach((calc) => {
+      Object.keys(state.disabledCalcs).forEach((key) => {
+        Object.keys(state.disabledCalcs[key]).forEach((calc) => {
           if (calc === action.name) {
             result[key][calc] = action.value;
           }
@@ -58,7 +58,7 @@ const calculationTypesReducer = (state = initialState, action) => {
 
       return {
         ...state,
-        isDisabled: result,
+        disabledCalcs: result,
       }
     default:
       return state

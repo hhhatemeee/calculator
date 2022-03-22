@@ -4,7 +4,8 @@ import PropTypes from 'prop-types';
 import ScreenOther from '../ScreenOther/ScreenOther';
 import { ReactComponent as Loader } from '../../img/Loader.svg';
 import ConverterSwitch from './ConverterSwitch/ConverterSwitch';
-import KeyBoardOther from '../KeyBoardOther/KeyBoardOther';
+import { CURRENCY_MOCK } from '../../variables';
+import KeyBoardBasic from '../KeyBoardBasic/KeyBoardBasic';
 
 import './Converter.scss';
 
@@ -13,24 +14,15 @@ const Converter = (props) => {
 
   const [from, setFrom] = useState(
     {
-      name: 'RUB',
-      value: '₽',
+      name: CURRENCY_MOCK.RUB[0],
+      value: CURRENCY_MOCK.RUB[1],
     });
   const [to, setTo] = useState(
     {
-      name: 'USD',
-      value: '$',
+      name: CURRENCY_MOCK.USD[0],
+      value: CURRENCY_MOCK.USD[1],
     });
-  const setOptions = () => {
-    const options = props.services.map((el) => {
-      if (props.listLimit.includes(el.name)) {
-        return null;
-      }
-      return el;
-    })
-
-    return options.filter(el => el !== null)
-  }
+  const setOptions = () => props.services.filter((el) => !props.listLimit.includes(el.name));
 
   const setFromValue = (value) => setFrom(value);
   const setToValue = (value) => setTo(value);
@@ -39,21 +31,25 @@ const Converter = (props) => {
     props.setLoading(true);
     setCurrentCourse(to.name)
   }
-
   const setCurrentCourse = async (e) => {
-    if (e.target) {
+    //If an event came from the selector, then process it.
+    if (e.target && e.target.value) {
       const cc = await props.handleConvertaionCurrency(e.target.value);
       await props.setCurrentCourse(cc)
       return;
     }
 
+    //If the name of the currency has come
     const cc = await props.handleConvertaionCurrency(e);
     await props.setCurrentCourse(cc);
   }
 
   const onChange = (e) => {
-    props.setCurrentService(e.target.value)
-    props.switchService(e.target.value);
+    const targetValue = e && e.target && e.target.value
+      ? e.target.value
+      : 'CC';
+    props.setCurrentService(targetValue)
+    props.switchService(targetValue);
     props.updateCurrencyList();
   }
 
@@ -83,7 +79,7 @@ const Converter = (props) => {
         onChange={onChange}
         options={setOptions()}
       />
-      <KeyBoardOther buttons={props.buttons} handleCurNum={props.handleCurNum} />
+      <KeyBoardBasic buttons={props.buttons} handleCurNum={props.handleCurNum} />
     </div>
   )
 }
@@ -98,7 +94,7 @@ Converter.propTypes = {
   handleBasicCurrency: PropTypes.func,
   isLoading: PropTypes.bool,
   buttons: PropTypes.array,
-  handleCurNum: PropTypes.func,
+  handleCurNum: PropTypes.func.isRequired,
   updateCurrencyList: PropTypes.func,
   switchService: PropTypes.func,
   setLoading: PropTypes.func,
@@ -110,7 +106,7 @@ Converter.propTypes = {
   setCurrentService: PropTypes.func,
 };
 
-Converter.defaultProp = {
+Converter.defaultProps = {
   currencyList: [],
   CURRENCY_TABLE: {},
   resultNumber: '0',
@@ -122,8 +118,6 @@ Converter.defaultProp = {
   services: [],
   listLimit: [],
   currentService: 'CC',
-  handleCurNum: () => console.log('Не определена функция handleCurNum'),
-  handleBasicCurrency: () => console.log('Не определена функция handleBasicCurrency'),
   updateCurrencyList: () => console.log('Не определена функция updateCurrencyList'),
   switchService: () => console.log('Не определена функция switchService'),
   setLoading: () => console.log('Не определена функция setLoading'),

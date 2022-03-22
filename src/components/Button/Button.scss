@@ -19,7 +19,6 @@
   align-items: center;
   user-select: none;
   transition: 0.05s ease-in;
-  // z-index: 4;
 
   &_theme_dark-light {
     color: $btn-white-color;
@@ -212,4 +211,12 @@ grid-area: btn_delete;
 .btn_mock_1{
   grid-area: btn_mock_1;
   visibility: hidden;
+}
+
+.mock-none{
+  display: none;
+}
+
+.calc-btn_basic{
+  width: 110px !important;
 }

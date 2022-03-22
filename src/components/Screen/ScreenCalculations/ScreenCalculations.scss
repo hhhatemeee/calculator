@@ -3,8 +3,6 @@
 @import "../../../scss/fonts.scss";
 
 .calc-screen__calculations {
-  // display: flex;
-  // overflow-wrap: anywhere;
   position: relative;
   top:20px;
   overflow-x: scroll;
@@ -17,10 +15,8 @@
   margin: 0;
   padding: 0;
   white-space: pre;
-  // margin-left: auto;
   user-select: none;
-  // align-items: flex-end;
-  // justify-content: flex-end;
+
   &-container{
     display: flex;
     justify-content: center;
@@ -31,7 +27,6 @@
 
 .calc-screen__btn-right, .calc-screen__btn-left{
   height: 30px;
-  // visibility: hidden;
   border: none;
   background: transparent;
   cursor: pointer;
@@ -49,14 +44,12 @@
 
 
 .calc-screen__btn-right{
-  // padding-left: 10px;
   position: relative;
   top: 10px;
   left:-1px;
 }
 
 .calc-screen__btn-left{
-  // padding-left: 10px;
   position: relative;
   top: 10px;
   left:2px;

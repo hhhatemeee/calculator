@@ -28,7 +28,7 @@ const ChangeTypes = (props) => {
             setCurrentType={props.setCurrentType}
             currentType={props.currentType}
             handleShowMenu={handleShowMenu}
-            isDisabled={props.isDisabled[type]} />)}
+            disabledCalcs={props.disabledCalcs[type]} />)}
         </div>
       </div>
     </div>
@@ -39,13 +39,13 @@ ChangeTypes.propTypes = {
   calcTypes: PropTypes.object,
   setCurrentType: PropTypes.func,
   currentType: PropTypes.string,
-  isDisabled: PropTypes.object,
+  disabledCalcs: PropTypes.object,
 };
 
-ChangeTypes.defaultProp = {
+ChangeTypes.defaultProps = {
   calcTypes: {},
   currentType: '',
-  isDisabled: {},
+  disabledCalcs: {},
   setCurrentType: () => console.log('Не определена функция setCurrentType'),
 };
 

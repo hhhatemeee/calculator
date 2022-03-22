@@ -21,15 +21,7 @@ const ModalWindow = (props) => {
 
   useEffect(() => {
     props.onClick(false);
-  }, [])
-
-  useEffect(() => {
-    props.onClick(false);
-  }, [])
-
-  useEffect(() => {
-    props.onClick(false);
-  }, [])
+  }, []);
 
   const handleShowUrl = () => setShowUrl(!showUrl);
 
@@ -79,7 +71,7 @@ ModalWindow.propTypes = {
   switchService: PropTypes.func,
 };
 
-ModalWindow.defaultProp = {
+ModalWindow.defaultProps = {
   listLimit: [],
   url: '',
   showWindow: false,

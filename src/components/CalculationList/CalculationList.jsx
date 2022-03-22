@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import CalculationType from './CalculationType';
 
 import './CalculationList.scss';
+import { interfaceList } from './ListInterface';
 
 // Draws a list of calculators, depending on the type
 const CalculationList = (props) => {
@@ -12,7 +13,7 @@ const CalculationList = (props) => {
       <h3>{props.name}</h3>
       {
         props.list.map((calc) => <CalculationType
-          isDisabled={props.isDisabled[calc.name]}
+          isDisabled={props.disabledCalcs[calc.name]}
           key={calc.name}
           name={calc.name}
           ImageSvg={calc.img}
@@ -27,19 +28,19 @@ const CalculationList = (props) => {
 
 CalculationList.propTypes = {
   name: PropTypes.string,
-  list: PropTypes.array,
+  list: PropTypes.arrayOf(PropTypes.shape(interfaceList)),
   setCurrentType: PropTypes.func,
   handleShowMenu: PropTypes.func,
   currentType: PropTypes.string,
-  isDisabled: PropTypes.object,
+  disabledCalcs: PropTypes.object,
 };
 
 
-CalculationList.defaultProp = {
+CalculationList.defaultProps = {
   name: '',
   list: [],
   currentType: '',
-  isDisabled: {},
+  disabledCalcs: {},
   setCurrentType: () => console.log('Не определена функция setCurrentType'),
   handleShowMenu: () => console.log('Не определена функция setCurrentType'),
 };

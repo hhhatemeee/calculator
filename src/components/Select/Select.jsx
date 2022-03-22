@@ -2,10 +2,12 @@ import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 
 import './Select.scss';
+import { optionsInterface } from './SelectInterface';
 
 //Draws a list selector
 const Select = ({ defaultValue, onChange, options }) => {
   useEffect(() => { }, [options]);
+
   return (
     <div className='select'>
       <div className='select__container-line'>
@@ -22,7 +24,7 @@ const Select = ({ defaultValue, onChange, options }) => {
 Select.propTypes = {
   defaultValue: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   onChange: PropTypes.func,
-  options: PropTypes.array,
+  options: PropTypes.arrayOf(PropTypes.shape(optionsInterface)),
 };
 
 Select.defaultProp = {

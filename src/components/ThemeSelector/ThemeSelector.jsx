@@ -25,7 +25,7 @@ ThemeSelector.propTypes = {
   onChange: PropTypes.func,
 };
 
-ThemeSelector.defaultProp = {
+ThemeSelector.defaultProps = {
   darkMode: false,
   onChange: () => console.log('Не указана функция onChange'),
 };

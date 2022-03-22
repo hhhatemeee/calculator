@@ -1,10 +1,12 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+
 import Button from '../Button/Button';
 
-import './KeyBoardOther.scss';
+import './KeyBoardBasic.scss';
 
 //draws a keyboard from which you can inherit
-const KeyBoardOther = (props) => {
+const KeyBoardBasic = (props) => {
   const exceptions = ['btn_percent', 'btn_plus-minus', 'btn_multiplication', 'btn_minus', 'btn_plus', 'btn_equal', 'btn_division'];
 
   return (
@@ -16,12 +18,11 @@ const KeyBoardOther = (props) => {
           }
           return <Button
             key={btn.value}
-            btnName={btn.name}
+            btnName={btn.name + ' calc-btn_basic'}
             btnColor={btn.name === 'btn_ac' ? ' ' : btn.color}
             btnText={btn.text}
             btnValue={btn.value}
             onClick={props.handleCurNum}
-            width={110}
           />
         })
       }
@@ -29,4 +30,13 @@ const KeyBoardOther = (props) => {
   )
 }
 
-export default KeyBoardOther;
+KeyBoardBasic.propTypes = {
+  buttons: PropTypes.array,
+  handleCurNum: PropTypes.func.isRequired,
+}
+
+KeyBoardBasic.defaultProps = {
+  buttons: [],
+}
+
+export default KeyBoardBasic;

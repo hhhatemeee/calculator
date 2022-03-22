@@ -36,7 +36,7 @@ ScreenCalculations.propTypes = {
   history: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
 };
 
-ScreenCalculations.defaultProp = {
+ScreenCalculations.defaultProps = {
   isShown: false,
   history: 0,
 };
