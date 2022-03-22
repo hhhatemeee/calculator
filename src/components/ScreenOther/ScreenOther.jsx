@@ -19,7 +19,7 @@ const ScreenOther = (props) => {
 
   // Currency exchange rate update at the first mounting
   useEffect(() => {
-    props.setCurrentCourse(props.to.name);
+    // props.setCurrentCourse(props.to.name);
   }, [])
 
   // Handler for displaying the number to be converted

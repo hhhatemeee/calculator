@@ -8,6 +8,7 @@ import { CURRENCY_MOCK } from '../../variables';
 import KeyBoardBasic from '../KeyBoardBasic/KeyBoardBasic';
 
 import './Converter.scss';
+import ModalInfo from './ModalInfo/ModalInfo';
 
 const Converter = (props) => {
   useEffect(() => { }, [props.currentService])
@@ -53,8 +54,10 @@ const Converter = (props) => {
     props.updateCurrencyList();
   }
 
+
   return (
-    <div className='converter__container' >
+    <div className='converter__container'>
+      <ModalInfo servicesStatus={props.servicesStatus} />
       <ScreenOther
         CURRENCY_TABLE={props.CURRENCY_TABLE}
         currencyList={props.currencyList}
