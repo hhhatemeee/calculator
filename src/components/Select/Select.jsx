@@ -23,14 +23,12 @@ const Select = ({ defaultValue, onChange, options }) => {
 
 Select.propTypes = {
   defaultValue: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-  onChange: PropTypes.func,
-  options: PropTypes.arrayOf(PropTypes.shape(optionsInterface)),
+  onChange: PropTypes.func.isRequired,
+  options: PropTypes.arrayOf(PropTypes.shape(optionsInterface)).isRequired,
 };
 
 Select.defaultProp = {
   defaultValue: '',
-  onChange: () => console.log('Не определена функция onChange'),
-  options: [],
 }
 
 
