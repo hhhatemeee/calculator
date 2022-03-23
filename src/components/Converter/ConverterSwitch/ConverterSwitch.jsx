@@ -9,7 +9,7 @@ const ConverterSwitch = (props) => {
     <span className='converter__switch'>
       <p>Switch Service:</p>
       {props.listLimit.length >= 2
-        ? <p className='convertner__current-service'>{props.currentService}</p>
+        ? <p className='converter__current-service'>{props.currentService}</p>
         : <Select
           defaultValue={props.currentService}
           onChange={props.onChange}
