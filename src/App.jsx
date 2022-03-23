@@ -66,6 +66,7 @@ function App(props) {
 
   const getStatusApi = () => window.convertationService.getStatusApi();
 
+  const onKeyDown = (e) => setCurrentKey(e);
 
   /**
    * Theme Switching Handler
@@ -91,6 +92,7 @@ function App(props) {
         setCurrentType={setCurrentType}
         currentKey={currentKey}
         getStatusApi={getStatusApi}
+        currentKey={currentKey}
       />
     </div >
   );
