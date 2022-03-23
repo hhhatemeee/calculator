@@ -70,7 +70,8 @@ function App(props) {
 
   const onKeyDown = (e) => setCurrentKey(e);
 
-  const onKeyDown = (e) => setCurrentKey(e);
+  const getStatusApi = () => window.convertationService.getStatusApi();
+
 
   /**
    * Theme Switching Handler
