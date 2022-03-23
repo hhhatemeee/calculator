@@ -60,7 +60,7 @@ const ConverterContainer = (props) => {
       return;
     }
     setResultNumber((Number(curNum) / props.currentCourse).toFixed(2));
-  }, [props.currentCourse]);
+  });
 
   /**
    * Calculates the font size for the display
@@ -73,6 +73,7 @@ const ConverterContainer = (props) => {
     size = 88;
 
     if (isSecondLine) {
+      console.log(num);
       if (num > 6) {
         size = -(num * 7.5) + 126.74;
 
@@ -85,6 +86,10 @@ const ConverterContainer = (props) => {
       if (num > 13) {
         size = -(num * 2.8) + 75.4;
       }
+      if (num > 16) {
+        size = -(num * 1.4) + 52.9;
+      }
+
       setFontSizeTwo(size);
 
       return;
@@ -165,14 +170,15 @@ const ConverterContainer = (props) => {
       // If the rate is greater than 1 then divide the numbers
       if (props.currentCourse > 1) {
         const result = (Number(curNum) / props.currentCourse).toFixed(2);
-        getFontSize(result.toString().length, true);
 
+        getFontSize(result.length, true);
         setResultNumber(result);
         return;
       }
 
-      const result = (Number(curNum) * props.currentCourse).toFixed(2);
-      getFontSize(result.toString().length, true);
+      const result = (Number(curNum) / props.currentCourse).toFixed(2);
+
+      getFontSize(result.length, true);
       setResultNumber(result);
     }
   }

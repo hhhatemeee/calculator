@@ -13,6 +13,7 @@ import './Converter.scss';
 
 const Converter = (props) => {
   useEffect(() => { }, [props.currentService])
+  console.log(props.services);
 
   const [from, setFrom] = useState(
     {
@@ -60,6 +61,15 @@ const Converter = (props) => {
     ConvertationService.updateCurrencyList();
   }
 
+  const onSwapCurrency = () => {
+    const currentCurrencies = { from: { ...from }, to: { ...to } };
+
+    setFrom(currentCurrencies.to);
+    setTo(currentCurrencies.from);
+    props.handleBasicCurrency(to.name);
+    setCurrentCourse(from.name);
+  }
+
 
   return (
     <div className='converter__container'>
@@ -77,6 +87,7 @@ const Converter = (props) => {
         fontSizeOne={props.fontSizeOne}
         fontSizeTwo={props.fontSizeTwo}
       />
+      <i className='ico-Swap converter__swap-button' onClick={onSwapCurrency} data-testid='swapBtn' />
       <span onClick={onClick} className='converter__update'>
         Update rates
         {props.isLoading && <Loader className='loader' />}
@@ -108,6 +119,7 @@ Converter.propTypes = {
   listLimit: PropTypes.array,
   currentService: PropTypes.string,
   setCurrentService: PropTypes.func,
+  servicesStatus: PropTypes.object,
 };
 
 Converter.defaultProps = {
@@ -122,6 +134,9 @@ Converter.defaultProps = {
   services: [],
   listLimit: [],
   currentService: 'CC',
+  servicesStatus: {},
+  handleCurNum: () => console.log('Не определена функция handleCurNum'),
+  handleBasicCurrency: () => console.log('Не определена функция handleBasicCurrency'),
   updateCurrencyList: () => console.log('Не определена функция updateCurrencyList'),
   switchService: () => console.log('Не определена функция switchService'),
   setLoading: () => console.log('Не определена функция setLoading'),
