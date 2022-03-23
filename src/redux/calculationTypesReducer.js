@@ -34,7 +34,7 @@ const calculationTypesReducer = (state = initialState, action) => {
         currentType: action.name,
       }
     case SET_DISABLED:
-      let result = {
+      const result = {
         ...state.disabledCalcs,
         Calculator: { ...state.disabledCalcs.Calculator },
         Converter: { ...state.disabledCalcs.Converter }

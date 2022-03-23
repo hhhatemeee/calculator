@@ -5,7 +5,6 @@ class ConvertationService {
     this.setCurrencyList = setCurrencyList;
     this.currentService = serviceName;
 
-    window.service = window.service || this;
   }
 
   #MOCK = {
@@ -210,7 +209,7 @@ class ConvertationService {
             .catch((err) => console.log(err));
           break;
         case 'FCA':
-          result = fetch(`https://cors-anywhere.herokuapp.com/https://freecurrencyapi.net/api/v2/latest?apikey=${this.#apiKey}&base_currency=${from}`)
+          result = fetch(`https://api.currencyapi.com/v3/latest?apikey=${this.#apiKey}&base_currency=${from}`)
             .then((res) => {
               if (res.status === 200) {
                 // this.limitList.push(this.currentService);
@@ -223,7 +222,8 @@ class ConvertationService {
               Object.keys(res.data).forEach((value) => {
                 if (to === value) {
                   result = res.data[value];
-                  return res.data[value];
+                  console.log(res.data[value].value);
+                  return res.data[value].value;
                 }
               });
               return result;

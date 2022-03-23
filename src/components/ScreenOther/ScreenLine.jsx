@@ -14,7 +14,7 @@ const ScreenLine = (props) => {
         <p className='screen-line__currency'>{props.currency}</p>
       </span>
       <Select
-        onChange={props.handleSelect}
+        onChange={props.onSelect}
         defaultValue={props.defaultValue}
         options={props.options}
       />
@@ -26,7 +26,7 @@ ScreenLine.propTypes = {
   fontSize: PropTypes.number,
   currentNumber: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   currency: PropTypes.string,
-  handleSelect: PropTypes.func,
+  onSelect: PropTypes.func,
   defaultValue: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   options: PropTypes.array,
 }
@@ -35,7 +35,7 @@ ScreenLine.defaultProps = {
   fontSize: 88,
   currentNumber: 0,
   currency: '',
-  handleSelect: () => console.log('Не определена функция handleSelect'),
+  onSelect: () => console.log('Не определена функция handleSelect'),
   defaultValue: '',
   options: [],
 }

@@ -1,4 +1,4 @@
-export default function get(props, requiredField, defaultValue) {
+export default function getProps(props, requiredField, defaultValue) {
   if (!props && !requiredField) {
     console.warn('Аргументы не могут быть пустыми');
 
@@ -13,15 +13,20 @@ export default function get(props, requiredField, defaultValue) {
 
   function iterating(obj) {
     const objectKeys = Object.keys(obj);
-
+    console.log(objectKeys);
     objectKeys.forEach((key) => {
       processData.forEach((data, i) => {
         if (key.includes(data)) {
+          if (key !== data) {
+            return;
+          }
+
           if (Array.isArray(obj[key])) {
             iterating(obj[key][processData[i + 1]]);
           }
 
           if (typeof obj[key] === 'object') {
+
             iterating(obj[key]);
           } else {
             value = (obj[key]);

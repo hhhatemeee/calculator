@@ -2,10 +2,10 @@ import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 
 import splittingNumber from '../../helpers/splittingNumber';
+import { CURRENCY_MOCK } from '../../variables';
 import ScreenLine from './ScreenLine';
 
 import './ScreenOther.scss';
-import { CURRENCY_MOCK } from '../../variables';
 
 // Draws a screen from which you can inherit
 const ScreenOther = (props) => {
@@ -74,7 +74,7 @@ const ScreenOther = (props) => {
       <ScreenLine
         className='screen-line__one'
         currency={props.from.value}
-        handleSelect={handleFrom}
+        onSelect={handleFrom}
         defaultValue={props.from.name}
         currentNumber={splittingNumber(props.currentNumber)}
         options={options}
@@ -83,7 +83,7 @@ const ScreenOther = (props) => {
       <ScreenLine
         className='screen-line__two'
         currency={props.to.value}
-        handleSelect={handleTo}
+        onSelect={handleTo}
         defaultValue={props.to.name}
         currentNumber={splittingNumber(props.resultNumber)}
         options={options}

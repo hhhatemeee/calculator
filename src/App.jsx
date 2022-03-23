@@ -13,13 +13,14 @@ import { setCurrentTypeCreator, setDisabledTypeCreator } from './redux/calculati
 import './App.scss';
 import { CALC_TYPES } from './variables';
 
+
 function App(props) {
   const [darkMode, setDarkMode] = useState(false);
   const [showWindow, setShowWindow] = useState(false);
   const [renderWindow, setRenderWindow] = useState(false);
   const [servicesLimit, setServicesLimit] = useState([]);
   const [infoUrl, setInfoUrl] = useState('');
-
+  const [convertationService, setConvertationService] = useState({});
   /**
    * Modal window display handler.
    * @param {boolean} isShow - Show Window
@@ -28,6 +29,7 @@ function App(props) {
    * @returns 
    */
   const handleShowWindow = (isShow, listLimit, url) => {
+    console.log(getCurrentService());
     props.setCurrentService(getCurrentService());
     // If the length of lastlimit = 3, then turn off Currency and switch to the standard
     if (listLimit && listLimit.length === 3) {
@@ -48,16 +50,16 @@ function App(props) {
   };
 
   useEffect(() => {
-    window.convertationService = new ConvertationService(
+    setConvertationService(new ConvertationService(
       'FCA',
       handleShowWindow,
       props.setCurrencyList,
-    );
+    ));
 
-    props.setCurrentService(getCurrentService());
+    props.setCurrentService('FCA');
   }, []);
 
-  const handleSwitchService = (service) => window.convertationService.switchService(service);
+  const handleSwitchService = (service) => convertationService.switchService(service);
 
   /**
    * Handler for switching the calculator type in the store
@@ -66,14 +68,13 @@ function App(props) {
    */
   const setCurrentType = (name) => props.setCurrentCalcType(name);
 
-  const handleUpdateCurrencyList = () => window.convertationService.updateCurrencyList();
+  const handleUpdateCurrencyList = () => convertationService.updateCurrencyList();
 
-  const handleBasicCurrency = (value) => window.convertationService.setBasicCurrency(value);
+  const handleBasicCurrency = (value) => convertationService.setBasicCurrency(value);
 
-  const handleConvertaionCurrency = async (value) => await window.convertationService.getConvertation(value);
+  const handleConvertaionCurrency = async (value) => await convertationService.getConvertation(value);
 
-  const getCurrentService = () => window.convertationService.getCurrentService();
-
+  const getCurrentService = () => convertationService.getCurrentService();
   /**
    * Theme Switching Handler
    * @param {boolean} isToggle 

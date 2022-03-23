@@ -146,7 +146,7 @@ const ConverterContainer = (props) => {
   }
 
   const updateCurrencyList = () => props.handleUpdateCurrencyList();
-
+  console.log(props.currentService);
   return (
     <Converter
       CURRENCY_TABLE={CURRENCY_TABLE}

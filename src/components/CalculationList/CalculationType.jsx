@@ -22,7 +22,7 @@ const CalculationType = ({ name, imgName, setCurrentType, currentType, handleSho
 
 CalculationType.propTypes = {
   name: PropTypes.string,
-  img: PropTypes.any,
+  imgName: PropTypes.string,
   setCurrentType: PropTypes.func,
   handleShowMenu: PropTypes.func,
   currentType: PropTypes.string,
@@ -31,7 +31,7 @@ CalculationType.propTypes = {
 
 CalculationType.defaultProps = {
   name: 'name',
-  img: null,
+  imgName: '',
   setCurrentType: () => console.log('Не указана функция setCurrentType'),
   handleShowMenu: () => console.log('Не указана функция setCurrentType'),
   currentType: '',

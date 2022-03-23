@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import CalculationType from './CalculationType';
-import { interfaceList } from './ListInterface';
+import interfaceElement from './interfaceElement';
 
 import './CalculationList.scss';
 
@@ -28,7 +28,7 @@ const CalculationList = (props) => {
 
 CalculationList.propTypes = {
   name: PropTypes.string,
-  list: PropTypes.arrayOf(PropTypes.shape(interfaceList)),
+  list: PropTypes.arrayOf(PropTypes.shape(interfaceElement)),
   setCurrentType: PropTypes.func,
   handleShowMenu: PropTypes.func,
   currentType: PropTypes.string,
