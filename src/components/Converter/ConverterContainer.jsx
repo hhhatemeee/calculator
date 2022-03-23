@@ -101,7 +101,6 @@ const ConverterContainer = (props) => {
    */
   const handleCurNum = (button) => {
     if (button.toString().length < 17) {
-
       let curNum = currentNumber.toString();
       let value = button;
       switch (value) {
