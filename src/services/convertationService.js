@@ -133,7 +133,7 @@ class ConvertationService {
     console.warn(`Такого сервиса не существует. Список: ${this.#MOCK.SERVICE_LIST}`);
   }
 
-  async getStatusApi() {
+  getStatusApi() {
     let isAvailable = {};
 
     Object.keys(this.#MOCK.API_KEYS).forEach((key) => {
