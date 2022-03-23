@@ -19,7 +19,6 @@ function App(props) {
   const [renderWindow, setRenderWindow] = useState(false);
   const [servicesLimit, setServicesLimit] = useState([]);
   const [infoUrl, setInfoUrl] = useState('');
-  const [currentKey, setCurrentKey] = useState({});
 
   /**
    * Modal window display handler.
@@ -50,7 +49,7 @@ function App(props) {
 
   useEffect(() => {
     window.convertationService = new ConvertationService(
-      'CC',
+      'FCA',
       handleShowWindow,
       props.setCurrencyList,
     );
@@ -75,7 +74,8 @@ function App(props) {
 
   const getCurrentService = () => window.convertationService.getCurrentService();
 
-  const onKeyDown = (e) => setCurrentKey(e);
+  const getStatusApi = () => window.convertationService.getStatusApi();
+
 
   /**
    * Theme Switching Handler
@@ -87,7 +87,7 @@ function App(props) {
   console.log('составить схему приложения');
 
   return (
-    <div className={cn('calc', { calc_theme_dark: darkMode })} id='calc' tabIndex='0' onKeyDown={onKeyDown}>
+    <div className={cn('calc', { calc_theme_dark: darkMode })}>
       <ThemeSelector darkMode={darkMode} onChange={handleTheme} />
       <ChangesTypesContainer />
       <CalcDelegation
@@ -103,7 +103,7 @@ function App(props) {
         handleUpdateCurrencyList={handleUpdateCurrencyList}
         handleBasicCurrency={handleBasicCurrency}
         handleConvertaionCurrency={handleConvertaionCurrency}
-        currentKey={currentKey}
+        getStatusApi={getStatusApi}
       />
     </div >
   );
