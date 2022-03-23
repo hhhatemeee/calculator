@@ -64,7 +64,7 @@ function App(props) {
 
   const onKeyDown = (e) => setCurrentKey(e);
 
-  const getStatusApi = () => convertationService.getStatusApi();
+  const getStatusApi = () => window.convertationService.getStatusApi();
 
   const onKeyDown = (e) => setCurrentKey(e);
 
