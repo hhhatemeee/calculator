@@ -142,7 +142,7 @@ class ConvertationService {
 
         break;
       case 'FCA':
-        fetch(`https://cors-anywhere.herokuapp.com/https://freecurrencyapi.net/api/v2/latest?apikey=${this.#apiKey}`)
+        fetch(`https://api.currencyapi.com/v3/latest?apikey=${this.#apiKey}`)
           .then((res) => res.json())
           .then((res) => {
             this.setCurrencyList(Object.keys(res.data))
@@ -187,9 +187,7 @@ class ConvertationService {
 
             })
             .then((res) => {
-              console.log(Object.values(res).toString());
               result = Object.values(res).toString();
-              console.log(result);
               return result;
             })
             .catch((err) => console.log(err));
@@ -219,11 +217,10 @@ class ConvertationService {
             })
             .then((res) => {
               let result;
-              Object.keys(res.data).forEach((value) => {
-                if (to === value) {
-                  result = res.data[value];
-                  console.log(res.data[value].value);
-                  return res.data[value].value;
+              Object.keys(res.data).forEach((cur) => {
+                if (to === cur) {
+                  result = res.data[cur].value;
+                  return result;
                 }
               });
               return result;

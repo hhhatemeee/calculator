@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 
 import './Select.scss';
-import { optionsInterface } from './SelectInterface';
+import optionsInterface from './SelectInterface';
 
 //Draws a list selector
 const Select = ({ defaultValue, onChange, options }) => {

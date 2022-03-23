@@ -29,8 +29,7 @@ function App(props) {
    * @returns 
    */
   const handleShowWindow = (isShow, listLimit, url) => {
-    console.log(getCurrentService());
-    props.setCurrentService(getCurrentService());
+    props.setCurrentService(convertationService.currentService);
     // If the length of lastlimit = 3, then turn off Currency and switch to the standard
     if (listLimit && listLimit.length === 3) {
       props.setDisabledType({ name: CALC_TYPES.Currency, value: true });
@@ -51,12 +50,12 @@ function App(props) {
 
   useEffect(() => {
     setConvertationService(new ConvertationService(
-      'FCA',
+      'CC',
       handleShowWindow,
       props.setCurrencyList,
     ));
 
-    props.setCurrentService('FCA');
+    props.setCurrentService('CC');
   }, []);
 
   const handleSwitchService = (service) => convertationService.switchService(service);
@@ -74,7 +73,6 @@ function App(props) {
 
   const handleConvertaionCurrency = async (value) => await convertationService.getConvertation(value);
 
-  const getCurrentService = () => convertationService.getCurrentService();
   /**
    * Theme Switching Handler
    * @param {boolean} isToggle 
