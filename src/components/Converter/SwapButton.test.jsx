@@ -14,10 +14,6 @@ describe('SwapButton test', () => {
     expect(child).not.toBeNull();
   });
 
-  it('Snapshot before click the SwapButton', () => {
-    const converter = render(<Converter />);
-    expect(converter).toMatchSnapshot();
-  })
 
   it('check the onClick the swapButton', () => {
     const converter = render(<Converter />);
