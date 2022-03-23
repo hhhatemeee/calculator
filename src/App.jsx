@@ -77,6 +77,7 @@ function App(props) {
 
   const getStatusApi = () => window.convertationService.getStatusApi();
 
+  const onKeyDown = (e) => setCurrentKey(e);
 
   /**
    * Theme Switching Handler
@@ -88,7 +89,7 @@ function App(props) {
   console.log('составить схему приложения');
 
   return (
-    <div className={cn('calc', { calc_theme_dark: darkMode })}>
+    <div className={cn('calc', { calc_theme_dark: darkMode })} tabIndex='-1' onKeyDown={onKeyDown}>
       <ThemeSelector darkMode={darkMode} onChange={handleTheme} />
       <ChangesTypesContainer />
       <CalcDelegation
@@ -105,6 +106,7 @@ function App(props) {
         handleBasicCurrency={handleBasicCurrency}
         handleConvertaionCurrency={handleConvertaionCurrency}
         getStatusApi={getStatusApi}
+        currentKey={currentKey}
       />
     </div >
   );
