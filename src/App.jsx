@@ -60,7 +60,7 @@ function App(props) {
     props.setCurrentService('CC');
   }, []);
 
-  const handleSwitchService = (service) => convertationService.switchService(service);
+  const handleSwitchService = (service) => window.convertationService.switchService(service);
 
   /**
    * Handler for switching the calculator type in the store
@@ -69,11 +69,11 @@ function App(props) {
    */
   const setCurrentType = (name) => props.setCurrentCalcType(name);
 
-  const handleUpdateCurrencyList = () => convertationService.updateCurrencyList();
+  const handleUpdateCurrencyList = () => window.convertationService.updateCurrencyList();
 
-  const handleBasicCurrency = (value) => convertationService.setBasicCurrency(value);
+  const handleBasicCurrency = (value) => window.convertationService.setBasicCurrency(value);
 
-  const handleConvertaionCurrency = async (value) => await convertationService.getConvertation(value);
+  const handleConvertaionCurrency = async (value) => await window.convertationService.getConvertation(value);
 
   const onKeyDown = (e) => setCurrentKey(e);
 
