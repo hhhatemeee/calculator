@@ -27,8 +27,8 @@ const ConverterContainer = (props) => {
     LAK: '₭',
   };
 
-  useEffect(async () => {
-    setServicesStatusApi(await props.getStatusApi());
+  useEffect(() => {
+    setServicesStatusApi(props.getStatusApi());
   }, []);
 
   const onKeyDown = (e) => {
@@ -43,9 +43,9 @@ const ConverterContainer = (props) => {
             handleCurNum(text);
         })
     }
-  }
+  };
 
-  useEffect(() => onKeyDown(props.currentKey), [props.currentKey])
+  useEffect(() => onKeyDown(props.currentKey), [props.currentKey]);
 
   useEffect(() => {
     let curNum = currentNumber.toString();
@@ -55,7 +55,7 @@ const ConverterContainer = (props) => {
       return;
     }
     setResultNumber((Number(curNum) * props.currentCourse).toFixed(2));
-  })
+  });
 
   /**
    * Calculates the font size for the display
