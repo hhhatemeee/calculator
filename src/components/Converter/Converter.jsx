@@ -69,8 +69,6 @@ const Converter = (props) => {
     props.setCurrentCourse(1 / props.currentCourse);
   }
 
-  console.log(props.currentCourse);
-
   return (
     <div className='converter__container'>
       <ModalInfo servicesStatus={props.servicesStatus} servicesUrl={props.servicesUrl} />
