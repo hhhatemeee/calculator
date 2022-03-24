@@ -13,7 +13,6 @@ import './Converter.scss';
 
 const Converter = (props) => {
   useEffect(() => { }, [props.currentService])
-  console.log(props.services);
 
   const [from, setFrom] = useState(
     {
@@ -67,9 +66,10 @@ const Converter = (props) => {
     setFrom(currentCurrencies.to);
     setTo(currentCurrencies.from);
     props.handleBasicCurrency(to.name);
-    setCurrentCourse(from.name);
+    props.setCurrentCourse(1 / props.currentCourse);
   }
 
+  console.log(props.currentCourse);
 
   return (
     <div className='converter__container'>

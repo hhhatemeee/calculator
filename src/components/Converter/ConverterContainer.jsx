@@ -54,12 +54,14 @@ const ConverterContainer = (props) => {
 
   useEffect(() => {
     let curNum = currentNumber.toString();
+    const result = (Number(curNum) / props.currentCourse).toFixed(2);
 
+    getFontSize(result.toString().length, true)
     if (props.currentCourse > 1) {
-      setResultNumber((Number(curNum) / props.currentCourse).toFixed(2));
+      setResultNumber(result);
       return;
     }
-    setResultNumber((Number(curNum) / props.currentCourse).toFixed(2));
+    setResultNumber(result);
   });
 
   /**
@@ -73,7 +75,6 @@ const ConverterContainer = (props) => {
     size = 88;
 
     if (isSecondLine) {
-      console.log(num);
       if (num > 6) {
         size = -(num * 7.5) + 126.74;
 
@@ -167,15 +168,6 @@ const ConverterContainer = (props) => {
 
       setCurrentNumber(Number(curNum));
 
-      // If the rate is greater than 1 then divide the numbers
-      if (props.currentCourse > 1) {
-        const result = (Number(curNum) / props.currentCourse).toFixed(2);
-
-        getFontSize(result.length, true);
-        setResultNumber(result);
-        return;
-      }
-
       const result = (Number(curNum) / props.currentCourse).toFixed(2);
 
       getFontSize(result.length, true);
@@ -213,6 +205,8 @@ const ConverterContainer = (props) => {
       servicesStatus={servicesStatusApi}
       servicesUrl={props.servicesUrl}
       setFetching={props.setFetching}
+      currentCourse={props.currentCourse}
+      getFontSize={getFontSize}
     />
   )
 }

@@ -19,7 +19,8 @@ const ModalInfo = ({ servicesStatus, servicesUrl }) => {
           Object.keys(servicesStatus).length === 3 && Object.keys(servicesStatus).map((service) => {
             return <a
               className={cn(('modal-info__status-list'), { isOpen: isShow })} key={service}
-              href={`https://${servicesUrl[service]}`}>
+              href={`https://${servicesUrl[service]}`}
+              target="_blank">
               <span>{service}</span>
               <div className={cn('modal-info__status-api', { isDown: !servicesStatus[service] })} />
             </a>
