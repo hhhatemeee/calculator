@@ -3,10 +3,12 @@ import { connect } from 'react-redux'
 import PropTypes from 'prop-types';
 
 import splittingNumber from '../../helpers/splittingNumber';
-import { setCurrentCourseCreator, setCurrentServiceCreator, setLoadingCreator } from '../../redux/convertationReducer';
+import { setCurrentCourseCreator, setCurrentServiceCreator, setFetchingCreator, setLoadingCreator } from '../../redux/convertationReducer';
 import Converter from './Converter'
 import { BUTTONS_MOCK } from '../../variables';
 import { KEYS_NAME } from '../../variables';
+import ConvertationService from '../../services/convertationService';
+
 
 const ConverterContainer = (props) => {
   const options = [];
@@ -15,6 +17,7 @@ const ConverterContainer = (props) => {
   const [fontSizeOne, setFontSizeOne] = useState(88);
   const [fontSizeTwo, setFontSizeTwo] = useState(88);
   const [servicesStatusApi, setServicesStatusApi] = useState({});
+  const [currencyList, setCurrencyList] = useState([]);
   const CURRENCY_TABLE = {
     RUB: '₽',
     EUR: '€',
@@ -28,8 +31,8 @@ const ConverterContainer = (props) => {
   };
 
   useEffect(() => {
-    setServicesStatusApi(props.getStatusApi());
-  }, []);
+    setServicesStatusApi(ConvertationService.getStatusApi());
+  }, [props.isFetching]);
 
   const onKeyDown = (e) => {
     if ((e.key >= '0' && e.key <= '9') || e.key === KEYS_NAME.Backspace || e.key === '.') {
@@ -45,6 +48,8 @@ const ConverterContainer = (props) => {
     }
   };
 
+  useEffect(() => generateList(), [props.currencyList]);
+
   useEffect(() => onKeyDown(props.currentKey), [props.currentKey]);
 
   useEffect(() => {
@@ -54,8 +59,8 @@ const ConverterContainer = (props) => {
       setResultNumber((Number(curNum) / props.currentCourse).toFixed(2));
       return;
     }
-    setResultNumber((Number(curNum) * props.currentCourse).toFixed(2));
-  });
+    setResultNumber((Number(curNum) / props.currentCourse).toFixed(2));
+  }, [props.currentCourse]);
 
   /**
    * Calculates the font size for the display
@@ -179,25 +184,19 @@ const ConverterContainer = (props) => {
       options.push({ name: val, value: val })
     })
 
-    return options;
+    setCurrencyList(options);
   }
-
-  const updateCurrencyList = () => props.handleUpdateCurrencyList();
 
   return (
     <Converter
       onKeyDown={onKeyDown}
       CURRENCY_TABLE={CURRENCY_TABLE}
       currentNumber={currentNumber}
-      currencyList={generateList()}
+      currencyList={currencyList}
       buttons={props.buttons}
       handleCurNum={handleCurNum}
-      updateCurrencyList={updateCurrencyList}
       isLoading={props.isLoading}
       setLoading={props.setLoading}
-      switchService={props.switchService}
-      handleBasicCurrency={props.handleBasicCurrency}
-      handleConvertaionCurrency={props.handleConvertaionCurrency}
       setCurrentCourse={props.setCurrentCourse}
       resultNumber={resultNumber}
       fontSizeOne={fontSizeOne}
@@ -208,6 +207,7 @@ const ConverterContainer = (props) => {
       setCurrentService={props.setCurrentService}
       servicesStatus={servicesStatusApi}
       servicesUrl={props.servicesUrl}
+      setFetching={props.setFetching}
     />
   )
 }
@@ -221,6 +221,7 @@ const mapStateToProps = (state) => {
     services: state.convertation.services,
     servicesUrl: state.convertation.servicesUrl,
     currentService: state.convertation.currentService,
+    isFetching: state.convertation.isFetching,
   }
 }
 
@@ -229,6 +230,7 @@ const mapDispatchToProps = (dispatch) => {
     setLoading: (isLoading) => dispatch(setLoadingCreator(isLoading)),
     setCurrentCourse: (value) => dispatch(setCurrentCourseCreator(value)),
     setCurrentService: (service) => dispatch(setCurrentServiceCreator(service)),
+    setFetching: (bool) => dispatch(setFetchingCreator(bool)),
   }
 }
 
@@ -239,10 +241,6 @@ ConverterContainer.propTypes = {
   currentCourse: PropTypes.number,
   setLoading: PropTypes.func,
   setCurrentCourse: PropTypes.func,
-  switchService: PropTypes.func,
-  handleUpdateCurrencyList: PropTypes.func,
-  handleBasicCurrency: PropTypes.func,
-  handleConvertaionCurrency: PropTypes.func,
   services: PropTypes.array,
   listLimit: PropTypes.array,
   currentService: PropTypes.string,
@@ -261,8 +259,7 @@ ConverterContainer.defaultProps = {
   currentKey: {},
   setLoading: () => console.log('Не определена функция setLoading'),
   setCurrentCourse: () => console.log('Не определена функция setCurrentCourse'),
-  switchService: () => console.log('Не определена функция switchService'),
-  handleUpdateCurrencyList: () => console.log('Не определена функция handleUpdateCurrencyList'),
+  setCurrentService: () => console.log('Не определена функция setCurrentService'),
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ConverterContainer);

@@ -6,6 +6,7 @@ import { CURRENCY_MOCK } from '../../variables';
 import ScreenLine from './ScreenLine';
 
 import './ScreenOther.scss';
+import convertationService from '../../services/convertationService';
 
 // Draws a screen from which you can inherit
 const ScreenOther = (props) => {
@@ -28,7 +29,7 @@ const ScreenOther = (props) => {
       ? e.target.value
       : CURRENCY_MOCK.RUB;
 
-    props.handleBasicCurrency(targetValue);
+    convertationService.setBasicCurrency(targetValue);
     props.setCurrentCourse(props.to.name);
 
     // Display currency icon
@@ -104,7 +105,6 @@ ScreenOther.propTypes = {
   fontSizeOne: PropTypes.number,
   fontSizeTwo: PropTypes.number,
   setCurrentCourse: PropTypes.func,
-  handleBasicCurrency: PropTypes.func,
   setFromValue: PropTypes.func,
   setToValue: PropTypes.func,
 };
@@ -119,7 +119,6 @@ ScreenOther.defaultProps = {
   fontSizeOne: 88,
   fontSizeTwo: 88,
   setCurrentCourse: () => console.log('Не определена функци setCurrentCourse'),
-  handleBasicCurrency: () => console.log('Не определена функция handleBasicCurrency'),
   setFromValue: () => console.log('Не определена функция setFromValue'),
   setToValue: () => console.log('Не определена функция setToValue'),
 };
