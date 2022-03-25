@@ -69,11 +69,13 @@ function App(props) {
    */
   const setCurrentType = (name) => props.setCurrentCalcType(name);
 
-  const handleUpdateCurrencyList = () => window.convertationService.updateCurrencyList();
+  const handleUpdateCurrencyList = () => convertationService.updateCurrencyList();
 
-  const handleBasicCurrency = (value) => window.convertationService.setBasicCurrency(value);
+  const handleBasicCurrency = (value) => convertationService.setBasicCurrency(value);
 
-  const handleConvertaionCurrency = async (value) => await window.convertationService.getConvertation(value);
+  const handleConvertaionCurrency = async (value) => await convertationService.getConvertation(value);
+
+  const getStatusApi = () => convertationService.getStatusApi();
 
   const onKeyDown = (e) => setCurrentKey(e);
 
@@ -104,6 +106,7 @@ function App(props) {
         handleBasicCurrency={handleBasicCurrency}
         handleConvertaionCurrency={handleConvertaionCurrency}
         currentKey={currentKey}
+        getStatusApi={getStatusApi}
       />
     </div >
   );
