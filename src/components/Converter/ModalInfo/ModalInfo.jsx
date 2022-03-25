@@ -13,7 +13,7 @@ const ModalInfo = ({ servicesStatus, servicesUrl }) => {
       <div className='modal-info__logo'>
         <i className='ico-Info' onClick={onClick} />
       </div>
-      <div className={cn(('modal-info__container'), { isOpen: isShow })}>
+      <div className={cn('modal-info__container', { isOpen: isShow })}>
         <div className='modal-info__header'>STATUS API</div>
         {
           Object.keys(servicesStatus).length === 3 && Object.keys(servicesStatus).map((service) => {

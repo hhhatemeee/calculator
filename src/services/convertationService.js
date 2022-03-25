@@ -1,10 +1,7 @@
 class ConvertationService {
-  constructor(serviceName = 'CC', hideInfo, setCurrencyList) {
-    this.hideInfo = hideInfo;
+  constructor(serviceName = 'CC') {
     this.limitList = [];
-    this.setCurrencyList = setCurrencyList;
     this.currentService = serviceName;
-
   }
 
   #MOCK = {
@@ -34,6 +31,11 @@ class ConvertationService {
   #currencyList = this.#MOCK.CURRENCY;
 
   #basicCurrency = 'RUB';
+
+  getCallbacks(hideInfo, setCurrencyList) {
+    this.hideInfo = hideInfo;
+    this.setCurrencyList = setCurrencyList;
+  }
 
   showWindow() {
     if (!this.limitList.includes(this.currentService)) {
@@ -154,7 +156,7 @@ class ConvertationService {
    */
   updateCurrencyList() {
     switch (this.currentService) {
-      case 'СС':
+      case 'CC':
         fetch(`https://free.currconv.com/api/v7/currencies?apiKey=${this.#apiKey}`)
           .then((res) => res.json())
           .then((res) => {
@@ -261,4 +263,4 @@ class ConvertationService {
   }
 }
 
-export default ConvertationService;
+export default new ConvertationService('CC');

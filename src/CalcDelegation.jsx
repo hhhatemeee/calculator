@@ -10,7 +10,6 @@ import { CALC_TYPES } from './variables';
 
 const CalcDelegation = (props) => {
   let calculator;
-
   useEffect(() => { }, [props.listLimit])
 
   switch (props.currentType) {
@@ -20,12 +19,7 @@ const CalcDelegation = (props) => {
     case CALC_TYPES.Currency:
       calculator = <ConverterContainer
         currentKey={props.currentKey}
-        switchService={props.switchService}
-        handleUpdateCurrencyList={props.handleUpdateCurrencyList}
-        handleBasicCurrency={props.handleBasicCurrency}
-        handleConvertaionCurrency={props.handleConvertaionCurrency}
         listLimit={props.listLimit}
-        getStatusApi={props.getStatusApi}
       />
       break;
     default:
@@ -58,10 +52,6 @@ CalcDelegation.propTypes = {
   currentKey: PropTypes.object,
   onClick: PropTypes.func,
   setCurrentType: PropTypes.func,
-  switchService: PropTypes.func,
-  handleUpdateCurrencyList: PropTypes.func,
-  handleBasicCurrency: PropTypes.func,
-  handleConvertaionCurrency: PropTypes.func,
 };
 
 CalcDelegation.defaultProps = {
@@ -72,10 +62,6 @@ CalcDelegation.defaultProps = {
   currentKey: {},
   onClick: () => console.warn('Не указана функция onClick'),
   setCurrentType: () => console.warn('Не указана функция setCurrentType'),
-  switchService: () => console.log('Не определена функция switchService'),
-  handleUpdateCurrencyList: () => console.log('Не определена функция handleUpdateCurrencyList'),
-  handleBasicCurrency: () => console.log('Не определена функция handleBasicCurrency'),
-  handleConvertaionCurrency: () => console.log('Не определена функция handleConvertaionCurrency'),
 }
 
 export default CalcDelegation
