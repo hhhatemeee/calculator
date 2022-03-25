@@ -18,7 +18,7 @@
   justify-content: center;
   align-items: center;
   user-select: none;
-  transition: 0.05s ease-in;
+  transition: 0.1s ease-in;
 
   &_theme_dark-light {
     color: $btn-white-color;
@@ -42,6 +42,11 @@
     position: relative;
     border-top: 2px solid #000000;
     border-bottom: 2px solid #000000;
+    transition: 0.1s ease-in;
+
+    span{
+      transition: 0.1s ease-in;
+    }
 
     :before {
       content: "";
@@ -52,6 +57,7 @@
       width: 0px;
       border-right: 2px solid #000000;
       transform: rotate(-45deg);
+      transition: 0.1s ease-in;
     }
 
     :after {
@@ -64,6 +70,7 @@
       border-left: 2px solid #000000;
       border-bottom: 2px solid #000000;
       transform: rotate(0deg);
+      transition: 0.1s ease-in;
     }
 
     &_theme_dark {
