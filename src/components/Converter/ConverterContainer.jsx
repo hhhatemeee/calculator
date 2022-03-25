@@ -103,34 +103,13 @@ const ConverterContainer = (props) => {
   const handleCurNum = (button) => {
     if (button.toString().length < 17) {
 
+      let curNum = currentNumber.toString();
+      let value = button;
       switch (value) {
         case BUTTONS_MOCK.reset:
           curNum = '0';
           break;
         case BUTTONS_MOCK.delete:
-          curNum = curNum.toString().slice(0, curNum.length - 1)
-          break;
-        case BUTTONS_MOCK.dot:
-          value = '.';
-          curNum += value;
-          break;
-        default:
-          if (curNum.length === 15) {
-            return
-          }
-          value = button;
-          curNum += value;
-          break;
-      }
-
-
-      let curNum = currentNumber.toString();
-      let value = button;
-      switch (value) {
-        case 'reset':
-          curNum = '0';
-          break;
-        case 'delete':
           curNum = curNum.toString().slice(0, curNum.length - 1)
           break;
         case KEYS_NAME.Backspace:
@@ -143,7 +122,7 @@ const ConverterContainer = (props) => {
           value = '.';
           curNum += value;
           break;
-        case 'dot':
+        case BUTTONS_MOCK.dot:
           if (curNum.includes('.')) {
             return;
           }

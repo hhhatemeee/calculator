@@ -81,8 +81,6 @@ function App(props) {
 
   const handleConvertaionCurrency = async (value) => await convertationService.getConvertation(value);
 
-  const getStatusApi = () => window.convertationService.getStatusApi();
-
   const onKeyDown = (e) => setCurrentKey(e);
 
   /**
@@ -111,7 +109,6 @@ function App(props) {
         handleUpdateCurrencyList={handleUpdateCurrencyList}
         handleBasicCurrency={handleBasicCurrency}
         handleConvertaionCurrency={handleConvertaionCurrency}
-        getStatusApi={getStatusApi}
         currentKey={currentKey}
       />
     </div >
