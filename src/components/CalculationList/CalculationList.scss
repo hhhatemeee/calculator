@@ -2,7 +2,7 @@
 @import '../../scss/themable.scss';
 @import "../../scss/variables.scss";
 
-.calc__calculation-list{
+.menu-calculation-list{
 
   h3{
     margin: 15px 0 10px 15px;
@@ -11,6 +11,8 @@
   }
 
   .item{
+    display: flex;
+    align-items: center;
     cursor: pointer;
     background-color: $bg-menu-color;
     padding: 7px 0 7px 0;
@@ -54,7 +56,7 @@
       background-color:rgba($btn-light-gray-color,0.4);
     }
 
-    span{
+    &__row{
       margin: 0 0 0px 10px;
       display: flex;
       align-items: center;
@@ -70,6 +72,46 @@
         z-index: -1;
       }
     }
+
+
+    &__delete{
+      position: absolute;
+      right: 0;
+      font-size: 25px;
+      z-index: 8;
+      padding-right: 10px;
+      transform: rotate(45deg);
+
+      &:hover{
+        color: rgba($color-black, .8);
+      }
+
+      &:active{
+        color: rgba($color-black, .5);
+      }
+    }
+  }
+
+  &__add-item{
+    font-weight: 900;
+    font-size: 13px;
+    margin-left: 16px;
+    cursor: pointer;
+    user-select: none;
+
+    &:hover{
+      color: rgba($color-black, .8)
+    }
+  
+    &:active{
+      color:rgba($color-black,.6)
+    }
+  }
+
+  &__input{
+    font-size: 12px;
+    padding: 0px 3px !important;
+
   }
 }
 
@@ -80,5 +122,22 @@
 
 .current {
   border-left: 2px solid $btn-blue-color;
+}
+
+.isEditMode{
+  // z-index: 8;
+  cursor: grab !important;
+
+  &:active{
+    cursor: grabbing !important;
+  }
+
+  &::before{
+    display: none;
+  }
+
+  .item__delete{
+    cursor: pointer;
+  }
 }
 

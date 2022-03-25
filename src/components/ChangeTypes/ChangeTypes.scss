@@ -55,7 +55,58 @@
 
 }
 
+.menu__setting{
+  font-size: 30px;
+  position: absolute;
+  bottom:0px;
+  left: 8px;
+  z-index: 100;
+  cursor: pointer;
+
+  &:hover{
+    color: rgba($color-black, .8)
+  }
+
+  &:active{
+    color:rgba($color-black,.6)
+  }
+}
+
+.menu{
+
+  input{
+    display: block;
+    padding: 4px 3px;
+    margin: 5px;
+    font-family: inherit;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #212529;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #bdbdbd;
+    border-radius: 6px;
+    outline: none;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  }
+
+  &__add-section{
+    margin-left: 16px;
+    font-weight: 900;
+    cursor: pointer;
+    margin-top: 10px;
+
+    &:hover{
+      color: rgba($color-black, .8)
+    }
   
+    &:active{
+      color:rgba($color-black,.6)
+    }
+  }
+}
+
 .menu-list{
   position: absolute;
   background: $bg-menu-color;

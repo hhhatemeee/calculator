@@ -9,11 +9,23 @@ import './ChangeTypes.scss';
 
 const ChangeTypes = (props) => {
   const [showMenu, setShowMenu] = useState(false);
+  const [isEditMode, setEditMode] = useState(false);
+  const [isAddSection, setAddSection] = useState(false);
+
+  const onEditMode = () => {
+    if (isAddSection) {
+      setAddSection(false);
+    }
+    setEditMode(!isEditMode);
+  };
+
+  const onAddSection = () => setAddSection(!isAddSection);
 
   //  Modal window display handler
   const handleShowMenu = () => {
     setShowMenu(!showMenu)
   }
+
   return (
     <div className='menu'>
       <div className={cn('menu__btn', { 'btn_open': showMenu })} onClick={handleShowMenu}>
@@ -28,7 +40,14 @@ const ChangeTypes = (props) => {
             setCurrentType={props.setCurrentType}
             currentType={props.currentType}
             handleShowMenu={handleShowMenu}
-            disabledCalcs={props.disabledCalcs[type]} />)}
+            disabledCalcs={props.disabledCalcs[type]}
+            isEditMode={isEditMode}
+            onDeleteItem={props.onDeleteItem}
+            onAddItem={props.onAddItem} />)}
+          {isEditMode &&
+            (!isAddSection ? <div className='menu__add-section' onClick={onAddSection}>Add section...</div>
+              : <input className='menu__input' type="text" name="" id="" />)}
+          <i className='ico-Setting menu__setting' onClick={onEditMode} />
         </div>
       </div>
     </div>

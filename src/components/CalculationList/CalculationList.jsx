@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
 import CalculationType from './CalculationType';
@@ -8,8 +8,26 @@ import './CalculationList.scss';
 
 // Draws a list of calculators, depending on the type
 const CalculationList = (props) => {
+  const [isAddItem, setAddItem] = useState(false);
+  const [newItem, setNewItem] = useState({
+    section: props.name,
+    name: '',
+  })
+
+  const onAddItem = () => setAddItem(!isAddItem);
+
+  const onChange = (e) => {
+    setNewItem({
+      ...newItem,
+      name: e.target.value,
+    })
+  }
+
+  const addItem = () => {
+    props.onAddItem(newItem)
+  }
   return (
-    <div className='calc__calculation-list'>
+    <div className='menu-calculation-list'>
       <h3>{props.name}</h3>
       {
         props.list.map((calc) => <CalculationType
@@ -17,11 +35,19 @@ const CalculationList = (props) => {
           key={calc.name}
           name={calc.name}
           imgName={calc.imgName}
+          section={calc.section}
           setCurrentType={props.setCurrentType}
           currentType={props.currentType}
-          handleShowMenu={props.handleShowMenu} />
+          handleShowMenu={props.handleShowMenu}
+          isEditMode={props.isEditMode}
+          onDeleteItem={props.onDeleteItem} />
         )
       }
+      {!isAddItem ? <span className='menu-calculation-list__add-item' onClick={onAddItem}>Add item...</span>
+        : <div>
+          <input className='menu-calculation-list__input' type='text' onChange={onChange} />
+          <button onClick={addItem} />
+        </div>}
     </div>
   )
 }

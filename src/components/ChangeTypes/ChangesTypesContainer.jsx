@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import ChangeTypes from './ChangeTypes';
-import { setCurrentTypeCreator } from '../../redux/calculationTypesReducer';
+import { setAddItemCreator, setCurrentTypeCreator, setDeleteItemCreator } from '../../redux/calculationTypesReducer';
 
 const ChangesTypesContainer = (props) => {
   return (
@@ -11,7 +11,9 @@ const ChangesTypesContainer = (props) => {
       calcTypes={props.calculatorsType}
       setCurrentType={props.setCurrentType}
       currentType={props.currentType}
-      disabledCalcs={props.disabledCalcs} />
+      disabledCalcs={props.disabledCalcs}
+      onDeleteItem={props.onDeleteItem}
+      onAddItem={props.onAddItem} />
   )
 }
 
@@ -26,6 +28,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     setCurrentType: (name) => dispatch(setCurrentTypeCreator(name)),
+    onDeleteItem: (section, name) => dispatch(setDeleteItemCreator(section, name)),
+    onAddItem: (section, name) => dispatch(setAddItemCreator(section, name)),
   }
 }
 

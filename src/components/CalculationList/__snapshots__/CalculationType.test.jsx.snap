@@ -9,7 +9,9 @@ Object {
         class="item"
         data-testid="typePoint"
       >
-        <span>
+        <span
+          class="item__row"
+        >
           <i
             class="ico-"
           />
@@ -23,7 +25,9 @@ Object {
       class="item"
       data-testid="typePoint"
     >
-      <span>
+      <span
+        class="item__row"
+      >
         <i
           class="ico-"
         />
