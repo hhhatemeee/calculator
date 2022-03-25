@@ -10,10 +10,10 @@ import './ChangeTypes.scss';
 const ChangeTypes = (props) => {
   const [showMenu, setShowMenu] = useState(false);
 
+  //  Modal window display handler
   const handleShowMenu = () => {
     setShowMenu(!showMenu)
   }
-
   return (
     <div className='menu'>
       <div className={cn('menu__btn', { 'btn_open': showMenu })} onClick={handleShowMenu}>
@@ -27,7 +27,8 @@ const ChangeTypes = (props) => {
             list={props.calcTypes[type]}
             setCurrentType={props.setCurrentType}
             currentType={props.currentType}
-            handleShowMenu={handleShowMenu} />)}
+            handleShowMenu={handleShowMenu}
+            disabledCalcs={props.disabledCalcs[type]} />)}
         </div>
       </div>
     </div>
@@ -38,11 +39,13 @@ ChangeTypes.propTypes = {
   calcTypes: PropTypes.object,
   setCurrentType: PropTypes.func,
   currentType: PropTypes.string,
+  disabledCalcs: PropTypes.object,
 };
 
-ChangeTypes.defaultProp = {
+ChangeTypes.defaultProps = {
   calcTypes: {},
   currentType: '',
+  disabledCalcs: {},
   setCurrentType: () => console.log('Не определена функция setCurrentType'),
 };
 

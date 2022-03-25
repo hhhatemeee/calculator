@@ -8,7 +8,6 @@
   height: 757px;
   top:-5px;
   max-width: 0;
-  // width: 0px;
   transition: transform 0.5s linear;
 }
 
@@ -23,7 +22,8 @@
   cursor: pointer;
   background-color: $bg-light-color;
   margin-bottom: 55px;
-
+  transition: 0.1s ease-in;
+  
   &:hover{
     filter: brightness(0.8);
   }
@@ -56,7 +56,6 @@
 
   
 .menu-list{
-  // display: none;
   position: absolute;
   background: $bg-menu-color;
   height: 100%;
@@ -71,7 +70,6 @@
 }
 
 .menu-list_open {
-  // display: block;
   max-width: 280px;
   width: 280px;
   opacity: 1;
@@ -82,7 +80,6 @@
 
 .menu__container_open{
   max-width: 280px;
-  // width: 280px;
 }
 
 .btn_open{

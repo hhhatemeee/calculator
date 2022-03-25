@@ -1,0 +1,35 @@
+@import "../../scss/variables.scss";
+@import "../../scss/icons.scss";
+@import "../../scss/fonts.scss";
+
+.select{
+  display: flex;
+  justify-content: space-between;
+  // width: 100%;
+  height: 100%;
+  
+
+  &__container-line{
+    width: 100%;
+    height: 100%;
+    position: relative;
+    
+    select{
+      // width: 25%;
+      height: 100%;
+      border:none;
+      padding: 0px;
+      outline: none;
+      border-radius: 2px;
+      font-size: 20px;
+      background-color:$bg-light-color;
+      overflow-y: scroll;
+      cursor: pointer;
+      transition: 0.1s ease-in;
+    }
+  }
+}
+
+.select-open{
+  width: 100%;
+}

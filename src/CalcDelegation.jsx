@@ -1,18 +1,30 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 
 import CalculatorContainer from './components/Calculator/CalculatorContainer';
 import ModalWindow from './components/ModalWindow/ModalWindow';
 import HomePage from './components/HomePage/HomePage';
-import { TYPE } from './variables';
+import ConverterContainer from './components/Converter/ConverterContainer';
+import { CALC_TYPES } from './variables';
 
 
 const CalcDelegation = (props) => {
   let calculator;
 
+  useEffect(() => { }, [props.listLimit])
+
   switch (props.currentType) {
-    case TYPE.STANDART:
+    case CALC_TYPES.Standart:
       calculator = <CalculatorContainer />;
+      break;
+    case CALC_TYPES.Currency:
+      calculator = <ConverterContainer
+        switchService={props.switchService}
+        handleUpdateCurrencyList={props.handleUpdateCurrencyList}
+        handleBasicCurrency={props.handleBasicCurrency}
+        handleConvertaionCurrency={props.handleConvertaionCurrency}
+        listLimit={props.listLimit}
+      />
       break;
     default:
       calculator = <HomePage setCurrentType={props.setCurrentType} />
@@ -40,20 +52,28 @@ CalcDelegation.propTypes = {
   renderWindow: PropTypes.bool,
   showWindow: PropTypes.bool,
   listLimit: PropTypes.array,
+  url: PropTypes.string,
   onClick: PropTypes.func,
   switchService: PropTypes.func,
   setCurrentType: PropTypes.func,
-  url: PropTypes.string,
+  switchService: PropTypes.func,
+  handleUpdateCurrencyList: PropTypes.func,
+  handleBasicCurrency: PropTypes.func,
+  handleConvertaionCurrency: PropTypes.func,
 };
 
 CalcDelegation.defaultProps = {
   renderWindow: false,
   showWindow: false,
   listLimit: [],
+  url: '',
   onClick: () => console.warn('Не указана функция onClick'),
   switchService: () => console.warn('Не указана функция switchService'),
   setCurrentType: () => console.warn('Не указана функция setCurrentType'),
-  url: '',
+  switchService: () => console.log('Не определена функция switchService'),
+  handleUpdateCurrencyList: () => console.log('Не определена функция handleUpdateCurrencyList'),
+  handleBasicCurrency: () => console.log('Не определена функция handleBasicCurrency'),
+  handleConvertaionCurrency: () => console.log('Не определена функция handleConvertaionCurrency'),
 }
 
 export default CalcDelegation

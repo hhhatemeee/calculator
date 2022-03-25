@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import cn from 'classnames';
 
@@ -17,7 +17,11 @@ const ModalWindow = (props) => {
   const handleCloseWindow = () => {
     props.onClick(false);
     setShowUrl(false);
-  };
+  }
+
+  useEffect(() => {
+    props.onClick(false);
+  }, []);
 
   const handleShowUrl = () => setShowUrl(!showUrl);
 
@@ -67,7 +71,7 @@ ModalWindow.propTypes = {
   switchService: PropTypes.func,
 };
 
-ModalWindow.defaultProp = {
+ModalWindow.defaultProps = {
   listLimit: [],
   url: '',
   showWindow: false,

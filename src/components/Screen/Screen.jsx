@@ -7,7 +7,6 @@ import "./Screen.scss";
 
 
 const Screen = (props) => {
-  console.log(props.isShown);
   return (
     <div className='calc-screen'>
       <ScreenCalculations isShown={props.isShown} history={props.history} />
@@ -28,7 +27,7 @@ Screen.propTypes = {
   fontSize: PropTypes.number,
 }
 
-Screen.defaultProp = {
+Screen.defaultProps = {
   isShow: false,
   history: '0',
   currentNumber: '0',

@@ -6,11 +6,12 @@ import PropTypes from 'prop-types';
 import ThemeSelector from './components/ThemeSelector/ThemeSelector';
 import CalcDelegation from './CalcDelegation';
 import ConvertationService from './services/convertationService';
-import { setCurrencyListCreator } from './redux/convertationReducer';
+import { setCurrencyListCreator, setCurrentServiceCreator } from './redux/convertationReducer';
 import ChangesTypesContainer from './components/ChangeTypes/ChangesTypesContainer';
-import { setCurrentTypeCreator } from './redux/calculationTypesReducer';
+import { setCurrentTypeCreator, setDisabledTypeCreator } from './redux/calculationTypesReducer';
 
 import './App.scss';
+import { CALC_TYPES } from './variables';
 
 
 function App(props) {
@@ -19,14 +20,27 @@ function App(props) {
   const [renderWindow, setRenderWindow] = useState(false);
   const [servicesLimit, setServicesLimit] = useState([]);
   const [infoUrl, setInfoUrl] = useState('');
-
+  const [convertationService, setConvertationService] = useState({});
+  /**
+   * Modal window display handler.
+   * @param {boolean} isShow - Show Window
+   * @param {array} listLimit - array of disabled services
+   * @param {string} url - url of the current service
+   * @returns 
+   */
   const handleShowWindow = (isShow, listLimit, url) => {
+    props.setCurrentService(convertationService.currentService);
+    // If the length of lastlimit = 3, then turn off Currency and switch to the standard
+    if (listLimit && listLimit.length === 3) {
+      props.setDisabledType({ name: CALC_TYPES.Currency, value: true });
+      setCurrentType(CALC_TYPES.Standart);
+    }
+
     if (listLimit) {
       setRenderWindow(isShow);
       setTimeout(() => setShowWindow(isShow), 0);
       setServicesLimit(listLimit);
       setInfoUrl(url);
-
       return;
     }
 
@@ -35,18 +49,38 @@ function App(props) {
   };
 
   useEffect(() => {
-    window.convertationService = new ConvertationService(
+    setConvertationService(new ConvertationService(
       'CC',
       handleShowWindow,
       props.setCurrencyList,
-    );
+    ));
+
+    props.setCurrentService('CC');
   }, []);
 
-  const handleSwitchService = (service) => window.convertationService.switchService(service);
+  const handleSwitchService = (service) => convertationService.switchService(service);
 
-  const setCurrentType = (name) => props.setCurrentType(name);
+  /**
+   * Handler for switching the calculator type in the store
+   * @param {string} name 
+   * @returns 
+   */
+  const setCurrentType = (name) => props.setCurrentCalcType(name);
 
+  const handleUpdateCurrencyList = () => convertationService.updateCurrencyList();
+
+  const handleBasicCurrency = (value) => convertationService.setBasicCurrency(value);
+
+  const handleConvertaionCurrency = async (value) => await convertationService.getConvertation(value);
+
+  /**
+   * Theme Switching Handler
+   * @param {boolean} isToggle 
+   * @returns 
+   */
   const handleTheme = (isToggle) => setDarkMode(isToggle);
+
+  console.log('составить схему приложения');
 
   return (
     <div className={cn('calc', { calc_theme_dark: darkMode })}>
@@ -62,6 +96,9 @@ function App(props) {
         types={props.calcTypes}
         currentType={props.currentType}
         setCurrentType={setCurrentType}
+        handleUpdateCurrencyList={handleUpdateCurrencyList}
+        handleBasicCurrency={handleBasicCurrency}
+        handleConvertaionCurrency={handleConvertaionCurrency}
       />
     </div >
   );
@@ -74,7 +111,7 @@ App.propTypes = {
   currentType: PropTypes.string,
 };
 
-App.defaultProp = {
+App.defaultProps = {
   setCurrencyList: () => console.log('Не указана функция setCurrencyList'),
   setCurrentType: () => console.log('Не указана функция setCurrentType'),
   calcTypes: {},
@@ -84,7 +121,9 @@ App.defaultProp = {
 const mapDispatchToProps = (dispatch) => {
   return {
     setCurrencyList: (list) => dispatch(setCurrencyListCreator(list)),
-    setCurrentType: (name) => dispatch(setCurrentTypeCreator(name)),
+    setCurrentCalcType: (name) => dispatch(setCurrentTypeCreator(name)),
+    setCurrentService: (service) => dispatch(setCurrentServiceCreator(service)),
+    setDisabledType: (value) => dispatch(setDisabledTypeCreator(value))
   }
 };
 
