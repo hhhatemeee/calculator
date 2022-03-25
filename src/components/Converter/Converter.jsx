@@ -32,6 +32,7 @@ const Converter = (props) => {
     props.setLoading(true);
     setCurrentCourse(to.name)
   }
+
   const setCurrentCourse = async (e) => {
     //If an event came from the selector, then process it.
     if (e.target && e.target.value) {
