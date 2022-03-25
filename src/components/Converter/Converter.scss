@@ -17,7 +17,8 @@
     left: 70px;
     cursor: pointer;
     margin-left: 5px;
-    transition: 0.1 ease-in;
+    transition: 0.1s ease-in;
+
     &:hover{
       color:rgba($color-black,0.8);
     }
