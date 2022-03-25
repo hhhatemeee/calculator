@@ -44,6 +44,12 @@
       transform:scaleX(1);
     }
 
+    &:hover {
+      span > i{
+        color: $icon-color-hover;
+      }
+    }
+
     &:active::before{
       background-color:rgba($btn-light-gray-color,0.4);
     }
@@ -59,7 +65,9 @@
         font-size: 25px;
         width: 25px;
         height: 25px;
+        transition: 0.1s ease-in;
         margin-right: 10px;
+        z-index: -1;
       }
     }
   }

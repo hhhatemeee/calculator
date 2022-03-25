@@ -91,6 +91,13 @@
       .item{
         background-color: $menu-item-color;
 
+        &:hover {
+          span > i{
+            z-index: -2;
+            color: $icon-color-hover-dark;
+          }
+        }
+
         &::before{
           background-color: rgba($menu-list-color,0.4);
         }
@@ -103,8 +110,9 @@
         span{
           color:$item-span-color;
 
-          svg{
-            fill: $item-span-color;
+          i{
+            z-index: -2;
+            color: $item-span-color;
           }
         }
       }
