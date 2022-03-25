@@ -1,0 +1,32 @@
+@import "../../scss/variables.scss";
+@import "../../scss/icons.scss";
+@import "../../scss/fonts.scss";
+
+.screen-line{
+
+  &__current{
+    font-size: 88px;
+    margin: 0;
+  }
+
+  &__currency{
+    font-size: 46px;
+    top: 32px;
+    left: 36px;
+    margin: 0;
+  }
+
+   span{
+    display: flex;
+    align-items:center;
+    position: relative;
+    width: 335px;
+    height: 103px;
+  transition: 0.1s ease-in;
+    
+    p{
+      white-space: pre;
+    }
+  }
+}
+  

@@ -4,7 +4,8 @@ import PropTypes from 'prop-types';
 import "./ThemeSelector.scss";
 
 const ThemeSelector = ({ darkMode, onChange }) => {
-  const handlerOnChange = () => onChange(darkMode);
+  const handlerOnChange = () => onChange(!darkMode);
+
   return (
     <div className="theme">
       <div className="theme__container">
@@ -24,7 +25,7 @@ ThemeSelector.propTypes = {
   onChange: PropTypes.func,
 };
 
-ThemeSelector.defaultProp = {
+ThemeSelector.defaultProps = {
   darkMode: false,
   onChange: () => console.log('Не указана функция onChange'),
 };

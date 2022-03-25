@@ -32,7 +32,7 @@ Calculator.propTypes = {
   onClick: PropTypes.func,
 };
 
-Calculator.defaultProp = {
+Calculator.defaultProps = {
   buttons: [],
   currentNumber: '0',
   result: 0,

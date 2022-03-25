@@ -1,5 +1,3 @@
-import { connect } from "react-redux";
-
 class ConvertationService {
   constructor(serviceName = 'CC', hideInfo, setCurrencyList) {
     this.hideInfo = hideInfo;
@@ -7,7 +5,6 @@ class ConvertationService {
     this.setCurrencyList = setCurrencyList;
     this.currentService = serviceName;
 
-    window.service = window.service || this;
   }
 
   #MOCK = {
@@ -32,7 +29,10 @@ class ConvertationService {
   #basicCurrency = 'RUB';
 
   showWindow() {
-    this.limitList.push(this.currentService);
+    if (!this.limitList.includes(this.currentService)) {
+      this.limitList.push(this.currentService);
+    }
+
     this.hideInfo(true, this.limitList, this.#MOCK.SERVICE_URL[this.currentService]);
 
     this.#MOCK.SERVICE_LIST.forEach((serv) => {
@@ -57,18 +57,25 @@ class ConvertationService {
     return `Вы подключены к ${this.currentService}`;
   }
 
-  // #checkLimit(service) {
-  //   this.limitList.push(service);
-  //   this.hideInfo(true, this.limitList);
+  #checkLimit(service) {
+    if (!this.limitList.includes(service)) {
+      this.limitList.push(service);
+    }
 
-  //   MOCK.SERVICE_LIST.forEach((serv) => {
-  //     if (this.limitList.includes(serv)) {
-  //       return;
-  //     }
+    this.hideInfo(true, this.limitList, this.#MOCK.SERVICE_URL[this.currentService]);
 
-  //     this.switchService(serv);
-  //   });
-  // }
+    this.#MOCK.SERVICE_LIST.forEach((serv) => {
+      if (this.limitList.includes(serv)) {
+        return;
+      }
+
+      this.switchService(serv);
+    });
+  }
+
+  getCurrentService() {
+    return this.currentService;
+  }
 
   getBasicCurrency() {
     return this.#basicCurrency;
@@ -135,7 +142,7 @@ class ConvertationService {
 
         break;
       case 'FCA':
-        fetch(`https://cors-anywhere.herokuapp.com/https://freecurrencyapi.net/api/v2/latest?apikey=${this.#apiKey}`)
+        fetch(`https://api.currencyapi.com/v3/latest?apikey=${this.#apiKey}`)
           .then((res) => res.json())
           .then((res) => {
             this.setCurrencyList(Object.keys(res.data))
@@ -167,24 +174,21 @@ class ConvertationService {
    * @returns {sting | number} finished value
    */
   getConvertation(from, to = this.#basicCurrency) {
+    let result = 0;
     if (this.#currencyList.includes(from)) {
       switch (this.currentService) {
         case 'CC':
-
-          fetch(`https://free.currconv.com/api/v7/convert?q=${from}_${to}&compact=ultra&apiKey=${this.#apiKey}`)
+          result = fetch(`https://free.currconv.com/api/v7/convert?q=${from}_${to}&compact=ultra&apiKey=${this.#apiKey}`)
             .then((res) => {
               if (res.status === 200) {
-                // this.hideInfo(true, this.currentService);
-                this.hideInfo(true);
-
                 return res.json();
               }
+              this.#checkLimit(this.currentService);
 
-              console.log(res);
-              // this.#checkLimit(this.currentService);
             })
             .then((res) => {
-              console.log(Object.values(res).toString());
+              result = Object.values(res).toString();
+              return result;
             })
             .catch((err) => console.log(err));
           break;
@@ -195,7 +199,7 @@ class ConvertationService {
                 return res.json();
               }
 
-              // this.#checkLimit(this.currentService);
+              this.#checkLimit(this.currentService);
             })
             .then((res) => {
               console.log(res.response);
@@ -203,24 +207,20 @@ class ConvertationService {
             .catch((err) => console.log(err));
           break;
         case 'FCA':
-          fetch(`https://cors-anywhere.herokuapp.com/https://freecurrencyapi.net/api/v2/latest?apikey=${this.#apiKey}&base_currency=${from}`)
+          result = fetch(`https://api.currencyapi.com/v3/latest?apikey=${this.#apiKey}&base_currency=${from}`)
             .then((res) => {
               if (res.status === 200) {
                 // this.limitList.push(this.currentService);
                 return res.json();
               }
-              this.hideInfo(true);
-
-              // this.#checkLimit(this.currentService);
+              this.#checkLimit(this.currentService);
             })
             .then((res) => {
               let result;
-              console.log(res);
-              Object.keys(res.data).forEach((value) => {
-                if (to === value) {
-                  console.log(res.data[value]);
-                  result = res.data[value];
-                  return res.data[value];
+              Object.keys(res.data).forEach((cur) => {
+                if (to === cur) {
+                  result = res.data[cur].value;
+                  return result;
                 }
               });
               return result;
@@ -229,11 +229,11 @@ class ConvertationService {
           break;
         default:
       }
-
-      return;
+      return result;
     }
 
     console.warn('Валюта в списке не найдена');
+    return result;
   }
 }
 

@@ -119,7 +119,20 @@ let initialState = [
     text: '=',
     value: 'equal',
   },
+  {
+    name: 'btn_mock',
+    color: 'btn_bg_gray',
+    text: '',
+    value: 'mock',
+  },
+  {
+    name: 'btn_mock_1',
+    color: 'btn_bg_gray',
+    text: '',
+    value: 'mock2',
+  }
 ];
+
 
 const buttonsReducer = (state = initialState, action) => {
   switch (action.type) {

@@ -27,7 +27,7 @@ Screen.propTypes = {
   fontSize: PropTypes.number,
 }
 
-Screen.defaultProp = {
+Screen.defaultProps = {
   isShow: false,
   history: '0',
   currentNumber: '0',

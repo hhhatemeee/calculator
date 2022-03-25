@@ -10,7 +10,11 @@
   $btn-dark-color,
   $btn-white-color,
   $btn-dark-light-color,
-  $btn-blue-color
+  $btn-blue-color,
+  #17171c,
+  #292930,
+  #292930,
+  $btn-white-color,
 );
 
 * {
@@ -25,6 +29,7 @@ body{
 }
 
 .calc {
+  position: relative;
   width: 375px;
   height: 812px;
   background-color: $bg-light-color;
@@ -75,7 +80,8 @@ body{
   .open-window {
     // right: 20px;
     // top: 650px;
-    opacity: 1;
+z-index: 10;
+opacity: 1;
     visibility:initial;
   }
 }
@@ -129,7 +135,8 @@ body{
   .open-window {
     // right: 20px;
     // top: 650px;
-    opacity: 1;
+z-index: 10;
+opacity: 1;
     visibility:initial;
   }
 }
@@ -174,7 +181,8 @@ body{
   .open-window {
     // right: 20px;
     // top: 650px;
-    opacity: 1;
+z-index: 10;
+opacity: 1;
     visibility:initial;
   }
 }

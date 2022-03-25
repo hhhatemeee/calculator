@@ -15,8 +15,9 @@ const KeyBoard = ({ buttons, onClick }) => {
           btnColor={btn.color}
           btnText={btn.text}
           btnValue={btn.value}
-          onClick={onClick} />)
-      }
+          onClick={onClick}
+          isStandart={true} />
+        )}
     </div>
   )
 }
@@ -26,7 +27,7 @@ KeyBoard.propTypes = {
   onClick: PropTypes.func,
 };
 
-KeyBoard.defaultProp = {
+KeyBoard.defaultProps = {
   buttons: [],
   onClick: () => console.log('Не указана функция onClick'),
 };
