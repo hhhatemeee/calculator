@@ -2,18 +2,33 @@ const SET_CURRENT_TYPE = 'SET_CURRENT_TYPE';
 const SET_DISABLED = 'SET_DISABLED';
 const DELETE_ITEM = 'DELETE_ITEM';
 const ADD_ITEM = 'ADD_ITEM';
+const ADD_SECTION = 'ADD_SECTION';
+const DELETE_SECTION = 'DELETE_SECTION';
+const MOVE_ITEM = 'MOVE_ITEM';
 
 const initialState = {
   currentType: 'Standart',
-  types: {
-    Calculator: [
-      { name: 'Standart', imgName: 'Standart', section: 'Calculator' },
-      { name: 'Scientific', imgName: 'Chemistry', section: 'Calculator' },
-      { name: 'Graphing', imgName: 'Graphing', section: 'Calculator' },
-      { name: 'Programmer', imgName: 'Programmer', section: 'Calculator' },
-      { name: 'Date Calculation', imgName: 'Date', section: 'Calculator' }],
-    Converter: [{ name: 'Currency', imgName: 'Currency', section: 'Converter' }]
-  },
+  currentId: 0,
+  types: [
+    {
+      name: 'Calculator',
+      id: 0,
+      calcList: [
+        { name: 'Standart', imgName: 'Standart', section: 'Calculator', id: 0 },
+        { name: 'Scientific', imgName: 'Chemistry', section: 'Calculator', id: 1 },
+        { name: 'Graphing', imgName: 'Graphing', section: 'Calculator', id: 2 },
+        { name: 'Programmer', imgName: 'Programmer', section: 'Calculator', id: 3 },
+        { name: 'Date Calculation', imgName: 'Date', section: 'Calculator', id: 4 },
+      ],
+    },
+    {
+      name: 'Converter',
+      id: 1,
+      calcList: [
+        { name: 'Currency', imgName: 'Currency', section: 'Converter', id: 5 }
+      ],
+    }
+  ],
   disabledCalcs: {
     Calculator: {
       Standart: false,
@@ -27,12 +42,16 @@ const initialState = {
     }
   },
 };
+const namesArr = ['Standart', 'Scientific', 'Graphing', 'Programmer', 'Date Calculation', 'Currency'];
+
+let id = 6;
 
 const calculationTypesReducer = (state = initialState, action) => {
   switch (action.type) {
     case SET_CURRENT_TYPE:
       return {
         ...state,
+        currentId: action.id,
         currentType: action.name,
       }
     case SET_DISABLED:
@@ -41,7 +60,6 @@ const calculationTypesReducer = (state = initialState, action) => {
         Calculator: { ...state.disabledCalcs.Calculator },
         Converter: { ...state.disabledCalcs.Converter }
       };
-      console.log(action);
       Object.keys(state.disabledCalcs).forEach((key) => {
         Object.keys(state.disabledCalcs[key]).forEach((calc) => {
           if (calc === action.name) {
@@ -58,45 +76,101 @@ const calculationTypesReducer = (state = initialState, action) => {
     case DELETE_ITEM:
       return {
         ...state,
-        types: {
-          ...state.types,
-          [action.section]: [
-            ...state.types[action.section].filter((item) => item.name !== action.name),
-          ]
-        }
+        types: state.types.map(el => {
+          if (action.sectionId === el.id) {
+            return {
+              ...el,
+              calcList: [
+                ...el.calcList.filter(item => item.id !== action.id),
+              ]
+            }
+          }
+          return el
+        })
       }
     case ADD_ITEM:
-      const namesArr = [];
-
-      initialState.types[action.section].forEach(item => {
-        namesArr.push(item.name);
-      })
-
       if (namesArr.includes(action.name)) {
         const newItem = {
           name: action.name,
-          imgName: '',
-          section: action.name,
+          imgName: action.name,
+          section: action.section,
+          id: id++,
         }
         return {
           ...state,
-          types: {
-            ...state.types,
-            [action.section]: [
-              ...state.types[action.section], newItem,
-            ]
-          }
+          types: state.types.map((el, i) => {
+            if (action.sectionId === el.id) {
+              return {
+                ...el,
+                calcList: [...state.types[i].calcList, newItem],
+              }
+            }
+            return el
+          })
         }
       }
+    case ADD_SECTION:
+      const newSection = {
+        name: action.name,
+        id: id++,
+        calcList: [],
+      }
+      return {
+        ...state,
+        types: [...state.types, newSection],
+      }
+    case DELETE_SECTION:
+      return {
+        ...state,
+        types: [...state.types.filter((section) => section.id !== action.id)]
+      }
+    case MOVE_ITEM:
+      console.log(action);
+      if (state.types[action.sectionIndexEnd].length === 0) {
+        console.log(1);
+        state.types[action.sectionIndexEnd].push(action.currentItem);
+      }
+      if (action.sectionIndexStart === action.sectionIndexEnd) {
+        const section = state.types[action.sectionIndexStart].calcList;
+        const editSection = section.splice(action.currentIndex, 1);
+        section.splice(action.dropIndex, 0, ...editSection);
+      }
+
+      if (action.sectionIndexStart !== action.sectionIndexEnd) {
+        const sectionStart = state.types[action.sectionIndexStart].calcList;
+        const editSection = sectionStart.splice(action.currentIndex, 1);
+        const sectionEnd = state.types[action.sectionIndexEnd].calcList;
+        sectionEnd.splice(action.dropIndex, 0, ...editSection)
+      }
+
+      return state;
     default:
       return state
   }
 };
 
-export const setCurrentTypeCreator = (name) => ({ type: SET_CURRENT_TYPE, name });
+export const setCurrentTypeCreator = ({ id, name }) => ({ type: SET_CURRENT_TYPE, id, name });
 export const setDisabledTypeCreator = ({ name, value }) => ({ type: SET_DISABLED, name, value });
-export const setDeleteItemCreator = ({ section, name }) => ({ type: DELETE_ITEM, section, name });
-export const setAddItemCreator = ({ section, name }) => ({ type: ADD_ITEM, section, name });
+export const setDeleteItemCreator = ({ sectionId, id }) => ({ type: DELETE_ITEM, sectionId, id });
+export const setAddItemCreator = ({ sectionId, name }) => ({ type: ADD_ITEM, sectionId, name });
+export const setAddSectionCreator = (name) => ({ type: ADD_SECTION, name });
+export const setDeleteSectionCreator = (id) => ({ type: DELETE_SECTION, id });
+export const setMoveItemCreator = (
+  {
+    sectionIndexStart,
+    sectionIndexEnd,
+    currentItem,
+    dropIndex,
+    currentIndex
+  }) => (
+  {
+    type: MOVE_ITEM,
+    sectionIndexStart,
+    sectionIndexEnd,
+    currentItem,
+    dropIndex,
+    currentIndex
+  });
 
 
 export default calculationTypesReducer;

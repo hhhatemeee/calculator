@@ -113,7 +113,7 @@ function App(props) {
 App.propTypes = {
   setCurrencyList: PropTypes.func,
   setCurrentType: PropTypes.func,
-  calcTypes: PropTypes.object,
+  calcTypes: PropTypes.array,
   currentType: PropTypes.string,
 };
 

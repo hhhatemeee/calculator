@@ -3,11 +3,11 @@
 @import "../../scss/variables.scss";
 
 .menu-calculation-list{
+  transition: all .3s ease;
 
   h3{
     margin: 15px 0 10px 15px;
     user-select: none;
-
   }
 
   .item{
@@ -16,13 +16,14 @@
     cursor: pointer;
     background-color: $bg-menu-color;
     padding: 7px 0 7px 0;
-    transition: 0.1s ease-in;
+    transition: all .1s ease-in;
     position: relative;
     z-index: 6;
     user-select: none;
     box-sizing:content;
     font-family: 'icoCalc';
-
+    max-width: 100%;
+    
     &::before{
       content: '';
       position: absolute;
@@ -61,7 +62,7 @@
       display: flex;
       align-items: center;
       font-size: 18px;
-
+      
       i{
         display: inline-block;
         font-size: 25px;
@@ -93,7 +94,7 @@
   }
 
   &__add-item{
-    font-weight: 900;
+    font-weight: 500;
     font-size: 13px;
     margin-left: 16px;
     cursor: pointer;
@@ -118,6 +119,28 @@
 .isDisabled{
   pointer-events: none;
   opacity: 0.4;
+
+}
+
+.isDeleted{
+  transform: scale(0);
+
+  // opacity: 0;
+  // .item__row{
+  //   transition: .1s ease-in;
+  //   max-width: 0 !important;
+  //   font-size: 0 !important;
+  //   max-height: 0 !important;
+
+  //   i{
+  //     transition: .1s ease-in;
+  //     max-width: 0 !important;
+  //     max-height: 0 !important;
+  //     font-size: 0 !important;
+
+  //   }
+  // }
+
 }
 
 .current {
@@ -140,4 +163,35 @@
     cursor: pointer;
   }
 }
+.item-drag__container{
+  transition: all .3s ease;
+  cursor: grab !important;
+  animation: animation-test .2s cubic-bezier(0.2, 0.82, 0.165, 1) ;
 
+  &:active{
+    cursor: grabbing !important;
+  }
+}
+
+.animation-drag{
+  position: fixed;
+  z-index: 1000;
+  transform: scale(0.5);
+  opacity: 0;
+  width: 280px;
+
+  .item_delete{
+    opacity: 0;
+  }
+}
+
+@keyframes animation-test {
+  0%{
+    opacity: 0;
+    transform: scale(0.5);
+  }
+  100%{
+    opacity: 1;
+    transform: scale(1);
+  }
+}
