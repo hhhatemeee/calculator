@@ -41,7 +41,7 @@
   content: "\f186";
 } /* '' */
 
-[class^="ico-"]:before , [class*=" ico-"]:before  {
+[class^="ico-"], [class*=" ico-"] {
   /* use !important to prevent issues with browser extensions that change fonts */
   font-family: 'icomoon' !important;
   speak: never;
@@ -57,6 +57,9 @@
 }
 
 
+.ico-Info:before {
+  content: "\e906";
+}
 .ico-Chemistry:before {
   content: "\e900";
 }
@@ -74,4 +77,8 @@
 }
 .ico-Standart:before {
   content: "\e905";
+}
+
+.ico-Swap:before {
+  content: "\e907";
 }

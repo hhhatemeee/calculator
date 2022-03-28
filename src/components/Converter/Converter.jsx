@@ -5,7 +5,9 @@ import ScreenOther from '../ScreenOther/ScreenOther';
 import { ReactComponent as Loader } from '../../img/Loader.svg';
 import ConverterSwitch from './ConverterSwitch/ConverterSwitch';
 import { CURRENCY_MOCK } from '../../variables';
+import ConvertationService from '../../services/convertationService';
 import KeyBoardBasic from '../KeyBoardBasic/KeyBoardBasic';
+import ModalInfo from './ModalInfo/ModalInfo';
 
 import './Converter.scss';
 
@@ -29,18 +31,22 @@ const Converter = (props) => {
 
   const onClick = () => {
     props.setLoading(true);
-    setCurrentCourse(to.name)
+    props.setFetching(true);
+    setCurrentCourse(to.name);
   }
+
   const setCurrentCourse = async (e) => {
     //If an event came from the selector, then process it.
+    props.setFetching(true);
     if (e.target && e.target.value) {
-      const cc = await props.handleConvertaionCurrency(e.target.value);
+      const cc = await ConvertationService.getConvertation(e.target.value);
       await props.setCurrentCourse(cc)
       return;
     }
 
     //If the name of the currency has come
-    const cc = await props.handleConvertaionCurrency(e);
+    const cc = await ConvertationService.getConvertation(e);
+    console.log(cc);
     await props.setCurrentCourse(cc);
   }
 
@@ -48,13 +54,25 @@ const Converter = (props) => {
     const targetValue = e && e.target && e.target.value
       ? e.target.value
       : 'CC';
+
+    props.setFetching(true);
     props.setCurrentService(targetValue)
-    props.switchService(targetValue);
-    props.updateCurrencyList();
+    ConvertationService.switchService(targetValue);
+    ConvertationService.updateCurrencyList();
+  }
+
+  const onSwapCurrency = () => {
+    const currentCurrencies = { from: { ...from }, to: { ...to } };
+
+    setFrom(currentCurrencies.to);
+    setTo(currentCurrencies.from);
+    ConvertationService.setBasicCurrency(to.name);
+    props.setCurrentCourse(1 / props.currentCourse);
   }
 
   return (
     <div className='converter__container'>
+      <ModalInfo servicesStatus={props.servicesStatus} servicesUrl={props.servicesUrl} />
       <ScreenOther
         CURRENCY_TABLE={props.CURRENCY_TABLE}
         currencyList={props.currencyList}
@@ -63,12 +81,12 @@ const Converter = (props) => {
         to={to}
         from={from}
         currentNumber={props.currentNumber}
-        handleBasicCurrency={props.handleBasicCurrency}
         setCurrentCourse={setCurrentCourse}
         resultNumber={props.resultNumber}
         fontSizeOne={props.fontSizeOne}
         fontSizeTwo={props.fontSizeTwo}
       />
+      <i className='ico-Swap converter__swap-button' onClick={onSwapCurrency} data-testid='swapBtn' />
       <span onClick={onClick} className='converter__update'>
         Update rates
         {props.isLoading && <Loader className='loader' />}
@@ -91,19 +109,16 @@ Converter.propTypes = {
   currentNumber: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   fontSizeOne: PropTypes.number,
   fontSizeTwo: PropTypes.number,
-  handleBasicCurrency: PropTypes.func,
   isLoading: PropTypes.bool,
   buttons: PropTypes.array,
   handleCurNum: PropTypes.func.isRequired,
-  updateCurrencyList: PropTypes.func,
-  switchService: PropTypes.func,
   setLoading: PropTypes.func,
   setCurrentCourse: PropTypes.func,
-  handleConvertaionCurrency: PropTypes.func,
   services: PropTypes.array,
   listLimit: PropTypes.array,
   currentService: PropTypes.string,
   setCurrentService: PropTypes.func,
+  servicesStatus: PropTypes.object,
 };
 
 Converter.defaultProps = {
@@ -118,6 +133,9 @@ Converter.defaultProps = {
   services: [],
   listLimit: [],
   currentService: 'CC',
+  servicesStatus: {},
+  handleCurNum: () => console.log('Не определена функция handleCurNum'),
+  handleBasicCurrency: () => console.log('Не определена функция handleBasicCurrency'),
   updateCurrencyList: () => console.log('Не определена функция updateCurrencyList'),
   switchService: () => console.log('Не определена функция switchService'),
   setLoading: () => console.log('Не определена функция setLoading'),

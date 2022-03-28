@@ -5,13 +5,13 @@ import PropTypes from 'prop-types';
 
 import ThemeSelector from './components/ThemeSelector/ThemeSelector';
 import CalcDelegation from './CalcDelegation';
-import ConvertationService from './services/convertationService';
+import ConvertationService, { initService } from './services/convertationService';
 import { setCurrencyListCreator, setCurrentServiceCreator } from './redux/convertationReducer';
 import ChangesTypesContainer from './components/ChangeTypes/ChangesTypesContainer';
 import { setCurrentTypeCreator, setDisabledTypeCreator } from './redux/calculationTypesReducer';
+import { CALC_TYPES } from './variables';
 
 import './App.scss';
-import { CALC_TYPES } from './variables';
 
 
 import './App.scss';
@@ -27,6 +27,8 @@ function App(props) {
   const [servicesLimit, setServicesLimit] = useState([]);
   const [infoUrl, setInfoUrl] = useState('');
   const [convertationService, setConvertationService] = useState({});
+  const [currentKey, setCurrentKey] = useState({});
+
   /**
    * Modal window display handler.
    * @param {boolean} isShow - Show Window
@@ -55,12 +57,7 @@ function App(props) {
   };
 
   useEffect(() => {
-    setConvertationService(new ConvertationService(
-      'CC',
-      handleShowWindow,
-      props.setCurrencyList,
-    ));
-
+    ConvertationService.getCallbacks(handleShowWindow, props.setCurrencyList);
     props.setCurrentService('CC');
   }, []);
 
@@ -79,6 +76,10 @@ function App(props) {
 
   const handleConvertaionCurrency = async (value) => await convertationService.getConvertation(value);
 
+  const getStatusApi = () => convertationService.getStatusApi();
+
+  const onKeyDown = (e) => setCurrentKey(e);
+
   /**
    * Theme Switching Handler
    * @param {boolean} isToggle 
@@ -89,7 +90,7 @@ function App(props) {
   console.log('составить схему приложения');
 
   return (
-    <div className={cn('calc', { calc_theme_dark: darkMode })}>
+    <div className={cn('calc', { calc_theme_dark: darkMode })} tabIndex='-1' onKeyDown={onKeyDown}>
       <ThemeSelector darkMode={darkMode} onChange={handleTheme} />
       <ChangesTypesContainer />
       <CalcDelegation
@@ -97,14 +98,13 @@ function App(props) {
         renderWindow={renderWindow}
         listLimit={servicesLimit}
         onClick={handleShowWindow}
-        switchService={handleSwitchService}
         url={infoUrl}
         types={props.calcTypes}
         currentType={props.currentType}
         setCurrentType={setCurrentType}
-        handleUpdateCurrencyList={handleUpdateCurrencyList}
-        handleBasicCurrency={handleBasicCurrency}
-        handleConvertaionCurrency={handleConvertaionCurrency}
+        currentKey={currentKey}
+        getStatusApi={getStatusApi}
+        currentKey={currentKey}
       />
     </div >
   );
@@ -141,4 +141,5 @@ const mapStateToProps = (state) => {
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
+
 

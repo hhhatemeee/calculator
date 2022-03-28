@@ -1,10 +1,7 @@
 class ConvertationService {
-  constructor(serviceName = 'CC', hideInfo, setCurrencyList) {
-    this.hideInfo = hideInfo;
+  constructor(serviceName = 'CC') {
     this.limitList = [];
-    this.setCurrencyList = setCurrencyList;
     this.currentService = serviceName;
-
   }
 
   #MOCK = {
@@ -19,14 +16,26 @@ class ConvertationService {
       CC: 'currencyconverterapi.com',
       OE: 'openexchangerates.org',
       FCA: 'freecurrencyapi.net',
+    },
+    STATUS_URL: {
+      CC: 'https://free.currconv.com/others/usage?apiKey=',
+      FCA: 'https://api.currencyapi.com/v3/status?apikey=',
+      OE: 'https://openexchangerates.org/api/usage.json?app_id=',
     }
   }
+
+  #isAvailable = true;
 
   #apiKey = this.#MOCK.API_KEYS.CC;
 
   #currencyList = this.#MOCK.CURRENCY;
 
   #basicCurrency = 'RUB';
+
+  getCallbacks(hideInfo, setCurrencyList) {
+    this.hideInfo = hideInfo;
+    this.setCurrencyList = setCurrencyList;
+  }
 
   showWindow() {
     if (!this.limitList.includes(this.currentService)) {
@@ -126,12 +135,28 @@ class ConvertationService {
     console.warn(`Такого сервиса не существует. Список: ${this.#MOCK.SERVICE_LIST}`);
   }
 
+  getStatusApi() {
+    let isAvailable = {};
+
+    Object.keys(this.#MOCK.API_KEYS).forEach((key) => {
+      fetch(`${this.#MOCK.STATUS_URL[key]}${this.#MOCK.API_KEYS[key]}`)
+        .then((res) => {
+          if (res.status === 200) {
+            isAvailable[key] = true;
+            return;
+          }
+          isAvailable[key] = false;
+        });
+    })
+    return isAvailable;
+  }
+
   /**
    * Update the list of currencies from the server. By default from constants.
    */
   updateCurrencyList() {
     switch (this.currentService) {
-      case 'СС':
+      case 'CC':
         fetch(`https://free.currconv.com/api/v7/currencies?apiKey=${this.#apiKey}`)
           .then((res) => res.json())
           .then((res) => {
@@ -220,7 +245,8 @@ class ConvertationService {
               Object.keys(res.data).forEach((cur) => {
                 if (to === cur) {
                   result = res.data[cur].value;
-                  return result;
+                  console.log(result);
+                  return res.data[cur].value;
                 }
               });
               return result;
@@ -237,4 +263,4 @@ class ConvertationService {
   }
 }
 
-export default ConvertationService;
+export default new ConvertationService('CC');

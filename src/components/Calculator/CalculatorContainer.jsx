@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import splittingNumber from '../../helpers/splittingNumber';
-import { OPERATORS } from '../../variables';
+import { KEYS, KEYS_NAME, OPERATORS } from '../../variables';
 import Calculator from './Calculator';
 
 const CalculatorContainer = (props) => {
@@ -15,10 +15,28 @@ const CalculatorContainer = (props) => {
   const [fontSize, setFontSize] = useState(96)
   const [isShow, setShown] = useState(false);
 
+  const onKeyDown = (e) => {
+    if ((e.key >= 0 && e.key <= 9)
+      || KEYS.CODES.includes(e.keyCode)
+      || KEYS.NAMES.includes(e.key)) {
+      operations(e.key);
+    }
+
+    if (e.ctrlKey && e.keyCode === 86) {
+      navigator.clipboard.readText()
+        .then(text => {
+          if (!Number.isNaN(Number(text)))
+            operations(text);
+        })
+    }
+  };
+
+  useEffect(() => onKeyDown(props.currentKey), [props.currentKey]);
+
   // Handle click
   const handleClick = (value) => {
     operations(value);
-  }
+  };
 
   // Error Handler
   const errorHandler = () => {
@@ -33,7 +51,7 @@ const CalculatorContainer = (props) => {
     if (Number.isNaN(prevNumber)) {
       setprevNumber(0);
     }
-  }
+  };
 
   /**
    * A method that calculates the font size using a dependency
@@ -278,16 +296,31 @@ const CalculatorContainer = (props) => {
       case 'multiplication':
         element = '×';
         break;
+      case '*':
+        element = '×';
+        break;
+      case 'Enter':
+        element = '=';
+        break;
       case 'equal':
         element = '=';
         break;
       case 'division':
         element = '÷';
         break;
+      case '/':
+        element = '÷';
+        break;
       case 'minus':
         element = '-';
         break;
+      case '-':
+        element = '-';
+        break;
       case 'plus':
+        element = '+';
+        break;
+      case '+':
         element = '+';
         break;
       case 'percent':
@@ -310,8 +343,16 @@ const CalculatorContainer = (props) => {
     }
 
     // Button for removing elements in a row
-    if (element === 'delete') {
+    if (element === 'delete' || element === KEYS_NAME.Backspace) {
       const clone = curNum;
+
+      if (history && result) {
+        setHistory(0);
+        setprevNumber(0);
+        setResult(0);
+
+        return;
+      }
 
       if (curNum === 0 && res > 0) {
         setHistory(curNum);
@@ -483,10 +524,12 @@ const mapStateToProps = (state) => {
 
 CalculatorContainer.propTypes = {
   buttons: PropTypes.array,
+  currentKey: PropTypes.object,
 };
 
 CalculatorContainer.defaultProps = {
   buttons: [],
+  currentKey: {}
 };
 
 
