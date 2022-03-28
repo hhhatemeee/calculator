@@ -62,7 +62,7 @@ const ConverterContainer = (props) => {
       return;
     }
     setResultNumber(result);
-  });
+  }, [props.currentCourse]);
 
   /**
    * Calculates the font size for the display
