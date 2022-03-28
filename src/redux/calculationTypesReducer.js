@@ -9,6 +9,7 @@ const DELETE_SECTION = 'DELETE_SECTION';
 const MOVE_ITEM = 'MOVE_ITEM';
 const MOVE_SECTION = 'MOVE_SECTION';
 const SET_NAME_SECTION = 'SET_NAME_SECTION';
+const SET_ICON = 'SET_ICON';
 
 const initialState = {
   currentType: 'Standart',
@@ -47,7 +48,6 @@ const initialState = {
   },
 };
 const namesArr = ['Standart', 'Chemistry', 'Graphing', 'Programmer', 'Date Calculation', 'Currency'];
-
 let id = 6;
 
 const calculationTypesReducer = (state = JSON.parse(localStorage.getItem('state')) || initialState, action) => {
@@ -177,6 +177,19 @@ const calculationTypesReducer = (state = JSON.parse(localStorage.getItem('state'
           return type;
         })
       }
+    case SET_ICON:
+      return {
+        ...state,
+        types: state.types.map((section) => {
+          section.calcList.map((calc) => {
+            if (calc.id === action.id) {
+              calc.imgName = action.imgName
+            }
+            return calc;
+          })
+          return section;
+        })
+      }
     default:
       return state
   }
@@ -206,6 +219,7 @@ export const setMoveItemCreator = (
   });
 export const setMoveSectionCreator = ({ sectionIndexStart, dropIndex }) => ({ type: MOVE_SECTION, sectionIndexStart, dropIndex });
 export const setNameSectionCreator = ({ sectionId, name }) => ({ type: SET_NAME_SECTION, sectionId, name });
+export const setIconCreator = ({ id, imgName }) => ({ type: SET_ICON, id, imgName });
 
 
 export default calculationTypesReducer;

@@ -93,6 +93,7 @@ const ChangeTypes = (props) => {
               currentItem={currentItem}
               onMoveSection={onMoveSection}
               setNameSection={props.setNameSection}
+              setIconType={props.setIconType}
             />
           }
           )}

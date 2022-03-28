@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import ChangeTypes from './ChangeTypes';
-import { setAddItemCreator, setAddSectionCreator, setCurrentTypeCreator, setDeleteItemCreator, setDeleteSectionCreator, setMoveItemCreator, setMoveSectionCreator, setNameSectionCreator } from '../../redux/calculationTypesReducer';
+import { setAddItemCreator, setAddSectionCreator, setCurrentTypeCreator, setDeleteItemCreator, setDeleteSectionCreator, setIconCreator, setMoveItemCreator, setMoveSectionCreator, setNameSectionCreator } from '../../redux/calculationTypesReducer';
 
 const ChangesTypesContainer = (props) => {
   return (
@@ -18,7 +18,8 @@ const ChangesTypesContainer = (props) => {
       onDeleteSection={props.onDeleteSection}
       onMoveItem={props.onMoveItem}
       onMoveSection={props.onMoveSection}
-      setNameSection={props.setNameSection} />
+      setNameSection={props.setNameSection}
+      setIconType={props.setIconType} />
   )
 }
 
@@ -46,7 +47,8 @@ const mapDispatchToProps = (dispatch) => {
         currentIndex)
       ),
     onMoveSection: (sectionIndexStart, dropIndex) => dispatch(setMoveSectionCreator(sectionIndexStart, dropIndex)),
-    setNameSection: (sectionId, name) => dispatch(setNameSectionCreator(sectionId, name))
+    setNameSection: (sectionId, name) => dispatch(setNameSectionCreator(sectionId, name)),
+    setIconType: (id, imgName) => dispatch(setIconCreator(id, imgName)),
   }
 }
 

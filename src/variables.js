@@ -2,6 +2,8 @@ export const OPERATORS = ['×', '÷', '-', '+'];
 
 export const CALC_TYPES = { Standart: 'Standart', Currency: 'Currency' };
 
+export const CALC_NAMES = ['Standart', 'Currency', 'Programmer', 'Chemistry', 'Date Calculation', 'Graphing'];
+
 export const CURRENCY_MOCK = {
   RUB: ['RUB', '₽'],
   USD: ['USD', '$'],

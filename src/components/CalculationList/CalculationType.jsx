@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import cn from 'classnames';
+import { CALC_NAMES } from '../../variables';
 
 // Renders each menu item
 const CalculationType = ({
@@ -14,8 +15,11 @@ const CalculationType = ({
   onDeleteItem,
   sectionId,
   id,
+  setIconType,
 }) => {
   const [isDeleted, setDeleted] = useState(false);
+  const [isShowSelectorIcon, setSelectorIcon] = useState(false);
+
 
   //When selecting a calculator, hide the menu
   const onClick = () => {
@@ -36,6 +40,13 @@ const CalculationType = ({
     }), 150);
   }
 
+  const onShowSelectorIcon = () => setSelectorIcon(!isShowSelectorIcon);
+
+
+  const setIcon = (name) => {
+    setIconType({ id: id, imgName: name });
+    setSelectorIcon(false);
+  };
 
   return (
     <div
@@ -48,7 +59,19 @@ const CalculationType = ({
       )}
       onClick={onClick}
     >
-      <span className='item__row'><i className={`ico-${imgName}`}></i>{name}</span>
+      <span className={cn('item-row', { 'icon-edit': isEditMode, 'show-selector': isShowSelectorIcon })}>
+        <div className='item__selector-ico'>
+          {
+            CALC_NAMES.map((name) => <i
+              key={name}
+              className={`ico-${name} icon`}
+              onClick={() => setIcon(name)}
+            />)
+          }
+        </div>
+        <i className={`ico-${imgName} item-row__item`} onClick={onShowSelectorIcon} />
+        {name}
+      </span>
       {isEditMode && <span className='item__delete' onClick={onDelete}>+</span>}
     </div>
   )

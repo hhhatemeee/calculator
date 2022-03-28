@@ -74,13 +74,43 @@
       background-color:rgba($btn-light-gray-color,0.4);
     }
 
-    &__row{
+    &__selector-ico{
+      position: absolute;
+      display: flex;
+      align-items: center;
+      top: 0px;
+      left: -220px;
+      width: 210px;
+      height: 200px;
+      transform: scaleX(-1);
+      background-color: $bg-menu-color;
+      max-height: 0;
+      animation: animate-delete .2s ease-in;
+      transition: all .2s ease-in;
+      visibility: hidden;
+      opacity: 0;
+
+      .icon{
+        font-size: 0px;
+
+        &:hover{
+          color: rgba($icon-color-hover, .8);
+        }
+  
+        &:active{
+          color: rgba($icon-color-hover, .5);
+        }
+      }
+
+    }
+
+    &-row{
       margin: 0 0 0px 10px;
       display: flex;
       align-items: center;
       font-size: 18px;
       
-      i{
+      &__item, i{
         display: inline-block;
         font-size: 25px;
         width: 25px;
@@ -128,7 +158,6 @@
 }
 
 .isEditMode{
-  // z-index: 8;
   cursor: grab !important;
 
   &:active{
@@ -162,6 +191,48 @@
 
   .item_delete{
     opacity: 0;
+  }
+}
+
+.icon-edit{
+    margin: 0 0 0px 10px;
+    display: flex;
+    align-items: center;
+    font-size: 18px;
+
+    .item-row__item{
+      z-index: 10 !important;
+      cursor: pointer;
+
+      &:hover{
+        text-shadow: 
+        0px 0px 0px rgba(black, 100%),
+        0px 0px 2px rgba($icon-color-hover-dark,.8),
+        0px 0px 4px rgba($info-color,.8),
+        0px 0px 6px $btn-white-color,
+        0px 0px 8px $btn-white-color,
+        ;
+      }
+
+      &:active{
+        text-shadow: none;
+        color: rgba($icon-color-hover,.5);
+      }
+    }
+}
+
+.show-selector{
+  .item__selector-ico{
+    opacity: 1;
+    visibility: inherit;
+    max-height: 100%;
+    box-shadow: 0px 2px 5px 1px rgb(22 31 22 / 43%);
+    cursor: pointer;
+
+    .icon{
+      font-size: 25px ;
+    }
+
   }
 }
 
