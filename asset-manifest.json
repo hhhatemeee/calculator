@@ -1,0 +1,26 @@
+{
+  "files": {
+    "main.css": "/calculator/static/css/main.8e28adb5.css",
+    "main.js": "/calculator/static/js/main.718c4cc2.js",
+    "static/media/WorkSans-Regular.eot": "/calculator/static/media/WorkSans-Regular.78567f8edec5e0163d87.eot",
+    "static/media/WorkSans-Regular.ttf": "/calculator/static/media/WorkSans-Regular.dac6f791072063e98f26.ttf",
+    "static/media/WorkSans-Regular.woff": "/calculator/static/media/WorkSans-Regular.8618f4781e0ce9178279.woff",
+    "static/media/WorkSans-Regular.woff2": "/calculator/static/media/WorkSans-Regular.960e890cb970d849a8fc.woff2",
+    "static/media/icomoon.svg?7rzolj": "/calculator/static/media/icomoon.01f10b77e5a3d73ff077.svg",
+    "static/media/icomoon.eot?7rzolj": "/calculator/static/media/icomoon.d0f277d61436b2ea8789.eot",
+    "static/media/icomoon.woff?7rzolj": "/calculator/static/media/icomoon.c5456a5e7b05dba0bcad.woff",
+    "static/media/icomoon.ttf?7rzolj": "/calculator/static/media/icomoon.bdd55db39ee7f44d73f7.ttf",
+    "static/media/fontello.eot?97226987": "/calculator/static/media/fontello.c21d7add754045eab08f.eot",
+    "static/media/fontello.ttf?97226987": "/calculator/static/media/fontello.ac3b491ddfe8f00eb4a7.ttf",
+    "static/media/fontello.woff?97226987": "/calculator/static/media/fontello.d20ff4f009b8d3f33643.woff",
+    "static/media/fontello.woff2?97226987": "/calculator/static/media/fontello.cfdd714ba5dc4c9ef10d.woff2",
+    "static/media/fontello.svg?97226987": "/calculator/static/media/fontello.ea4ea4312d19bb086e54.svg",
+    "static/media/HomePage.svg": "/calculator/static/media/HomePage.b4834cc6bfeefc372fc24b1aac4ff255.svg",
+    "index.html": "/calculator/index.html",
+    "static/media/Loader.svg": "/calculator/static/media/Loader.9d67522a0adb2307ab1749c18bcd3686.svg"
+  },
+  "entrypoints": [
+    "static/css/main.8e28adb5.css",
+    "static/js/main.718c4cc2.js"
+  ]
+}
