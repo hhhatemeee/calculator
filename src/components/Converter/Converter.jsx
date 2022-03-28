@@ -46,6 +46,7 @@ const Converter = (props) => {
 
     //If the name of the currency has come
     const cc = await ConvertationService.getConvertation(e);
+    console.log(cc);
     await props.setCurrentCourse(cc);
   }
 
@@ -65,7 +66,7 @@ const Converter = (props) => {
 
     setFrom(currentCurrencies.to);
     setTo(currentCurrencies.from);
-    props.handleBasicCurrency(to.name);
+    ConvertationService.setBasicCurrency(to.name);
     props.setCurrentCourse(1 / props.currentCourse);
   }
 
