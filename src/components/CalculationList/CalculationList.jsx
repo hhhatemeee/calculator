@@ -23,15 +23,14 @@ const CalculationList = (props) => {
 
   const onAddItem = () => setAddItem(!isAddItem);
 
-  const onChange = (e) => {
-
+  const onChangeSetItem = (e) => {
     setNewItem({
       ...newItem,
       name: e.target.value,
     })
-  }
+  };
 
-  const onKeyDown = (e) => {
+  const onKeyDownSetItem = (e) => {
     if (e.keyCode === 13) {
       props.onAddItem(newItem);
       setNewItem({
@@ -39,11 +38,10 @@ const CalculationList = (props) => {
         name: '',
       })
     }
-
     if (e.keyCode === 27) {
       setAddItem(false);
     }
-  }
+  };
 
   const dragOverHandler = (e) => {
     e.preventDefault();
@@ -57,11 +55,7 @@ const CalculationList = (props) => {
     }
   };
 
-  const dragLeaveHandler = (e) => {
-    e.target.style.boxShadow = 'none';
-    // e.target.classList.remove('animation-drag');
-
-  };
+  const dragLeaveHandler = (e) => e.target.style.boxShadow = 'none';;
 
   const dragStartHandler = (e, sectionId, currentItem, currentIndex) => {
     props.onSetCurrentSection(sectionId);
@@ -69,10 +63,7 @@ const CalculationList = (props) => {
     e.target.classList.add('animation-drag');
   };
 
-  const dragEndHandler = (e) => {
-    e.target.classList.remove('animation-drag');
-
-  }
+  const dragEndHandler = (e) => e.target.classList.remove('animation-drag');
 
   const onDropHandler = (e, sectionId, dropIndex) => {
     e.preventDefault();
@@ -87,12 +78,12 @@ const CalculationList = (props) => {
       })
       props.onSetCurrentItem(null);
     }
-  }
+  };
 
   const onDragStartSectionHandler = (e, sectionStart) => {
     e.target.classList.add('animation-drag');
     props.onSetCurrentSection(sectionStart);
-  }
+  };
 
   const onDropSectionHandler = (e, sectionId) => {
     e.target.style.boxShadow = 'none';
@@ -112,19 +103,18 @@ const CalculationList = (props) => {
       props.onMoveSection(sectionId);
       props.onSetCurrentSection({});
     }
-  }
+  };
 
-
+  // Deleted section
   const onDeleteSection = () => {
     setIsDeleted(true);
     setTimeout(() => props.onDeleteSection(props.sectionId), 150);
-  }
+  };
 
   const onEditSectionTitle = () => setEditSection(!isEditSection);
 
-  const onChangNameSection = (e) => {
-    setEditNameSection(e.target.value);
-  }
+  const onChangNameSection = (e) => setEditNameSection(e.target.value);
+
 
   const onKeyDownSetNameSection = (e) => {
     if (e && e.keyCode === 13) {
@@ -139,7 +129,7 @@ const CalculationList = (props) => {
       onEditSectionTitle(false);
       setEditNameSection(props.name);
     }
-  }
+  };
 
 
   return (
@@ -197,9 +187,9 @@ const CalculationList = (props) => {
         && <InputAndItemreverseSide
           isBoolean={isAddItem}
           onClick={onAddItem}
-          onChange={onChange}
+          onChange={onChangeSetItem}
           value={newItem.name}
-          onKeyDown={onKeyDown}
+          onKeyDown={onKeyDownSetItem}
           onBlur={onAddItem}
           text='Add item...'
           placeHolder='Add item'
@@ -216,6 +206,17 @@ CalculationList.propTypes = {
   handleShowMenu: PropTypes.func,
   currentType: PropTypes.string,
   disabledCalcs: PropTypes.object,
+  isEditMode: PropTypes.bool,
+  onDeleteItem: PropTypes.func,
+  onAddItem: PropTypes.func,
+  onDeleteSection: PropTypes.func,
+  sectionId: PropTypes.number,
+  onMoveItem: PropTypes.func,
+  onSetCurrentSection: PropTypes.func,
+  onSetCurrentItem: PropTypes.func,
+  currentItem: PropTypes.object,
+  onMoveSection: PropTypes.func,
+  setNameSection: PropTypes.func,
 };
 
 
@@ -224,8 +225,19 @@ CalculationList.defaultProps = {
   list: [],
   currentType: '',
   disabledCalcs: {},
+  currentItem: null,
+  isEditMode: false,
+  sectionId: 0,
   setCurrentType: () => console.log('Не определена функция setCurrentType'),
   handleShowMenu: () => console.log('Не определена функция setCurrentType'),
+  onDeleteItem: () => console.log('Не определена функция onDeleteItem'),
+  onAddItem: () => console.log('Не определена функция onAddItem'),
+  onDeleteSection: () => console.log('Не определена функция onDeleteSection'),
+  onMoveItem: () => console.log('Не определена функция onMoveItem'),
+  onSetCurrentSection: () => console.log('Не определена функция onSetCurrentSection'),
+  onSetCurrentItem: () => console.log('Не определена функция onSetCurrentItem'),
+  onMoveSection: () => console.log('Не определена функция onMoveSection'),
+  setNameSection: () => console.log('Не определена функция setNameSection'),
 };
 
 export default CalculationList

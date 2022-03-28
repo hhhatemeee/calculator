@@ -37,6 +37,10 @@ body{
   margin: 0 auto;
   transition: 0.1s ease-in;
   outline: none;
+
+  &-delegation__conatiner{
+    outline: none;
+  }
   
   &_theme_dark {
     background-color: $bg-dark;

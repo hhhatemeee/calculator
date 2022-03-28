@@ -50,7 +50,7 @@ const namesArr = ['Standart', 'Chemistry', 'Graphing', 'Programmer', 'Date Calcu
 
 let id = 6;
 
-const calculationTypesReducer = (state = initialState, action) => {
+const calculationTypesReducer = (state = JSON.parse(localStorage.getItem('state')) || initialState, action) => {
   const currentList = [];
 
   state.types.forEach((section) => {

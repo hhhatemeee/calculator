@@ -61,6 +61,10 @@ CalculationType.propTypes = {
   handleShowMenu: PropTypes.func,
   currentType: PropTypes.string,
   isDisabled: PropTypes.bool,
+  isEditMode: PropTypes.bool,
+  onDeleteItem: PropTypes.func,
+  sectionId: PropTypes.number,
+  id: PropTypes.number,
 }
 
 CalculationType.defaultProps = {
@@ -70,6 +74,10 @@ CalculationType.defaultProps = {
   handleShowMenu: () => console.log('Не указана функция setCurrentType'),
   currentType: '',
   isDisabled: false,
+  isEditMode: false,
+  onDeleteItem: () => console.log('Не указана функция onDeleteItem'),
+  sectionId: 0,
+  id: 0,
 }
 
 export default CalculationType

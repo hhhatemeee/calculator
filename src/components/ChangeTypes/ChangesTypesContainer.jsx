@@ -54,12 +54,27 @@ ChangesTypesContainer.propTypes = {
   calculatorsType: PropTypes.array,
   setCurrentType: PropTypes.func,
   currentType: PropTypes.string,
+  disabledCalcs: PropTypes.object,
+  onDeleteItem: PropTypes.func,
+  onAddItem: PropTypes.func,
+  onAddSection: PropTypes.func,
+  onDeleteSection: PropTypes.func,
+  onMoveItem: PropTypes.func,
+  onMoveSection: PropTypes.func,
+  setNameSection: PropTypes.func,
 }
 
 ChangesTypesContainer.defaultProps = {
   calculatorsType: {},
   currentType: '',
   setCurrentType: () => console.log('Не указана функция setCurrentType'),
+  onDeleteItem: () => console.log('Не указана функция onDeleteItem'),
+  onAddItem: () => console.log('Не указана функция onAddItem'),
+  onAddSection: () => console.log('Не указана функция onAddSection'),
+  onDeleteSection: () => console.log('Не указана функция onDeleteSection'),
+  onMoveItem: () => console.log('Не указана функция onMoveItem'),
+  onMoveSection: () => console.log('Не указана функция onMoveSection'),
+  setNameSection: () => console.log('Не указана функция setNameSection'),
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(ChangesTypesContainer);

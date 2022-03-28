@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 
 import CalculatorContainer from './components/Calculator/CalculatorContainer';
@@ -9,16 +9,18 @@ import { CALC_TYPES } from './variables';
 
 
 const CalcDelegation = (props) => {
+  const [currentKey, setCurrentKey] = useState({});
+
   let calculator;
   useEffect(() => { }, [props.listLimit])
 
   switch (props.currentType) {
     case CALC_TYPES.Standart:
-      calculator = <CalculatorContainer currentKey={props.currentKey} />;
+      calculator = <CalculatorContainer currentKey={currentKey} />;
       break;
     case CALC_TYPES.Currency:
       calculator = <ConverterContainer
-        currentKey={props.currentKey}
+        currentKey={currentKey}
         listLimit={props.listLimit}
         getStatusApi={props.getStatusApi}
       />
@@ -28,8 +30,10 @@ const CalcDelegation = (props) => {
       break;
   }
 
+  const onKeyDown = (e) => setCurrentKey(e);
+
   return (
-    <div>
+    <div className='calc-delegation__conatiner' tabIndex='-1' onKeyDown={onKeyDown}>
       {calculator}
       {
         props.renderWindow && <ModalWindow

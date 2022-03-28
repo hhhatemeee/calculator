@@ -27,7 +27,6 @@ function App(props) {
   const [servicesLimit, setServicesLimit] = useState([]);
   const [infoUrl, setInfoUrl] = useState('');
   const [convertationService, setConvertationService] = useState({});
-  const [currentKey, setCurrentKey] = useState({});
 
   /**
    * Modal window display handler.
@@ -61,8 +60,6 @@ function App(props) {
     props.setCurrentService('CC');
   }, []);
 
-  const handleSwitchService = (service) => convertationService.switchService(service);
-
   /**
    * Handler for switching the calculator type in the store
    * @param {string} name 
@@ -72,7 +69,6 @@ function App(props) {
 
   const getStatusApi = () => convertationService.getStatusApi();
 
-  const onKeyDown = (e) => setCurrentKey(e);
 
   /**
    * Theme Switching Handler
@@ -84,7 +80,7 @@ function App(props) {
   console.log('составить схему приложения');
 
   return (
-    <div className={cn('calc', { calc_theme_dark: darkMode })} tabIndex='-1' onKeyDown={onKeyDown}>
+    <div className={cn('calc', { calc_theme_dark: darkMode })}>
       <ThemeSelector darkMode={darkMode} onChange={handleTheme} />
       <ChangesTypesContainer />
       <CalcDelegation
@@ -96,9 +92,7 @@ function App(props) {
         types={props.calcTypes}
         currentType={props.currentType}
         setCurrentType={setCurrentType}
-        currentKey={currentKey}
         getStatusApi={getStatusApi}
-        currentKey={currentKey}
       />
     </div >
   );
@@ -131,6 +125,7 @@ const mapStateToProps = (state) => {
   return {
     calcTypes: state.calculatorsType.types,
     currentType: state.calculatorsType.currentType,
+    stateCalc: state.calculatorsType,
   }
 }
 

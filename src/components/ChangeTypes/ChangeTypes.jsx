@@ -65,7 +65,7 @@ const ChangeTypes = (props) => {
   }
 
   return (
-    <div className='menu'>
+    <div className={cn('menu', { 'menu-open': showMenu })}>
       <div className={cn('menu__btn', { 'btn_open': showMenu })} onClick={handleShowMenu}>
         <span></span>
       </div>
@@ -119,6 +119,13 @@ ChangeTypes.propTypes = {
   setCurrentType: PropTypes.func,
   currentType: PropTypes.string,
   disabledCalcs: PropTypes.object,
+  onDeleteItem: PropTypes.func,
+  onAddItem: PropTypes.func,
+  onAddSection: PropTypes.func,
+  onDeleteSection: PropTypes.func,
+  onMoveItem: PropTypes.func,
+  onMoveSection: PropTypes.func,
+  setNameSection: PropTypes.func,
 };
 
 ChangeTypes.defaultProps = {
@@ -126,6 +133,13 @@ ChangeTypes.defaultProps = {
   currentType: '',
   disabledCalcs: {},
   setCurrentType: () => console.log('Не определена функция setCurrentType'),
+  onDeleteItem: () => console.log('Не указана функция onDeleteItem'),
+  onAddItem: () => console.log('Не указана функция onAddItem'),
+  onAddSection: () => console.log('Не указана функция onAddSection'),
+  onDeleteSection: () => console.log('Не указана функция onDeleteSection'),
+  onMoveItem: () => console.log('Не указана функция onMoveItem'),
+  onMoveSection: () => console.log('Не указана функция onMoveSection'),
+  setNameSection: () => console.log('Не указана функция setNameSection'),
 };
 
 export default ChangeTypes;
