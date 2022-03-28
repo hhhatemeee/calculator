@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react';
+import cn from 'classnames';
 import PropTypes from 'prop-types';
 
 import CalculationType from './CalculationType';
 import interfaceElement from './interfaceElement';
 
 import './CalculationList.scss';
+import InputAndItemreverseSide from '../InputAndItemreverseSide/InputAndItemreverseSide';
 
 // Draws a list of calculators, depending on the type
 const CalculationList = (props) => {
@@ -14,6 +16,10 @@ const CalculationList = (props) => {
     name: '',
     sectionId: props.sectionId,
   });
+  const [isEditSection, setEditSection] = useState(false);
+  const [editNameSection, setEditNameSection] = useState(props.name);
+  const [isDeleted, setIsDeleted] = useState(false);
+
 
   const onAddItem = () => setAddItem(!isAddItem);
 
@@ -33,18 +39,27 @@ const CalculationList = (props) => {
         name: '',
       })
     }
+
+    if (e.keyCode === 27) {
+      setAddItem(false);
+    }
   }
 
   const dragOverHandler = (e) => {
     e.preventDefault();
     if (e.target.classList.contains('item')) {
       e.target.style.boxShadow = '0px 1px 5px 1px gray inset';
+      return;
+    }
+    if (e.target.classList.contains('menu-calculation-list')) {
+      e.target.style.boxShadow = '0px 1px 5px 1px gray';
+      e.target.style.zIndex = '100';
     }
   };
 
   const dragLeaveHandler = (e) => {
     e.target.style.boxShadow = 'none';
-    e.target.classList.remove('animation-drag');
+    // e.target.classList.remove('animation-drag');
 
   };
 
@@ -61,23 +76,95 @@ const CalculationList = (props) => {
 
   const onDropHandler = (e, sectionId, dropIndex) => {
     e.preventDefault();
-    e.target.style.boxShadow = 'none';
-    e.target.classList.remove('animation-drag');
+    if (props.currentItem) {
+      e.target.style.boxShadow = 'none';
+      e.target.classList.remove('animation-drag');
 
-    props.onMoveItem({
-      sectionIndexEnd: sectionId,
-      dropIndex: dropIndex || 0,
-    })
-    props.onSetCurrentItem({});
+
+      props.onMoveItem({
+        sectionIndexEnd: sectionId,
+        dropIndex: dropIndex || 0,
+      })
+      props.onSetCurrentItem(null);
+    }
   }
 
-  const onDeleteSection = () => props.onDeleteSection(props.sectionId);
+  const onDragStartSectionHandler = (e, sectionStart) => {
+    e.target.classList.add('animation-drag');
+    props.onSetCurrentSection(sectionStart);
+  }
+
+  const onDropSectionHandler = (e, sectionId) => {
+    e.target.style.boxShadow = 'none';
+    e.target.classList.remove('animation-drag');
+    e.preventDefault();
+
+    if (props.list.length === 0 && props.currentItem) {
+      props.onMoveItem({
+        sectionIndexEnd: sectionId,
+        dropIndex: 0,
+      })
+      props.onSetCurrentItem(null);
+
+      return;
+    }
+    if (!props.currentItem) {
+      props.onMoveSection(sectionId);
+      props.onSetCurrentSection({});
+    }
+  }
+
+
+  const onDeleteSection = () => {
+    setIsDeleted(true);
+    setTimeout(() => props.onDeleteSection(props.sectionId), 150);
+  }
+
+  const onEditSectionTitle = () => setEditSection(!isEditSection);
+
+  const onChangNameSection = (e) => {
+    setEditNameSection(e.target.value);
+  }
+
+  const onKeyDownSetNameSection = (e) => {
+    if (e && e.keyCode === 13) {
+      props.setNameSection({
+        name: editNameSection,
+        sectionId: props.sectionId
+      });
+      onEditSectionTitle(false);
+    }
+
+    if (e && e.keyCode === 27) {
+      onEditSectionTitle(false);
+      setEditNameSection(props.name);
+    }
+  }
+
 
   return (
-    <div className='menu-calculation-list'
+    <div className={cn('menu-calculation-list', { isDeleted: isDeleted })}
+      draggable={props.isEditMode}
       onDragOver={(e) => dragOverHandler(e)}
-      onDrop={(e) => props.list.length === 0 && onDropHandler(e, props.sectionIndex)}>
-      <h3 onClick={onDeleteSection}>{props.name}</h3>
+      onDragLeave={(e) => dragLeaveHandler(e)}
+      onDragStart={(e) => onDragStartSectionHandler(e, props.sectionIndex)}
+      onDragEnd={(e) => dragEndHandler(e)}
+      onDrop={(e) => onDropSectionHandler(e, props.sectionIndex)}
+    >
+      <div className='menu-calculation-list__title-row'>
+        <InputAndItemreverseSide
+          isBoolean={isEditSection}
+          isTitle={true}
+          onClick={props.isEditMode ? onEditSectionTitle : null}
+          onChange={onChangNameSection}
+          value={editNameSection}
+          onKeyDown={onKeyDownSetNameSection}
+          onBlur={onEditSectionTitle}
+          text={props.name}
+          placeHolder={'Edit Section'}
+        />
+        {props.isEditMode && <i className='ico-Trash menu-calculation-list__title-delete' onClick={onDeleteSection} />}
+      </div>
       {
         props.list.map((calc, index) => <div
           className='item-drag__container'
@@ -107,19 +194,17 @@ const CalculationList = (props) => {
         )
       }
       {props.isEditMode
-        && (!isAddItem ? <span
-          className='menu-calculation-list__add-item'
+        && <InputAndItemreverseSide
+          isBoolean={isAddItem}
           onClick={onAddItem}
-        >Add item...</span>
-          : <div>
-            <input
-              className='menu-calculation-list__input'
-              type='text'
-              onKeyDown={onKeyDown}
-              onChange={onChange}
-              onBlur={onAddItem}
-              value={newItem.name} />
-          </div>)}
+          onChange={onChange}
+          value={newItem.name}
+          onKeyDown={onKeyDown}
+          onBlur={onAddItem}
+          text='Add item...'
+          placeHolder='Add item'
+        />}
+
     </div>
   )
 }

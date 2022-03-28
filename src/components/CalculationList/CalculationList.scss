@@ -5,9 +5,25 @@
 .menu-calculation-list{
   transition: all .3s ease;
 
-  h3{
-    margin: 15px 0 10px 15px;
-    user-select: none;
+  &__title-row{
+    display: flex;
+    align-items: center;
+    position: relative;
+  }
+
+  &__title-delete{
+    font-size: 20px;
+    margin-left: 7px;
+    cursor: pointer;
+    animation: animate-appearance .2s ease-in;
+    
+    &:hover{
+      color:rgba($status-down-color,.8);
+    }
+
+    &:active{
+      color:rgba($status-down-color,.5);
+    }
   }
 
   .item{
@@ -82,6 +98,7 @@
       z-index: 8;
       padding-right: 10px;
       transform: rotate(45deg);
+      animation: animation-delete .2s ease-in;
 
       &:hover{
         color: rgba($color-black, .8);
@@ -93,27 +110,6 @@
     }
   }
 
-  &__add-item{
-    font-weight: 500;
-    font-size: 13px;
-    margin-left: 16px;
-    cursor: pointer;
-    user-select: none;
-
-    &:hover{
-      color: rgba($color-black, .8)
-    }
-  
-    &:active{
-      color:rgba($color-black,.6)
-    }
-  }
-
-  &__input{
-    font-size: 12px;
-    padding: 0px 3px !important;
-
-  }
 }
 
 .isDisabled{
@@ -124,23 +120,6 @@
 
 .isDeleted{
   transform: scale(0);
-
-  // opacity: 0;
-  // .item__row{
-  //   transition: .1s ease-in;
-  //   max-width: 0 !important;
-  //   font-size: 0 !important;
-  //   max-height: 0 !important;
-
-  //   i{
-  //     transition: .1s ease-in;
-  //     max-width: 0 !important;
-  //     max-height: 0 !important;
-  //     font-size: 0 !important;
-
-  //   }
-  // }
-
 }
 
 .current {
@@ -194,4 +173,22 @@
     opacity: 1;
     transform: scale(1);
   }
+}
+
+@keyframes animation-delete {
+  0%{
+    opacity: 0;
+  }
+  100%{
+    opacity: 1;
+  }
+}
+
+.testtest{
+  width: 100px;
+  height: 100px;
+  position: absolute;
+  bottom:0;
+  right: 0px;
+  background-color: #fff;
 }

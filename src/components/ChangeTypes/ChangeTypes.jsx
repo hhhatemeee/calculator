@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import CalculationList from '../CalculationList/CalculationList';
 
 import './ChangeTypes.scss';
+import InputAndItemreverseSide from '../InputAndItemreverseSide/InputAndItemreverseSide';
 
 
 const ChangeTypes = (props) => {
@@ -32,10 +33,15 @@ const ChangeTypes = (props) => {
     if (e.keyCode === 13) {
       props.onAddSection(newSection);
     }
+
+    if (e.keyCode === 27) {
+      onAddSection(false);
+    }
   }
   //  Modal window display handler
   const handleShowMenu = () => {
-    setShowMenu(!showMenu)
+    setShowMenu(!showMenu);
+    setEditMode(false);
   }
 
   const onSetCurrentSection = (value) => setCurrentSection(value);
@@ -50,6 +56,14 @@ const ChangeTypes = (props) => {
       currentIndex: currentItem.currentIndex,
     })
   }
+
+  const onMoveSection = (dropIndex) => {
+    props.onMoveSection({
+      sectionIndexStart: currentSection,
+      dropIndex,
+    })
+  }
+
   return (
     <div className='menu'>
       <div className={cn('menu__btn', { 'btn_open': showMenu })} onClick={handleShowMenu}>
@@ -75,18 +89,24 @@ const ChangeTypes = (props) => {
               sectionId={el.id}
               onMoveItem={onMoveItem}
               onSetCurrentSection={onSetCurrentSection}
-              onSetCurrentItem={onSetCurrentItem} />
+              onSetCurrentItem={onSetCurrentItem}
+              currentItem={currentItem}
+              onMoveSection={onMoveSection}
+              setNameSection={props.setNameSection}
+            />
           }
           )}
           {isEditMode &&
-            (!isAddSection ? <div className='menu__add-section' onClick={onAddSection}>Add section...</div>
-              : <input
-                className='menu__input'
-                type="text"
-                value={newSection}
-                onKeyDown={onKeyDown}
-                onChange={onChange}
-              />)}
+            <InputAndItemreverseSide
+              isBoolean={isAddSection}
+              onChange={onChange}
+              value={newSection}
+              onKeyDown={onKeyDown}
+              onBlur={onAddSection}
+              placeHolder={'Section name'}
+              nodeItem={<div className='menu__add-section' onClick={onAddSection}>Add section...</div>}
+            />
+          }
           <i className='ico-Setting menu__setting' onClick={onEditMode} />
         </div>
       </div>

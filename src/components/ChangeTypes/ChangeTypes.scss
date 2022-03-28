@@ -58,10 +58,11 @@
 .menu__setting{
   font-size: 30px;
   position: absolute;
-  bottom:0px;
+  bottom:10px;
   left: 8px;
   z-index: 100;
   cursor: pointer;
+  user-select: none;
 
   &:hover{
     color: rgba($color-black, .8)
@@ -73,36 +74,33 @@
 }
 
 .menu{
-
-  input{
-    display: block;
-    padding: 4px 3px;
-    margin: 5px;
-    font-family: inherit;
-    font-size: 16px;
-    font-weight: 400;
-    line-height: 1.5;
-    color: #212529;
-    background-color: #fff;
-    background-clip: padding-box;
-    border: 1px solid #bdbdbd;
-    border-radius: 6px;
-    outline: none;
-    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
-  }
-
   &__add-section{
-    margin-left: 16px;
-    font-weight: 900;
+    cursor: pointer;
+    // box-sizing: content-box;
+    font-weight: 500;
     cursor: pointer;
     margin-top: 10px;
+    background-color: $bg-menu-color;
+    border: 1px solid $btn-blue-color;
+    color: $btn-blue-color;
+    margin: 10px 53px;
+    padding: 5px;
+    font-size: 20px;
+    text-align: center;
+    border-radius: 6px;
+    transition: all .1s ease-in;
+    user-select: none;
+    animation: animate-appearance .2s ease-in;
 
     &:hover{
-      color: rgba($color-black, .8)
+      background-color: $btn-blue-color;
+      color: $bg-menu-color;
     }
   
     &:active{
-      color:rgba($color-black,.6)
+      background-color:rgba($btn-blue-color,.6);
+      border-color: $bg-menu-color !important;
+      color: $bg-menu-color;
     }
   }
 }
@@ -136,4 +134,17 @@
 
 .btn_open{
   background-color: $bg-menu-color;
+}
+
+
+@keyframes animate-appearance {
+  0%{
+    opacity: 0;
+    transform: scale(0.5);
+    transform: rotateY(90deg);
+  }
+  100%{
+    opacity: 1;
+    transform: scale(1);
+  }
 }

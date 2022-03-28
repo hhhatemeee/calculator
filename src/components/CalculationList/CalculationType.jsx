@@ -29,7 +29,11 @@ const CalculationType = ({
 
   const onDelete = () => {
     setDeleted(true);
-    setTimeout(() => onDeleteItem({ sectionId: sectionId, id: id }), 150);
+    setTimeout(() => onDeleteItem({
+      sectionId: sectionId,
+      id: id,
+      name: name,
+    }), 150);
   }
 
 

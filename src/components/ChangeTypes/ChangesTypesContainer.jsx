@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import ChangeTypes from './ChangeTypes';
-import { setAddItemCreator, setAddSectionCreator, setCurrentTypeCreator, setDeleteItemCreator, setDeleteSectionCreator, setMoveItemCreator } from '../../redux/calculationTypesReducer';
+import { setAddItemCreator, setAddSectionCreator, setCurrentTypeCreator, setDeleteItemCreator, setDeleteSectionCreator, setMoveItemCreator, setMoveSectionCreator, setNameSectionCreator } from '../../redux/calculationTypesReducer';
 
 const ChangesTypesContainer = (props) => {
   return (
@@ -16,7 +16,9 @@ const ChangesTypesContainer = (props) => {
       onAddItem={props.onAddItem}
       onAddSection={props.onAddSection}
       onDeleteSection={props.onDeleteSection}
-      onMoveItem={props.onMoveItem} />
+      onMoveItem={props.onMoveItem}
+      onMoveSection={props.onMoveSection}
+      setNameSection={props.setNameSection} />
   )
 }
 
@@ -31,7 +33,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     setCurrentId: (id) => dispatch(setCurrentTypeCreator(id)),
-    onDeleteItem: (section, name) => dispatch(setDeleteItemCreator(section, name)),
+    onDeleteItem: (section, id, name) => dispatch(setDeleteItemCreator(section, id, name)),
     onAddItem: (section, name) => dispatch(setAddItemCreator(section, name)),
     onAddSection: (name) => dispatch(setAddSectionCreator(name)),
     onDeleteSection: (id) => dispatch(setDeleteSectionCreator(id)),
@@ -43,6 +45,8 @@ const mapDispatchToProps = (dispatch) => {
         dropIndex,
         currentIndex)
       ),
+    onMoveSection: (sectionIndexStart, dropIndex) => dispatch(setMoveSectionCreator(sectionIndexStart, dropIndex)),
+    setNameSection: (sectionId, name) => dispatch(setNameSectionCreator(sectionId, name))
   }
 }
 

@@ -1,3 +1,5 @@
+import { CALC_TYPES } from "../variables";
+
 const SET_CURRENT_TYPE = 'SET_CURRENT_TYPE';
 const SET_DISABLED = 'SET_DISABLED';
 const DELETE_ITEM = 'DELETE_ITEM';
@@ -5,6 +7,8 @@ const ADD_ITEM = 'ADD_ITEM';
 const ADD_SECTION = 'ADD_SECTION';
 const DELETE_SECTION = 'DELETE_SECTION';
 const MOVE_ITEM = 'MOVE_ITEM';
+const MOVE_SECTION = 'MOVE_SECTION';
+const SET_NAME_SECTION = 'SET_NAME_SECTION';
 
 const initialState = {
   currentType: 'Standart',
@@ -15,7 +19,7 @@ const initialState = {
       id: 0,
       calcList: [
         { name: 'Standart', imgName: 'Standart', section: 'Calculator', id: 0 },
-        { name: 'Scientific', imgName: 'Chemistry', section: 'Calculator', id: 1 },
+        { name: 'Chemistry', imgName: 'Chemistry', section: 'Calculator', id: 1 },
         { name: 'Graphing', imgName: 'Graphing', section: 'Calculator', id: 2 },
         { name: 'Programmer', imgName: 'Programmer', section: 'Calculator', id: 3 },
         { name: 'Date Calculation', imgName: 'Date', section: 'Calculator', id: 4 },
@@ -42,13 +46,24 @@ const initialState = {
     }
   },
 };
-const namesArr = ['Standart', 'Scientific', 'Graphing', 'Programmer', 'Date Calculation', 'Currency'];
+const namesArr = ['Standart', 'Chemistry', 'Graphing', 'Programmer', 'Date Calculation', 'Currency'];
 
 let id = 6;
 
 const calculationTypesReducer = (state = initialState, action) => {
+  const currentList = [];
+
+  state.types.forEach((section) => {
+    section.calcList.forEach((calc) => {
+      currentList.push(calc.name);
+    })
+  })
+
   switch (action.type) {
     case SET_CURRENT_TYPE:
+      if (!currentList.includes(action.name)) {
+        return state;
+      }
       return {
         ...state,
         currentId: action.id,
@@ -74,6 +89,9 @@ const calculationTypesReducer = (state = initialState, action) => {
         disabledCalcs: result,
       }
     case DELETE_ITEM:
+      if (action.name === CALC_TYPES.Standart) {
+        state.currentType = '';
+      }
       return {
         ...state,
         types: state.types.map(el => {
@@ -89,7 +107,7 @@ const calculationTypesReducer = (state = initialState, action) => {
         })
       }
     case ADD_ITEM:
-      if (namesArr.includes(action.name)) {
+      if (namesArr.includes(action.name) && !currentList.includes(action.name)) {
         const newItem = {
           name: action.name,
           imgName: action.name,
@@ -98,17 +116,19 @@ const calculationTypesReducer = (state = initialState, action) => {
         }
         return {
           ...state,
-          types: state.types.map((el, i) => {
-            if (action.sectionId === el.id) {
+          types: state.types.map((section, i) => {
+            if (action.sectionId === section.id) {
               return {
-                ...el,
+                ...section,
                 calcList: [...state.types[i].calcList, newItem],
               }
             }
-            return el
+            return section
           })
         }
       }
+
+      return state;
     case ADD_SECTION:
       const newSection = {
         name: action.name,
@@ -125,9 +145,7 @@ const calculationTypesReducer = (state = initialState, action) => {
         types: [...state.types.filter((section) => section.id !== action.id)]
       }
     case MOVE_ITEM:
-      console.log(action);
       if (state.types[action.sectionIndexEnd].length === 0) {
-        console.log(1);
         state.types[action.sectionIndexEnd].push(action.currentItem);
       }
       if (action.sectionIndexStart === action.sectionIndexEnd) {
@@ -144,6 +162,21 @@ const calculationTypesReducer = (state = initialState, action) => {
       }
 
       return state;
+    case MOVE_SECTION:
+      const editTypes = state.types.splice(action.sectionIndexStart, 1);
+      state.types.splice(action.dropIndex, 0, ...editTypes);
+
+      return state;
+    case SET_NAME_SECTION:
+      return {
+        ...state,
+        types: state.types.map((type) => {
+          if (type.id === action.sectionId) {
+            type.name = action.name;
+          }
+          return type;
+        })
+      }
     default:
       return state
   }
@@ -151,7 +184,7 @@ const calculationTypesReducer = (state = initialState, action) => {
 
 export const setCurrentTypeCreator = ({ id, name }) => ({ type: SET_CURRENT_TYPE, id, name });
 export const setDisabledTypeCreator = ({ name, value }) => ({ type: SET_DISABLED, name, value });
-export const setDeleteItemCreator = ({ sectionId, id }) => ({ type: DELETE_ITEM, sectionId, id });
+export const setDeleteItemCreator = ({ sectionId, id, name }) => ({ type: DELETE_ITEM, sectionId, id, name });
 export const setAddItemCreator = ({ sectionId, name }) => ({ type: ADD_ITEM, sectionId, name });
 export const setAddSectionCreator = (name) => ({ type: ADD_SECTION, name });
 export const setDeleteSectionCreator = (id) => ({ type: DELETE_SECTION, id });
@@ -171,6 +204,8 @@ export const setMoveItemCreator = (
     dropIndex,
     currentIndex
   });
+export const setMoveSectionCreator = ({ sectionIndexStart, dropIndex }) => ({ type: MOVE_SECTION, sectionIndexStart, dropIndex });
+export const setNameSectionCreator = ({ sectionId, name }) => ({ type: SET_NAME_SECTION, sectionId, name });
 
 
 export default calculationTypesReducer;
