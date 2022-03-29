@@ -6,6 +6,8 @@ import CalculationList from '../CalculationList/CalculationList';
 
 import './ChangeTypes.scss';
 import InputAndItemreverseSide from '../InputAndItemreverseSide/InputAndItemreverseSide';
+import ModalWindowWrapper from '../ModalWindowWrapper/ModalWindowWrapper';
+import { CALC_NAMES } from '../../variables';
 
 
 const ChangeTypes = (props) => {
@@ -15,6 +17,8 @@ const ChangeTypes = (props) => {
   const [newSection, setNewSection] = useState('');
   const [currentSection, setCurrentSection] = useState();
   const [currentItem, setCurrentItem] = useState();
+  const [isShowSelectorIcon, setSelectorIcon] = useState(false);
+  const [currentItemIcon, setCurrentItemIcon] = useState();
 
   const onEditMode = () => {
     if (isAddSection) {
@@ -22,6 +26,15 @@ const ChangeTypes = (props) => {
     }
     setEditMode(!isEditMode);
   };
+
+  const onSenCurrentItemIcon = (id, imgName) => setCurrentItemIcon({
+    id,
+    imgName,
+  });
+
+  const onShowSelectorIcon = () => {
+    setSelectorIcon(!isShowSelectorIcon);
+  }
 
   const onAddSection = () => setAddSection(!isAddSection);
 
@@ -62,10 +75,31 @@ const ChangeTypes = (props) => {
       sectionIndexStart: currentSection,
       dropIndex,
     })
-  }
+  };
+
+  const setIcon = (name) => {
+    props.setIconType({ id: currentItemIcon.id, imgName: name });
+    // setSelectorIcon(false);
+  };
 
   return (
     <div className={cn('menu', { 'menu-open': showMenu })}>
+      {/* Modal window for change icon  */}
+      {isEditMode &&
+        <ModalWindowWrapper title='Выбор иконки' boolean={isShowSelectorIcon} onClick={onShowSelectorIcon}>
+          <div className='item__selector-icons'>
+            {
+              CALC_NAMES.map((name) => <div
+                key={name}
+                className={cn('icon__container', { 'current--icon': currentItemIcon.imgName === name })}>
+                <i
+                  className={cn(`ico-${name} icon`)}
+                  onClick={() => setIcon(name)}
+                />
+              </div>)
+            }
+          </div>
+        </ModalWindowWrapper>}
       <div className={cn('menu__btn', { 'btn_open': showMenu })} onClick={handleShowMenu}>
         <span></span>
       </div>
@@ -94,6 +128,8 @@ const ChangeTypes = (props) => {
               onMoveSection={onMoveSection}
               setNameSection={props.setNameSection}
               setIconType={props.setIconType}
+              onSenCurrentItemIcon={onSenCurrentItemIcon}
+              onShowSelectorIcon={onShowSelectorIcon}
             />
           }
           )}

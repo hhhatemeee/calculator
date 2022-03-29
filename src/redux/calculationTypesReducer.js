@@ -48,7 +48,7 @@ const initialState = {
   },
 };
 const namesArr = ['Standart', 'Chemistry', 'Graphing', 'Programmer', 'Date Calculation', 'Currency'];
-let id = 6;
+let id = Date.now() + Math.round(Math.random() * 100);
 
 const calculationTypesReducer = (state = JSON.parse(localStorage.getItem('state')) || initialState, action) => {
   const currentList = [];
@@ -89,7 +89,7 @@ const calculationTypesReducer = (state = JSON.parse(localStorage.getItem('state'
         disabledCalcs: result,
       }
     case DELETE_ITEM:
-      if (action.name === CALC_TYPES.Standart) {
+      if (action.name === CALC_TYPES.Standart || action.name === CALC_TYPES.Currency) {
         state.currentType = '';
       }
       return {

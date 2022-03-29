@@ -179,7 +179,8 @@ const CalculationList = (props) => {
             onDeleteItem={props.onDeleteItem}
             id={calc.id}
             sectionId={props.sectionId}
-            setIconType={props.setIconType}
+            onSenCurrentItemIcon={props.onSenCurrentItemIcon}
+            onShowSelectorIcon={props.onShowSelectorIcon}
           />
         </div>
         )

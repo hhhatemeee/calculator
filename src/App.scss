@@ -85,8 +85,8 @@ body{
   .open-window {
     // right: 20px;
     // top: 650px;
-z-index: 10;
-opacity: 1;
+    z-index: 1000;
+    opacity: 1;
     visibility:initial;
   }
 }
@@ -140,7 +140,7 @@ opacity: 1;
   .open-window {
     // right: 20px;
     // top: 650px;
-z-index: 10;
+z-index: 1000;
 opacity: 1;
     visibility:initial;
   }
@@ -186,7 +186,7 @@ opacity: 1;
   .open-window {
     // right: 20px;
     // top: 650px;
-z-index: 10;
+z-index: 1000;
 opacity: 1;
     visibility:initial;
   }

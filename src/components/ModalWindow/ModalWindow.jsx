@@ -6,6 +6,7 @@ import AllServiceLimit from './AllServiceLimit';
 import ServiceLimit from './ServiceLimit';
 
 import './ModalWindow.scss';
+import ModalWindowWrapper from '../ModalWindowWrapper/ModalWindowWrapper';
 
 const ModalWindow = (props) => {
   const SERVICE_LIST = ['CC', 'OE', 'FCA'];
@@ -36,34 +37,26 @@ const ModalWindow = (props) => {
   }
 
   return (
-    <div className={cn('window-overlay', { 'open-window': props.showWindow })}>
-      <div className={cn('window-limit', { 'open-window': props.showWindow })}>
-        <div className='window-limit__header'>
-          <h4 className='window-limit__title'>
-            {props.listLimit.length >= 3 ? 'Достигнут лимит запров' : 'Лимит запросов у сервиса'}
-          </h4>
-          <span onClick={handleCloseWindow}>+</span>
-        </div>
-        {
-          props.listLimit.length >= 3
-            ? <AllServiceLimit
-              showInfo={showInfo}
-              handleClick={handleClick}
-              SERVICE_LIST={SERVICE_LIST} />
-            : <ServiceLimit
-              handleShowUrl={handleShowUrl}
-              showUrl={showUrl}
-              SERVICE_LIST={SERVICE_LIST}
-              switchService={switchService}
-              listLimit={props.listLimit}
-              url={props.url}
-            />
-        }
-        <div className='window-limit__button-line'>
-          <button className='window-limit__button' onClick={handleCloseWindow}>OK</button>
-        </div>
-      </div>
-    </div >
+    <ModalWindowWrapper
+      title={props.listLimit.length >= 3 ? 'Достигнут лимит запров' : 'Лимит запросов у сервиса'}
+      boolean={props.showWindow}
+      onClick={handleCloseWindow}>
+      {
+        props.listLimit.length >= 3
+          ? <AllServiceLimit
+            showInfo={showInfo}
+            handleClick={handleClick}
+            SERVICE_LIST={SERVICE_LIST} />
+          : <ServiceLimit
+            handleShowUrl={handleShowUrl}
+            showUrl={showUrl}
+            SERVICE_LIST={SERVICE_LIST}
+            switchService={switchService}
+            listLimit={props.listLimit}
+            url={props.url}
+          />
+      }
+    </ModalWindowWrapper >
   )
 }
 
