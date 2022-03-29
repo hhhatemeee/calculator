@@ -21,7 +21,6 @@ const CalculationType = ({
 }) => {
   const [isDeleted, setDeleted] = useState(false);
 
-
   useEffect(() => onSenCurrentItemIcon(id, imgName), [imgName]);
 
   //When selecting a calculator, hide the menu

@@ -107,7 +107,7 @@ const calculationTypesReducer = (state = JSON.parse(localStorage.getItem('state'
         })
       }
     case ADD_ITEM:
-      if (namesArr.includes(action.name) && !currentList.includes(action.name)) {
+      if (namesArr.includes(action.name)) {
         const newItem = {
           name: action.name,
           imgName: action.name,

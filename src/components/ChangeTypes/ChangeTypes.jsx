@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import cn from 'classnames';
 import PropTypes from 'prop-types';
 
@@ -7,7 +7,7 @@ import CalculationList from '../CalculationList/CalculationList';
 import './ChangeTypes.scss';
 import InputAndItemreverseSide from '../InputAndItemreverseSide/InputAndItemreverseSide';
 import ModalWindowWrapper from '../ModalWindowWrapper/ModalWindowWrapper';
-import { CALC_NAMES } from '../../variables';
+import IconList from '../IconList/IconList';
 
 
 const ChangeTypes = (props) => {
@@ -18,7 +18,7 @@ const ChangeTypes = (props) => {
   const [currentSection, setCurrentSection] = useState();
   const [currentItem, setCurrentItem] = useState();
   const [isShowSelectorIcon, setSelectorIcon] = useState(false);
-  const [currentItemIcon, setCurrentItemIcon] = useState();
+  const [currentItemIcon, setCurrentItemIcon] = useState({});
 
   const onEditMode = () => {
     if (isAddSection) {
@@ -84,6 +84,12 @@ const ChangeTypes = (props) => {
     // setSelectorIcon(false);
   };
 
+  const onKeyDownWindow = (e) => {
+    if (e.keyCode === 27) {
+      setAddSection(false);
+    }
+  }
+
   return (
     <div className={cn('menu', { 'menu-open': showMenu })}>
       {/* Modal window for change icon  */}
@@ -91,21 +97,10 @@ const ChangeTypes = (props) => {
         <ModalWindowWrapper
           className='window-icon__container'
           hide={true}
-          title='Выбор иконки'
+          title='Change icon'
           boolean={isShowSelectorIcon}
           onClick={onShowSelectorIcon}>
-          <div className='item__selector-icons'>
-            {
-              CALC_NAMES.map((name) => <div
-                key={name}
-                className={cn('icon__container', { 'current--icon': currentItemIcon.imgName === name })}>
-                <i
-                  className={cn(`ico-${name} icon`)}
-                  onClick={() => setIcon(name)}
-                />
-              </div>)
-            }
-          </div>
+          <IconList setIcon={setIcon} currentItemIcon={currentItemIcon} />
         </ModalWindowWrapper>
       }
       <div className={cn('menu__btn', { 'btn_open': showMenu, 'menu__btn_hide': isEditMode })} onClick={handleShowMenu}>
@@ -115,7 +110,8 @@ const ChangeTypes = (props) => {
         <ModalWindowWrapper
           hide={isEditMode}
           boolean={isEditMode}
-          title='Настройка меню'
+          onKeyDown={onKeyDownWindow}
+          title='Menu setting'
           onClick={onEditMode}
           button={<InputAndItemreverseSide
             className='testitem'
@@ -155,8 +151,8 @@ const ChangeTypes = (props) => {
                 onSenCurrentItemIcon={onSenCurrentItemIcon}
                 onShowSelectorIcon={onShowSelectorIcon}
               />
-            }
-            )}
+            })}
+            {props.calcTypes.length === 0 && <div className='menu-list__empty-info'>Add a new section</div>}
             <div className='ico-Setting menu__setting' onClick={onEditMode} />
           </div>
         </ModalWindowWrapper>

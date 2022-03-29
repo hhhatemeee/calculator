@@ -8,41 +8,36 @@ import interfaceElement from './interfaceElement';
 import './CalculationList.scss';
 import InputAndItemreverseSide from '../InputAndItemreverseSide/InputAndItemreverseSide';
 import ModalWindowWrapper from '../ModalWindowWrapper/ModalWindowWrapper';
+import Select from '../Select/Select';
+import { CALC_TYPES } from '../../variables';
 
 // Draws a list of calculators, depending on the type
 const CalculationList = (props) => {
   const [isAddItem, setAddItem] = useState(false);
   const [newItem, setNewItem] = useState({
     section: props.name,
-    name: '',
+    name: CALC_TYPES.Standart,
     sectionId: props.sectionId,
   });
   const [isEditSection, setEditSection] = useState(false);
   const [editNameSection, setEditNameSection] = useState(props.name);
   const [isDeleted, setIsDeleted] = useState(false);
 
-
   const onAddItem = () => setAddItem(!isAddItem);
 
-  const onChangeSetItem = (e) => {
+  const handleSetNewItem = () => {
+    props.onAddItem(newItem);
+  }
+
+  const handleSelectorSetItem = (e) => {
+    const targetValue = e && e.target && e.target.value
+      ? e.target.value
+      : '';
     setNewItem({
       ...newItem,
-      name: e.target.value,
-    })
-  };
-
-  const onKeyDownSetItem = (e) => {
-    if (e.keyCode === 13) {
-      props.onAddItem(newItem);
-      setNewItem({
-        ...newItem,
-        name: '',
-      })
-    }
-    if (e.keyCode === 27) {
-      setAddItem(false);
-    }
-  };
+      name: targetValue,
+    });
+  }
 
   const dragOverHandler = (e) => {
     e.preventDefault();
@@ -132,7 +127,7 @@ const CalculationList = (props) => {
     }
   };
 
-  // const Wrapper = props.isEditMode ? ModalWindowWrapper : null;
+  const options = Object.keys(CALC_TYPES).map((calc) => ({ name: calc, value: calc }))
 
   return (
     <div className={cn('menu-calculation-list', { isDeleted: isDeleted })}
@@ -188,17 +183,17 @@ const CalculationList = (props) => {
         )
       }
       {props.isEditMode
-        && <InputAndItemreverseSide
-          isBoolean={isAddItem}
-          onClick={onAddItem}
-          onChange={onChangeSetItem}
-          value={newItem.name}
-          onKeyDown={onKeyDownSetItem}
-          onBlur={onAddItem}
-          text='Add item...'
-          placeHolder='Add item'
-        />}
-    </div>
+        && (isAddItem ?
+          <div className='menu-calculation-list__selector-container'>
+            <Select options={options} onChange={handleSelectorSetItem} />
+            <div className='menu-calculation-list__btn-add' onClick={handleSetNewItem}  >
+              Add
+            </div>
+            <i className='ico-return' onClick={onAddItem} />
+          </div>
+          : <h4 className='menu-calculation-list_add-text' onClick={onAddItem}>Add item...</h4>)
+      }
+    </div >
   )
 }
 

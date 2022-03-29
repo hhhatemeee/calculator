@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import cn from 'classnames';
 
 import AllServiceLimit from './AllServiceLimit';
 import ServiceLimit from './ServiceLimit';
@@ -40,6 +39,7 @@ const ModalWindow = (props) => {
     <ModalWindowWrapper
       title={props.listLimit.length >= 3 ? 'Достигнут лимит запров' : 'Лимит запросов у сервиса'}
       boolean={props.showWindow}
+      hide={true}
       onClick={handleCloseWindow}>
       {
         props.listLimit.length >= 3

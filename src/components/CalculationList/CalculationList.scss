@@ -3,7 +3,7 @@
 @import "../../scss/variables.scss";
 
 .menu-calculation-list{
-  transition: all .3s ease;
+  transition: all .1s ease;
 
   &__title-row{
     display: flex;
@@ -140,6 +140,72 @@
     }
   }
 
+
+  &__selector-container{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    animation: animate-appearance .2s ease-in;
+
+    select{
+      background-color: $btn-white-color;
+      font-size: 18px;
+    }
+
+    i{
+      cursor: pointer;
+      &:hover{
+        color: rgba($color-black, .8);
+      }
+  
+      &:active{
+        color: rgba($color-black, .5);
+      }
+    }
+  }
+
+  &_add-text{
+    margin: 0 0 0 14px;
+    padding: 0;
+    cursor: pointer;
+    animation: animate-appearance .2s ease-in;
+
+    &:hover{
+      color: rgba($color-black, .8);
+    }
+
+    &:active{
+      color: rgba($color-black, .5);
+    }
+  }
+
+  &__btn-add{
+    cursor: pointer;
+    font-weight: 500;
+    cursor: pointer;
+    padding: 2px 5px;
+    background-color: $btn-white-color;
+    // border: 1px solid $btn-blue-color;
+    color: $btn-blue-color;
+    font-size: 18px;
+    text-align: center;
+    border-radius: 6px;
+    transition: all .1s ease-in;
+    user-select: none;
+    animation: animate-appearance .2s ease-in;
+
+    &:hover{
+      background-color: $btn-blue-color;
+      color: $btn-white-color;
+    }
+  
+    &:active{
+      background-color:rgba($btn-blue-color,.6);
+      border-color: $btn-white-color !important;
+      color: $btn-white-color;
+    }
+  }
+  
 }
 
 .isDisabled{

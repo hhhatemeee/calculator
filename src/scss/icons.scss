@@ -56,7 +56,15 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-
+.ico-Trash:before {
+  content: "\e909";
+}
+.ico-Setting:before {
+  content: "\e908";
+}
+.ico-Swap:before {
+  content: "\e907";
+}
 .ico-Info:before {
   content: "\e906";
 }
@@ -78,15 +86,93 @@
 .ico-Standart:before {
   content: "\e905";
 }
-
-.ico-Swap:before {
-  content: "\e907";
+.ico-home:before {
+  content: "\e90a";
 }
-
-.ico-Setting:before {
-  content: "\e908";
+.ico-home2:before {
+  content: "\e90b";
 }
-
-.ico-Trash:before {
-  content: "\e909";
+.ico-office:before {
+  content: "\e90c";
+}
+.ico-newspaper:before {
+  content: "\e90d";
+}
+.ico-pen:before {
+  content: "\e90e";
+}
+.ico-blog:before {
+  content: "\e90f";
+}
+.ico-paint-format:before {
+  content: "\e910";
+}
+.ico-images:before {
+  content: "\e911";
+}
+.ico-coin-dollar:before {
+  content: "\e93b";
+}
+.ico-coin-euro:before {
+  content: "\e93c";
+}
+.ico-coin-pound:before {
+  content: "\e93d";
+}
+.ico-coin-yen:before {
+  content: "\e93e";
+}
+.ico-phone:before {
+  content: "\e942";
+}
+.ico-address-book:before {
+  content: "\e944";
+}
+.ico-clock:before {
+  content: "\e94e";
+}
+.ico-calendar:before {
+  content: "\e953";
+}
+.ico-shrink:before {
+  content: "\e98a";
+}
+.ico-bug:before {
+  content: "\e999";
+}
+.ico-pie-chart:before {
+  content: "\e99a";
+}
+.ico-stats-dots:before {
+  content: "\e99b";
+}
+.ico-stats-bars:before {
+  content: "\e99c";
+}
+.ico-stats-bars2:before {
+  content: "\e99d";
+}
+.ico-lab:before {
+  content: "\e9aa";
+}
+.ico-clipboard:before {
+  content: "\e9b8";
+}
+.ico-list2:before {
+  content: "\e9bb";
+}
+.ico-loop:before {
+  content: "\ea2d";
+}
+.ico-embed:before {
+  content: "\ea7f";
+}
+.ico-embed2:before {
+  content: "\ea80";
+}
+.ico-plus:before {
+  content: "\ea0a";
+}
+.ico-return:before {
+  content: "\e912";
 }

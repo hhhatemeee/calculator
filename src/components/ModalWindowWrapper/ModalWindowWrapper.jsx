@@ -8,7 +8,10 @@ const ModalWindowWrapper = (props) => {
     <div>
       {!props.hide ? props.children
         :
-        <div className={cn(`window-overlay ${props.className}`, { 'open-window': props.boolean })}>
+        <div
+          className={cn(`window-overlay ${props.className}`, { 'open-window': props.boolean })}
+          onKeyDown={props.onKeyDown}
+          tabIndex={props.onKeyDown && -2}>
           <div className={cn('window', { 'open-window': props.boolean })}>
             <div className='window__header'>
               <h4 className='window__title'>
