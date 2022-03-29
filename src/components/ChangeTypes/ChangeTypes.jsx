@@ -24,6 +24,7 @@ const ChangeTypes = (props) => {
     if (isAddSection) {
       setAddSection(false);
     }
+
     setEditMode(!isEditMode);
   };
 
@@ -45,6 +46,7 @@ const ChangeTypes = (props) => {
   const onKeyDown = (e) => {
     if (e.keyCode === 13) {
       props.onAddSection(newSection);
+      setNewSection('');
     }
 
     if (e.keyCode === 27) {
@@ -86,7 +88,12 @@ const ChangeTypes = (props) => {
     <div className={cn('menu', { 'menu-open': showMenu })}>
       {/* Modal window for change icon  */}
       {isEditMode &&
-        <ModalWindowWrapper title='Выбор иконки' boolean={isShowSelectorIcon} onClick={onShowSelectorIcon}>
+        <ModalWindowWrapper
+          className='window-icon__container'
+          hide={true}
+          title='Выбор иконки'
+          boolean={isShowSelectorIcon}
+          onClick={onShowSelectorIcon}>
           <div className='item__selector-icons'>
             {
               CALC_NAMES.map((name) => <div
@@ -99,55 +106,62 @@ const ChangeTypes = (props) => {
               </div>)
             }
           </div>
-        </ModalWindowWrapper>}
-      <div className={cn('menu__btn', { 'btn_open': showMenu })} onClick={handleShowMenu}>
+        </ModalWindowWrapper>
+      }
+      <div className={cn('menu__btn', { 'btn_open': showMenu, 'menu__btn_hide': isEditMode })} onClick={handleShowMenu}>
         <span></span>
       </div>
       <div className={cn('menu__container', { 'menu__container_open': showMenu })}>
-        <div className={cn('menu-list', { 'menu-list_open': showMenu })}>
-          {props.calcTypes.map((el, index) => {
-            return <CalculationList
-              key={el.id}
-              name={el.name}
-              list={el.calcList}
-              sectionIndex={index}
-              setCurrentId={props.setCurrentId}
-              currentId={props.currentId}
-              handleShowMenu={handleShowMenu}
-              disabledCalcs={props.disabledCalcs[el.name]}
-              isEditMode={isEditMode}
-              onDeleteItem={props.onDeleteItem}
-              onAddItem={props.onAddItem}
-              isEditMode={isEditMode}
-              onDeleteSection={props.onDeleteSection}
-              sectionId={el.id}
-              onMoveItem={onMoveItem}
-              onSetCurrentSection={onSetCurrentSection}
-              onSetCurrentItem={onSetCurrentItem}
-              currentItem={currentItem}
-              onMoveSection={onMoveSection}
-              setNameSection={props.setNameSection}
-              setIconType={props.setIconType}
-              onSenCurrentItemIcon={onSenCurrentItemIcon}
-              onShowSelectorIcon={onShowSelectorIcon}
-            />
-          }
-          )}
-          {isEditMode &&
-            <InputAndItemreverseSide
-              isBoolean={isAddSection}
-              onChange={onChange}
-              value={newSection}
-              onKeyDown={onKeyDown}
-              onBlur={onAddSection}
-              placeHolder={'Section name'}
-              nodeItem={<div className='menu__add-section' onClick={onAddSection}>Add section...</div>}
-            />
-          }
-          <i className='ico-Setting menu__setting' onClick={onEditMode} />
-        </div>
+        <ModalWindowWrapper
+          hide={isEditMode}
+          boolean={isEditMode}
+          title='Настройка меню'
+          onClick={onEditMode}
+          button={<InputAndItemreverseSide
+            className='testitem'
+            isBoolean={isAddSection}
+            onChange={onChange}
+            value={newSection}
+            onKeyDown={onKeyDown}
+            onBlur={onAddSection}
+            placeHolder={'Section name'}
+            nodeItem={<div className='menu__add-section' onClick={onAddSection}>Add section...</div>}
+          />}
+        >
+          <div className={cn('menu-list', { 'menu-list_open': showMenu, 'menu-list_edit': isEditMode, 'deleted-anim': !(isEditMode && showMenu) })}>
+            {props.calcTypes.map((el, index) => {
+              return <CalculationList
+                key={el.id}
+                name={el.name}
+                list={el.calcList}
+                sectionIndex={index}
+                setCurrentId={props.setCurrentId}
+                currentId={props.currentId}
+                handleShowMenu={handleShowMenu}
+                disabledCalcs={props.disabledCalcs[el.name]}
+                isEditMode={isEditMode}
+                onDeleteItem={props.onDeleteItem}
+                onAddItem={props.onAddItem}
+                isEditMode={isEditMode}
+                onDeleteSection={props.onDeleteSection}
+                sectionId={el.id}
+                onMoveItem={onMoveItem}
+                onSetCurrentSection={onSetCurrentSection}
+                onSetCurrentItem={onSetCurrentItem}
+                currentItem={currentItem}
+                onMoveSection={onMoveSection}
+                setNameSection={props.setNameSection}
+                setIconType={props.setIconType}
+                onSenCurrentItemIcon={onSenCurrentItemIcon}
+                onShowSelectorIcon={onShowSelectorIcon}
+              />
+            }
+            )}
+            <div className='ico-Setting menu__setting' onClick={onEditMode} />
+          </div>
+        </ModalWindowWrapper>
       </div>
-    </div>
+    </div >
   )
 }
 

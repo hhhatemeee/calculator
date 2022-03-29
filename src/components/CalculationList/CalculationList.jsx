@@ -7,6 +7,7 @@ import interfaceElement from './interfaceElement';
 
 import './CalculationList.scss';
 import InputAndItemreverseSide from '../InputAndItemreverseSide/InputAndItemreverseSide';
+import ModalWindowWrapper from '../ModalWindowWrapper/ModalWindowWrapper';
 
 // Draws a list of calculators, depending on the type
 const CalculationList = (props) => {
@@ -131,6 +132,7 @@ const CalculationList = (props) => {
     }
   };
 
+  // const Wrapper = props.isEditMode ? ModalWindowWrapper : null;
 
   return (
     <div className={cn('menu-calculation-list', { isDeleted: isDeleted })}
@@ -196,7 +198,6 @@ const CalculationList = (props) => {
           text='Add item...'
           placeHolder='Add item'
         />}
-
     </div>
   )
 }

@@ -6,6 +6,7 @@ import './InputAndItemreverseSide.scss';
 
 const InputAndItemreverseSide = ({
   isBoolean,
+  className,
   onClick,
   onChange,
   value,
@@ -17,7 +18,7 @@ const InputAndItemreverseSide = ({
   placeHolder }) => {
 
   return (
-    <div className={cn('input-item', { isTitle: isTitle })}>
+    <div className={cn(`input-item ${className ? className : ''}`, { isTitle: isTitle })}>
       {
         !isBoolean
           ? (nodeItem ? nodeItem : <div className='input-item__item-text' onClick={onClick}

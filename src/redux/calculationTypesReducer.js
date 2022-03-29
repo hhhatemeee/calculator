@@ -163,6 +163,7 @@ const calculationTypesReducer = (state = JSON.parse(localStorage.getItem('state'
 
       return state;
     case MOVE_SECTION:
+      console.log(action);
       const editTypes = state.types.splice(action.sectionIndexStart, 1);
       state.types.splice(action.dropIndex, 0, ...editTypes);
 

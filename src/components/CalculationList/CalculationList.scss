@@ -159,6 +159,7 @@
 .isEditMode{
   cursor: grab !important;
   z-index: inherit !important;
+  background: none !important;
 
   &:active{
     cursor: grabbing !important;
@@ -184,15 +185,20 @@
 }
 
 .animation-drag{
-  position: fixed;
+  // position: absolute;
   z-index: 1000;
   transform: scale(0.5);
   opacity: 0;
   width: 280px;
+  // display: none;
 
   .item_delete{
     opacity: 0;
   }
+}
+
+.translate-up{
+  transform: translateY(39px);
 }
 
 .icon-edit{
