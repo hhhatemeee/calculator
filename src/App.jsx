@@ -27,7 +27,6 @@ function App(props) {
   const [servicesLimit, setServicesLimit] = useState([]);
   const [infoUrl, setInfoUrl] = useState('');
   const [convertationService, setConvertationService] = useState({});
-
   /**
    * Modal window display handler.
    * @param {boolean} isShow - Show Window

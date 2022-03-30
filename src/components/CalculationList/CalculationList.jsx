@@ -54,6 +54,7 @@ const CalculationList = (props) => {
   const dragLeaveHandler = (e) => e.target.style.boxShadow = 'none';;
 
   const dragStartHandler = (e, sectionId, currentItem, currentIndex) => {
+    console.log(e.target);
     props.onSetCurrentSection(sectionId);
     props.onSetCurrentItem({ currentItem, currentIndex });
     e.target.classList.add('animation-drag');

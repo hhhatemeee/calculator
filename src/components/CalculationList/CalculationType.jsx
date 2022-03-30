@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import cn from 'classnames';
-import { CALC_NAMES } from '../../variables';
-import ModalWindowWrapper from '../ModalWindowWrapper/ModalWindowWrapper';
 
 // Renders each menu item
 const CalculationType = ({
@@ -57,8 +55,9 @@ const CalculationType = ({
         { isDeleted: isDeleted }
       )}
       onClick={onClick}
+      draggable={false}
     >
-      <span className={cn('item-row', { 'icon-edit': isEditMode })}>
+      <span className={cn('item-row', { 'icon-edit': isEditMode })} draggable={false}>
 
         <i className={`ico-${imgName} item-row__item`} onClick={handleSetCurrentId} />
         {name}

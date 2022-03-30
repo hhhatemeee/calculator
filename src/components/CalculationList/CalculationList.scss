@@ -131,11 +131,11 @@
       animation: animation-delete .2s ease-in;
 
       &:hover{
-        color: rgba($color-black, .8);
+        color: rgba($status-down-color, .8);
       }
 
       &:active{
-        color: rgba($color-black, .5);
+        color: rgba($status-down-color, .5);
       }
     }
   }
@@ -226,6 +226,7 @@
   cursor: grab !important;
   z-index: inherit !important;
   background: none !important;
+  position: initial;
 
   &:active{
     cursor: grabbing !important;
