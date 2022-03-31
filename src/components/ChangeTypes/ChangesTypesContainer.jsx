@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import ChangeTypes from './ChangeTypes';
-import { setAddItemCreator, setAddSectionCreator, setCurrentTypeCreator, setDeleteItemCreator, setDeleteSectionCreator, setIconCreator, setMoveItemCreator, setMoveSectionCreator, setNameSectionCreator } from '../../redux/calculationTypesReducer';
+import { setAddItemCreator, setAddSectionCreator, setCurrentIconCreator, setCurrentTypeCreator, setDeleteItemCreator, setDeleteSectionCreator, setIconCreator, setMoveItemCreator, setMoveSectionCreator, setNameSectionCreator } from '../../redux/calculationTypesReducer';
 
 const ChangesTypesContainer = (props) => {
   return (
@@ -19,7 +19,10 @@ const ChangesTypesContainer = (props) => {
       onMoveItem={props.onMoveItem}
       onMoveSection={props.onMoveSection}
       setNameSection={props.setNameSection}
-      setIconType={props.setIconType} />
+      setIconType={props.setIconType}
+      onSetRenderWindow={props.onSetRenderWindow}
+      handleSetCurrentImgName={props.handleSetCurrentImgName}
+      setCurrentIcon={props.setCurrentIcon} />
   )
 }
 
@@ -38,17 +41,17 @@ const mapDispatchToProps = (dispatch) => {
     onAddItem: (section, name) => dispatch(setAddItemCreator(section, name)),
     onAddSection: (name) => dispatch(setAddSectionCreator(name)),
     onDeleteSection: (id) => dispatch(setDeleteSectionCreator(id)),
-    onMoveItem: (sectionIndexStart, sectionIndexEnd, currentItem, dropIndex, currentIndex) =>
+    onMoveItem: (droppableIdStart, droppableIdEnd, indexStart, indexDrop) =>
       dispatch(setMoveItemCreator(
-        sectionIndexStart,
-        sectionIndexEnd,
-        currentItem,
-        dropIndex,
-        currentIndex)
+        droppableIdStart,
+        droppableIdEnd,
+        indexStart,
+        indexDrop)
       ),
-    onMoveSection: (sectionIndexStart, dropIndex) => dispatch(setMoveSectionCreator(sectionIndexStart, dropIndex)),
+    onMoveSection: (indexStart, indexDrop) => dispatch(setMoveSectionCreator(indexStart, indexDrop)),
     setNameSection: (sectionId, name) => dispatch(setNameSectionCreator(sectionId, name)),
     setIconType: (id, imgName) => dispatch(setIconCreator(id, imgName)),
+    setCurrentIcon: (name) => dispatch(setCurrentIconCreator(name)),
   }
 }
 
@@ -64,6 +67,7 @@ ChangesTypesContainer.propTypes = {
   onMoveItem: PropTypes.func,
   onMoveSection: PropTypes.func,
   setNameSection: PropTypes.func,
+  onSetRenderWindow: PropTypes.func,
 }
 
 ChangesTypesContainer.defaultProps = {
@@ -77,6 +81,7 @@ ChangesTypesContainer.defaultProps = {
   onMoveItem: () => console.log('Не указана функция onMoveItem'),
   onMoveSection: () => console.log('Не указана функция onMoveSection'),
   setNameSection: () => console.log('Не указана функция setNameSection'),
+  onSetRenderWindow: () => console.log('Не указана функция onSetRenderWindow'),
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(ChangesTypesContainer);

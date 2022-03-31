@@ -14,12 +14,13 @@ const CalculationType = ({
   onDeleteItem,
   sectionId,
   id,
-  onShowSelectorIcon,
-  onSenCurrentItemIcon,
+  setIconType,
+  onSetRenderWindow,
+  setCurrentIcon,
 }) => {
   const [isDeleted, setDeleted] = useState(false);
 
-  useEffect(() => onSenCurrentItemIcon(id, imgName), [imgName]);
+  const [currentItemIcon, setCurrentItemIcon] = useState({ id, imgName });
 
   //When selecting a calculator, hide the menu
   const onClick = () => {
@@ -40,9 +41,18 @@ const CalculationType = ({
     }), 150);
   }
 
+  const setIcon = (name) => {
+    setIconType({ id: id, imgName: name });
+  };
+
   const handleSetCurrentId = () => {
-    onShowSelectorIcon();
-    onSenCurrentItemIcon(id, imgName)
+    setCurrentIcon(imgName);
+    onSetRenderWindow({
+      isRendering: true,
+      currentType: 'icons',
+      callBack: setIcon,
+      currentItemIcon,
+    })
   };
 
   return (
@@ -57,7 +67,7 @@ const CalculationType = ({
       onClick={onClick}
       draggable={false}
     >
-      <span className={cn('item-row', { 'icon-edit': isEditMode })} draggable={false}>
+      <span className={cn('item-row', { 'icon-edit': isEditMode })}>
 
         <i className={`ico-${imgName} item-row__item`} onClick={handleSetCurrentId} />
         {name}

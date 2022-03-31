@@ -20,17 +20,19 @@ const ModalWindowWrapper = (props) => {
               <span onClick={props.onClick}>+</span>
             </div>
             {props.children}
-            {props.button &&
-              <div className='window__button-props'>
-                {props.button}
-              </div>}
-            <div className='window__button-line'>
-              <button className='window__button' onClick={props.onClick}>OK</button>
+            <div className={cn({ 'window__buttons-inline': props.isInlineButtons })}>
+              {props.button &&
+                <div className={cn({ 'window__button-props': !props.isInlineButtons })}>
+                  {props.button}
+                </div>}
+              <div className='window__button-line'>
+                <button className='window__button' onClick={props.onClick}>{props.buttonText || 'OK'}</button>
+              </div>
             </div>
           </div>
         </div >
       }
-    </div>
+    </div >
   )
 }
 

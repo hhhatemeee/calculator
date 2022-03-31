@@ -10,6 +10,7 @@ const MOVE_ITEM = 'MOVE_ITEM';
 const MOVE_SECTION = 'MOVE_SECTION';
 const SET_NAME_SECTION = 'SET_NAME_SECTION';
 const SET_ICON = 'SET_ICON';
+const SET_CURRENT_ICON = 'SET_CURRENT_ICON';
 
 const initialState = {
   currentType: 'Standart',
@@ -46,6 +47,7 @@ const initialState = {
       Currency: false,
     }
   },
+  currentImgName: '',
 };
 const namesArr = ['Standart', 'Chemistry', 'Graphing', 'Programmer', 'Date Calculation', 'Currency'];
 let id = Date.now() + Math.round(Math.random() * 100);
@@ -145,26 +147,28 @@ const calculationTypesReducer = (state = JSON.parse(localStorage.getItem('state'
         types: [...state.types.filter((section) => section.id !== action.id)]
       }
     case MOVE_ITEM:
-      if (state.types[action.sectionIndexEnd].length === 0) {
-        state.types[action.sectionIndexEnd].push(action.currentItem);
-      }
-      if (action.sectionIndexStart === action.sectionIndexEnd) {
-        const section = state.types[action.sectionIndexStart].calcList;
-        const editSection = section.splice(action.currentIndex, 1);
-        section.splice(action.dropIndex, 0, ...editSection);
-      }
-
-      if (action.sectionIndexStart !== action.sectionIndexEnd) {
-        const sectionStart = state.types[action.sectionIndexStart].calcList;
-        const editSection = sectionStart.splice(action.currentIndex, 1);
-        const sectionEnd = state.types[action.sectionIndexEnd].calcList;
-        sectionEnd.splice(action.dropIndex, 0, ...editSection)
+      if (action.droppableIdStart === action.droppableIdEnd) {
+        const section = state.types.find(
+          (section) => section.id === Number(action.droppableIdEnd)
+        ).calcList;
+        const editSection = section.splice(action.indexStart, 1);
+        section.splice(action.indexDrop, 0, ...editSection);
       }
 
+      if (action.droppableIdStart !== action.droppableIdEnd) {
+        const section = state.types.find(
+          (section) => section.id === Number(action.droppableIdStart)
+        ).calcList;
+        const editSection = section.splice(action.indexStart, 1);
+        const otherSection = state.types.find(
+          (section) => section.id === Number(action.droppableIdEnd)
+        ).calcList;
+        otherSection.splice(action.indexDrop, 0, ...editSection);
+      }
       return state;
     case MOVE_SECTION:
-      const editTypes = state.types.splice(action.sectionIndexStart, 1);
-      state.types.splice(action.dropIndex, 0, ...editTypes);
+      const editTypes = state.types.splice(action.indexStart, 1);
+      state.types.splice(action.indexDrop, 0, ...editTypes);
 
       return state;
     case SET_NAME_SECTION:
@@ -177,7 +181,13 @@ const calculationTypesReducer = (state = JSON.parse(localStorage.getItem('state'
           return type;
         })
       }
+    case SET_CURRENT_ICON:
+      return {
+        ...state,
+        currentImgName: action.name,
+      }
     case SET_ICON:
+      console.log(action);
       return {
         ...state,
         types: state.types.map((section) => {
@@ -188,7 +198,8 @@ const calculationTypesReducer = (state = JSON.parse(localStorage.getItem('state'
             return calc;
           })
           return section;
-        })
+        }),
+        currentImgName: action.imgName,
       }
     default:
       return state
@@ -203,23 +214,22 @@ export const setAddSectionCreator = (name) => ({ type: ADD_SECTION, name });
 export const setDeleteSectionCreator = (id) => ({ type: DELETE_SECTION, id });
 export const setMoveItemCreator = (
   {
-    sectionIndexStart,
-    sectionIndexEnd,
-    currentItem,
-    dropIndex,
-    currentIndex
+    droppableIdStart,
+    droppableIdEnd,
+    indexStart,
+    indexDrop,
   }) => (
   {
     type: MOVE_ITEM,
-    sectionIndexStart,
-    sectionIndexEnd,
-    currentItem,
-    dropIndex,
-    currentIndex
+    droppableIdStart,
+    droppableIdEnd,
+    indexStart,
+    indexDrop,
   });
-export const setMoveSectionCreator = ({ sectionIndexStart, dropIndex }) => ({ type: MOVE_SECTION, sectionIndexStart, dropIndex });
+export const setMoveSectionCreator = ({ indexStart, indexDrop }) => ({ type: MOVE_SECTION, indexStart, indexDrop });
 export const setNameSectionCreator = ({ sectionId, name }) => ({ type: SET_NAME_SECTION, sectionId, name });
 export const setIconCreator = ({ id, imgName }) => ({ type: SET_ICON, id, imgName });
+export const setCurrentIconCreator = (name) => ({ type: SET_CURRENT_ICON, name });
 
 
 export default calculationTypesReducer;

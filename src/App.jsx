@@ -43,7 +43,7 @@ function App(props) {
     }
 
     if (listLimit) {
-      setRenderWindow(isShow);
+      setRenderWindow({ isRendering: isShow, currentType: 'limit' });
       setTimeout(() => setShowWindow(isShow), 0);
       setServicesLimit(listLimit);
       setInfoUrl(url);
@@ -68,7 +68,6 @@ function App(props) {
 
   const getStatusApi = () => convertationService.getStatusApi();
 
-
   /**
    * Theme Switching Handler
    * @param {boolean} isToggle 
@@ -76,12 +75,12 @@ function App(props) {
    */
   const handleTheme = (isToggle) => setDarkMode(isToggle);
 
-  console.log('составить схему приложения');
+  const onSetRenderWindow = (value) => setRenderWindow(value);
 
   return (
     <div className={cn('calc', { calc_theme_dark: darkMode })}>
       <ThemeSelector darkMode={darkMode} onChange={handleTheme} />
-      <ChangesTypesContainer />
+      <ChangesTypesContainer onSetRenderWindow={onSetRenderWindow} />
       <CalcDelegation
         showWindow={showWindow}
         renderWindow={renderWindow}
@@ -92,6 +91,7 @@ function App(props) {
         currentType={props.currentType}
         setCurrentType={setCurrentType}
         getStatusApi={getStatusApi}
+        currentImgName={props.currentImgName}
       />
     </div >
   );
@@ -125,6 +125,7 @@ const mapStateToProps = (state) => {
     calcTypes: state.calculatorsType.types,
     currentType: state.calculatorsType.currentType,
     stateCalc: state.calculatorsType,
+    currentImgName: state.calculatorsType.currentImgName,
   }
 }
 

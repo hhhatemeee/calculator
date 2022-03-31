@@ -6,13 +6,27 @@ import ModalWindow from './components/ModalWindow/ModalWindow';
 import HomePage from './components/HomePage/HomePage';
 import ConverterContainer from './components/Converter/ConverterContainer';
 import { CALC_TYPES } from './variables';
+import ModalWindowWrapper from './components/ModalWindowWrapper/ModalWindowWrapper';
+import WindowDelete from './components/WindowDelete/WindowDelete';
+import IconList from './components/IconList/IconList';
+
 
 
 const CalcDelegation = (props) => {
   const [currentKey, setCurrentKey] = useState({});
+  const [isShowWindow, setShowWindow] = useState(false);
+
+  const handleShowWindow = () => setShowWindow(!isShowWindow);
 
   let calculator;
+  let modalWindow;
   useEffect(() => { }, [props.listLimit])
+
+  useEffect(() => {
+    if (props.renderWindow) {
+      setShowWindow(true);
+    }
+  }, [props.renderWindow])
 
   switch (props.currentType) {
     case CALC_TYPES.Standart:
@@ -29,22 +43,50 @@ const CalcDelegation = (props) => {
       calculator = <HomePage setCurrentType={props.setCurrentType} />
       break;
   }
+  switch (props.renderWindow.currentType) {
+    case 'icons':
+      const handleSetIcon = (name) => {
+        props.renderWindow.callBack(name);
+      }
+      modalWindow = <ModalWindowWrapper
+        className='window-icon__container'
+        hide={true}
+        title='Change icon'
+        boolean={isShowWindow}
+        onClick={handleShowWindow}>
+        <IconList setIcon={handleSetIcon} currentImgName={props.currentImgName} />
+      </ModalWindowWrapper>
+      break;
+    case 'limit':
+      modalWindow = <ModalWindow
+        showWindow={props.showWindow}
+        listLimit={props.listLimit}
+        onClick={props.onClick}
+        switchService={props.switchService}
+        url={props.url}
+      />
+      break;
+    case 'delete':
+      const handleClick = () => {
+        props.renderWindow.callBack(props.renderWindow.payload);
+        setShowWindow(false);
+      }
+
+      modalWindow = <WindowDelete
+        onClick={handleClick}
+        boolean={isShowWindow}
+        handleBoolean={handleShowWindow}
+      />
+    default:
+      break;
+  }
 
   const onKeyDown = (e) => setCurrentKey(e);
 
   return (
     <div className='calc-delegation__conatiner' tabIndex='-1' onKeyDown={onKeyDown}>
       {calculator}
-      {
-        props.renderWindow && <ModalWindow
-          showWindow={props.showWindow}
-          listLimit={props.listLimit}
-          onClick={props.onClick}
-          switchService={props.switchService}
-          url={props.url}
-        />
-
-      }
+      {props.renderWindow.isRendering && modalWindow}
     </div>
   )
 }

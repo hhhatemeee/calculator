@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import cn from 'classnames';
 
 import { ICO_NAMES } from '../../variables';
@@ -6,20 +6,22 @@ import { ICO_NAMES } from '../../variables';
 import './IconList.scss';
 
 
-const IconList = ({ setIcon, currentItemIcon }) => {
-  useEffect(() => { }, [currentItemIcon.imgName])
-
+const IconList = ({ setIcon, currentImgName }) => {
+  console.log(currentImgName);
   return (
     <div className='item__selector-icons'>
       {
-        ICO_NAMES.map((name) => <div
-          key={name}
-          className={cn('icon__container', { 'current--icon': currentItemIcon.imgName === name })}>
-          <i
-            className={cn(`ico-${name} icon`)}
-            onClick={() => setIcon(name)}
-          />
-        </div>)
+        ICO_NAMES.map((name) => {
+          console.log(currentImgName === name);
+          return <div
+            key={name}
+            className={cn('icon__container', { 'current--icon': currentImgName === name })}>
+            <i
+              className={cn(`ico-${name} icon`)}
+              onClick={() => setIcon(name)}
+            />
+          </div>
+        })
       }
     </div>
   )
