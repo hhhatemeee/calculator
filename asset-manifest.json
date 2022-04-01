@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/calculator/static/css/main.5749f1ac.css",
-    "main.js": "/calculator/static/js/main.7c7770f1.js",
+    "main.css": "/calculator/static/css/main.81ba9966.css",
+    "main.js": "/calculator/static/js/main.bb6cc39b.js",
     "static/media/WorkSans-Regular.eot": "/calculator/static/media/WorkSans-Regular.78567f8edec5e0163d87.eot",
     "static/media/WorkSans-Regular.ttf": "/calculator/static/media/WorkSans-Regular.dac6f791072063e98f26.ttf",
     "static/media/WorkSans-Regular.woff": "/calculator/static/media/WorkSans-Regular.8618f4781e0ce9178279.woff",
     "static/media/WorkSans-Regular.woff2": "/calculator/static/media/WorkSans-Regular.960e890cb970d849a8fc.woff2",
-    "static/media/icomoon.svg?7rzolj": "/calculator/static/media/icomoon.01f10b77e5a3d73ff077.svg",
-    "static/media/icomoon.eot?7rzolj": "/calculator/static/media/icomoon.d0f277d61436b2ea8789.eot",
-    "static/media/icomoon.woff?7rzolj": "/calculator/static/media/icomoon.c5456a5e7b05dba0bcad.woff",
-    "static/media/icomoon.ttf?7rzolj": "/calculator/static/media/icomoon.bdd55db39ee7f44d73f7.ttf",
+    "static/media/icomoon.svg?7rzolj": "/calculator/static/media/icomoon.b3555e3fa382aeb593e0.svg",
+    "static/media/icomoon.eot?7rzolj": "/calculator/static/media/icomoon.cfe2d2caca74388eda2b.eot",
+    "static/media/icomoon.woff?7rzolj": "/calculator/static/media/icomoon.bc7f41381b620cb06fce.woff",
+    "static/media/icomoon.ttf?7rzolj": "/calculator/static/media/icomoon.4fd3baf7866a88c90e25.ttf",
     "static/media/fontello.eot?97226987": "/calculator/static/media/fontello.c21d7add754045eab08f.eot",
     "static/media/fontello.ttf?97226987": "/calculator/static/media/fontello.ac3b491ddfe8f00eb4a7.ttf",
     "static/media/fontello.woff?97226987": "/calculator/static/media/fontello.d20ff4f009b8d3f33643.woff",
@@ -20,7 +20,7 @@
     "static/media/Loader.svg": "/calculator/static/media/Loader.9d67522a0adb2307ab1749c18bcd3686.svg"
   },
   "entrypoints": [
-    "static/css/main.5749f1ac.css",
-    "static/js/main.7c7770f1.js"
+    "static/css/main.81ba9966.css",
+    "static/js/main.bb6cc39b.js"
   ]
 }
