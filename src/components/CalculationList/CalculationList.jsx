@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Draggable, Droppable } from 'react-beautiful-dnd';
 import cn from 'classnames';
 import PropTypes from 'prop-types';
@@ -10,6 +10,7 @@ import Select from '../Select/Select';
 import { CALC_TYPES } from '../../variables';
 
 import './CalculationList.scss';
+import CalculationSelector from './CalculationSelector/CalculationSelector';
 
 
 // Draws a list of calculators, depending on the type
@@ -24,6 +25,46 @@ const CalculationList = (props) => {
   const [editNameSection, setEditNameSection] = useState(props.name);
   const [isDeleted, setIsDeleted] = useState(false);
   const [isAnimated, setAnimated] = useState(false);
+  const [currentList, setCurrentList] = useState([]);
+  const [options, setOptions] = useState([]);
+  const [currentTypeInSelector, setCurrentTypeInSelector] = useState('Standart')
+
+  useEffect(() => {
+    setOptions(testOptions());
+  }, [props.isMoving, props.list]);
+
+  useEffect(() => {
+    if (options.length >= 1) {
+      setNewItem({ ...newItem, name: options.at(-1).name })
+      setCurrentTypeInSelector(options.at(-1).name)
+    }
+  }, [options])
+
+  // useEffect(() => {
+  //   if (currentList.length > 0 && options.length > 0) {
+  //     console.log(options);
+  //     setNewItem({ ...newItem, name: options.at(-1).name })
+  //   }
+  // }, [currentList]);
+
+  const testOptions = () => {
+    return Object.keys(CALC_TYPES).map((name) => {
+      if (!props.list.map((calc) => calc.name).includes(name)) {
+        return ({ name: name, value: name });
+      }
+    }).filter(name => name)
+  }
+
+  const updateOptions = (array) => {
+    if (array.length > 0) {
+      return Object.keys(CALC_TYPES).map((name) => {
+        if (!array.includes(name)) {
+          return ({ name: name, value: name })
+        }
+      }).filter(name => name)
+    }
+    return Object.keys(CALC_TYPES).map(name => ({ name, value: name }))
+  };
 
   const onAddItem = () => {
     setAddItem(!isAddItem);
@@ -42,17 +83,19 @@ const CalculationList = (props) => {
     const targetValue = e && e.target && e.target.value
       ? e.target.value
       : '';
+    setCurrentTypeInSelector(targetValue);
     setNewItem({
       ...newItem,
       name: targetValue,
     });
   }
   // Deleted section
-  const onDeleteSection = () => {
-    // setIsDeleted(true);
-    console.log({ isRendering: true, currentType: 'delete', callBack: props.onDeleteSection, payload: props.sectionId });
-    props.onSetRenderWindow({ isRendering: true, currentType: 'delete', callBack: props.onDeleteSection, payload: props.sectionId });
-  };
+  const onDeleteSection = () => props.onSetRenderWindow({
+    isRendering: true,
+    currentType: 'delete',
+    callBack: props.onDeleteSection,
+    payload: props.sectionId
+  });
 
   const onEditSectionTitle = () => setEditSection(!isEditSection);
 
@@ -73,8 +116,6 @@ const CalculationList = (props) => {
       setEditNameSection(props.name);
     }
   };
-
-  const options = Object.keys(CALC_TYPES).map((calc) => ({ name: calc, value: calc }))
 
   return (
     <div className={cn('menu-calculation-list', { isDeleted: isDeleted })}>
@@ -137,16 +178,20 @@ const CalculationList = (props) => {
               )}
             {provided.placeholder}
             {props.isEditMode
-              && (isAddItem ?
-                <div className='menu-calculation-list__selector-container'>
-                  <Select options={options} onChange={handleSelectorSetItem} />
-                  <div className='menu-calculation-list__btn-add' onClick={handleSetNewItem}  >
-                    Add
+              && (testOptions().length > 0 ?
+                (isAddItem ?
+                  <div className='menu-calculation-list__selector-container'>
+                    <CalculationSelector
+                      options={options}
+                      onChange={handleSelectorSetItem}
+                      onClick={handleSetNewItem}
+                      defaultValue={currentTypeInSelector} />
+                    <i className='ico-return' onClick={onAddItem} />
                   </div>
-                  <i className='ico-return' onClick={onAddItem} />
-                </div>
-                : <h4 className={cn('menu-calculation-list__add-text', { 'menu-calculation-list__add-text_animate': isAnimated })}
-                  onClick={onAddItem}>Add item...</h4>)
+                  : <h4 className={cn('menu-calculation-list__add-text', { 'menu-calculation-list__add-text_animate': isAnimated })}
+                    onClick={onAddItem}>Add item...</h4>)
+                : null)
+
             }
           </div>
         )}

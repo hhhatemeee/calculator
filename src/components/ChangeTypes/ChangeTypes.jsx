@@ -9,8 +9,6 @@ import ModalWindowWrapper from '../ModalWindowWrapper/ModalWindowWrapper';
 
 import './ChangeTypes.scss';
 
-
-
 const ChangeTypes = (props) => {
   const [showMenu, setShowMenu] = useState(false);
   const [isEditMode, setEditMode] = useState(false);
@@ -62,6 +60,7 @@ const ChangeTypes = (props) => {
     if (!e.destination) {
       return;
     }
+    props.setIsMoving(true);
 
     if (e.type === 'item') {
       const { droppableId: droppableIdStart, index: indexStart } = e.source;
@@ -73,6 +72,7 @@ const ChangeTypes = (props) => {
         indexStart,
         indexDrop,
       })
+      setTimeout(() => props.setIsMoving(false), 100);
 
       return;
     }
@@ -156,6 +156,7 @@ const ChangeTypes = (props) => {
                           onSetRenderWindow={props.onSetRenderWindow}
                           handleSetCurrentImgName={props.handleSetCurrentImgName}
                           setCurrentIcon={props.setCurrentIcon}
+                          isMoving={props.isMoving}
                         />
                       </div>
                     )}

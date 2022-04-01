@@ -11,6 +11,7 @@ const MOVE_SECTION = 'MOVE_SECTION';
 const SET_NAME_SECTION = 'SET_NAME_SECTION';
 const SET_ICON = 'SET_ICON';
 const SET_CURRENT_ICON = 'SET_CURRENT_ICON';
+const SET_IS_MOVING = 'SET_IS_MOVING';
 
 const initialState = {
   currentType: 'Standart',
@@ -48,6 +49,7 @@ const initialState = {
     }
   },
   currentImgName: '',
+  isMoving: false,
 };
 const namesArr = ['Standart', 'Chemistry', 'Graphing', 'Programmer', 'Date Calculation', 'Currency'];
 let id = Date.now() + Math.round(Math.random() * 100);
@@ -165,12 +167,20 @@ const calculationTypesReducer = (state = JSON.parse(localStorage.getItem('state'
         ).calcList;
         otherSection.splice(action.indexDrop, 0, ...editSection);
       }
-      return state;
-    case MOVE_SECTION:
-      const editTypes = state.types.splice(action.indexStart, 1);
-      state.types.splice(action.indexDrop, 0, ...editTypes);
 
       return state;
+    case MOVE_SECTION:
+      state.isMoving = true;
+      const editTypes = state.types.splice(action.indexStart, 1);
+      state.types.splice(action.indexDrop, 0, ...editTypes);
+      state.isMoving = false;
+      return state;
+    case SET_IS_MOVING:
+      console.log(action);
+      return {
+        ...state,
+        isMoving: action.boolean,
+      }
     case SET_NAME_SECTION:
       return {
         ...state,
@@ -218,8 +228,7 @@ export const setMoveItemCreator = (
     droppableIdEnd,
     indexStart,
     indexDrop,
-  }) => (
-  {
+  }) => ({
     type: MOVE_ITEM,
     droppableIdStart,
     droppableIdEnd,
@@ -230,6 +239,6 @@ export const setMoveSectionCreator = ({ indexStart, indexDrop }) => ({ type: MOV
 export const setNameSectionCreator = ({ sectionId, name }) => ({ type: SET_NAME_SECTION, sectionId, name });
 export const setIconCreator = ({ id, imgName }) => ({ type: SET_ICON, id, imgName });
 export const setCurrentIconCreator = (name) => ({ type: SET_CURRENT_ICON, name });
-
+export const setIsMovingCreator = (boolean) => ({ type: SET_IS_MOVING, boolean });
 
 export default calculationTypesReducer;

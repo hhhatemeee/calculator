@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import ChangeTypes from './ChangeTypes';
-import { setAddItemCreator, setAddSectionCreator, setCurrentIconCreator, setCurrentTypeCreator, setDeleteItemCreator, setDeleteSectionCreator, setIconCreator, setMoveItemCreator, setMoveSectionCreator, setNameSectionCreator } from '../../redux/calculationTypesReducer';
+import { setAddItemCreator, setAddSectionCreator, setCurrentIconCreator, setCurrentTypeCreator, setDeleteItemCreator, setDeleteSectionCreator, setIconCreator, setIsMovingCreator, setMoveItemCreator, setMoveSectionCreator, setNameSectionCreator } from '../../redux/calculationTypesReducer';
 
 const ChangesTypesContainer = (props) => {
   return (
@@ -22,7 +22,9 @@ const ChangesTypesContainer = (props) => {
       setIconType={props.setIconType}
       onSetRenderWindow={props.onSetRenderWindow}
       handleSetCurrentImgName={props.handleSetCurrentImgName}
-      setCurrentIcon={props.setCurrentIcon} />
+      setCurrentIcon={props.setCurrentIcon}
+      isMoving={props.isMoving}
+      setIsMoving={props.setIsMoving} />
   )
 }
 
@@ -31,6 +33,7 @@ const mapStateToProps = (state) => {
     calculatorsType: state.calculatorsType.types,
     currentId: state.calculatorsType.currentId,
     disabledCalcs: state.calculatorsType.disabledCalcs,
+    isMoving: state.calculatorsType.isMoving,
   }
 }
 
@@ -52,6 +55,7 @@ const mapDispatchToProps = (dispatch) => {
     setNameSection: (sectionId, name) => dispatch(setNameSectionCreator(sectionId, name)),
     setIconType: (id, imgName) => dispatch(setIconCreator(id, imgName)),
     setCurrentIcon: (name) => dispatch(setCurrentIconCreator(name)),
+    setIsMoving: (boolean) => dispatch(setIsMovingCreator(boolean)),
   }
 }
 
