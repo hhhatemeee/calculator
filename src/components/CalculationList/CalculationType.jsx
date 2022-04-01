@@ -46,13 +46,15 @@ const CalculationType = ({
   };
 
   const handleSetCurrentId = () => {
-    setCurrentIcon(imgName);
-    onSetRenderWindow({
-      isRendering: true,
-      currentType: 'icons',
-      callBack: setIcon,
-      currentItemIcon,
-    })
+    if (isEditMode) {
+      setCurrentIcon(imgName);
+      onSetRenderWindow({
+        isRendering: true,
+        currentType: 'icons',
+        callBack: setIcon,
+        currentItemIcon,
+      })
+    }
   };
 
   return (

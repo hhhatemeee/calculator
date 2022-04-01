@@ -6,7 +6,6 @@ import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
 import CalculationList from '../CalculationList/CalculationList';
 import InputAndItemreverseSide from '../InputAndItemreverseSide/InputAndItemreverseSide';
 import ModalWindowWrapper from '../ModalWindowWrapper/ModalWindowWrapper';
-import IconList from '../IconList/IconList';
 
 import './ChangeTypes.scss';
 
@@ -147,7 +146,6 @@ const ChangeTypes = (props) => {
                           isEditMode={isEditMode}
                           onDeleteItem={props.onDeleteItem}
                           onAddItem={props.onAddItem}
-                          isEditMode={isEditMode}
                           onDeleteSection={props.onDeleteSection}
                           sectionId={el.id}
                           onSetCurrentSection={onSetCurrentSection}
@@ -156,7 +154,6 @@ const ChangeTypes = (props) => {
                           setNameSection={props.setNameSection}
                           setIconType={props.setIconType}
                           onSetRenderWindow={props.onSetRenderWindow}
-                          setIconType={props.setIconType}
                           handleSetCurrentImgName={props.handleSetCurrentImgName}
                           setCurrentIcon={props.setCurrentIcon}
                         />

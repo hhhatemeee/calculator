@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import cn from 'classnames';
 import PropTypes from 'prop-types';
 
@@ -16,12 +16,28 @@ const InputAndItemreverseSide = ({
   text,
   isTitle,
   placeHolder }) => {
+  const [isAnimated, setAnimated] = useState(false);
 
+  const handleClick = () => {
+    onClick();
+    if (isBoolean) {
+      setAnimated(true);
+      setTimeout(() => setAnimated(false), 1000);
+    }
+  }
+
+  const handleBlur = () => {
+    onBlur();
+    if (isBoolean) {
+      setAnimated(true);
+      setTimeout(() => setAnimated(false), 1000);
+    }
+  }
   return (
     <div className={cn(`input-item ${className ? className : ''}`, { isTitle: isTitle })}>
       {
         !isBoolean
-          ? (nodeItem ? nodeItem : <div className='input-item__item-text' onClick={onClick}
+          ? (nodeItem ? nodeItem : <div className={cn('input-item__item-text', { 'input-item__item-text_animate': isAnimated })} onClick={handleClick}
           >{text}</div>)
           : <div className='input-item__container'>
             <input
@@ -31,7 +47,7 @@ const InputAndItemreverseSide = ({
               value={value}
               onKeyDown={onKeyDown}
               onChange={onChange}
-              onBlur={onBlur}
+              onBlur={handleBlur}
             />
           </div>
       }

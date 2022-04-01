@@ -7,21 +7,18 @@ import './IconList.scss';
 
 
 const IconList = ({ setIcon, currentImgName }) => {
-  console.log(currentImgName);
   return (
     <div className='item__selector-icons'>
       {
-        ICO_NAMES.map((name) => {
-          console.log(currentImgName === name);
-          return <div
-            key={name}
-            className={cn('icon__container', { 'current--icon': currentImgName === name })}>
-            <i
-              className={cn(`ico-${name} icon`)}
-              onClick={() => setIcon(name)}
-            />
-          </div>
-        })
+        ICO_NAMES.map((name) => <div
+          key={name}
+          className={cn('icon__container', { 'current--icon': currentImgName === name })}>
+          <i
+            className={cn(`ico-${name} icon`)}
+            onClick={() => setIcon(name)}
+          />
+        </div>
+        )
       }
     </div>
   )

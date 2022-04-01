@@ -23,8 +23,16 @@ const CalculationList = (props) => {
   const [isEditSection, setEditSection] = useState(false);
   const [editNameSection, setEditNameSection] = useState(props.name);
   const [isDeleted, setIsDeleted] = useState(false);
+  const [isAnimated, setAnimated] = useState(false);
 
-  const onAddItem = () => setAddItem(!isAddItem);
+  const onAddItem = () => {
+    setAddItem(!isAddItem);
+
+    if (isAddItem) {
+      setAnimated(true);
+      setTimeout(() => setAnimated(false), 1000);
+    }
+  }
 
   const handleSetNewItem = () => {
     props.onAddItem(newItem);
@@ -137,7 +145,8 @@ const CalculationList = (props) => {
                   </div>
                   <i className='ico-return' onClick={onAddItem} />
                 </div>
-                : <h4 className='menu-calculation-list_add-text' onClick={onAddItem}>Add item...</h4>)
+                : <h4 className={cn('menu-calculation-list__add-text', { 'menu-calculation-list__add-text_animate': isAnimated })}
+                  onClick={onAddItem}>Add item...</h4>)
             }
           </div>
         )}

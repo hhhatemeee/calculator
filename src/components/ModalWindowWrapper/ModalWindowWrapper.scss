@@ -61,13 +61,14 @@
 
   &__button-line{
     display: flex;
+    margin: 10px 0 10px 0;
     // margin-top: -100px;
     justify-content: flex-end;
   }
 
   &__button{
     cursor: pointer;
-    margin: 5px 0 10px 0;
+    // margin: 5px 0 10px 0;
     color: $color-black;
     text-decoration: none;
     font-size: 15px;
