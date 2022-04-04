@@ -9,8 +9,7 @@ import { CALC_TYPES } from './variables';
 import ModalWindowWrapper from './components/ModalWindowWrapper/ModalWindowWrapper';
 import WindowDelete from './components/WindowDelete/WindowDelete';
 import IconList from './components/IconList/IconList';
-
-
+import AddSectionWindow from './components/ChangeTypes/AddSectionWindow/AddSectionWindow';
 
 const CalcDelegation = (props) => {
   const [currentKey, setCurrentKey] = useState({});
@@ -43,6 +42,7 @@ const CalcDelegation = (props) => {
       calculator = <HomePage setCurrentType={props.setCurrentType} />
       break;
   }
+
   switch (props.renderWindow.currentType) {
     case 'icons':
       const handleSetIcon = (name) => {
@@ -76,6 +76,18 @@ const CalcDelegation = (props) => {
         onClick={handleClick}
         boolean={isShowWindow}
         handleBoolean={handleShowWindow}
+      />
+      break;
+    case 'addSection':
+      const handleAddSection = (value) => {
+        props.renderWindow.callBack(value);
+        setShowWindow(false);
+      }
+
+      modalWindow = <AddSectionWindow
+        boolean={isShowWindow}
+        handleBoolean={handleShowWindow}
+        onClickButton={handleAddSection}
       />
     default:
       break;

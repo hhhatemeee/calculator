@@ -30,7 +30,7 @@ const CalculationList = (props) => {
   const [currentTypeInSelector, setCurrentTypeInSelector] = useState('Standart')
 
   useEffect(() => {
-    setOptions(testOptions());
+    setOptions(updateOptions());
   }, [props.isMoving, props.list]);
 
   useEffect(() => {
@@ -38,32 +38,15 @@ const CalculationList = (props) => {
       setNewItem({ ...newItem, name: options.at(-1).name })
       setCurrentTypeInSelector(options.at(-1).name)
     }
-  }, [options])
+  }, [options]);
 
-  // useEffect(() => {
-  //   if (currentList.length > 0 && options.length > 0) {
-  //     console.log(options);
-  //     setNewItem({ ...newItem, name: options.at(-1).name })
-  //   }
-  // }, [currentList]);
 
-  const testOptions = () => {
+  const updateOptions = () => {
     return Object.keys(CALC_TYPES).map((name) => {
       if (!props.list.map((calc) => calc.name).includes(name)) {
         return ({ name: name, value: name });
       }
     }).filter(name => name)
-  }
-
-  const updateOptions = (array) => {
-    if (array.length > 0) {
-      return Object.keys(CALC_TYPES).map((name) => {
-        if (!array.includes(name)) {
-          return ({ name: name, value: name })
-        }
-      }).filter(name => name)
-    }
-    return Object.keys(CALC_TYPES).map(name => ({ name, value: name }))
   };
 
   const onAddItem = () => {
@@ -178,16 +161,14 @@ const CalculationList = (props) => {
               )}
             {provided.placeholder}
             {props.isEditMode
-              && (testOptions().length > 0 ?
+              && (options.length > 0 ?
                 (isAddItem ?
-                  <div className='menu-calculation-list__selector-container'>
-                    <CalculationSelector
-                      options={options}
-                      onChange={handleSelectorSetItem}
-                      onClick={handleSetNewItem}
-                      defaultValue={currentTypeInSelector} />
-                    <i className='ico-return' onClick={onAddItem} />
-                  </div>
+                  <CalculationSelector
+                    options={options}
+                    onChange={handleSelectorSetItem}
+                    onClick={handleSetNewItem}
+                    defaultValue={currentTypeInSelector}
+                    onClickReturn={onAddItem} />
                   : <h4 className={cn('menu-calculation-list__add-text', { 'menu-calculation-list__add-text_animate': isAnimated })}
                     onClick={onAddItem}>Add item...</h4>)
                 : null)

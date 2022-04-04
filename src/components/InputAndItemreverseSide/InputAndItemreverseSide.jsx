@@ -3,6 +3,7 @@ import cn from 'classnames';
 import PropTypes from 'prop-types';
 
 import './InputAndItemreverseSide.scss';
+import InputCustom from '../../subComponents/Input/Input';
 
 const InputAndItemreverseSide = ({
   isBoolean,
@@ -39,17 +40,15 @@ const InputAndItemreverseSide = ({
         !isBoolean
           ? (nodeItem ? nodeItem : <div className={cn('input-item__item-text', { 'input-item__item-text_animate': isAnimated })} onClick={handleClick}
           >{text}</div>)
-          : <div className='input-item__container'>
-            <input
-              className='input-item__input'
-              type="text"
-              placeholder={placeHolder}
-              value={value}
-              onKeyDown={onKeyDown}
-              onChange={onChange}
-              onBlur={handleBlur}
-            />
-          </div>
+          : <InputCustom
+            className='input-item__input'
+            type="text"
+            placeholder={placeHolder}
+            value={value}
+            onKeyDown={onKeyDown}
+            onChange={onChange}
+            onBlur={handleBlur}
+          />
       }
     </div>
   )

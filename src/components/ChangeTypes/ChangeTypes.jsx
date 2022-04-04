@@ -25,22 +25,21 @@ const ChangeTypes = (props) => {
     setEditMode(!isEditMode);
   };
 
-  const onAddSection = () => setAddSection(!isAddSection);
+  const onIsAddSection = () => {
+    setAddSection(!isAddSection);
+  };
 
-  const onChange = (e) => {
-    setNewSection(e.target.value);
-  }
+  const handleAddSection = () => {
+    onIsAddSection();
 
-  const onKeyDown = (e) => {
-    if (e.keyCode === 13 && newSection.length > 0) {
-      props.onAddSection(newSection);
-      setNewSection('');
-    }
+    props.onSetRenderWindow({
+      isRendering: true,
+      currentType: 'addSection',
+      callBack: props.onAddSection,
+    })
 
-    if (e.keyCode === 27) {
-      onAddSection(false);
-    }
-  }
+  };
+
   //  Modal window display handler
   const handleShowMenu = () => {
     setShowMenu(!showMenu);
@@ -49,12 +48,6 @@ const ChangeTypes = (props) => {
 
   const onSetCurrentSection = (value) => setCurrentSection(value);
   const onSetCurrentItem = (value) => setCurrentItem(value);
-
-  const onKeyDownWindow = (e) => {
-    if (e.keyCode === 27) {
-      setAddSection(false);
-    }
-  }
 
   const handleDragEnd = (e) => {
     if (!e.destination) {
@@ -96,19 +89,9 @@ const ChangeTypes = (props) => {
           <ModalWindowWrapper
             hide={isEditMode}
             boolean={isEditMode}
-            onKeyDown={onKeyDownWindow}
             title='Menu setting'
             onClick={onEditMode}
-            button={<InputAndItemreverseSide
-              className='testitem'
-              isBoolean={isAddSection}
-              onChange={onChange}
-              value={newSection}
-              onKeyDown={onKeyDown}
-              onBlur={onAddSection}
-              placeHolder={'Section name'}
-              nodeItem={<div className='menu__add-section' onClick={onAddSection}>Add section...</div>}
-            />}
+            button={<div className='menu__add-section' onClick={handleAddSection}>Add section...</div>}
           >
             <Droppable type="section" droppableId="container">
               {(provided) => (
@@ -171,7 +154,7 @@ const ChangeTypes = (props) => {
           </ModalWindowWrapper>
         </div>
       </div >
-    </DragDropContext>
+    </DragDropContext >
   )
 }
 

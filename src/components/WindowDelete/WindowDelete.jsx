@@ -1,4 +1,5 @@
 import React from 'react';
+import ButtonConfirm from '../../subComponents/ButtonConfirm/ButtonConfirm';
 
 import ModalWindowWrapper from '../ModalWindowWrapper/ModalWindowWrapper';
 
@@ -19,11 +20,5 @@ const WindowDelete = ({ onClick, boolean, handleBoolean }) => {
     </ModalWindowWrapper>
   )
 }
-
-const ButtonConfirm = ({ onClick }) => <div onClick={onClick} className='window__button-confirm'>
-  Yes
-</div>
-
-
 
 export default WindowDelete;

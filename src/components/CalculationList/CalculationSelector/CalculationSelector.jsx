@@ -1,13 +1,18 @@
 import React from 'react';
 import Select from '../../Select/Select';
 
-const CalculationSelector = ({ options, onChange, onClick, defaultValue }) => {
+import './CalculationSelector.scss';
+
+const CalculationSelector = ({ options, onChange, onClick, defaultValue, onClickReturn }) => {
   return (
 
-    <div style={{ display: "inherit" }}>
+    <div className='menu-calculation-list__selector-container'>
       <Select options={options} onChange={onChange} defaultValue={defaultValue} />
-      <div className='menu-calculation-list__btn-add' onClick={onClick}>
-        Add
+      <div className='menu-calculation-list__selector-row'>
+        <div className='menu-calculation-list__btn-add' onClick={onClick}>
+          Add
+        </div>
+        <i className='ico-return' onClick={onClickReturn} />
       </div>
     </div>
 

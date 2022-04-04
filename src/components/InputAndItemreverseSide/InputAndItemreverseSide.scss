@@ -20,31 +20,8 @@
       color:rgba($color-black,.6)
     }
   }
-
-  &__container{
-    max-width: 280px;
-    display: flex;
-    justify-content: center;
-
-    input{
-      display: flex;
-      padding: 4px 3px;
-      margin: 5px 5px 0px 5px;
-      font-family: inherit;
-      font-size: 16px;
-      font-weight: 400;
-      line-height: 1.5;
-      color: #212529;
-      background-color: #fff;
-      background-clip: padding-box;
-      border: 1px solid #bdbdbd;
-      border-radius: 6px;
-      outline: none;
-      width: 100%;
-      animation: animate-appearance .2s ease-in;
-    }
- }
 }
+
 
 .isTitle{
   .input-item__item-text{

@@ -1,0 +1,30 @@
+@import "../../scss/fonts.scss";
+@import '../../scss/themable.scss';
+@import "../../scss/variables.scss";
+
+.input{
+
+  &__container{
+    max-width: 280px;
+    display: flex;
+    justify-content: center;
+  }
+
+  &__item{
+    display: flex;
+    padding: 4px 3px;
+    margin: 5px 5px 0px 5px;
+    font-family: inherit;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #212529;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #bdbdbd;
+    border-radius: 6px;
+    outline: none;
+    width: 100%;
+    animation: animate-appearance .2s ease-in;
+  }
+}

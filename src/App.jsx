@@ -13,13 +13,6 @@ import { CALC_TYPES } from './variables';
 
 import './App.scss';
 
-
-import './App.scss';
-
-
-import './App.scss';
-
-
 function App(props) {
   const [darkMode, setDarkMode] = useState(false);
   const [showWindow, setShowWindow] = useState(false);
@@ -34,6 +27,7 @@ function App(props) {
    * @param {string} url - url of the current service
    * @returns 
    */
+
   const handleShowWindow = (isShow, listLimit, url) => {
     props.setCurrentService(convertationService.currentService);
     // If the length of lastlimit = 3, then turn off Currency and switch to the standard
@@ -57,6 +51,7 @@ function App(props) {
   useEffect(() => {
     ConvertationService.getCallbacks(handleShowWindow, props.setCurrencyList);
     props.setCurrentService('CC');
+
   }, []);
 
   /**
