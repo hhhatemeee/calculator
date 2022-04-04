@@ -10,9 +10,11 @@ import KeyBoardBasic from '../KeyBoardBasic/KeyBoardBasic';
 import ModalInfo from './ModalInfo/ModalInfo';
 
 import './Converter.scss';
+import convertationService from '../../services/convertationService';
+import ModalInfoContainer from './ModalInfo/ModalInfoConainer';
 
 const Converter = (props) => {
-  useEffect(() => { }, [props.currentService])
+  useEffect(() => { }, [props.currentService]);
 
   const [from, setFrom] = useState(
     {
@@ -24,20 +26,27 @@ const Converter = (props) => {
       name: CURRENCY_MOCK.USD[0],
       value: CURRENCY_MOCK.USD[1],
     });
+  const [statusServices, setStatusServices] = useState([]);
+
   const setOptions = () => props.services.filter((el) => !props.listLimit.includes(el.name));
 
   const setFromValue = (value) => setFrom(value);
   const setToValue = (value) => setTo(value);
 
+  const onSetStatusServices = (value) => {
+    setStatusServices(value);
+  };
+
+  useEffect(() => {
+  }, [props.isFetching])
+
   const onClick = () => {
     props.setLoading(true);
-    props.setFetching(true);
     setCurrentCourse(to.name);
   }
 
   const setCurrentCourse = async (e) => {
     //If an event came from the selector, then process it.
-    props.setFetching(true);
     if (e.target && e.target.value) {
       const cc = await ConvertationService.getConvertation(e.target.value);
       await props.setCurrentCourse(cc)
@@ -55,7 +64,6 @@ const Converter = (props) => {
       ? e.target.value
       : 'CC';
 
-    props.setFetching(true);
     props.setCurrentService(targetValue)
     ConvertationService.switchService(targetValue);
     ConvertationService.updateCurrencyList();
@@ -72,7 +80,13 @@ const Converter = (props) => {
 
   return (
     <div className='converter__container'>
-      <ModalInfo servicesStatus={props.servicesStatus} servicesUrl={props.servicesUrl} />
+      <ModalInfoContainer
+        servicesUrl={props.servicesUrl}
+        setFetching={props.setFetching}
+        isFetching={props.isFetching}
+        statusServices={statusServices}
+        onSetStatusServices={onSetStatusServices}
+      />
       <ScreenOther
         CURRENCY_TABLE={props.CURRENCY_TABLE}
         currencyList={props.currencyList}

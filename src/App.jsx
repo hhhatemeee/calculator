@@ -61,8 +61,6 @@ function App(props) {
    */
   const setCurrentType = (name) => props.setCurrentCalcType(name);
 
-  const getStatusApi = () => convertationService.getStatusApi();
-
   /**
    * Theme Switching Handler
    * @param {boolean} isToggle 
@@ -85,7 +83,6 @@ function App(props) {
         types={props.calcTypes}
         currentType={props.currentType}
         setCurrentType={setCurrentType}
-        getStatusApi={getStatusApi}
         currentImgName={props.currentImgName}
       />
     </div >

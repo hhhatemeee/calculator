@@ -4,6 +4,13 @@
 
 .modal-info{
   position: relative;
+
+  &__loader{
+    width: 20px;
+    height: 20px;
+    
+  };
+
   &__logo{
     i{
       position: absolute;

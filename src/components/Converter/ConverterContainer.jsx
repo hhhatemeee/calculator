@@ -30,10 +30,6 @@ const ConverterContainer = (props) => {
     LAK: '₭',
   };
 
-  useEffect(() => {
-    setServicesStatusApi(ConvertationService.getStatusApi());
-  }, [props.isFetching]);
-
   const onKeyDown = (e) => {
     if ((e.key >= '0' && e.key <= '9') || e.key === KEYS_NAME.Backspace || e.key === '.') {
       handleCurNum(e.key);
@@ -207,6 +203,7 @@ const ConverterContainer = (props) => {
       setFetching={props.setFetching}
       currentCourse={props.currentCourse}
       getFontSize={getFontSize}
+      isFetching={props.isFetching}
     />
   )
 }

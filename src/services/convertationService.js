@@ -135,20 +135,16 @@ class ConvertationService {
     console.warn(`Такого сервиса не существует. Список: ${this.#MOCK.SERVICE_LIST}`);
   }
 
-  getStatusApi() {
-    let isAvailable = {};
-
-    Object.keys(this.#MOCK.API_KEYS).forEach((key) => {
-      fetch(`${this.#MOCK.STATUS_URL[key]}${this.#MOCK.API_KEYS[key]}`)
+  async getStatusApi() {
+    return Promise.all(Object.keys(this.#MOCK.API_KEYS).map((key) => {
+      return fetch(`${this.#MOCK.STATUS_URL[key]}${this.#MOCK.API_KEYS[key]}`)
         .then((res) => {
           if (res.status === 200) {
-            isAvailable[key] = true;
-            return;
-          }
-          isAvailable[key] = false;
+            return { [key]: true };
+          };
+          return { [key]: false };
         });
-    })
-    return isAvailable;
+    })).then(values => values)
   }
 
   /**

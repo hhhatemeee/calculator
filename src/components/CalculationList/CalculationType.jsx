@@ -70,7 +70,6 @@ const CalculationType = ({
       draggable={false}
     >
       <span className={cn('item-row', { 'icon-edit': isEditMode })}>
-
         <i className={`ico-${imgName} item-row__item`} onClick={handleSetCurrentId} />
         {name}
       </span>
