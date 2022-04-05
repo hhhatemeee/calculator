@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import './Input.scss';
 
@@ -16,6 +17,23 @@ const InputCustom = ({ placeHolder, value, onKeyDown, onChange, onBlur, classNam
       />
     </div>
   )
-}
+};
+
+InputCustom.propTypes = {
+  placeHolder: PropTypes.string,
+  value: PropTypes.string,
+  onKeyDown: PropTypes.func,
+  onBlur: PropTypes.func,
+  onChange: PropTypes.func,
+  className: PropTypes.string,
+};
+
+InputCustom.defaultProps = {
+  placeHolder: '',
+  value: '',
+  className: '',
+  onChange: () => console.log('Не опеределена функция onChange'),
+};
+
 
 export default InputCustom;

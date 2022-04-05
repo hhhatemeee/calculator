@@ -5,13 +5,12 @@ import ScreenOther from '../ScreenOther/ScreenOther';
 import { ReactComponent as Loader } from '../../img/Loader.svg';
 import ConverterSwitch from './ConverterSwitch/ConverterSwitch';
 import { CURRENCY_MOCK } from '../../variables';
-import ConvertationService from '../../services/convertationService';
 import KeyBoardBasic from '../KeyBoardBasic/KeyBoardBasic';
-import ModalInfo from './ModalInfo/ModalInfo';
-
-import './Converter.scss';
 import convertationService from '../../services/convertationService';
 import ModalInfoContainer from './ModalInfo/ModalInfoConainer';
+
+import './Converter.scss';
+
 
 const Converter = (props) => {
   const [from, setFrom] = useState(
@@ -52,15 +51,29 @@ const Converter = (props) => {
   };
 
   const setCurrentCourse = async (e) => {
+    const currentService = convertationService.getCurrentService();
+
     //If an event came from the selector, then process it.
     if (e.target && e.target.value) {
-      const cc = await ConvertationService.getConvertation(e.target.value);
+      const cc = await convertationService.getConvertation(e.target.value);
       await props.setCurrentCourse(cc)
       return;
     }
 
     //If the name of the currency has come
-    const cc = await ConvertationService.getConvertation(e);
+    const cc = await convertationService.getConvertation(e);
+    if (cc === 'Unavailable') {
+      props.setLoading(false);
+
+      Object.values(statusServices).forEach((val, i) => {
+        const name = Object.keys(val)[0];
+        if (name === currentService) {
+          const editStatusService = { [name]: 'Unavailable' };
+          statusServices.splice(i, 1);
+          setStatusServices([...statusServices, editStatusService])
+        }
+      })
+    }
     await props.setCurrentCourse(cc);
   }
 
@@ -70,8 +83,8 @@ const Converter = (props) => {
       : 'CC';
 
     props.setCurrentService(targetValue)
-    ConvertationService.switchService(targetValue);
-    ConvertationService.updateCurrencyList();
+    convertationService.switchService(targetValue);
+    convertationService.updateCurrencyList();
   }
 
   const onSwapCurrency = () => {
@@ -79,7 +92,7 @@ const Converter = (props) => {
 
     setFrom(currentCurrencies.to);
     setTo(currentCurrencies.from);
-    ConvertationService.setBasicCurrency(to.name);
+    convertationService.setBasicCurrency(to.name);
     props.setCurrentCourse(1 / props.currentCourse);
   }
 
@@ -157,6 +170,7 @@ Converter.propTypes = {
   currentService: PropTypes.string,
   setCurrentService: PropTypes.func,
   servicesStatus: PropTypes.object,
+  isFetching: PropTypes.bool,
 };
 
 Converter.defaultProps = {
@@ -172,6 +186,7 @@ Converter.defaultProps = {
   listLimit: [],
   currentService: 'CC',
   servicesStatus: {},
+  isFetching: false,
   handleCurNum: () => console.log('Не определена функция handleCurNum'),
   handleBasicCurrency: () => console.log('Не определена функция handleBasicCurrency'),
   updateCurrencyList: () => console.log('Не определена функция updateCurrencyList'),

@@ -9,7 +9,7 @@ const CalculationType = ({
   setCurrentId,
   currentId,
   handleShowMenu,
-  isDisabled,
+  disabledCalc,
   isEditMode,
   onDeleteItem,
   sectionId,
@@ -62,7 +62,7 @@ const CalculationType = ({
       data-testid='typePoint'
       className={cn('item',
         { current: id === currentId },
-        { isDisabled: isDisabled },
+        { isDisabled: disabledCalc && disabledCalc.disabled },
         { isEditMode: isEditMode },
         { isDeleted: isDeleted }
       )}
@@ -84,11 +84,14 @@ CalculationType.propTypes = {
   setCurrentType: PropTypes.func,
   handleShowMenu: PropTypes.func,
   currentType: PropTypes.string,
-  isDisabled: PropTypes.bool,
+  isDisabled: PropTypes.object,
   isEditMode: PropTypes.bool,
   onDeleteItem: PropTypes.func,
   sectionId: PropTypes.number,
   id: PropTypes.number,
+  setIconType: PropTypes.func,
+  onSetRenderWindow: PropTypes.func,
+  setCurrentIcon: PropTypes.func,
 }
 
 CalculationType.defaultProps = {
@@ -97,11 +100,14 @@ CalculationType.defaultProps = {
   setCurrentType: () => console.log('Не указана функция setCurrentType'),
   handleShowMenu: () => console.log('Не указана функция setCurrentType'),
   currentType: '',
-  isDisabled: false,
+  isDisabled: { name: '', disabled: false },
   isEditMode: false,
   onDeleteItem: () => console.log('Не указана функция onDeleteItem'),
   sectionId: 0,
   id: 0,
+  setIconType: () => console.log('Не определена функция setIconType,'),
+  onSetRenderWindow: () => console.log('Не определена функция onSetRenderWindow,'),
+  setCurrentIcon: () => console.log('Не определена функция setCurrentIcon,'),
 }
 
 export default CalculationType

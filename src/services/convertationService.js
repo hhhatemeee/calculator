@@ -72,7 +72,6 @@ class ConvertationService {
     }
 
     this.hideInfo(true, this.limitList, this.#MOCK.SERVICE_URL[this.currentService]);
-
     this.#MOCK.SERVICE_LIST.forEach((serv) => {
       if (this.limitList.includes(serv)) {
         return;
@@ -201,31 +200,40 @@ class ConvertationService {
         case 'CC':
           result = fetch(`https://free.currconv.com/api/v7/convert?q=${from}_${to}&compact=ultra&apiKey=${this.#apiKey}`)
             .then((res) => {
+
               if (res.status === 200) {
                 return res.json();
               }
-              this.#checkLimit(this.currentService);
 
+              throw new Error("Error!");
             })
             .then((res) => {
               result = Object.values(res).toString();
               return result;
             })
-            .catch((err) => console.log(err));
+            .catch((err) => {
+              this.#checkLimit(this.currentService);
+              console.log(err);
+              return 'Unavailable';
+            });
           break;
         case 'OE':
-          fetch(`https://openexchangerates.org/api/convert/1/${to}/${from}?app_id=${this.#apiKey}`)
+          result = fetch(`https://openexchangerates.org/api/convert/1/${to}/${from}?app_id=${this.#apiKey}`)
             .then((res) => {
               if (res.status === 200) {
                 return res.json();
               }
-
-              this.#checkLimit(this.currentService);
+              console.log(123);
+              throw new Error("Error!");
             })
             .then((res) => {
-              console.log(res.response);
+              return res;
             })
-            .catch((err) => console.log(err));
+            .catch((err) => {
+              console.log(err);
+              this.#checkLimit(this.currentService);
+              return 'Unavailable';
+            });
           break;
         case 'FCA':
           result = fetch(`https://api.currencyapi.com/v3/latest?apikey=${this.#apiKey}&base_currency=${from}`)
@@ -233,8 +241,9 @@ class ConvertationService {
               if (res.status === 200) {
                 // this.limitList.push(this.currentService);
                 return res.json();
+
               }
-              this.#checkLimit(this.currentService);
+              throw new Error("Error!");
             })
             .then((res) => {
               let result;
@@ -247,7 +256,11 @@ class ConvertationService {
               });
               return result;
             })
-            .catch((err) => console.log(err));
+            .catch((err) => {
+              console.log(err);
+              this.#checkLimit(this.currentService);
+              return 'Unavailable';
+            });
           break;
         default:
       }

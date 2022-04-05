@@ -23,11 +23,9 @@ const CalculationList = (props) => {
   });
   const [isEditSection, setEditSection] = useState(false);
   const [editNameSection, setEditNameSection] = useState(props.name);
-  const [isDeleted, setIsDeleted] = useState(false);
   const [isAnimated, setAnimated] = useState(false);
-  const [currentList, setCurrentList] = useState([]);
   const [options, setOptions] = useState([]);
-  const [currentTypeInSelector, setCurrentTypeInSelector] = useState('Standart')
+  const [currentTypeInSelector, setCurrentTypeInSelector] = useState('Standart');
 
   useEffect(() => {
     setOptions(updateOptions());
@@ -101,7 +99,7 @@ const CalculationList = (props) => {
   };
 
   return (
-    <div className={cn('menu-calculation-list', { isDeleted: isDeleted })}>
+    <div className='menu-calculation-list'>
       <div className='menu-calculation-list__title-row'>
         <InputAndItemreverseSide
           isBoolean={isEditSection}
@@ -138,7 +136,7 @@ const CalculationList = (props) => {
                     ref={provided.innerRef}
                   >
                     <CalculationType
-                      isDisabled={props.disabledCalcs[calc.name]}
+                      disabledCalc={props.disabledCalcs.filter((disCalc) => disCalc.disabled && disCalc.name === calc.name)[0]}
                       key={calc.id}
                       name={calc.name}
                       imgName={calc.imgName}
@@ -172,7 +170,6 @@ const CalculationList = (props) => {
                   : <h4 className={cn('menu-calculation-list__add-text', { 'menu-calculation-list__add-text_animate': isAnimated })}
                     onClick={onAddItem}>Add item...</h4>)
                 : null)
-
             }
           </div>
         )}
@@ -187,7 +184,7 @@ CalculationList.propTypes = {
   setCurrentType: PropTypes.func,
   handleShowMenu: PropTypes.func,
   currentType: PropTypes.string,
-  disabledCalcs: PropTypes.object,
+  disabledCalcs: PropTypes.array,
   isEditMode: PropTypes.bool,
   onDeleteItem: PropTypes.func,
   onAddItem: PropTypes.func,
@@ -205,7 +202,7 @@ CalculationList.defaultProps = {
   name: '',
   list: [],
   currentType: '',
-  disabledCalcs: {},
+  disabledCalcs: [],
   currentItem: null,
   isEditMode: false,
   sectionId: 0,

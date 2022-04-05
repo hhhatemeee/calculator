@@ -17,5 +17,11 @@ HoverWindow.propTypes = {
   position: PropTypes.oneOf(['left', 'right', 'top', 'bottom']).isRequired,
 }
 
+HoverWindow.defaultProps = {
+  className: '',
+  position: 'right',
+}
+
+
 
 export default HoverWindow

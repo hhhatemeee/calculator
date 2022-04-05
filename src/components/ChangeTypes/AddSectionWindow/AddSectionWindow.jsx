@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
+
 import ButtonConfirm from '../../../subComponents/ButtonConfirm/ButtonConfirm';
 import InputCustom from '../../../subComponents/Input/Input';
 import ModalWindowWrapper from '../../ModalWindowWrapper/ModalWindowWrapper';
@@ -41,5 +43,18 @@ const AddSectionWindow = ({
     </ModalWindowWrapper>
   )
 }
+
+
+AddSectionWindow.propTypes = {
+  boolean: PropTypes.bool,
+  handleBoolean: PropTypes.func,
+  onClickButton: PropTypes.func,
+};
+
+AddSectionWindow.defaultProps = {
+  boolean: false,
+  handleBoolean: () => console.log('Не определена функция handleBoolean'),
+  onClickButton: () => console.log('Не определена функция onClickButton'),
+};
 
 export default AddSectionWindow;

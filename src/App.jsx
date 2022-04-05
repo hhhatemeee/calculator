@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 
 import ThemeSelector from './components/ThemeSelector/ThemeSelector';
 import CalcDelegation from './CalcDelegation';
-import ConvertationService, { initService } from './services/convertationService';
+import ConvertationService from './services/convertationService';
 import { setCurrencyListCreator, setCurrentServiceCreator } from './redux/convertationReducer';
 import ChangesTypesContainer from './components/ChangeTypes/ChangesTypesContainer';
 import { setCurrentTypeCreator, setDisabledTypeCreator } from './redux/calculationTypesReducer';
@@ -16,10 +16,10 @@ import './App.scss';
 function App(props) {
   const [darkMode, setDarkMode] = useState(false);
   const [showWindow, setShowWindow] = useState(false);
-  const [renderWindow, setRenderWindow] = useState(false);
+  const [renderWindow, setRenderWindow] = useState({ isRendering: false });
   const [servicesLimit, setServicesLimit] = useState([]);
   const [infoUrl, setInfoUrl] = useState('');
-  const [convertationService, setConvertationService] = useState({});
+
   /**
    * Modal window display handler.
    * @param {boolean} isShow - Show Window
@@ -27,13 +27,12 @@ function App(props) {
    * @param {string} url - url of the current service
    * @returns 
    */
-
   const handleShowWindow = (isShow, listLimit, url) => {
-    props.setCurrentService(convertationService.currentService);
+    props.setCurrentService(ConvertationService.getCurrentService());
     // If the length of lastlimit = 3, then turn off Currency and switch to the standard
     if (listLimit && listLimit.length === 3) {
       props.setDisabledType({ name: CALC_TYPES.Currency, value: true });
-      setCurrentType(CALC_TYPES.Standart);
+      setCurrentType({ name: CALC_TYPES.Standart });
     }
 
     if (listLimit) {
@@ -49,6 +48,7 @@ function App(props) {
   };
 
   useEffect(() => {
+    props.setDisabledType({ name: CALC_TYPES.Currency, value: false });
     ConvertationService.getCallbacks(handleShowWindow, props.setCurrencyList);
     props.setCurrentService('CC');
 
@@ -86,6 +86,7 @@ function App(props) {
         currentType={props.currentType}
         setCurrentType={setCurrentType}
         currentImgName={props.currentImgName}
+        setCurrentService={props.setCurrentService}
       />
     </div >
   );

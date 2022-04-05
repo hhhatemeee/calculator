@@ -64,7 +64,7 @@ ChangesTypesContainer.propTypes = {
   calculatorsType: PropTypes.array,
   setCurrentType: PropTypes.func,
   currentType: PropTypes.string,
-  disabledCalcs: PropTypes.object,
+  disabledCalcs: PropTypes.array,
   onDeleteItem: PropTypes.func,
   onAddItem: PropTypes.func,
   onAddSection: PropTypes.func,

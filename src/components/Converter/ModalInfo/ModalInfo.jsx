@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
 import cn from 'classnames';
+import PropTypes from 'prop-types';
 
 import { ReactComponent as Loader } from '../../../img/Loader.svg';
-import './ModalInfo.scss';
 import HoverWindow from '../../../subComponents/HoverWindow/HoverWindow';
-import { SERVICES_NAME } from '../../../variables';
 import detectedDevice from '../../../helpers/detectDevice';
 
-let hover = false;
+import './ModalInfo.scss';
 
+let hover = false;
 const ModalInfo = ({ servicesUrl, statusServices, onClick, isShow, isFetching }) => {
   const [showInfo, setShowInfo] = useState(false);
   const isMobile = detectedDevice();
@@ -31,19 +31,17 @@ const ModalInfo = ({ servicesUrl, statusServices, onClick, isShow, isFetching })
     <div className='modal-info'>
       <div className='modal-info__logo'>
         <i className='ico-Info' onClick={onClick} />
-        {
-          <HoverWindow className={cn('modal-info__hover-window',
-            {
-              'modal-info__hover-window_show': showInfo,
-              'modal-info__hover-window_mobile': isShow && isMobile && !isFetching,
-            })}
-            position='bottom'
-          >
-            <h5><span className='green'>Green</span> status - the server is working properly.</h5>
-            <h5><span className='yellow'>Yellow </span> status - the conversion service does not work.</h5>
-            <h5><span className='red'>Red </span> status - server is down.</h5>
-          </HoverWindow>
-        }
+        <HoverWindow className={cn('modal-info__hover-window',
+          {
+            'modal-info__hover-window_show': showInfo,
+            'modal-info__hover-window_mobile': isShow && isMobile && !isFetching,
+          })}
+          position='bottom'
+        >
+          <h5><span className='green'>Green</span> status - the server is working properly.</h5>
+          <h5><span className='yellow'>Yellow </span> status - the conversion service does not work.</h5>
+          <h5><span className='red'>Red </span> status - server is down.</h5>
+        </HoverWindow>
       </div>
       <div className={cn('modal-info__container', { isOpen: isShow })}>
         <div className='modal-info__header' >
@@ -58,18 +56,10 @@ const ModalInfo = ({ servicesUrl, statusServices, onClick, isShow, isFetching })
                 href={`https://${servicesUrl[key]}`}
                 target="_blank">
                 <span>{key}</span>
-                {
-                  key[0] === SERVICES_NAME.OE
-                    ? <div className={cn('modal-info__status-api', { isDown: !service[key], isPartial: service[key] })}
-                      onMouseOver={handleMouseOver}
-                      onMouseOut={handleMouseOut}
-                    />
-                    : <div className={cn('modal-info__status-api', { isDown: !service[key] })}
-                      onMouseOver={handleMouseOver}
-                      onMouseOut={handleMouseOut}
-                    />
-                }
-
+                <div className={cn('modal-info__status-api', { isDown: !service[key], isPartial: service[key] === 'Unavailable' })}
+                  onMouseOver={handleMouseOver}
+                  onMouseOut={handleMouseOut}
+                />
               </a>
             })
         }
@@ -77,5 +67,21 @@ const ModalInfo = ({ servicesUrl, statusServices, onClick, isShow, isFetching })
     </div >
   )
 }
+
+ModalInfo.propTypes = {
+  statusServices: PropTypes.arrayOf(PropTypes.object).isRequired,
+  servicesUrl: PropTypes.object,
+  isFetching: PropTypes.bool,
+  isShow: PropTypes.bool,
+  onClick: PropTypes.func,
+};
+
+ModalInfo.defaultProps = {
+  isFetching: false,
+  isShow: false,
+  statusServices: {},
+  onClick: () => console.log('Не определена onClick'),
+};
+
 
 export default ModalInfo

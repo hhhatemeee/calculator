@@ -36,18 +36,14 @@ const initialState = {
       ],
     }
   ],
-  disabledCalcs: {
-    Calculator: {
-      Standart: false,
-      Scientific: false,
-      Graphing: false,
-      Programmer: false,
-      'Date Calculation': false,
-    },
-    Converter: {
-      Currency: false,
-    }
-  },
+  disabledCalcs: [
+    { name: 'Standart', disabled: false },
+    { name: 'Scientific', disabled: false },
+    { name: 'Graphing', disabled: false },
+    { name: 'Programmer', disabled: false },
+    { name: 'Date Calculation', disabled: false },
+    { name: 'Currency', disabled: false },
+  ],
   currentImgName: '',
   isMoving: false,
 };
@@ -65,28 +61,47 @@ const calculationTypesReducer = (state = JSON.parse(localStorage.getItem('state'
 
   switch (action.type) {
     case SET_CURRENT_TYPE:
+      let alternateId;
+      let availableNames = [];
+      let alternateName;
+
+      state.disabledCalcs.forEach((calc) => {
+        if (!calc.disabled) {
+          availableNames.push(calc.name);
+          alternateName = currentList.includes(calc.name) ? calc.name : CALC_TYPES.Standart;
+        }
+      });
+
+      if (!action.id) {
+        state.types.forEach((section) => section.calcList.forEach((calc) => {
+          if (action.name === calc.name) {
+            alternateId = calc.id;
+            return;
+          }
+          if (!id && alternateName === calc.name) {
+            alternateId = calc.id;
+            return;
+          }
+        }))
+      }
+
+
       if (!currentList.includes(action.name)) {
         return state;
       }
       return {
         ...state,
-        currentId: action.id,
-        currentType: action.name,
+        currentId: action.id || alternateId,
+        currentType: availableNames.includes(action.name) ? action.name : alternateName,
       }
     case SET_DISABLED:
-      const result = {
-        ...state.disabledCalcs,
-        Calculator: { ...state.disabledCalcs.Calculator },
-        Converter: { ...state.disabledCalcs.Converter }
-      };
-      Object.keys(state.disabledCalcs).forEach((key) => {
-        Object.keys(state.disabledCalcs[key]).forEach((calc) => {
-          if (calc === action.name) {
-            result[key][calc] = action.value;
-          }
-        })
+      const result = [...state.disabledCalcs];
 
-      });
+      state.disabledCalcs.map((calc, i) => {
+        if (calc.name === action.name) {
+          result[i].disabled = action.value;
+        }
+      })
 
       return {
         ...state,
@@ -176,7 +191,6 @@ const calculationTypesReducer = (state = JSON.parse(localStorage.getItem('state'
       state.isMoving = false;
       return state;
     case SET_IS_MOVING:
-      console.log(action);
       return {
         ...state,
         isMoving: action.boolean,
@@ -197,7 +211,6 @@ const calculationTypesReducer = (state = JSON.parse(localStorage.getItem('state'
         currentImgName: action.name,
       }
     case SET_ICON:
-      console.log(action);
       return {
         ...state,
         types: state.types.map((section) => {

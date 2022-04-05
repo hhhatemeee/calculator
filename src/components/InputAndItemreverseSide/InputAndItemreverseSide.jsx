@@ -69,15 +69,15 @@ InputAndItemreverseSide.propTypes = {
 
 InputAndItemreverseSide.defaultProps = {
   isBoolean: false,
-  onClick: () => console.log('Ну указана функция onClick'),
-  onChange: () => console.log('Ну указана функция onChange'),
   value: '',
-  onKeyDown: () => console.log('Ну указана функция onKeyDown'),
-  onBlur: () => console.log('Ну указана функция onBlur'),
   nodeItem: undefined,
   text: '',
   isTitle: false,
   placeHolder: '',
+  onClick: () => console.log('Ну указана функция onClick'),
+  onChange: () => console.log('Ну указана функция onChange'),
+  onKeyDown: () => console.log('Ну указана функция onKeyDown'),
+  onBlur: () => console.log('Ну указана функция onBlur'),
 }
 
 export default InputAndItemreverseSide;

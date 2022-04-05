@@ -1,7 +1,10 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+
 import Select from '../../Select/Select';
 
 import './CalculationSelector.scss';
+import optionsInterface from '../../Select/SelectInterface';
 
 const CalculationSelector = ({ options, onChange, onClick, defaultValue, onClickReturn }) => {
   return (
@@ -18,5 +21,20 @@ const CalculationSelector = ({ options, onChange, onClick, defaultValue, onClick
 
   )
 }
+
+CalculationSelector.propTypes = {
+  options: PropTypes.arrayOf(PropTypes.shape(optionsInterface)).isRequired,
+  defaultValue: PropTypes.string,
+  onChange: PropTypes.func,
+  onClick: PropTypes.func,
+  onClickReturn: PropTypes.func,
+};
+
+CalculationSelector.defaultProps = {
+  defaultValue: '',
+  onChange: () => console.log('Не опеределена функция onChange'),
+  onClick: () => console.log('Не опеределена функция onClick'),
+  onClickReturn: () => console.log('Не опеределена функция onClickReturn'),
+};
 
 export default CalculationSelector;

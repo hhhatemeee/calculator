@@ -1,5 +1,6 @@
 import React from 'react';
 import cn from 'classnames';
+import PropTypes from 'prop-types';
 
 import './ModalWindowWrapper.scss';
 
@@ -35,5 +36,27 @@ const ModalWindowWrapper = (props) => {
     </div >
   )
 }
+
+ModalWindowWrapper.propTypes = {
+  hide: PropTypes.bool.isRequired,
+  onClick: PropTypes.func.isRequired,
+  boolean: PropTypes.bool.isRequired,
+  children: PropTypes.any,
+  className: PropTypes.string,
+  onKeyDown: PropTypes.func,
+  title: PropTypes.string,
+  isInlineButtons: PropTypes.bool,
+  button: PropTypes.node,
+  buttonText: PropTypes.string,
+};
+
+ModalWindowWrapper.defaultProps = {
+  hide: true,
+  boolean: true,
+  className: '',
+  title: "Title",
+  isInlineButtons: false,
+  buttonText: 'OK',
+};
 
 export default ModalWindowWrapper;

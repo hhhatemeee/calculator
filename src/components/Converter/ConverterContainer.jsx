@@ -84,7 +84,7 @@ const ConverterContainer = (props) => {
         size = -(num * 2.8) + 75.4;
       }
       if (num > 16) {
-        size = -(num * 1.4) + 52.9;
+        size = -(num * 1.4) + 52;
       }
 
       setFontSizeTwo(size);
@@ -202,7 +202,6 @@ const ConverterContainer = (props) => {
       servicesUrl={props.servicesUrl}
       setFetching={props.setFetching}
       currentCourse={props.currentCourse}
-      getFontSize={getFontSize}
       isFetching={props.isFetching}
     />
   )

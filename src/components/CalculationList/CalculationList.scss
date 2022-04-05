@@ -162,13 +162,21 @@
 
 .isDisabled{
   pointer-events: none;
-  opacity: 0.4;
+
+  .item-row{
+    pointer-events: none;
+    opacity: 0.4;
+  }
+
+  span{
+    pointer-events: all;
+  }
 
 }
 
-.isDeleted{
-  transform: scale(0);
-}
+// .isDeleted{
+//   transform: scale(0);
+// }
 
 .current {
   border-left: 2px solid $btn-blue-color;

@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
 
 import CalculationList from '../CalculationList/CalculationList';
-import InputAndItemreverseSide from '../InputAndItemreverseSide/InputAndItemreverseSide';
 import ModalWindowWrapper from '../ModalWindowWrapper/ModalWindowWrapper';
 
 import './ChangeTypes.scss';
@@ -15,11 +14,6 @@ const ChangeTypes = (props) => {
   const [isAddSection, setAddSection] = useState(false);
   const [currentSection, setCurrentSection] = useState();
   const [currentItem, setCurrentItem] = useState();
-
-  // useEffect(() => {
-  //   document.addEventListener('mousedown', handleShowMenuDown);
-  //   return () => document.removeEventListener('mousedown', handleShowMenuDown);
-  // }, []);
 
   const handleShowMenuDown = (e) => {
     if (e.target.classList.contains('menu__btn')) {
@@ -50,13 +44,11 @@ const ChangeTypes = (props) => {
 
   const handleAddSection = () => {
     onIsAddSection();
-
     props.onSetRenderWindow({
       isRendering: true,
       currentType: 'addSection',
       callBack: props.onAddSection,
     })
-
   };
 
   //  Modal window display handler
@@ -96,11 +88,10 @@ const ChangeTypes = (props) => {
       indexStart, indexDrop
     });
   }
-  console.log(isEditMode);
+
   return (
     <DragDropContext onDragEnd={handleDragEnd} >
       <div className={cn('menu', { 'menu-open': showMenu })} onMouseDown={handleShowMenuDown}>
-        {/* Modal window for change icon  */}
         <div className={cn('menu__btn', { 'btn_open': showMenu, 'menu__btn_hide': isEditMode })} onClick={handleShowMenu}>
           <span></span>
         </div>
@@ -144,7 +135,7 @@ const ChangeTypes = (props) => {
                           setCurrentId={props.setCurrentId}
                           currentId={props.currentId}
                           handleShowMenu={handleShowMenu}
-                          disabledCalcs={props.disabledCalcs[el.name]}
+                          disabledCalcs={props.disabledCalcs}
                           isEditMode={isEditMode}
                           onDeleteItem={props.onDeleteItem}
                           onAddItem={props.onAddItem}
@@ -182,7 +173,8 @@ ChangeTypes.propTypes = {
   calcTypes: PropTypes.array,
   setCurrentType: PropTypes.func,
   currentType: PropTypes.string,
-  disabledCalcs: PropTypes.object,
+  disabledCalcs: PropTypes.array,
+  isMoving: PropTypes.bool,
   onDeleteItem: PropTypes.func,
   onAddItem: PropTypes.func,
   onAddSection: PropTypes.func,
@@ -191,12 +183,19 @@ ChangeTypes.propTypes = {
   onMoveSection: PropTypes.func,
   setNameSection: PropTypes.func,
   onSetRenderWindow: PropTypes.func,
+  handleSetCurrentImgName: PropTypes.func,
+  setCurrentIcon: PropTypes.func,
+  setIsMoving: PropTypes.func,
 };
 
 ChangeTypes.defaultProps = {
   calcTypes: {},
   currentType: '',
-  disabledCalcs: {},
+  disabledCalcs: [],
+  isMoving: false,
+  handleSetCurrentImgName: () => console.log('Не определена функция handleSetCurrentImgName'),
+  setCurrentIcon: () => console.log('Не определена функция setCurrentsetCurrentIconType'),
+  setIsMoving: () => console.log('Не определена функция setIsMoving'),
   setCurrentType: () => console.log('Не определена функция setCurrentType'),
   onDeleteItem: () => console.log('Не указана функция onDeleteItem'),
   onAddItem: () => console.log('Не указана функция onAddItem'),

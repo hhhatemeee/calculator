@@ -14,11 +14,11 @@ import AddSectionWindow from './components/ChangeTypes/AddSectionWindow/AddSecti
 const CalcDelegation = (props) => {
   const [currentKey, setCurrentKey] = useState({});
   const [isShowWindow, setShowWindow] = useState(false);
+  let calculator;
+  let modalWindow;
 
   const handleShowWindow = () => setShowWindow(!isShowWindow);
 
-  let calculator;
-  let modalWindow;
   useEffect(() => { }, [props.listLimit])
 
   useEffect(() => {
@@ -27,6 +27,7 @@ const CalcDelegation = (props) => {
     }
   }, [props.renderWindow])
 
+  // Selects which type of calculator to render
   switch (props.currentType) {
     case CALC_TYPES.Standart:
       calculator = <CalculatorContainer currentKey={currentKey} />;
@@ -35,19 +36,20 @@ const CalcDelegation = (props) => {
       calculator = <ConverterContainer
         currentKey={currentKey}
         listLimit={props.listLimit}
-        getStatusApi={props.getStatusApi}
       />
       break;
     default:
       calculator = <HomePage setCurrentType={props.setCurrentType} />
       break;
-  }
+  };
 
+  // Selects which type of modal window to render
   switch (props.renderWindow.currentType) {
     case 'icons':
       const handleSetIcon = (name) => {
         props.renderWindow.callBack(name);
       }
+
       modalWindow = <ModalWindowWrapper
         className='window-icon__container'
         hide={true}
@@ -56,14 +58,15 @@ const CalcDelegation = (props) => {
         onClick={handleShowWindow}>
         <IconList setIcon={handleSetIcon} currentImgName={props.currentImgName} />
       </ModalWindowWrapper>
+
       break;
     case 'limit':
       modalWindow = <ModalWindow
         showWindow={props.showWindow}
         listLimit={props.listLimit}
         onClick={props.onClick}
-        switchService={props.switchService}
         url={props.url}
+        setCurrentService={props.setCurrentService}
       />
       break;
     case 'delete':
@@ -91,7 +94,7 @@ const CalcDelegation = (props) => {
       />
     default:
       break;
-  }
+  };
 
   const onKeyDown = (e) => setCurrentKey(e);
 
@@ -104,21 +107,25 @@ const CalcDelegation = (props) => {
 }
 
 CalcDelegation.propTypes = {
-  renderWindow: PropTypes.bool,
+  renderWindow: PropTypes.object,
   showWindow: PropTypes.bool,
   listLimit: PropTypes.array,
   url: PropTypes.string,
   currentKey: PropTypes.object,
   onClick: PropTypes.func,
   setCurrentType: PropTypes.func,
+  currentImgName: PropTypes.string,
+  setCurrentService: PropTypes.func,
 };
 
 CalcDelegation.defaultProps = {
-  renderWindow: false,
+  renderWindow: {},
   showWindow: false,
   listLimit: [],
   url: '',
   currentKey: {},
+  currentImgName: '',
+  setCurrentService: () => console.log('Не указана функция setCurrentService'),
   onClick: () => console.warn('Не указана функция onClick'),
   setCurrentType: () => console.warn('Не указана функция setCurrentType'),
 }

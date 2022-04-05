@@ -84,6 +84,10 @@ const CalculatorContainer = (props) => {
       size = 42;
     }
 
+    if (num === 'Overflow') {
+      size = 62;
+    }
+
     setFontSize(size)
   }
 
@@ -101,8 +105,14 @@ const CalculatorContainer = (props) => {
       : calcStory.length)
       .split('');
 
+    if (result === 'Overflow') {
+      return;
+    }
+
     let res = Number(result);
     let his = history;
+
+
 
     if (value === '=') {
       let isOperation = false;
@@ -143,7 +153,11 @@ const CalculatorContainer = (props) => {
 
               break;
             case '×':
-              res = prevNumber * nextNumber
+              res = prevNumber * nextNumber;
+              console.log(res);
+              if (!isFinite(res)) {
+                res = 'Overflow'
+              }
               break;
             default:
               res = 0;
@@ -176,6 +190,10 @@ const CalculatorContainer = (props) => {
             break;
           case '×':
             res = result * prevNumber;
+            if (!isFinite(res)) {
+              res = 'Overflow';
+              console.log(res);
+            }
             break;
           default:
             res = result;
@@ -188,8 +206,10 @@ const CalculatorContainer = (props) => {
         res = res.toExponential(15);
       }
 
-      res.toString().includes('e') ? res = Number(res).toPrecision(13) : res = Number(res);
-
+      if (res !== 'Overflow') {
+        res.toString().includes('e') ? res = Number(res).toPrecision(13) : res = Number(res);
+      }
+      console.log(res);
       setResult(res);
 
       if (res.toString().length >= 5) {
@@ -286,7 +306,6 @@ const CalculatorContainer = (props) => {
     let curNum = currentNumber;
     let preNum = prevNumber;
     let res = result;
-
     const curNumLength = splittingNumber(curNum).length;
 
     switch (element) {
@@ -342,6 +361,24 @@ const CalculatorContainer = (props) => {
       getFontSize(curNumLength);
     }
 
+    // Button 'C'
+    if (element === 'c') {
+      curNum = 0;
+      preNum = 0;
+      res = 0;
+      setResult(res);
+      setCurrentNumber(curNum);
+      setHistory(curNum);
+      getFontSize(curNum);
+
+      return;
+    }
+
+    if (res === 'Overflow') {
+      getFontSize(res, history);
+      return;
+    }
+
     // Button for removing elements in a row
     if (element === 'delete' || element === KEYS_NAME.Backspace) {
       const clone = curNum;
@@ -379,6 +416,8 @@ const CalculatorContainer = (props) => {
 
       return;
     }
+
+
 
     // Can't put equal until there's a number
     if ((curNum === 0 && preNum === 0 && res === 0) && element === '=') {
@@ -490,17 +529,7 @@ const CalculatorContainer = (props) => {
       setCurrentNumber(curNum);
     }
 
-    // Button 'C'
-    if (element === 'c') {
-      curNum = 0;
-      preNum = 0;
-      res = 0;
-      setResult(res);
-      setCurrentNumber(curNum);
-      setHistory(curNum);
-      getFontSize(curNum);
 
-    }
   }
 
   return (
