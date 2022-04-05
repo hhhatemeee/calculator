@@ -14,8 +14,6 @@ import convertationService from '../../services/convertationService';
 import ModalInfoContainer from './ModalInfo/ModalInfoConainer';
 
 const Converter = (props) => {
-  useEffect(() => { }, [props.currentService]);
-
   const [from, setFrom] = useState(
     {
       name: CURRENCY_MOCK.RUB[0],
@@ -27,23 +25,31 @@ const Converter = (props) => {
       value: CURRENCY_MOCK.USD[1],
     });
   const [statusServices, setStatusServices] = useState([]);
+  const [isShow, setIsShow] = useState(false);
 
   const setOptions = () => props.services.filter((el) => !props.listLimit.includes(el.name));
 
-  const setFromValue = (value) => setFrom(value);
-  const setToValue = (value) => setTo(value);
-
-  const onSetStatusServices = (value) => {
-    setStatusServices(value);
-  };
+  useEffect(() => { }, [props.currentService]);
 
   useEffect(() => {
-  }, [props.isFetching])
+    document.addEventListener('mousedown', handleShowInfo);
+
+    return () => document.removeEventListener('mousedown', handleShowInfo);
+  }, []);
 
   const onClick = () => {
     props.setLoading(true);
     setCurrentCourse(to.name);
   }
+
+  const setFromValue = (value) => setFrom(value);
+  const setToValue = (value) => setTo(value);
+
+  const onSetIsShow = (value) => setIsShow(value);
+
+  const onSetStatusServices = (value) => {
+    setStatusServices(value);
+  };
 
   const setCurrentCourse = async (e) => {
     //If an event came from the selector, then process it.
@@ -55,7 +61,6 @@ const Converter = (props) => {
 
     //If the name of the currency has come
     const cc = await ConvertationService.getConvertation(e);
-    console.log(cc);
     await props.setCurrentCourse(cc);
   }
 
@@ -78,6 +83,23 @@ const Converter = (props) => {
     props.setCurrentCourse(1 / props.currentCourse);
   }
 
+  const handleShowInfo = (e) => {
+    let result;
+
+    if (e.target.classList.contains('ico-Info')) {
+      return;
+    }
+
+    e.target.classList.forEach((name) => {
+      if (name.includes('modal-info')) {
+        result = true;
+        return;
+      }
+    });
+
+    result ? setIsShow(true) : setIsShow(false);
+  }
+
   return (
     <div className='converter__container'>
       <ModalInfoContainer
@@ -86,6 +108,8 @@ const Converter = (props) => {
         isFetching={props.isFetching}
         statusServices={statusServices}
         onSetStatusServices={onSetStatusServices}
+        onSetIsShow={onSetIsShow}
+        isShow={isShow}
       />
       <ScreenOther
         CURRENCY_TABLE={props.CURRENCY_TABLE}

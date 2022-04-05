@@ -73,7 +73,9 @@ function App(props) {
   return (
     <div className={cn('calc', { calc_theme_dark: darkMode })}>
       <ThemeSelector darkMode={darkMode} onChange={handleTheme} />
-      <ChangesTypesContainer onSetRenderWindow={onSetRenderWindow} />
+      <ChangesTypesContainer
+        onSetRenderWindow={onSetRenderWindow}
+      />
       <CalcDelegation
         showWindow={showWindow}
         renderWindow={renderWindow}

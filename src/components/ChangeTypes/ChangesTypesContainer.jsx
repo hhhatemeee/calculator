@@ -24,7 +24,8 @@ const ChangesTypesContainer = (props) => {
       handleSetCurrentImgName={props.handleSetCurrentImgName}
       setCurrentIcon={props.setCurrentIcon}
       isMoving={props.isMoving}
-      setIsMoving={props.setIsMoving} />
+      setIsMoving={props.setIsMoving}
+    />
   )
 }
 

@@ -4,15 +4,14 @@ import './ModalInfo.scss';
 import convertationService from '../../../services/convertationService';
 import ModalInfo from './ModalInfo';
 
-const ModalInfoContainer = ({ servicesUrl, statusServices, onSetStatusServices, setFetching, isFetching }) => {
-  const [isShow, setIsShow] = useState(false);
+const ModalInfoContainer = ({ onSetIsShow, isShow, servicesUrl, statusServices, onSetStatusServices, setFetching, isFetching }) => {
 
   const onClick = () => {
     if (!isShow) {
       setFetching(true);
       convertationService.getStatusApi().then(result => onSetStatusServices(result));
     }
-    setIsShow(!isShow);
+    onSetIsShow(!isShow);
   };
 
   useEffect(() => {

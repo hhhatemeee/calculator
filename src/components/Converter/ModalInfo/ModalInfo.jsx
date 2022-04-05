@@ -49,7 +49,6 @@ const ModalInfo = ({ servicesUrl, statusServices, onClick, isShow, isFetching })
         <div className='modal-info__header' >
           STATUS API</div>
         {
-
           isFetching && isShow ? <Loader className='modal-info__loader' />
             : statusServices && statusServices.map((service) => {
               const key = Object.keys(service);

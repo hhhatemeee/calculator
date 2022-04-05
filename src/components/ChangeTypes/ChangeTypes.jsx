@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import cn from 'classnames';
 import PropTypes from 'prop-types';
 import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
@@ -13,9 +13,28 @@ const ChangeTypes = (props) => {
   const [showMenu, setShowMenu] = useState(false);
   const [isEditMode, setEditMode] = useState(false);
   const [isAddSection, setAddSection] = useState(false);
-  const [newSection, setNewSection] = useState('');
   const [currentSection, setCurrentSection] = useState();
   const [currentItem, setCurrentItem] = useState();
+
+  // useEffect(() => {
+  //   document.addEventListener('mousedown', handleShowMenuDown);
+  //   return () => document.removeEventListener('mousedown', handleShowMenuDown);
+  // }, []);
+
+  const handleShowMenuDown = (e) => {
+    if (e.target.classList.contains('menu__btn')) {
+      return;
+    }
+    if (!isEditMode) {
+      let result;
+      e.target.classList.forEach((name) => {
+        if (name.includes('menu') || name.includes('item')) {
+          result = true;
+        }
+      })
+      result ? setShowMenu(true) : setShowMenu(false);
+    }
+  }
 
   const onEditMode = () => {
     if (isAddSection) {
@@ -77,10 +96,10 @@ const ChangeTypes = (props) => {
       indexStart, indexDrop
     });
   }
-
+  console.log(isEditMode);
   return (
-    <DragDropContext onDragEnd={handleDragEnd}>
-      <div className={cn('menu', { 'menu-open': showMenu })}>
+    <DragDropContext onDragEnd={handleDragEnd} >
+      <div className={cn('menu', { 'menu-open': showMenu })} onMouseDown={handleShowMenuDown}>
         {/* Modal window for change icon  */}
         <div className={cn('menu__btn', { 'btn_open': showMenu, 'menu__btn_hide': isEditMode })} onClick={handleShowMenu}>
           <span></span>
@@ -152,6 +171,7 @@ const ChangeTypes = (props) => {
               )}
             </Droppable>
           </ModalWindowWrapper>
+          {showMenu && <div className='background'></div>}
         </div>
       </div >
     </DragDropContext >

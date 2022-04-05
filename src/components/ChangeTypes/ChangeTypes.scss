@@ -19,7 +19,7 @@
   &__btn{
     display: block;
     position: absolute;
-    z-index: 6;
+    z-index: 9;
     top: 0px;
     left: 0;
     opacity: 1;
@@ -90,7 +90,7 @@
       opacity: 1;
       box-shadow: 4px -1px 5px 0px rgba(34, 60, 80, 0.12);
       font-size: 16px;
-      z-index: 5;
+      z-index: 8;
     }
 
     &_edit{
@@ -176,6 +176,13 @@
       color:rgba($color-black,.6)
     }
   }
+}
+
+.background{
+  width: 375px;
+  height: 812px;
+  position:absolute;
+  z-index: 7;
 }
 
 .menu-list_edit, .item__selector-icons{
