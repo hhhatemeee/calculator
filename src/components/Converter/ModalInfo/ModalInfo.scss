@@ -11,12 +11,64 @@
     
   };
 
+  &__hover-window{
+    position: absolute;
+    top: 18px;
+    right: -8px;
+    cursor: default;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    display: none;
+    max-width: 145px !important;
+    max-height: 162px !important;
+    
+    h5{
+      margin: 5px 10px;
+      padding: 0;
+      color:$btn-white-color;
+      font-weight: normal;
+
+      &:hover, &:active{
+        color: $btn-white-color !important;
+      }
+      span{
+        font-weight: 900;
+      }
+      .green{
+        color:$status-up-color;
+      }
+
+      .red{
+        color:$status-down-color;
+      }
+
+      .yellow{
+        color:$status-partly-up-color;
+      }
+    }
+
+    &_show{
+      opacity: 1;
+      visibility: inherit;
+      display: inherit;
+    }
+    
+    &_mobile{
+      opacity: 1;
+      visibility: inherit;
+      display: inherit;
+      top: 18px;
+      right: -8px;
+    }
+  }
+
   &__logo{
     i{
       position: absolute;
       font-size: 25px;
       top:-120px;
-      left: 320px;
+      right: -10px;
       color: $btn-dark-light-color;
       cursor: pointer;
       z-index: 6;
@@ -34,7 +86,7 @@
   &__container{
     position: absolute;
     top:-100px;
-    left: 215px;
+    right: 0;
     width: 110px;
     max-height: 0;
     border-radius: 5px;
@@ -54,7 +106,7 @@
     margin-bottom: 4px;
     background-color: rgba($btn-blue-color,.8);
     border-radius: 12px;
-    cursor: default;
+    cursor: pointer;
   }
 
   &__status-list{
@@ -130,6 +182,12 @@
   background-color: $status-down-color;
   box-shadow: 0px 0px 3px 0px rgba(255, 102, 0, 0.637);
   background-image: linear-gradient(210deg, #f1714a 14%, #aa0000 84%);
+}
+
+.isPartial{
+  background-color: $status-partly-up-color;
+  box-shadow: 0px 0px 3px 0px rgba(255, 208, 0, 0.637);
+  background-image: linear-gradient(210deg, #f1e04a 14%, #aa8200 84%);
 }
 
 .isOpen{

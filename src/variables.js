@@ -36,4 +36,12 @@ export const KEYS = {
 export const KEYS_NAME = {
   Backspace: 'Backspace',
   Dot: '.',
-}
+};
+
+export const SERVICES_NAME = {
+  CC: 'CC',
+  FCA: 'FCA',
+  OE: 'OE',
+};
+
+export const MOBILES_NAME = ['mobile', 'tablet', 'android', 'iphone'];
