@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/calculator/static/css/main.81ba9966.css",
-    "main.js": "/calculator/static/js/main.bb6cc39b.js",
+    "main.css": "/calculator/static/css/main.d90261a7.css",
+    "main.js": "/calculator/static/js/main.d9ad5b6c.js",
     "static/media/WorkSans-Regular.eot": "/calculator/static/media/WorkSans-Regular.78567f8edec5e0163d87.eot",
     "static/media/WorkSans-Regular.ttf": "/calculator/static/media/WorkSans-Regular.dac6f791072063e98f26.ttf",
     "static/media/WorkSans-Regular.woff": "/calculator/static/media/WorkSans-Regular.8618f4781e0ce9178279.woff",
@@ -20,7 +20,7 @@
     "static/media/Loader.svg": "/calculator/static/media/Loader.9d67522a0adb2307ab1749c18bcd3686.svg"
   },
   "entrypoints": [
-    "static/css/main.81ba9966.css",
-    "static/js/main.bb6cc39b.js"
+    "static/css/main.d90261a7.css",
+    "static/js/main.d9ad5b6c.js"
   ]
 }
