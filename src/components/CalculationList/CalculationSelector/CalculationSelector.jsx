@@ -11,10 +11,10 @@ const CalculationSelector = ({ options, onChange, onClick, defaultValue, onClick
 
     <div className='menu-calculation-list__selector-container'>
       <Select options={options} onChange={onChange} defaultValue={defaultValue} />
+      <div className='menu-calculation-list__btn-add' onClick={onClick}>
+        Add
+      </div>
       <div className='menu-calculation-list__selector-row'>
-        <div className='menu-calculation-list__btn-add' onClick={onClick}>
-          Add
-        </div>
         <i className='ico-return' onClick={onClickReturn} />
       </div>
     </div>

@@ -3,67 +3,108 @@
 @import "../../../scss/variables.scss";
 
 
-.menu-calculation-list{
+.menu-calculation-list {
 
-  &__selector{
-    &-container{
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    animation: animate-appearance .2s ease-in;
+  &__selector {
+    &-container {
+      position: relative;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      animation: animate-appearance .2s ease-in;
+      margin-left: 8px;
+      // margin-right: 10px;
+      border-radius: 0 1em 3em 0;
 
-    select{
-      background-color: $btn-white-color;
-      font-size: 18px;
-    }
 
-    i{
-      cursor: pointer;
-      &:hover{
-        color: rgba($color-black, .8);
+      .select {
+        z-index: 4;
       }
-  
-      &:active{
-        color: rgba($color-black, .5);
+
+
+      select {
+        background-color: $btn-white-color;
+        font-size: 18px;
+        line-height: 30px;
+        width: 190px;
+        padding: 5px 10px 5px 12px;
+        border-radius: 5px;
+        border: 1px solid rgba($btn-dark-light-color, .2);
+        border-right: none;
+        box-shadow: 0 1px 3px -2px rgba($btn-dark-light-color, .7);
+        border-bottom-right-radius: 0px;
+        border-top-right-radius: 0px;
+
+        &:focus {
+          outline: none;
+        }
+
+        option {
+          padding: 0 100px;
+        }
+
+      }
+
+      i {
+        position: absolute;
+        cursor: pointer;
+        right: 5px;
+
+        &:hover {
+          color: rgba($color-black, .8);
+        }
+
+        &:active {
+          color: rgba($color-black, .5);
+        }
+      }
+    }
+
+    &-row {
+      display: flex;
+      align-items: center;
+
+      i {
+        margin-left: 5px;
       }
     }
   }
 
-  &-row{
+  &__btn-add {
+    position: absolute;
     display: flex;
     align-items: center;
-
-    i{
-      margin-left: 5px;
-    }
-  }
-  }
-  
-  &__btn-add{
+    top: 0;
+    right: 30px;
     cursor: pointer;
     font-weight: 500;
     cursor: pointer;
-    padding: 2px 5px;
+    padding: 6px 5px;
     background-color: $btn-white-color;
     color: $btn-blue-color;
     font-size: 18px;
     text-align: center;
     border-radius: 6px;
     transition: all .1s ease-in;
+    border: 1px solid rgba($btn-dark-light-color, .2);
+    border-bottom-right-radius: none;
+    border-top-right-radius: none;
+    border-left: none;
+    padding-left: 10px;
+    box-shadow: 0 1px 3px -2px rgba($btn-dark-light-color, .7);
     user-select: none;
     animation: animate-appearance .2s ease-in;
+    z-index: 3;
 
-    &:hover{
+    &:hover {
       background-color: $btn-blue-color;
       color: $btn-white-color;
     }
-  
-    &:active{
-      background-color:rgba($btn-blue-color,.6);
-      border-color: $btn-white-color !important;
+
+    &:active {
+      background-color: rgba($btn-blue-color, .6);
       color: $btn-white-color;
     }
   }
 
 }
-
