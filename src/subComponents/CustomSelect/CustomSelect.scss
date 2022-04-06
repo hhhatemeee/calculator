@@ -1,0 +1,132 @@
+@import "../../scss/variables.scss";
+@import "../../scss/icons.scss";
+@import "../../scss/fonts.scss";
+
+
+.dropDown {
+  cursor: pointer;
+
+  &__container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    padding: 5px 10px;
+    font-size: 18px;
+    width: 100%;
+    background-color: $btn-white-color;
+    border: 1px solid rgba($btn-dark-light-color, .2);
+    border-radius: 5px;
+    box-shadow: 0 1px 3px -2px rgba($btn-dark-light-color, .7);
+    transition: all .1s ease;
+
+    &_open {
+      border: 1px solid rgba($btn-blue-color, .9);
+
+      &:hover {
+        border: 1px solid rgba($btn-blue-color, .9) !important;
+      }
+    }
+
+    &:hover {
+      border: 1px solid rgba($btn-dark-light-color, .4);
+    }
+  }
+
+  &__title {
+    padding: 3px;
+    overflow-x: hidden;
+    // font-weight: 900;
+  }
+
+  &__arrow {
+    transition: all .2s ease-in;
+    font-weight: 900;
+    cursor: pointer;
+    margin-left: 5px;
+
+    &_open {
+      transform: rotate(-90deg);
+    }
+
+    &:hover {
+      color: rgba($color-black, .8);
+    }
+
+    &:active {
+      color: rgba($color-black, .5);
+    }
+  }
+
+  &__list {
+    position: absolute;
+    display: none;
+    background: $btn-white-color;
+    right: -1px;
+    top: 0px;
+    width: 100%;
+    max-height: 120px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    border: 1px solid rgba($btn-dark-light-color, .2);
+    opacity: 0;
+    border-radius: 5px;
+    transition: all .15s ease;
+    z-index: 12;
+
+    &_open {
+      display: block;
+      opacity: 1;
+      top: 40px;
+    }
+
+    &::-webkit-scrollbar {
+      display: inherit;
+      width: 8px;
+      background-color: $btn-white-color;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      border-radius: 10px;
+      background-color: rgba($btn-dark-light-color, .2);
+    }
+
+    &::-webkit-scrollbar-track {
+      -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.2);
+      border-radius: 10px;
+      background-color: $btn-white-color;
+    }
+  }
+
+  &__item {
+    border-bottom: 1px solid rgba($btn-dark-light-color, .2);
+    width: 100%;
+    transition: all .1s ease;
+    padding: 10px 0;
+
+    span {
+      padding: 0px 15px;
+    }
+
+    &_current {
+      background-color: rgba($btn-blue-color, .8);
+      color: $btn-white-color;
+
+      &:hover {
+        background-color: rgba($btn-blue-color, .8) !important;
+      }
+    }
+
+    &:hover {
+      background-color: rgba($icon-color-hover-dark, .4);
+    }
+
+    &:active {
+      background-color: rgba($icon-color-hover-dark, .6);
+    }
+
+    &:last-child {
+      border-bottom: 0px;
+    }
+  }
+}

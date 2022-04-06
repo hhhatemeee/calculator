@@ -5,50 +5,23 @@
 
 .menu-calculation-list {
 
+  &__select-container {
+    width: 175px;
+  }
+
   &__selector {
     &-container {
       position: relative;
       display: flex;
-      justify-content: space-between;
       align-items: center;
-      animation: animate-appearance .2s ease-in;
-      margin-left: 8px;
-      // margin-right: 10px;
-      border-radius: 0 1em 3em 0;
+      margin-left: 10px;
 
-
-      .select {
-        z-index: 4;
-      }
-
-
-      select {
-        background-color: $btn-white-color;
-        font-size: 18px;
-        line-height: 30px;
-        width: 190px;
-        padding: 5px 10px 5px 12px;
-        border-radius: 5px;
-        border: 1px solid rgba($btn-dark-light-color, .2);
-        border-right: none;
-        box-shadow: 0 1px 3px -2px rgba($btn-dark-light-color, .7);
-        border-bottom-right-radius: 0px;
-        border-top-right-radius: 0px;
-
-        &:focus {
-          outline: none;
-        }
-
-        option {
-          padding: 0 100px;
-        }
-
+      &_animate {
+        animation: animate-appearance .2s ease-in;
       }
 
       i {
-        position: absolute;
         cursor: pointer;
-        right: 5px;
 
         &:hover {
           color: rgba($color-black, .8);
@@ -71,30 +44,21 @@
   }
 
   &__btn-add {
-    position: absolute;
     display: flex;
+    justify-content: center;
     align-items: center;
-    top: 0;
-    right: 30px;
     cursor: pointer;
     font-weight: 500;
     cursor: pointer;
-    padding: 6px 5px;
+    padding: 8px 5px;
     background-color: $btn-white-color;
     color: $btn-blue-color;
     font-size: 18px;
     text-align: center;
     border-radius: 6px;
     transition: all .1s ease-in;
-    border: 1px solid rgba($btn-dark-light-color, .2);
-    border-bottom-right-radius: none;
-    border-top-right-radius: none;
-    border-left: none;
-    padding-left: 10px;
-    box-shadow: 0 1px 3px -2px rgba($btn-dark-light-color, .7);
     user-select: none;
-    animation: animate-appearance .2s ease-in;
-    z-index: 3;
+    margin-left: 28px;
 
     &:hover {
       background-color: $btn-blue-color;

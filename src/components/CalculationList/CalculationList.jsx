@@ -11,6 +11,7 @@ import { CALC_TYPES } from '../../variables';
 
 import './CalculationList.scss';
 import CalculationSelector from './CalculationSelector/CalculationSelector';
+import CustomSelect from '../../subComponents/CustomSelect/CustomSelect';
 
 
 // Draws a list of calculators, depending on the type
@@ -26,26 +27,46 @@ const CalculationList = (props) => {
   const [isAnimated, setAnimated] = useState(false);
   const [options, setOptions] = useState([]);
   const [currentTypeInSelector, setCurrentTypeInSelector] = useState('Standart');
+  const [selectIsOpen, setSelectOpen] = useState(false);
 
-  useEffect(() => {
-    setOptions(updateOptions());
-  }, [props.isMoving, props.list]);
+  useEffect(() => setOptions(updateOptions()), [props.isMoving, props.list]);
 
   useEffect(() => {
     if (options.length >= 1) {
-      setNewItem({ ...newItem, name: options.at(-1).name })
-      setCurrentTypeInSelector(options.at(-1).name)
+      setNewItem({ ...newItem, name: options.at(-1) });
+      setCurrentTypeInSelector(options.at(-1));
     }
   }, [options]);
+
+  useEffect(() => {
+    document.addEventListener('mousedown', handleMouseOpenSelect);
+
+    return () => document.removeEventListener('mousedown', handleMouseOpenSelect)
+  });
 
 
   const updateOptions = () => {
     return Object.keys(CALC_TYPES).map((name) => {
       if (!props.list.map((calc) => calc.name).includes(name)) {
-        return ({ name: name, value: name });
+        return name;
       }
-    }).filter(name => name)
+    }).filter(name => name);
   };
+
+  const onSetSelectOpen = (value) => setSelectOpen(value);
+
+  // Close selector on click past
+  const handleMouseOpenSelect = (e) => {
+    let result;
+
+    e.target.classList.forEach((name) => {
+      if (name.includes('dropDown')) {
+        result = true;
+      }
+    })
+
+    result ? setSelectOpen(selectIsOpen) : setSelectOpen(false);
+  }
 
   const onAddItem = () => {
     setAddItem(!isAddItem);
@@ -60,16 +81,14 @@ const CalculationList = (props) => {
     props.onAddItem(newItem);
   }
 
-  const handleSelectorSetItem = (e) => {
-    const targetValue = e && e.target && e.target.value
-      ? e.target.value
-      : '';
-    setCurrentTypeInSelector(targetValue);
+  const handleSelectorSetItem = (value) => {
+    setCurrentTypeInSelector(value);
     setNewItem({
       ...newItem,
-      name: targetValue,
+      name: value,
     });
   }
+
   // Deleted section
   const onDeleteSection = () => props.onSetRenderWindow({
     isRendering: true,
@@ -81,7 +100,6 @@ const CalculationList = (props) => {
   const onEditSectionTitle = () => setEditSection(!isEditSection);
 
   const onChangNameSection = (e) => setEditNameSection(e.target.value);
-
 
   const onKeyDownSetNameSection = (e) => {
     if (e && e.keyCode === 13) {
@@ -165,8 +183,12 @@ const CalculationList = (props) => {
                     options={options}
                     onChange={handleSelectorSetItem}
                     onClick={handleSetNewItem}
-                    defaultValue={currentTypeInSelector}
-                    onClickReturn={onAddItem} />
+                    value={currentTypeInSelector}
+                    handleIsOpen={onSetSelectOpen}
+                    isOpen={selectIsOpen}
+                    onClickReturn={onAddItem}
+                    isAnimated={isAnimated}
+                  />
                   : <h4 className={cn('menu-calculation-list__add-text', { 'menu-calculation-list__add-text_animate': isAnimated })}
                     onClick={onAddItem}>Add item...</h4>)
                 : null)

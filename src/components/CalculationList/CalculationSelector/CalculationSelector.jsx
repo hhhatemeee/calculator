@@ -1,40 +1,64 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import cn from 'classnames';
 
-import Select from '../../Select/Select';
+import CustomSelect from '../../../subComponents/CustomSelect/CustomSelect';
 
 import './CalculationSelector.scss';
-import optionsInterface from '../../Select/SelectInterface';
 
-const CalculationSelector = ({ options, onChange, onClick, defaultValue, onClickReturn }) => {
+
+const CalculationSelector = ({
+  options,
+  onChange,
+  onClick,
+  value,
+  onClickReturn,
+  handleIsOpen,
+  isOpen,
+  isAnimated }) => {
+
   return (
 
-    <div className='menu-calculation-list__selector-container'>
-      <Select options={options} onChange={onChange} defaultValue={defaultValue} />
-      <div className='menu-calculation-list__btn-add' onClick={onClick}>
-        Add
+    <div className={cn('menu-calculation-list__selector-container', { 'menu-calculation-list__selector-container_animate': isAnimated })} >
+      <div className='menu-calculation-list__select-container'>
+        <CustomSelect
+          options={options}
+          onChange={onChange}
+          value={value}
+          handleIsOpen={handleIsOpen}
+          isOpen={isOpen}
+        />
       </div>
       <div className='menu-calculation-list__selector-row'>
+        <div className='menu-calculation-list__btn-add' onClick={onClick}>
+          Add
+        </div>
         <i className='ico-return' onClick={onClickReturn} />
       </div>
-    </div>
+    </div >
 
   )
 }
 
 CalculationSelector.propTypes = {
-  options: PropTypes.arrayOf(PropTypes.shape(optionsInterface)).isRequired,
-  defaultValue: PropTypes.string,
+  options: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.string, PropTypes.number])).isRequired,
+  value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  isOpen: PropTypes.bool,
+  isAnimated: PropTypes.bool,
   onChange: PropTypes.func,
   onClick: PropTypes.func,
   onClickReturn: PropTypes.func,
+  handleIsOpen: PropTypes.func,
 };
 
 CalculationSelector.defaultProps = {
-  defaultValue: '',
+  value: 'value',
+  isOpen: false,
+  isAnimated: false,
   onChange: () => console.log('Не опеределена функция onChange'),
   onClick: () => console.log('Не опеределена функция onClick'),
   onClickReturn: () => console.log('Не опеределена функция onClickReturn'),
+  handleIsOpen: () => console.log('Не опеределена функция handleIsOpen'),
 };
 
 export default CalculationSelector;
