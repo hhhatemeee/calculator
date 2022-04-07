@@ -1,13 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import cn from 'classnames';
 
 import './Input.scss';
 
-const InputCustom = ({ placeHolder, value, onKeyDown, onChange, onBlur, className }) => {
+const InputCustom = ({ placeHolder, value, onKeyDown, onChange, onBlur, className, isError, errorText }) => {
   return (
     <div className={`input__container ${className || ''}`}>
+      <div className={cn('input__error-message', { 'input__error-message_isShow': isError })}>
+        <i className='ico-Info'></i>
+        <span>{errorText}</span>
+      </div>
       <input
-        className='input__item'
+        className={cn('input__item', { 'input__item_isError': isError })}
         type="text"
         placeholder={placeHolder}
         value={value}

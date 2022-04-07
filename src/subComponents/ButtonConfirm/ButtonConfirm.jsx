@@ -3,10 +3,10 @@ import PropTypes from 'prop-types';
 
 import './ButtonConfirm.scss';
 
-const ButtonConfirm = ({ onClick }) => {
+const ButtonConfirm = ({ onClick, text = 'Ok' }) => {
   return (
     <div onClick={onClick} className='button-confirm'>
-      Yes
+      {text}
     </div>
   )
 }

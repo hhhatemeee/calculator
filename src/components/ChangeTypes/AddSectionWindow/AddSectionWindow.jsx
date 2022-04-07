@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 
 import ButtonConfirm from '../../../subComponents/ButtonConfirm/ButtonConfirm';
@@ -13,14 +13,31 @@ const AddSectionWindow = ({
   onClickButton,
 }) => {
   const [newSection, setNewSection] = useState('');
+  const [isError, setIsError] = useState(false);
 
-  const onChange = (e) => setNewSection(e.target.value);
+  const closeWindow = () => {
+    handleBoolean();
+    setIsError(false);
+  }
+
+  useEffect(() => {
+    if (newSection.length > 0) {
+      setIsError(false);
+    }
+  }, [newSection]);
+
+  const onChange = (e) => {
+    setNewSection(e.target.value)
+  };
 
   const onClick = () => {
     if (newSection.trim()) {
       onClickButton(newSection);
       setNewSection('');
+
+      return;
     }
+    setIsError(true);
   }
 
   return (
@@ -29,9 +46,9 @@ const AddSectionWindow = ({
       hide={true}
       boolean={boolean}
       buttonText='Cancel'
-      button={<ButtonConfirm onClick={onClick} />}
+      button={<ButtonConfirm text='Save' onClick={onClick} />}
       isInlineButtons={true}
-      onClick={handleBoolean}
+      onClick={closeWindow}
     >
       <p className='window__content-text'>Enter the name of the new section:</p>
       <InputCustom
@@ -39,6 +56,8 @@ const AddSectionWindow = ({
         placeHolder='Enter new name...'
         onChange={onChange}
         value={newSection}
+        isError={isError}
+        errorText={'The field cannot be empty'}
       />
     </ModalWindowWrapper>
   )

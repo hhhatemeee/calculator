@@ -56,7 +56,7 @@ const CalculationType = ({
       })
     }
   };
-  console.log(disabledCalc);
+
   return (
     <div
       data-testid='typePoint'

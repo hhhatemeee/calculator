@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import cn from 'classnames';
 
 import { ICO_NAMES } from '../../variables';
@@ -12,7 +12,7 @@ const IconList = ({ setIcon, currentImgName }) => {
       {
         ICO_NAMES.map((name) => <div
           key={name}
-          className={cn('icon__container', { 'current--icon': currentImgName === name })}>
+          className={cn('icon__container', { 'icon_current': currentImgName === name })}>
           <i
             className={cn(`ico-${name} icon`)}
             onClick={() => setIcon(name)}

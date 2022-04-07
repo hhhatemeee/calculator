@@ -16,9 +16,12 @@ const CalculationSelector = ({
   handleIsOpen,
   isOpen,
   isAnimated }) => {
+  const handleClick = () => {
+    onClick();
+    onClickReturn();
+  }
 
   return (
-
     <div className={cn('menu-calculation-list__selector-container', { 'menu-calculation-list__selector-container_animate': isAnimated })} >
       <div className='menu-calculation-list__select-container'>
         <CustomSelect
@@ -30,7 +33,7 @@ const CalculationSelector = ({
         />
       </div>
       <div className='menu-calculation-list__selector-row'>
-        <div className='menu-calculation-list__btn-add' onClick={onClick}>
+        <div className='menu-calculation-list__btn-add' onClick={handleClick}>
           Add
         </div>
         <i className='ico-return' onClick={onClickReturn} />

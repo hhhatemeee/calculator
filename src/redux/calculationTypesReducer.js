@@ -39,7 +39,7 @@ const initialState = {
   ],
   disabledCalcs: [
     { name: 'Standart', isDisabled: false },
-    { name: 'Scientific', isDisabled: false },
+    { name: 'Chemistry', isDisabled: false },
     { name: 'Graphing', isDisabled: false },
     { name: 'Programmer', isDisabled: false },
     { name: 'Date Calculation', isDisabled: false },
@@ -51,10 +51,10 @@ const initialState = {
 const namesArr = ['Standart', 'Chemistry', 'Graphing', 'Programmer', 'Date Calculation', 'Currency'];
 let id = Date.now() + Math.round(Math.random() * 100);
 
-if (!complianceCheck(JSON.parse(localStorage.state), initialState)) {
-  localStorage.clear();
-  window.location.reload();
-}
+// if (!complianceCheck(JSON.parse(localStorage.state), initialState)) {
+//   localStorage.clear();
+//   window.location.reload();
+// }
 
 const calculationTypesReducer = (state = JSON.parse(localStorage.getItem('state')) || initialState, action) => {
   const currentList = [];
@@ -90,7 +90,6 @@ const calculationTypesReducer = (state = JSON.parse(localStorage.getItem('state'
           }
         }))
       }
-
 
       if (!currentList.includes(action.name)) {
         return state;

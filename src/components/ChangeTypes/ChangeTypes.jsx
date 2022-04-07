@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import cn from 'classnames';
 import PropTypes from 'prop-types';
 import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
@@ -7,13 +7,14 @@ import CalculationList from '../CalculationList/CalculationList';
 import ModalWindowWrapper from '../ModalWindowWrapper/ModalWindowWrapper';
 
 import './ChangeTypes.scss';
+import { CALC_TYPES } from '../../variables';
 
 const ChangeTypes = (props) => {
   const [showMenu, setShowMenu] = useState(false);
   const [isEditMode, setEditMode] = useState(false);
   const [isAddSection, setAddSection] = useState(false);
-  const [currentSection, setCurrentSection] = useState();
   const [currentItem, setCurrentItem] = useState();
+  const [currentAllList, setCurrentAllList] = useState([]);
 
   const handleShowMenuDown = (e) => {
     if (e.target.classList.contains('menu__btn')) {
@@ -28,7 +29,28 @@ const ChangeTypes = (props) => {
       })
       result ? setShowMenu(true) : setShowMenu(false);
     }
+  };
+
+  useEffect(() => setCurrentAllList(filterCurrentList()), [props.calcTypes]);
+
+  const updateCurrentList = () => {
+    let list = [];
+    props.calcTypes.forEach((section) => {
+      section.calcList.forEach((calc) => {
+        list.push(calc.name);
+      });
+    });
+
+    return list;
   }
+
+  const filterCurrentList = () => {
+    return Object.keys(CALC_TYPES).map((name) => {
+      if (!updateCurrentList().includes(name)) {
+        return name;
+      }
+    }).filter(name => name);
+  };
 
   const onEditMode = () => {
     if (isAddSection) {
@@ -57,7 +79,6 @@ const ChangeTypes = (props) => {
     setEditMode(false);
   }
 
-  const onSetCurrentSection = (value) => setCurrentSection(value);
   const onSetCurrentItem = (value) => setCurrentItem(value);
 
   const handleDragEnd = (e) => {
@@ -101,7 +122,8 @@ const ChangeTypes = (props) => {
             boolean={isEditMode}
             title='Menu setting'
             onClick={onEditMode}
-            button={<div className='menu__add-section' onClick={handleAddSection}>Add section...</div>}
+            button={<div className='menu__add-section' onClick={handleAddSection}>Add section</div>}
+            buttonText='Save'
           >
             <Droppable type="section" droppableId="container">
               {(provided) => (
@@ -131,6 +153,7 @@ const ChangeTypes = (props) => {
                           key={el.id}
                           name={el.name}
                           list={el.calcList}
+                          options={currentAllList}
                           sectionIndex={index}
                           setCurrentId={props.setCurrentId}
                           currentId={props.currentId}
@@ -141,7 +164,6 @@ const ChangeTypes = (props) => {
                           onAddItem={props.onAddItem}
                           onDeleteSection={props.onDeleteSection}
                           sectionId={el.id}
-                          onSetCurrentSection={onSetCurrentSection}
                           onSetCurrentItem={onSetCurrentItem}
                           currentItem={currentItem}
                           setNameSection={props.setNameSection}

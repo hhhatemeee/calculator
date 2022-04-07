@@ -6,12 +6,10 @@ import PropTypes from 'prop-types';
 import CalculationType from './CalculationType';
 import interfaceElement from './interfaceElement';
 import InputAndItemreverseSide from '../InputAndItemreverseSide/InputAndItemreverseSide';
-import Select from '../Select/Select';
 import { CALC_TYPES } from '../../variables';
+import CalculationSelector from './CalculationSelector/CalculationSelector';
 
 import './CalculationList.scss';
-import CalculationSelector from './CalculationSelector/CalculationSelector';
-import CustomSelect from '../../subComponents/CustomSelect/CustomSelect';
 
 
 // Draws a list of calculators, depending on the type
@@ -25,33 +23,21 @@ const CalculationList = (props) => {
   const [isEditSection, setEditSection] = useState(false);
   const [editNameSection, setEditNameSection] = useState(props.name);
   const [isAnimated, setAnimated] = useState(false);
-  const [options, setOptions] = useState([]);
   const [currentTypeInSelector, setCurrentTypeInSelector] = useState('Standart');
   const [selectIsOpen, setSelectOpen] = useState(false);
 
-  useEffect(() => setOptions(updateOptions()), [props.isMoving, props.list]);
-
   useEffect(() => {
-    if (options.length >= 1) {
-      setNewItem({ ...newItem, name: options.at(-1) });
-      setCurrentTypeInSelector(options.at(-1));
+    if (props.options.length >= 1) {
+      setNewItem({ ...newItem, name: props.options.at(-1) });
+      setCurrentTypeInSelector(props.options.at(-1));
     }
-  }, [options]);
+  }, [props.options]);
 
   useEffect(() => {
     document.addEventListener('mousedown', handleMouseOpenSelect);
 
     return () => document.removeEventListener('mousedown', handleMouseOpenSelect)
   });
-
-
-  const updateOptions = () => {
-    return Object.keys(CALC_TYPES).map((name) => {
-      if (!props.list.map((calc) => calc.name).includes(name)) {
-        return name;
-      }
-    }).filter(name => name);
-  };
 
   const onSetSelectOpen = (value) => setSelectOpen(value);
 
@@ -177,10 +163,10 @@ const CalculationList = (props) => {
               )}
             {provided.placeholder}
             {props.isEditMode
-              && (options.length > 0 ?
+              && (props.options.length > 0 ?
                 (isAddItem ?
                   <CalculationSelector
-                    options={options}
+                    options={props.options}
                     onChange={handleSelectorSetItem}
                     onClick={handleSetNewItem}
                     value={currentTypeInSelector}
@@ -212,7 +198,6 @@ CalculationList.propTypes = {
   onAddItem: PropTypes.func,
   onDeleteSection: PropTypes.func,
   sectionId: PropTypes.number,
-  onSetCurrentSection: PropTypes.func,
   onSetCurrentItem: PropTypes.func,
   currentItem: PropTypes.object,
   setNameSection: PropTypes.func,
@@ -233,7 +218,6 @@ CalculationList.defaultProps = {
   onDeleteItem: () => console.log('Не определена функция onDeleteItem'),
   onAddItem: () => console.log('Не определена функция onAddItem'),
   onDeleteSection: () => console.log('Не определена функция onDeleteSection'),
-  onSetCurrentSection: () => console.log('Не определена функция onSetCurrentSection'),
   onSetCurrentItem: () => console.log('Не определена функция onSetCurrentItem'),
   setNameSection: () => console.log('Не определена функция setNameSection'),
   onSetRenderWindow: () => console.log('Не определена функция onSetRenderWindow'),
