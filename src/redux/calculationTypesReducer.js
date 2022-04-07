@@ -1,3 +1,4 @@
+import complianceCheck from "../helpers/complianceCheck";
 import { CALC_TYPES } from "../variables";
 
 const SET_CURRENT_TYPE = 'SET_CURRENT_TYPE';
@@ -49,6 +50,11 @@ const initialState = {
 };
 const namesArr = ['Standart', 'Chemistry', 'Graphing', 'Programmer', 'Date Calculation', 'Currency'];
 let id = Date.now() + Math.round(Math.random() * 100);
+
+if (!complianceCheck(JSON.parse(localStorage.state), initialState)) {
+  localStorage.clear();
+  window.location.reload();
+}
 
 const calculationTypesReducer = (state = JSON.parse(localStorage.getItem('state')) || initialState, action) => {
   const currentList = [];

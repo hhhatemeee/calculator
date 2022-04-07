@@ -51,7 +51,6 @@ function App(props) {
     props.setDisabledType({ name: CALC_TYPES.Currency, value: false });
     ConvertationService.getCallbacks(handleShowWindow, props.setCurrencyList);
     props.setCurrentService('CC');
-
   }, []);
 
   /**
