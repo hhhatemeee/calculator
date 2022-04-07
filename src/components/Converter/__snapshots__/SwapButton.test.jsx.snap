@@ -5,7 +5,7 @@ exports[`SwapButton test check the onClick the swapButton 1`] = `
 - First value
 + Second value
 
-@@ -272,11 +272,11 @@
+@@ -356,11 +356,11 @@
                 0
               </p>
               <p
@@ -18,7 +18,7 @@ exports[`SwapButton test check the onClick the swapButton 1`] = `
             <div
               class=\\"select\\"
             >
-@@ -300,11 +300,11 @@
+@@ -384,11 +384,11 @@
                 0
               </p>
               <p

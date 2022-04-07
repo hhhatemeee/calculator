@@ -56,13 +56,13 @@ const CalculationType = ({
       })
     }
   };
-
+  console.log(disabledCalc);
   return (
     <div
       data-testid='typePoint'
       className={cn('item',
         { current: id === currentId },
-        { isDisabled: disabledCalc && disabledCalc.disabled },
+        { isDisabled: disabledCalc && disabledCalc.isDisabled },
         { isEditMode: isEditMode },
         { isDeleted: isDeleted }
       )}

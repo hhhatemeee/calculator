@@ -1,4 +1,5 @@
 import { combineReducers, createStore } from "redux";
+import complianceCheck from "../helpers/complianceCheck";
 
 import buttonsReducer from "./buttonsReducer";
 import calculationTypesReducer from "./calculationTypesReducer";
@@ -15,8 +16,12 @@ let reducers = combineReducers({
 let store = createStore(reducers);
 
 store.subscribe(() => {
-  localStorage['state'] = JSON.stringify(store.getState().calculatorsType)
+  localStorage['state'] = JSON.stringify(store.getState().calculatorsType);
 });
+
+if (!complianceCheck(JSON.parse(localStorage.state), store.getState().calculatorsType)) {
+  localStorage.clear();
+}
 
 window.store = store;
 

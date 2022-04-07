@@ -8,12 +8,13 @@ Object {
       <div
         class="item"
         data-testid="typePoint"
+        draggable="false"
       >
         <span
-          class="item__row"
+          class="item-row"
         >
           <i
-            class="ico-"
+            class="ico- item-row__item"
           />
           test
         </span>
@@ -24,12 +25,13 @@ Object {
     <div
       class="item"
       data-testid="typePoint"
+      draggable="false"
     >
       <span
-        class="item__row"
+        class="item-row"
       >
         <i
-          class="ico-"
+          class="ico- item-row__item"
         />
         test
       </span>

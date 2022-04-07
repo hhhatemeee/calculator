@@ -37,12 +37,12 @@ const initialState = {
     }
   ],
   disabledCalcs: [
-    { name: 'Standart', disabled: false },
-    { name: 'Scientific', disabled: false },
-    { name: 'Graphing', disabled: false },
-    { name: 'Programmer', disabled: false },
-    { name: 'Date Calculation', disabled: false },
-    { name: 'Currency', disabled: false },
+    { name: 'Standart', isDisabled: false },
+    { name: 'Scientific', isDisabled: false },
+    { name: 'Graphing', isDisabled: false },
+    { name: 'Programmer', isDisabled: false },
+    { name: 'Date Calculation', isDisabled: false },
+    { name: 'Currency', isDisabled: false },
   ],
   currentImgName: '',
   isMoving: false,
@@ -66,7 +66,7 @@ const calculationTypesReducer = (state = JSON.parse(localStorage.getItem('state'
       let alternateName;
 
       state.disabledCalcs.forEach((calc) => {
-        if (!calc.disabled) {
+        if (!calc.isDisabled) {
           availableNames.push(calc.name);
           alternateName = currentList.includes(calc.name) ? calc.name : CALC_TYPES.Standart;
         }
@@ -99,7 +99,7 @@ const calculationTypesReducer = (state = JSON.parse(localStorage.getItem('state'
 
       state.disabledCalcs.map((calc, i) => {
         if (calc.name === action.name) {
-          result[i].disabled = action.value;
+          result[i].isDisabled = action.value;
         }
       })
 
