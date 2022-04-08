@@ -5,9 +5,10 @@ import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
 
 import CalculationList from '../CalculationList/CalculationList';
 import ModalWindowWrapper from '../ModalWindowWrapper/ModalWindowWrapper';
+import { CALC_TYPES } from '../../variables';
+import CustomButton from '../../subComponents/CustomButton/CustomButton';
 
 import './ChangeTypes.scss';
-import { CALC_TYPES } from '../../variables';
 
 const ChangeTypes = (props) => {
   const [showMenu, setShowMenu] = useState(false);
@@ -122,7 +123,7 @@ const ChangeTypes = (props) => {
             boolean={isEditMode}
             title='Menu setting'
             onClick={onEditMode}
-            button={<div className='menu__add-section' onClick={handleAddSection}>Add section</div>}
+            button={<CustomButton className='menu__add-section' text='Add section' type='added' onClick={handleAddSection} />}
             buttonText='Save'
           >
             <Droppable type="section" droppableId="container">

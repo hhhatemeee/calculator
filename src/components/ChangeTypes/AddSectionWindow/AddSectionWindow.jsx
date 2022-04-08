@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 
-import ButtonConfirm from '../../../subComponents/ButtonConfirm/ButtonConfirm';
 import InputCustom from '../../../subComponents/Input/Input';
+import CustomButton from '../../../subComponents/CustomButton/CustomButton';
 import ModalWindowWrapper from '../../ModalWindowWrapper/ModalWindowWrapper';
 
 import './AddSectionWindow.scss';
@@ -46,7 +46,7 @@ const AddSectionWindow = ({
       hide={true}
       boolean={boolean}
       buttonText='Cancel'
-      button={<ButtonConfirm text='Save' onClick={onClick} />}
+      button={<CustomButton text='Save' onClick={onClick} type='confirm' />}
       isInlineButtons={true}
       onClick={closeWindow}
     >

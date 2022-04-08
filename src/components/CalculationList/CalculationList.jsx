@@ -8,6 +8,7 @@ import interfaceElement from './interfaceElement';
 import InputAndItemreverseSide from '../InputAndItemreverseSide/InputAndItemreverseSide';
 import { CALC_TYPES } from '../../variables';
 import CalculationSelector from './CalculationSelector/CalculationSelector';
+import CustomButton from '../../subComponents/CustomButton/CustomButton';
 
 import './CalculationList.scss';
 
@@ -25,6 +26,7 @@ const CalculationList = (props) => {
   const [isAnimated, setAnimated] = useState(false);
   const [currentTypeInSelector, setCurrentTypeInSelector] = useState('Standart');
   const [selectIsOpen, setSelectOpen] = useState(false);
+  const [editSectionError, setSectionError] = useState(false);
 
   useEffect(() => {
     if (props.options.length >= 1) {
@@ -83,23 +85,32 @@ const CalculationList = (props) => {
     payload: props.sectionId
   });
 
-  const onEditSectionTitle = () => setEditSection(!isEditSection);
+  const onEditSectionTitle = () => {
+    if (!editNameSection.trim()) {
+      setEditNameSection(props.name);
+    }
+    setEditSection(!isEditSection);
+    setSectionError(false);
+  }
 
-  const onChangNameSection = (e) => setEditNameSection(e.target.value);
+  const onChangNameSection = (e) => {
+    setEditNameSection(e.target.value);
+    setSectionError(false);
+  };
 
-  const onKeyDownSetNameSection = (e) => {
-    if (e && e.keyCode === 13) {
+  const handleSaveSection = () => {
+    if (editNameSection.trim()) {
       props.setNameSection({
         name: editNameSection,
         sectionId: props.sectionId
       });
+
       onEditSectionTitle(false);
+
+      return;
     }
 
-    if (e && e.keyCode === 27) {
-      onEditSectionTitle(false);
-      setEditNameSection(props.name);
-    }
+    setSectionError(true);
   };
 
   return (
@@ -108,15 +119,18 @@ const CalculationList = (props) => {
         <InputAndItemreverseSide
           isBoolean={isEditSection}
           isTitle={true}
-          onClick={props.isEditMode ? onEditSectionTitle : null}
           onChange={onChangNameSection}
           value={editNameSection}
-          onKeyDown={onKeyDownSetNameSection}
-          onBlur={onEditSectionTitle}
+          onClick={props.isEditMode ? onEditSectionTitle : () => false}
           text={props.name}
           placeHolder={'Edit Section'}
+          className='menu-calculation-list__edit-input'
+          isError={editSectionError}
         />
-        {props.isEditMode && <i className='ico-Trash menu-calculation-list__title-delete' onClick={onDeleteSection} />}
+        {isEditSection && <div className='menu-calculation-list_edit-btn' onClick={handleSaveSection}>Save</div>}
+        {props.isEditMode &&
+          (isEditSection ? <i className='ico-return menu-calculation-list__return' onClick={onEditSectionTitle} />
+            : <i className='ico-Trash menu-calculation-list__title-delete' onClick={onDeleteSection} />)}
       </div>
       <Droppable droppableId={props.sectionId.toString()} type="item">
         {(provided) => (
@@ -177,7 +191,7 @@ const CalculationList = (props) => {
                   />
                   : <h4 className={cn('menu-calculation-list__add-text', { 'menu-calculation-list__add-text_animate': isAnimated })}
                     onClick={onAddItem}>Add item...</h4>)
-                : null)
+                : <div className='menu-calculation-list__space'>space</div>)
             }
           </div>
         )}

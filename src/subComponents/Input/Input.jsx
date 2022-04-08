@@ -6,7 +6,7 @@ import './Input.scss';
 
 const InputCustom = ({ placeHolder, value, onKeyDown, onChange, onBlur, className, isError, errorText }) => {
   return (
-    <div className={`input__container ${className || ''}`}>
+    <div className={cn(`input__container ${className || ''}`, { 'input__container_isError': isError })}>
       <div className={cn('input__error-message', { 'input__error-message_isShow': isError })}>
         <i className='ico-Info'></i>
         <span>{errorText}</span>

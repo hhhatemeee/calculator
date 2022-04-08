@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import ButtonConfirm from '../../subComponents/ButtonConfirm/ButtonConfirm';
+import CustomButton from '../../subComponents/CustomButton/CustomButton';
 import ModalWindowWrapper from '../ModalWindowWrapper/ModalWindowWrapper';
 
 import './WindowDelete.scss';
@@ -13,7 +13,7 @@ const WindowDelete = ({ onClick, boolean, handleBoolean }) => {
       hide={true}
       boolean={boolean}
       buttonText='Cancel'
-      button={<ButtonConfirm onClick={onClick} />}
+      button={<CustomButton type='confirm' text='Yes' onClick={onClick} />}
       isInlineButtons={true}
       onClick={handleBoolean}
     >

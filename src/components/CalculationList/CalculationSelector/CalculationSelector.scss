@@ -44,30 +44,7 @@
   }
 
   &__btn-add {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-    font-weight: 500;
-    cursor: pointer;
-    padding: 8px 5px;
-    color: $btn-blue-color;
-    font-size: 18px;
-    text-align: center;
-    border-radius: 6px;
-    transition: all .1s ease-in;
-    user-select: none;
     margin-left: 28px;
-
-    &:hover {
-      background-color: $btn-blue-color;
-      color: $btn-white-color;
-    }
-
-    &:active {
-      background-color: rgba($btn-blue-color, .6);
-      color: $btn-white-color;
-    }
   }
 
 }

@@ -88,7 +88,7 @@ const CalculatorContainer = (props) => {
       size = 62;
     }
 
-    setFontSize(size)
+    setFontSize(size);
   }
 
   /**
@@ -111,8 +111,6 @@ const CalculatorContainer = (props) => {
 
     let res = Number(result);
     let his = history;
-
-
 
     if (value === '=') {
       let isOperation = false;
@@ -154,7 +152,7 @@ const CalculatorContainer = (props) => {
               break;
             case '×':
               res = prevNumber * nextNumber;
-              console.log(res);
+
               if (!isFinite(res)) {
                 res = 'Overflow'
               }
@@ -192,8 +190,8 @@ const CalculatorContainer = (props) => {
             res = result * prevNumber;
             if (!isFinite(res)) {
               res = 'Overflow';
-              console.log(res);
             }
+
             break;
           default:
             res = result;
@@ -209,12 +207,12 @@ const CalculatorContainer = (props) => {
       if (res !== 'Overflow') {
         res.toString().includes('e') ? res = Number(res).toPrecision(13) : res = Number(res);
       }
-      console.log(res);
+
       setResult(res);
 
       if (res.toString().length >= 5) {
         if (typeof res === 'string') {
-          getFontSize(res, his);
+          getFontSize(res.length, his);
           return;
         }
 
@@ -368,6 +366,7 @@ const CalculatorContainer = (props) => {
       res = 0;
       setResult(res);
       setCurrentNumber(curNum);
+      setprevNumber(preNum)
       setHistory(curNum);
       getFontSize(curNum);
 
@@ -432,14 +431,14 @@ const CalculatorContainer = (props) => {
 
     // Button +/-
     if (element === '/') {
-      if (Number(curNum) === 0) {
+      if (curNum === '' || Number(curNum) === 0) {
+        setCurrentNumber(0)
         return;
       }
 
       const opposite = -Number(curNum.toString().slice(0, curNum.length));
       curNum = opposite;
       setCurrentNumber(curNum);
-
       return;
     }
 
@@ -485,6 +484,25 @@ const CalculatorContainer = (props) => {
 
     // If any operation is pressed, then assign the current number to the previous one and display
     if (OPERATORS.includes(element)) {
+      const currentNumArr = curNum.toString().split('');
+      const currentNumModify = currentNumArr.slice(0, currentNumArr.indexOf(currentNumArr.at(-1))).join('');
+      const preNumArr = preNum.toString().split('');
+      const preNumModyfy = preNumArr.slice(0, preNumArr.indexOf(0, preNumArr.at(-1))).join('');
+
+      let flag = false;
+
+      OPERATORS.forEach((op) => {
+        if (preNum.toString().includes(op)) {
+          flag = true;
+        }
+      })
+
+      if (flag && !(Number(preNumModyfy) === 0 && Number(currentNumModify) === 0)) {
+        calculating('=', preNum, currentNumModify);
+
+        return;
+      }
+
       if ((preNum.length > 1 && preNum)
         || preNum.toString().includes('=')) {
         preNum = preNum.slice(0, preNum.length - 1);
@@ -504,6 +522,8 @@ const CalculatorContainer = (props) => {
         setprevNumber(preNum);
       }
 
+
+
       preNum = curNum;
       setprevNumber(curNum);
       curNum = 0;
@@ -520,7 +540,7 @@ const CalculatorContainer = (props) => {
     }
 
     if (element === '=' || element === '%') {
-      calculating(element, prevNumber, curNum);
+      calculating(element, prevNumber, curNum)
     }
 
     // If the current number is 0 and 'dot' button is pressed, then sum

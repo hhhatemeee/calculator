@@ -15,7 +15,6 @@
     position: relative;
     
     select{
-      // width: 25%;
       height: 100%;
       border:none;
       padding: 0px;
@@ -23,9 +22,26 @@
       border-radius: 2px;
       font-size: 20px;
       background-color:$bg-light-color;
-      overflow-y: scroll;
+      overflow-y: scroll !important;
       cursor: pointer;
       transition: 0.1s ease-in;
+
+      &::-webkit-scrollbar {
+        display: inherit;
+        width: 8px;
+        background-color: $btn-white-color;
+      }
+    
+      &::-webkit-scrollbar-thumb {
+        border-radius: 10px;
+        background-color: rgba($btn-dark-light-color, .2);
+      }
+    
+      &::-webkit-scrollbar-track {
+        -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.2);
+        border-radius: 10px;
+        background-color: $btn-white-color;
+      }
     }
   }
 }

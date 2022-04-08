@@ -11,12 +11,11 @@ const InputAndItemreverseSide = ({
   onClick,
   onChange,
   value,
-  onKeyDown,
-  onBlur,
   nodeItem,
   text,
   isTitle,
-  placeHolder }) => {
+  placeHolder,
+  isError }) => {
   const [isAnimated, setAnimated] = useState(false);
 
   const handleClick = () => {
@@ -27,27 +26,22 @@ const InputAndItemreverseSide = ({
     }
   }
 
-  const handleBlur = () => {
-    onBlur();
-    if (isBoolean) {
-      setAnimated(true);
-      setTimeout(() => setAnimated(false), 1000);
-    }
-  }
   return (
     <div className={cn(`input-item ${className ? className : ''}`, { isTitle: isTitle })}>
       {
         !isBoolean
-          ? (nodeItem ? nodeItem : <div className={cn('input-item__item-text', { 'input-item__item-text_animate': isAnimated })} onClick={handleClick}
+          ? (nodeItem ? nodeItem : <div
+            className={cn('input-item__item-text', { 'input-item__item-text_animate': isAnimated })}
+            onClick={handleClick}
           >{text}</div>)
           : <InputCustom
             className='input-item__input'
             type="text"
             placeholder={placeHolder}
             value={value}
-            onKeyDown={onKeyDown}
             onChange={onChange}
-            onBlur={handleBlur}
+            isError={isError}
+            errorText='The field cannot be empty'
           />
       }
     </div>

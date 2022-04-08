@@ -28,7 +28,7 @@
     cursor: pointer;
     background-color: $bg-light-color;
     margin-bottom: 55px;
-    transition: opacity .3s ease-in;
+    transition: opacity 0.3s, background-color 0.1s ease-in;
 
     &_hide {
       opacity: 0;
@@ -87,7 +87,7 @@
     z-index: -1;
     outline: none;
     margin-bottom: 3px;
-
+    
 
     &_open {
       max-width: 290px;
@@ -136,15 +136,9 @@
   &__add-section {
     cursor: pointer;
     font-weight: 900;
-    cursor: pointer;
-    margin-top: 10px;
     border: 1px solid $btn-blue-color;
-    color: $btn-blue-color;
     margin: 10px 53px;
-    padding: 5px;
     font-size: 20px;
-    text-align: center;
-    border-radius: 6px;
     transition: all .1s ease-in;
     user-select: none;
     animation: animate-appearance .2s ease-in;

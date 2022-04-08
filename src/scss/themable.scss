@@ -41,6 +41,15 @@
           color: $btn-color;
           border: $btn-color;
 
+          &:hover{
+            background-color: rgba($btn-light-gray-color,.5);
+          }
+        
+          &:active{
+            background-color: rgba($btn-light-gray-color,.2);
+          }
+        
+
           &__delete {
             border-color: $btn-color;
 
@@ -56,6 +65,14 @@
             }
             &_blue {
               background-color: $btn-blue-color;
+
+              &:hover{
+                background-color: rgba($btn-blue-color,.8);
+              }
+        
+              &:active{
+                background-color: rgba($btn-blue-color,.5);
+              }
             }
           }
         }
@@ -81,14 +98,14 @@
 
     .menu{
       &__setting{
-        color: $btn-gray-color;
+        color: rgba($btn-light-gray-color,.8);
 
         &:hover{
-          color: rgba($btn-gray-color, 0.8);
+          color: rgba($btn-light-gray-color,.6);
         }
 
         &:active{
-          color: rgba($btn-gray-color, 0.6);
+          color: rgba($btn-light-gray-color,.4);
         }
       }
 
@@ -100,22 +117,7 @@
         background-color: $menu-list-color;
 
         &_edit{
-        background-color:  $menu-list-color;
-
-          &::-webkit-scrollbar {
-            border-radius: 10px;
-            background-color: $btn-gray-color;
-          }
-        
-          &::-webkit-scrollbar-thumb {
-            background-color: rgba($btn-bg, .6);
-          }
-        
-          &::-webkit-scrollbar-track {
-            border-radius: 10px;
-            background-color: $btn-gray-color;
-          }
-
+          box-shadow: 0px 0px 5px 1px rgb(90 94 98 / 65%);
         }
       }
 
@@ -124,6 +126,18 @@
       }
 
       &-calculation-list{
+
+        &__return{
+          color: $result-color;
+
+          &:hover{
+            color: rgba($result-color, 0.8);
+          }
+  
+          &:active{
+            color: rgba($result-color, 0.6);
+          }
+        }
 
         &__selector-row{
           i{
@@ -274,20 +288,6 @@
   }
 
   .item__selector-icons{
-    &::-webkit-scrollbar {
-      border-radius: 10px;
-      background-color: $btn-gray-color;
-    }
-  
-    &::-webkit-scrollbar-thumb {
-      background-color: rgba($btn-bg, .6);
-    }
-  
-    &::-webkit-scrollbar-track {
-      border-radius: 10px;
-      background-color: $btn-gray-color;
-    }
-
     .icon_current{
       background-color: rgba($btn-gray-color,.65);
     }
@@ -314,7 +314,7 @@
   }
 
   .window{
-    background-color:$menu-btn-color;
+    background-color: $menu-list-color;
 
     p{
       color: $result-color;
@@ -334,7 +334,7 @@
 
       &:active{
         border-color: $menu-list-color;
-        background: $btn-gray-color linear-gradient($btn-gray-color, rgba($menu-btn-color,.7));
+        background: rgba($btn-gray-color,.6);
       }
     }
   }
@@ -409,6 +409,43 @@
           }
         }
     }
+
+    .input{
+      &__error-message{
+        span{
+          color: $color-delete-hover;
+        }
+      }
+    }
+
+    select,.item__selector-icons, .menu-list_edit{
+      &::-webkit-scrollbar {
+        border-radius: 10px;
+        background-color: $btn-gray-color;
+      }
+    
+      &::-webkit-scrollbar-thumb {
+        background-color: rgba($btn-bg, .6);
+      }
+    
+      &::-webkit-scrollbar-track {
+        border-radius: 10px;
+        background-color: $btn-gray-color;
+      }
+    }
+
+    .confirm{
+      &:hover{
+        border: 1px solid $menu-btn-color;
+      }
+    }
+
+    .added{
+      &:active{
+        border-color: $menu-btn-color !important;
+      }
+    }
+   
   }
 }
 

@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import cn from 'classnames';
 
 import CustomSelect from '../../../subComponents/CustomSelect/CustomSelect';
+import CustomButton from '../../../subComponents/CustomButton/CustomButton';
 
 import './CalculationSelector.scss';
 
@@ -33,9 +34,7 @@ const CalculationSelector = ({
         />
       </div>
       <div className='menu-calculation-list__selector-row'>
-        <div className='menu-calculation-list__btn-add' onClick={handleClick}>
-          Add
-        </div>
+        <CustomButton className='menu-calculation-list__btn-add' text='Add' type='added' onClick={handleClick} />
         <i className='ico-return' onClick={onClickReturn} />
       </div>
     </div >
