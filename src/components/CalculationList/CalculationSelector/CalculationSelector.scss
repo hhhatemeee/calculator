@@ -1,0 +1,50 @@
+@import "../../../scss/fonts.scss";
+@import '../../../scss/themable.scss';
+@import "../../../scss/variables.scss";
+
+
+.menu-calculation-list {
+
+  &__select-container {
+    width: 175px;
+  }
+
+  &__selector {
+    &-container {
+      position: relative;
+      display: flex;
+      align-items: center;
+      margin-left: 10px;
+
+      &_animate {
+        animation: animate-appearance .2s ease-in;
+      }
+
+      i {
+        cursor: pointer;
+
+        &:hover {
+          color: rgba($color-black, .8);
+        }
+
+        &:active {
+          color: rgba($color-black, .5);
+        }
+      }
+    }
+
+    &-row {
+      display: flex;
+      align-items: center;
+
+      i {
+        margin-left: 5px;
+      }
+    }
+  }
+
+  &__btn-add {
+    margin-left: 28px;
+  }
+
+}

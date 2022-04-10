@@ -13,6 +13,12 @@ let reducers = combineReducers({
 });
 
 let store = createStore(reducers);
+
+store.subscribe(() => {
+  localStorage['state'] = JSON.stringify(store.getState().calculatorsType);
+});
+
+
 window.store = store;
 
 export default store;

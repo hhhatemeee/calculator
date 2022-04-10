@@ -1,6 +1,22 @@
 export const OPERATORS = ['×', '÷', '-', '+'];
 
-export const CALC_TYPES = { Standart: 'Standart', Currency: 'Currency' };
+export const CALC_TYPES = {
+  Standart: 'Standart',
+  Currency: 'Currency',
+  Chemistry: 'Chemistry',
+  Graphing: 'Graphing',
+  Programmer: 'Programmer',
+  'Date Calculation': 'Date Calculation',
+};
+
+export const ICO_NAMES =
+  ['Trash', 'Setting', 'Swap', 'Info', 'Chemistry',
+    'Currency', 'Date', 'Graphing', 'Programmer', 'Standart',
+    'home', 'home2', 'office', 'newspaper', 'pen',
+    'blog', 'images', 'coin-dollar', 'coin-euro', 'coin-pound',
+    'coin-yen', 'phone', 'clock', 'calendar', 'shrink',
+    'bug', 'pie-chart', 'stats-dots', 'stats-bars', 'stats-bars2',
+    'clipboard', 'lab', 'loop', 'list2', 'embed2', 'embed',];
 
 export const CURRENCY_MOCK = {
   RUB: ['RUB', '₽'],
@@ -20,4 +36,12 @@ export const KEYS = {
 export const KEYS_NAME = {
   Backspace: 'Backspace',
   Dot: '.',
-}
+};
+
+export const SERVICES_NAME = {
+  CC: 'CC',
+  FCA: 'FCA',
+  OE: 'OE',
+};
+
+export const MOBILES_NAME = ['mobile', 'tablet', 'android', 'iphone'];

@@ -1,0 +1,49 @@
+@import "../../scss/fonts.scss";
+@import '../../scss/themable.scss';
+@import "../../scss/variables.scss";
+
+
+.input-item{
+  
+  &__item-text{
+    font-weight: 500;
+    font-size: 13px;
+    margin-left: 16px;
+    cursor: pointer;
+    user-select: none;
+
+    &:hover{
+      color: rgba($color-black, .8)
+    }
+  
+    &:active{
+      color:rgba($color-black,.6)
+    }
+  }
+}
+
+
+.isTitle{
+  .input-item__item-text{
+    // margin: 0 0 10px 0;
+    margin-bottom: 10px;
+    user-select: none;
+    cursor: pointer;
+    font-size: 19px;
+    font-weight: 900;
+
+    &:active, &:focus{
+      cursor: grabbing;
+    }
+  }
+    
+    .input-item__container{
+      input{
+        margin-bottom: 9px;
+      }
+    }
+}
+
+.input-item__item-text_animate{
+  animation: animate-appearance .2s ease-in;
+}

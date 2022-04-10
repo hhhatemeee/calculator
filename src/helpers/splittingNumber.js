@@ -10,7 +10,7 @@ export default function splittingNumber(number, delimiter = ' ') {
   let result = '';
   let mainNumberLength = 0;
 
-  if (numberArr[0].includes('-') && numberArr[0].length > 4) {
+  if (numberArr[0].includes('-')) {
     const arr = numberArr[0].split('');
 
     arr.shift();
@@ -34,7 +34,6 @@ export default function splittingNumber(number, delimiter = ' ') {
     if (numberArr.length > 1) {
       result += `.${numberArr[1]}`;
     }
-
     return Number(number) >= 0 ? result : `-${result}`;
   }
 

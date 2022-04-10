@@ -10,7 +10,11 @@
   $menu-btn-color,
   $menu-list-color,
   $menu-item-color,
-  $item-span-color
+  $item-span-color,
+  $color-delete-hover,
+  $yellow-color,
+  $green-color,
+  $hover-window-dark,
 ) {
   .#{$theme-name} {
     .calc {
@@ -37,6 +41,15 @@
           color: $btn-color;
           border: $btn-color;
 
+          &:hover{
+            background-color: rgba($btn-light-gray-color,.5);
+          }
+        
+          &:active{
+            background-color: rgba($btn-light-gray-color,.2);
+          }
+        
+
           &__delete {
             border-color: $btn-color;
 
@@ -52,6 +65,14 @@
             }
             &_blue {
               background-color: $btn-blue-color;
+
+              &:hover{
+                background-color: rgba($btn-blue-color,.8);
+              }
+        
+              &:active{
+                background-color: rgba($btn-blue-color,.5);
+              }
             }
           }
         }
@@ -76,16 +97,89 @@
     }
 
     .menu{
+      &__setting{
+        color: rgba($btn-light-gray-color,.8);
+
+        &:hover{
+          color: rgba($btn-light-gray-color,.6);
+        }
+
+        &:active{
+          color: rgba($btn-light-gray-color,.4);
+        }
+      }
+
       &__btn{
         background-color: $menu-btn-color;
       }
 
       &-list{
         background-color: $menu-list-color;
+
+        &_edit{
+          box-shadow: 0px 0px 5px 1px rgb(90 94 98 / 65%);
+        }
       }
 
       h3{
         color:$item-span-color
+      }
+
+      &-calculation-list{
+
+        &__return{
+          color: $result-color;
+
+          &:hover{
+            color: rgba($result-color, 0.8);
+          }
+  
+          &:active{
+            color: rgba($result-color, 0.6);
+          }
+        }
+
+        &__selector-row{
+          i{
+            color: $result-color;
+          }
+        }
+
+        &__selector-container{
+          .dropDown{
+
+            &__container{
+              background-color: $btn-light-gray-color;
+            }
+
+            &__list{
+              border: 1px solid $btn-gray-color;
+              background-color: $btn-light-gray-color;
+
+              span{
+                color: $menu-btn-color;
+              }
+            }
+          }
+        }
+
+        &__title-delete{
+          color: $result-color;
+
+          &:hover{
+            color:$color-delete-hover;
+          }
+        }
+
+        &__add-text{
+          color:rgba($btn-light-gray-color,.8);
+        }
+
+        .input-item{
+          &__item-text{
+            color:$item-span-color;
+          }
+        }
       }
 
       .item{
@@ -193,6 +287,57 @@
     }
   }
 
+  .item__selector-icons{
+    .icon_current{
+      background-color: rgba($btn-gray-color,.65);
+    }
+
+    i{
+      color:$btn-light-gray-color
+    }
+  }
+
+  .hover-window{
+    background-color: $hover-window-dark;
+
+    .yellow{
+      color: $yellow-color;
+    }
+
+    .green{
+      color: $green-color;
+    }
+
+    .red{
+      color: $color-delete-hover;
+    }
+  }
+
+  .window{
+    background-color: $menu-list-color;
+
+    p{
+      color: $result-color;
+    }
+
+    &__title,span{
+      color: $result-color;
+    }
+
+    &__button{
+      background-color: $btn-gray-color;
+      color: $result-color;
+
+      &:hover{
+        border-color: $menu-list-color;
+      }
+
+      &:active{
+        border-color: $menu-list-color;
+        background: rgba($btn-gray-color,.6);
+      }
+    }
+  }
     .window-limit{
       background-color: $bg-dark;
       box-shadow: 0px 2px 8px 0px $color-black;
@@ -234,7 +379,11 @@
       background-color:$calc-bg;
       color: rgba($calculation-color, 0.4);
     }
-  
+    
+    .button-confirm{
+      border: 1px solid rgba($btn-gray-color,.7);
+    }
+
     .keyboard{
         .btn {
           background-color: $btn-bg;
@@ -260,6 +409,43 @@
           }
         }
     }
+
+    .input{
+      &__error-message{
+        span{
+          color: $color-delete-hover;
+        }
+      }
+    }
+
+    select,.item__selector-icons, .menu-list_edit{
+      &::-webkit-scrollbar {
+        border-radius: 10px;
+        background-color: $btn-gray-color;
+      }
+    
+      &::-webkit-scrollbar-thumb {
+        background-color: rgba($btn-bg, .6);
+      }
+    
+      &::-webkit-scrollbar-track {
+        border-radius: 10px;
+        background-color: $btn-gray-color;
+      }
+    }
+
+    .confirm{
+      &:hover{
+        border: 1px solid $menu-btn-color;
+      }
+    }
+
+    .added{
+      &:active{
+        border-color: $menu-btn-color !important;
+      }
+    }
+   
   }
 }
 

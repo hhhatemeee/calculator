@@ -20,6 +20,15 @@
   user-select: none;
   transition: 0.1s ease-in;
 
+  
+  &:hover{
+    background-color: rgba($btn-light-gray-color,.5);
+  }
+
+  &:active{
+    background-color: rgba($btn-dark-light-color,.2);
+  }
+
   &_theme_dark-light {
     color: $btn-white-color;
     background-color: $btn-dark-light-color !important;
@@ -97,23 +106,32 @@
   &_bg {
     &_gray {
       background-color: $btn-light-gray-color;
+
+      &:hover{
+        background-color: rgba($btn-dark-light-color,.3);
+      }
+
+      &:active{
+        background-color: rgba($btn-dark-light-color,.2);
+      }
     }
 
     &_blue {
       background-color: $btn-blue-color;
       color: $btn-white-color;
+
+      &:hover{
+        background-color: rgba($btn-blue-color,.8);
+      }
+
+      &:active{
+        background-color: rgba($btn-blue-color,.5);
+      }
     }
   }
 }
 
-.btn:hover {
-  filter: brightness(0.9);
-}
-.btn:active {
-  filter: brightness(0.8);
-}
-
-.btn__plus-minus:before {
+.btn__plus-minus::before {
   content: "+";
   font-size: 24px;
   transform: rotate(-10deg);
@@ -121,7 +139,7 @@
   position: absolute;
 }
 
-.btn__plus-minus:after {
+.btn__plus-minus::after {
   content: "-";
   font-size: 26px;
   transform: rotate(-10deg);

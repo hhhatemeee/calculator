@@ -1,0 +1,53 @@
+@import "../../scss/variables.scss";
+@import "../../scss/icons.scss";
+@import "../../scss/fonts.scss";
+
+.hover-window{
+  max-width: 220px;
+  max-height: 100px;
+  background-color: rgb(124, 124, 124);
+  border-radius: 10px;
+
+  *{
+    color: $color-black;
+  }
+
+}
+
+.left::after,
+.right::after,
+.top::after,
+.bottom::after {
+  content: "";
+  position: absolute;
+  border-width: 5px;
+  border-style: solid;
+}
+
+.right::after {
+  top: 50%;
+  right: 100%;
+  margin-top: -5px;
+  border-color: transparent rgb(124, 124, 124) transparent transparent;
+}
+
+.left::after {
+  top: 50%;
+  left: 100%;
+  margin-top: -5px;
+  border-color: transparent transparent transparent rgb(124, 124, 124);
+}
+
+.bottom::after{
+  bottom: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-color: transparent transparent rgb(124, 124, 124) transparent;
+}
+
+.top::after{
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-color: rgb(124, 124, 124) transparent transparent transparent;
+}

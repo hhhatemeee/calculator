@@ -13,7 +13,8 @@ const ConverterSwitch = (props) => {
         : <Select
           defaultValue={props.currentService}
           onChange={props.onChange}
-          options={props.options} />
+          options={props.options}
+        />
       }
     </span>
   )

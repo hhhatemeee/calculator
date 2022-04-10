@@ -6,7 +6,7 @@ import './HomePage.scss';
 
 const HomePage = ({ setCurrentType }) => {
 
-  const onClick = () => setCurrentType('Standart');
+  const onClick = () => setCurrentType({ name: 'Standart' });
 
   return (
     <div className='calc-homepage'>

@@ -1,0 +1,48 @@
+@import "../../scss/fonts.scss";
+@import '../../scss/themable.scss';
+@import "../../scss/variables.scss";
+
+
+.item__selector-icons{
+  opacity: 1;
+  visibility: inherit;
+  max-height: 150px;
+  overflow-y: scroll;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+
+  .icon{
+    font-size: 35px ;
+    color:$btn-dark-light-color;
+    &:hover{
+      color: rgba($icon-color-hover, .8);
+    }
+
+    &:active{
+      color: rgba($icon-color-hover, .5);
+    }
+
+    &__container{
+      display: flex;
+      justify-self: center;
+      align-items: center;
+      padding: 7px;
+      margin-right: 3px;
+      margin-bottom: 5px;
+      border-radius: 50%;
+      transition: all .1s ease-in;
+      background-size: 0;
+    }
+
+  }
+  .icon_current{
+    background-color: rgba($btn-dark-light-color,.2);
+
+    .icon{
+    color: rgba($btn-blue-color, .8);
+
+    }
+  }
+}

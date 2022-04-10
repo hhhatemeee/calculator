@@ -1,0 +1,15 @@
+@import "../../../scss/fonts.scss";
+@import '../../../scss/themable.scss';
+@import "../../../scss/variables.scss";
+
+
+.window{
+
+  &-add-section__input{
+    margin-bottom: 7px;
+
+    input{
+      animation-duration: .1s;
+    }
+  }
+}

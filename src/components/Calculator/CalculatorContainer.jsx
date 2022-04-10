@@ -84,7 +84,11 @@ const CalculatorContainer = (props) => {
       size = 42;
     }
 
-    setFontSize(size)
+    if (num === 'Overflow') {
+      size = 62;
+    }
+
+    setFontSize(size);
   }
 
   /**
@@ -100,6 +104,10 @@ const CalculatorContainer = (props) => {
       ? calcStory.length - 1
       : calcStory.length)
       .split('');
+
+    if (result === 'Overflow') {
+      return;
+    }
 
     let res = Number(result);
     let his = history;
@@ -143,7 +151,11 @@ const CalculatorContainer = (props) => {
 
               break;
             case '×':
-              res = prevNumber * nextNumber
+              res = prevNumber * nextNumber;
+
+              if (!isFinite(res)) {
+                res = 'Overflow'
+              }
               break;
             default:
               res = 0;
@@ -176,6 +188,10 @@ const CalculatorContainer = (props) => {
             break;
           case '×':
             res = result * prevNumber;
+            if (!isFinite(res)) {
+              res = 'Overflow';
+            }
+
             break;
           default:
             res = result;
@@ -188,13 +204,15 @@ const CalculatorContainer = (props) => {
         res = res.toExponential(15);
       }
 
-      res.toString().includes('e') ? res = Number(res).toPrecision(13) : res = Number(res);
+      if (res !== 'Overflow') {
+        res.toString().includes('e') ? res = Number(res).toPrecision(13) : res = Number(res);
+      }
 
       setResult(res);
 
       if (res.toString().length >= 5) {
         if (typeof res === 'string') {
-          getFontSize(res, his);
+          getFontSize(res.length, his);
           return;
         }
 
@@ -286,7 +304,6 @@ const CalculatorContainer = (props) => {
     let curNum = currentNumber;
     let preNum = prevNumber;
     let res = result;
-
     const curNumLength = splittingNumber(curNum).length;
 
     switch (element) {
@@ -342,6 +359,25 @@ const CalculatorContainer = (props) => {
       getFontSize(curNumLength);
     }
 
+    // Button 'C'
+    if (element === 'c') {
+      curNum = 0;
+      preNum = 0;
+      res = 0;
+      setResult(res);
+      setCurrentNumber(curNum);
+      setprevNumber(preNum)
+      setHistory(curNum);
+      getFontSize(curNum);
+
+      return;
+    }
+
+    if (res === 'Overflow') {
+      getFontSize(res, history);
+      return;
+    }
+
     // Button for removing elements in a row
     if (element === 'delete' || element === KEYS_NAME.Backspace) {
       const clone = curNum;
@@ -380,6 +416,8 @@ const CalculatorContainer = (props) => {
       return;
     }
 
+
+
     // Can't put equal until there's a number
     if ((curNum === 0 && preNum === 0 && res === 0) && element === '=') {
       return;
@@ -393,14 +431,14 @@ const CalculatorContainer = (props) => {
 
     // Button +/-
     if (element === '/') {
-      if (Number(curNum) === 0) {
+      if (curNum === '' || Number(curNum) === 0) {
+        setCurrentNumber(0)
         return;
       }
 
       const opposite = -Number(curNum.toString().slice(0, curNum.length));
       curNum = opposite;
       setCurrentNumber(curNum);
-
       return;
     }
 
@@ -446,6 +484,25 @@ const CalculatorContainer = (props) => {
 
     // If any operation is pressed, then assign the current number to the previous one and display
     if (OPERATORS.includes(element)) {
+      const currentNumArr = curNum.toString().split('');
+      const currentNumModify = currentNumArr.slice(0, currentNumArr.indexOf(currentNumArr.at(-1))).join('');
+      const preNumArr = preNum.toString().split('');
+      const preNumModyfy = preNumArr.slice(0, preNumArr.indexOf(0, preNumArr.at(-1))).join('');
+
+      let flag = false;
+
+      OPERATORS.forEach((op) => {
+        if (preNum.toString().includes(op)) {
+          flag = true;
+        }
+      })
+
+      if (flag && !(Number(preNumModyfy) === 0 && Number(currentNumModify) === 0)) {
+        calculating('=', preNum, currentNumModify);
+
+        return;
+      }
+
       if ((preNum.length > 1 && preNum)
         || preNum.toString().includes('=')) {
         preNum = preNum.slice(0, preNum.length - 1);
@@ -465,6 +522,8 @@ const CalculatorContainer = (props) => {
         setprevNumber(preNum);
       }
 
+
+
       preNum = curNum;
       setprevNumber(curNum);
       curNum = 0;
@@ -481,7 +540,7 @@ const CalculatorContainer = (props) => {
     }
 
     if (element === '=' || element === '%') {
-      calculating(element, prevNumber, curNum);
+      calculating(element, prevNumber, curNum)
     }
 
     // If the current number is 0 and 'dot' button is pressed, then sum
@@ -490,17 +549,7 @@ const CalculatorContainer = (props) => {
       setCurrentNumber(curNum);
     }
 
-    // Button 'C'
-    if (element === 'c') {
-      curNum = 0;
-      preNum = 0;
-      res = 0;
-      setResult(res);
-      setCurrentNumber(curNum);
-      setHistory(curNum);
-      getFontSize(curNum);
 
-    }
   }
 
   return (

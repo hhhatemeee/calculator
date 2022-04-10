@@ -26,8 +26,8 @@ Select.propTypes = {
   options: PropTypes.arrayOf(PropTypes.shape(optionsInterface)).isRequired,
 };
 
-Select.defaultProp = {
-  defaultValue: '',
+Select.defaultProps = {
+  options: [],
 }
 
 

@@ -1,0 +1,76 @@
+@import "../../scss/fonts.scss";
+@import '../../scss/themable.scss';
+@import "../../scss/variables.scss";
+
+.input{
+
+  &__container{
+    position: relative;
+    max-width: 280px;
+    display: flex;
+    justify-content: center;
+    transition: all .1s ease;
+
+    &_isError{
+      margin-bottom: 20px !important;
+    }
+  }
+
+  &__item{
+    display: flex;
+    padding: 4px 3px;
+    margin: 5px 5px 0px 5px;
+    font-family: inherit;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #212529;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #bdbdbd;
+    border-radius: 6px;
+    outline: none;
+    width: 100%;
+    animation: animate-appearance .2s ease-in;
+
+    &_isError{
+      border-color: $status-down-color;
+
+      &::placeholder{
+        opacity: 0;
+      }
+    }
+
+    
+  }
+
+  &__error-message{
+    display: flex;
+    align-items: center;
+    position: absolute;
+    top:44px;
+    left: 8px;
+    opacity: 0;
+    transition: all .1s ease;
+    user-select: none;
+    font-size: 14px;
+    visibility: hidden;
+
+    &_isShow{
+      opacity: 1;
+      visibility: initial;
+    }
+
+    i{
+      margin-right: 5px;
+    }
+    
+    span,i{
+      color: $status-down-color;
+    }
+
+    span{
+      margin-right: 3px;  
+    }
+  }
+}
