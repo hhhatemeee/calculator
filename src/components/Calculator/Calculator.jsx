@@ -12,12 +12,13 @@ const Calculator = ({
   result,
   onClick,
   buttons,
+  isBlockedOperation,
 }) => {
 
   return (
     <div className='calc__container'>
       <Screen isShown={isShown} fontSize={fontSize} history={history} currentNumber={currentNumber} result={result} />
-      <KeyBoard onClick={onClick} buttons={buttons} />
+      <KeyBoard onClick={onClick} buttons={buttons} isBlockedOperation={isBlockedOperation} />
     </div>
   )
 }

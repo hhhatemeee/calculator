@@ -130,6 +130,12 @@
   position: absolute;
 }
 
+
+.isBlocked{
+  pointer-events: none;
+  opacity: 0.4;
+}
+
 .btn_ac{
   grid-area: btn_ac;
 }

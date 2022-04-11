@@ -10,16 +10,21 @@ const Button = ({
   btnColor,
   btnText,
   isStandart,
-  onClick, }) => {
+  onClick,
+  isOperation,
+  isBlockedOperation, }) => {
 
   const click = () => {
     onClick(btnValue);
   }
-
+  console.log('render', isBlockedOperation);
   return (
     <div
       className={cn(`btn ${btnName} ${btnColor}`,
-        { 'mock-none': btnName.includes('mock') && isStandart })}
+        {
+          'mock-none': btnName.includes('mock') && isStandart,
+          isBlocked: isBlockedOperation && isOperation
+        })}
       onClick={click}
     >
       {btnText}
