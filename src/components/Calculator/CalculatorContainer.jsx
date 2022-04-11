@@ -14,6 +14,7 @@ const CalculatorContainer = (props) => {
   const [operation, setOperation] = useState('');
   const [fontSize, setFontSize] = useState(96)
   const [isShow, setShown] = useState(false);
+  const [isBlockedOperation, setBlockedOperation] = useState(false);
 
   const onKeyDown = (e) => {
     if ((e.key >= 0 && e.key <= 9)
@@ -39,13 +40,19 @@ const CalculatorContainer = (props) => {
   };
 
   // Error Handler
-  const errorHandler = () => {
+  const errorHandler = (result) => {
+    console.log(result);
+
     if (Number.isNaN(currentNumber)) {
       setCurrentNumber(0);
     }
 
     if (Number.isNaN(result)) {
       setResult('Ошибка');
+    }
+
+    if (typeof result === 'string') {
+      setBlockedOperation(true);
     }
 
     if (Number.isNaN(prevNumber)) {
@@ -150,7 +157,7 @@ const CalculatorContainer = (props) => {
           }
 
 
-          errorHandler();
+          errorHandler(res);
 
           his = `${prevNumber}${element}${nextNumber}=`;
           setCurrentNumber(0);
@@ -187,8 +194,10 @@ const CalculatorContainer = (props) => {
       if (res > Number.MAX_SAFE_INTEGER) {
         res = res.toExponential(15);
       }
-
-      res.toString().includes('e') ? res = Number(res).toPrecision(13) : res = Number(res);
+      console.log(res);
+      if (res !== 'Деление на 0 невозможно') {
+        res.toString().includes('e') ? res = Number(res).toPrecision(13) : res = Number(res);
+      }
 
       setResult(res);
 
@@ -254,7 +263,7 @@ const CalculatorContainer = (props) => {
               getFontSize(resLength);
             }
 
-            errorHandler();
+            errorHandler(res);
             setCurrentNumber(0);
             setprevNumber(0);
             setHistory(`${prevNumber}${element}${percentNumber}=`);
@@ -340,6 +349,26 @@ const CalculatorContainer = (props) => {
     // If the length of the current number >= 5, then use the setFontSize()
     if (curNumLength >= 5) {
       getFontSize(curNumLength);
+    }
+
+    if (isBlockedOperation) {
+      curNum = 0;
+      preNum = 0;
+      res = 0;
+
+      setHistory(0);
+      setResult(res);
+      setprevNumber(preNum)
+
+      if (typeof element !== 'number') {
+        setCurrentNumber(curNum);
+        setprevNumber(preNum);
+        setHistory(0);
+        setResult(res);
+
+      }
+
+      setBlockedOperation(false);
     }
 
     // Button for removing elements in a row
@@ -451,7 +480,7 @@ const CalculatorContainer = (props) => {
         preNum = preNum.slice(0, preNum.length - 1);
         preNum += curNum;
         setprevNumber(preNum);
-        errorHandler();
+        errorHandler(res);
 
         setHistory(preNum);
         curNum = 0;
@@ -476,7 +505,7 @@ const CalculatorContainer = (props) => {
 
     // If the operator is pressed and there is a previous result, then connect them
     if (OPERATORS.includes(element) && Number(res !== 0)) {
-      errorHandler();
+      errorHandler(res);
       setHistory(res + element);
     }
 
@@ -512,6 +541,7 @@ const CalculatorContainer = (props) => {
       fontSize={fontSize}
       isShown={isShow}
       onClick={handleClick}
+      isBlockedOperation={isBlockedOperation}
     />
   );
 };

@@ -5,7 +5,7 @@ import Button from '../Button/Button';
 
 import './KeyBoard.scss';
 
-const KeyBoard = ({ buttons, onClick }) => {
+const KeyBoard = ({ buttons, onClick, isBlockedOperation }) => {
   return (
     <div className='calc-buttons'>
       {
@@ -16,7 +16,9 @@ const KeyBoard = ({ buttons, onClick }) => {
           btnText={btn.text}
           btnValue={btn.value}
           onClick={onClick}
-          isStandart={true} />
+          isStandart={true}
+          isOperation={btn.isOperation}
+          isBlockedOperation={isBlockedOperation} />
         )}
     </div>
   )

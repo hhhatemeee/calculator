@@ -3,10 +3,10 @@ name: CI
 on:
   push:
     branches: 
-    - feature/CALC-25
+    - feature/CALC-30
   pull_request:
     branches: 
-    - release/2.1.1
+    - release/2.3.0
 
   workflow_dispatch:
 
