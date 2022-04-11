@@ -41,11 +41,7 @@ const CalculatorContainer = (props) => {
 
   // Error Handler
   const errorHandler = (result) => {
-<<<<<<< HEAD
     let res = result;
-=======
-    console.log(result);
->>>>>>> 5406c6d (feature/CALC-30 - added blocked buttons)
 
     if (Number.isNaN(currentNumber)) {
       setCurrentNumber(0);
@@ -380,7 +376,6 @@ const CalculatorContainer = (props) => {
         setprevNumber(preNum);
         setHistory(0);
         setResult(res);
-
       }
 
       setBlockedOperation(false);
