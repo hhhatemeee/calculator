@@ -41,17 +41,22 @@ const CalculatorContainer = (props) => {
 
   // Error Handler
   const errorHandler = (result) => {
-    console.log(result);
+    let res = result;
 
     if (Number.isNaN(currentNumber)) {
       setCurrentNumber(0);
     }
 
     if (Number.isNaN(result)) {
-      setResult('Ошибка');
+      res = 'Ошибка';
+      setResult(res);
     }
 
-    if (typeof result === 'string') {
+    // Blocking buttons when there are errors
+    if (res === 'Ошибка'
+      || res === 'Деление на 0 невозможно'
+      || Number.isNaN(result)
+      || !isFinite(result)) {
       setBlockedOperation(true);
     }
 
@@ -194,11 +199,13 @@ const CalculatorContainer = (props) => {
       if (res > Number.MAX_SAFE_INTEGER) {
         res = res.toExponential(15);
       }
-      console.log(res);
+
       if (res !== 'Деление на 0 невозможно') {
         res.toString().includes('e') ? res = Number(res).toPrecision(13) : res = Number(res);
       }
 
+
+      errorHandler(res);
       setResult(res);
 
       if (res.toString().length >= 5) {
@@ -351,6 +358,7 @@ const CalculatorContainer = (props) => {
       getFontSize(curNumLength);
     }
 
+    // Unlocking buttons in case of errors
     if (isBlockedOperation) {
       curNum = 0;
       preNum = 0;
