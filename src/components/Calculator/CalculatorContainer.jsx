@@ -19,7 +19,7 @@ const CalculatorContainer = (props) => {
   const onKeyDown = (e) => {
     if ((e.key >= 0 && e.key <= 9)
       || KEYS.CODES.includes(e.keyCode)
-      || KEYS.NAMES.includes(e.key)) {
+      || KEYS.NAMES.includes(e.key) && !isBlockedOperation) {
       operations(e.key);
     }
 
