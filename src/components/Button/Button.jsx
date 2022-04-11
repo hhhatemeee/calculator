@@ -17,7 +17,7 @@ const Button = ({
   const click = () => {
     onClick(btnValue);
   }
-
+  console.log('render', isBlockedOperation);
   return (
     <div
       className={cn(`btn ${btnName} ${btnColor}`,

@@ -41,7 +41,11 @@ const CalculatorContainer = (props) => {
 
   // Error Handler
   const errorHandler = (result) => {
+<<<<<<< HEAD
     let res = result;
+=======
+    console.log(result);
+>>>>>>> 5406c6d (feature/CALC-30 - added blocked buttons)
 
     if (Number.isNaN(currentNumber)) {
       setCurrentNumber(0);
@@ -57,6 +61,10 @@ const CalculatorContainer = (props) => {
       || res === 'Деление на 0 невозможно'
       || Number.isNaN(result)
       || !isFinite(result)) {
+      setBlockedOperation(true);
+    }
+
+    if (typeof result === 'string') {
       setBlockedOperation(true);
     }
 
@@ -203,7 +211,6 @@ const CalculatorContainer = (props) => {
       if (res !== 'Деление на 0 невозможно') {
         res.toString().includes('e') ? res = Number(res).toPrecision(13) : res = Number(res);
       }
-
 
       errorHandler(res);
       setResult(res);
