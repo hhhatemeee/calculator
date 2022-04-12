@@ -1,10 +1,11 @@
 {
   "files": {
-    "main.css": "/calculator/static/css/main.afb754a8.css",
-    "main.js": "/calculator/static/js/main.58c3b7ea.js",
+    "main.css": "/calculator/static/css/main.b1256f4b.css",
+    "main.js": "/calculator/static/js/main.b0d5bfc8.js",
     "static/media/WorkSans-Regular.eot": "/calculator/static/media/WorkSans-Regular.78567f8edec5e0163d87.eot",
     "static/media/WorkSans-Regular.ttf": "/calculator/static/media/WorkSans-Regular.dac6f791072063e98f26.ttf",
     "static/media/WorkSans-Regular.woff": "/calculator/static/media/WorkSans-Regular.8618f4781e0ce9178279.woff",
+    "service-worker.js": "/calculator/service-worker.js",
     "static/media/WorkSans-Regular.woff2": "/calculator/static/media/WorkSans-Regular.960e890cb970d849a8fc.woff2",
     "static/media/icomoon.svg?7rzolj": "/calculator/static/media/icomoon.b3555e3fa382aeb593e0.svg",
     "static/media/icomoon.eot?7rzolj": "/calculator/static/media/icomoon.cfe2d2caca74388eda2b.eot",
@@ -20,7 +21,7 @@
     "static/media/Loader.svg": "/calculator/static/media/Loader.9d67522a0adb2307ab1749c18bcd3686.svg"
   },
   "entrypoints": [
-    "static/css/main.afb754a8.css",
-    "static/js/main.58c3b7ea.js"
+    "static/css/main.b1256f4b.css",
+    "static/js/main.b0d5bfc8.js"
   ]
 }
